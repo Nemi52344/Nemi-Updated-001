@@ -1,5 +1,8 @@
+"use client";
+
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import nemiNavLogo from "@/assets/nemi-nav-logo.png";
 
 interface NavbarProps {
@@ -7,17 +10,17 @@ interface NavbarProps {
 }
 
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/technology", label: "Technology" },
-  { to: "/about", label: "About Us" },
-  { to: "/careers", label: "Careers" },
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/technology", label: "Technology" },
+  { href: "/about", label: "About Us" },
+  { href: "/careers", label: "Careers" },
 ];
 
 const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === "/";
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const visible = isHome ? scrollProgress > 0.01 : true;
 
   if (!visible) return null;
@@ -34,7 +37,7 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-2 shrink-0">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
           <img
             src={nemiNavLogo}
             alt="NEMI"
@@ -46,11 +49,11 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => {
-            const isActive = location.pathname === link.to;
+            const isActive = pathname === link.href;
             return (
               <Link
-                key={link.to}
-                to={link.to}
+                key={link.href}
+                href={link.href}
                 className="px-5 py-1.5 text-[0.65rem] font-semibold tracking-[0.12em] uppercase transition-all duration-300 rounded-md relative block"
                 style={{ color: isActive ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))" }}
                 onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = "hsl(var(--primary))"; }}
@@ -67,7 +70,7 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
 
         {/* Get in Touch CTA */}
         <Link
-          to="/#contact"
+          href="/#contact"
           className="hidden md:block font-montserrat font-bold text-[0.65rem] tracking-[0.12em] uppercase bg-accent text-accent-foreground px-5 py-2.5 no-underline transition-opacity duration-200 hover:opacity-80"
         >
           Get in Touch
@@ -89,17 +92,17 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
         <div className="md:hidden px-4 pb-4 flex flex-col gap-1" style={{ background: "hsl(230 25% 4% / 0.95)", backdropFilter: "blur(16px)" }}>
           {navLinks.map((link) => (
             <Link
-              key={link.to}
-              to={link.to}
+              key={link.href}
+              href={link.href}
               className="py-2 px-3 text-left text-sm tracking-[0.15em] uppercase transition-all duration-300 rounded-md"
-              style={{ color: location.pathname === link.to ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))" }}
+              style={{ color: pathname === link.href ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))" }}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
             </Link>
           ))}
           <Link
-            to="/#contact"
+            href="/#contact"
             className="py-2 px-3 text-left text-sm tracking-[0.15em] uppercase text-accent transition-all duration-300 rounded-md"
             onClick={() => setMenuOpen(false)}
           >

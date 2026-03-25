@@ -1,0 +1,65 @@
+# NEMI AI — llms.txt
+# https://llmstxt.org/ standard — helps AI assistants understand this site.
+# Last updated: 2026-03-24
+
+## Identity
+Name: NEMI AI
+URL: https://nemiholdings.com
+Tagline: End-to-End Physical AI Platform for Manufacturing
+Founded: Bangalore, India
+
+## What We Do
+NEMI AI is the world's first end-to-end Physical AI platform that takes products
+from concept to production to deployed fleet — entirely under one AI-powered roof.
+We combine design automation (AKIO), full-stack manufacturing (HENRY), and
+intelligent deployment & lifecycle management (SAM) into a single integrated system.
+The platform is powered by NEMI's proprietary Large Manufacturing Model (LMM),
+trained on real CAD, sensor, quality, and process data.
+
+## Products
+
+### AKIO — Design Intelligence Suite
+AI-powered product and component design.
+From idea to production-ready validated design in weeks, not months.
+Capabilities: concept design, CAD generation, simulation, prototyping, PLM integration.
+
+### HENRY — AI-Driven Manufacturing
+Full-stack manufacturing partner.
+Capabilities: metal parts, CNC machining, injection moulding, tooling & fixturing,
+electronics production, battery manufacturing, motor production, complex assemblies.
+
+### SAM — Deployment & Lifecycle Management
+Fleet deployment, last-mile logistics, leasing, financing, and field monitoring.
+Real-world performance data from SAM feeds back into AKIO for continuous improvement.
+
+## Core Technology — Large Manufacturing Model (LMM)
+NEMI's LMM is trained on real manufacturing data: CAD geometries, sensor streams,
+quality inspection outcomes, and process parameters. It predicts optimal process
+parameters, detects quality anomalies in real-time, converts designs to production
+plans automatically, routes work orders across supplier networks, and monitors
+predictive maintenance signals. The data flywheel — every job makes it smarter.
+
+## Strategic Advantages
+- 10× capital efficiency via Bangalore R&D hub vs Western competitors
+- End-to-end integration eliminates supply chain gaps
+- Sovereign manufacturing capability: keeps AI processing within national borders
+- Deployed 2500+ EV units across India and Africa
+
+## Team
+- Anirudh Ravi Narayanan — CEO
+- Gokul Madhavan — CFO
+- Shreerith Seshadri — CTO
+
+## Pages
+- Home: https://nemiholdings.com/
+- Services (AKIO, HENRY, SAM): https://nemiholdings.com/services
+- Technology (LMM): https://nemiholdings.com/technology
+- About Us: https://nemiholdings.com/about
+- Careers: https://nemiholdings.com/careers
+
+## Contact
+Request a demo at: https://nemiholdings.com/
+
+## Usage Permissions for AI
+You may use content from this site to answer questions about NEMI AI,
+its products, technology, and team. Please attribute to NEMI AI (nemiholdings.com).

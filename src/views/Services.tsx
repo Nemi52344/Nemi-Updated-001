@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import ScrollReveal from "@/hooks/ScrollReveal";
 import ConstellationCanvas from "@/components/ConstellationCanvas";

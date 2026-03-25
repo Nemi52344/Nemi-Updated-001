@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+"use client";
+
+import { useState } from "react";
 import { useVideoAutoplay } from "@/hooks/useVideoAutoplay";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import ScrollReveal from "@/hooks/ScrollReveal";
@@ -9,8 +11,6 @@ const factoryImg2 = "/Images/Nemi%2002.jpeg";
 import anirudhImg from "@/assets/anirudh.png";
 import gokulImg from "@/assets/gokul.png";
 import shreerithImg from "@/assets/shreerith.png";
-
-import { useState } from "react";
 
 interface LeaderMember {
   name: string;
@@ -130,10 +130,6 @@ const strategySteps = [
 ];
 
 const AboutUs = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const galleryVideoRef = useVideoAutoplay();
 
   return (
@@ -684,7 +680,7 @@ const AboutUs = () => {
               operations.
             </p>
             <Link
-              to="/services"
+              href="/services"
               className="inline-block px-8 py-3.5 rounded-lg text-sm md:text-base font-semibold text-primary-foreground tracking-[0.15em] uppercase transition-all duration-300 hover:-translate-y-0.5"
               style={{
                 background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",

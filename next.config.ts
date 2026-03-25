@@ -1,8 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Export as a fully static site (plain HTML/CSS/JS in out/).
+  // All routes are already ○ Static so no server runtime is needed.
+  // This lets Netlify (or any static host) serve the site with zero plugins.
+  output: "export",
+
   images: {
-    // Allow plain <img> tags throughout the codebase
+    // Required when using output: "export" — Next.js Image Optimization
+    // needs a server; since we export statically we use plain <img> tags.
     unoptimized: true,
   },
 

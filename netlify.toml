@@ -1,12 +1,9 @@
 [build]
   command = "npm run build"
-  publish = "dist"
+  publish = "out"
 
-# SPA fallback — all routes serve index.html
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Next.js static export writes per-route index.html files (e.g. out/about/index.html).
+# No SPA fallback redirect needed — each route has its own real HTML file.
 
 # Security & performance headers for all routes
 [[headers]]
@@ -18,19 +15,18 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# Cache static assets aggressively
+# Cache Next.js hashed static assets forever
 [[headers]]
-  for = "/assets/*"
+  for = "/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Cache images
+# Cache images and videos
 [[headers]]
   for = "/Images/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-# Cache videos
 [[headers]]
   for = "/videos/*"
   [headers.values]

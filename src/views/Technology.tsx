@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
@@ -42,10 +44,6 @@ const capabilities = [
 ];
 
 const Technology = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
       <div className="fixed inset-0 z-0">

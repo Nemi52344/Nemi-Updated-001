@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useEffect, useCallback, lazy, Suspense } from "react";
 import nemiLogo from "@/assets/nemi-logo.png";
 import nemiNavLogo from "@/assets/nemi-nav-logo.png";

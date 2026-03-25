@@ -20,36 +20,42 @@ const nextConfig: NextConfig = {
   },
 
   webpack(config) {
-    // Replace Next.js's next-image-loader with webpack's built-in asset/resource
-    // so that `import logo from "@/assets/logo.png"` returns a URL string — exactly
-    // like Vite does — keeping all existing <img src={logo} /> patterns working.
-    config.module.rules = config.module.rules.map((rule: any) => {
-      if (rule.oneOf && Array.isArray(rule.oneOf)) {
-        rule.oneOf = rule.oneOf.map((r: any) => {
-          if (
-            r.use &&
-            (Array.isArray(r.use)
-              ? r.use.some((u: any) =>
-                  typeof u === "string"
-                    ? u.includes("next-image-loader")
-                    : u?.loader?.includes?.("next-image-loader")
-                )
-              : typeof r.use === "object" &&
-                r.use?.loader?.includes?.("next-image-loader"))
-          ) {
-            return {
-              test: r.test,
-              type: "asset/resource",
-              generator: {
-                filename: "static/media/[name].[contenthash][ext]",
-              },
-            };
-          }
-          return r;
-        });
+    // Replace Next.js's next-image-loader with webpack's asset/resource so that
+    // `import logo from "@/assets/logo.png"` returns a plain URL string — exactly
+    // like Vite — keeping all existing <img src={logo} /> patterns working without
+    // any component changes.
+    //
+    // next-image-loader can live at the top level OR inside a oneOf array.
+    // We walk the entire rule tree and replace every occurrence.
+    const usesNextImageLoader = (rule: any): boolean => {
+      const candidates = [
+        rule.loader,
+        ...(Array.isArray(rule.use) ? rule.use : rule.use ? [rule.use] : []),
+      ].filter(Boolean);
+      return candidates.some((l: any) => {
+        const name = typeof l === "string" ? l : l?.loader;
+        return typeof name === "string" && name.includes("next-image-loader");
+      });
+    };
+
+    const replaceImageLoaders = (rules: any[]) => {
+      for (let i = 0; i < rules.length; i++) {
+        const rule = rules[i];
+        if (Array.isArray(rule.oneOf)) {
+          replaceImageLoaders(rule.oneOf);
+        } else if (usesNextImageLoader(rule)) {
+          rules[i] = {
+            test: rule.test,
+            type: "asset/resource",
+            generator: {
+              filename: "static/media/[name].[contenthash:8][ext]",
+            },
+          };
+        }
       }
-      return rule;
-    });
+    };
+
+    replaceImageLoaders(config.module.rules);
     return config;
   },
 };

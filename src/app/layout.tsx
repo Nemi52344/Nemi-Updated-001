@@ -5,17 +5,35 @@ import Providers from "./providers";
 export const metadata: Metadata = {
   metadataBase: new URL("https://nemiholdings.com"),
   authors: [{ name: "NEMI AI" }],
-  robots: "index, follow",
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   openGraph: {
     type: "website",
     siteName: "NEMI AI",
-    images: ["https://nemiholdings.com/Images/nemi%2001.png"],
+    images: [
+      {
+        url: "https://nemiholdings.com/Images/nemi%2001.png",
+        width: 1200,
+        height: 630,
+        alt: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
+      },
+    ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     site: "@NEMIai",
-    images: ["https://nemiholdings.com/Images/nemi%2001.png"],
+    creator: "@NEMIai",
+    images: [
+      {
+        url: "https://nemiholdings.com/Images/nemi%2001.png",
+        alt: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
+      },
+    ],
   },
 };
 
@@ -27,12 +45,24 @@ export default function RootLayout({
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://nemiholdings.com/#organization",
     name: "NEMI AI",
     url: "https://nemiholdings.com",
-    logo: "https://nemiholdings.com/Images/nemi%2001.png",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://nemiholdings.com/Images/nemi%2001.png",
+      width: 1200,
+      height: 630,
+    },
     description:
-      "NEMI AI is an end-to-end Physical AI platform powered by the Large Manufacturing Model (LMM). Design with AKIO, manufacture with HENRY, deploy with SAM.",
+      "NEMI AI is the world's first end-to-end Physical AI platform. Design with AKIO, manufacture with HENRY, deploy with SAM — powered by the Large Manufacturing Model (LMM).",
     foundingLocation: { "@type": "Place", name: "Bangalore, India" },
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "Humans@nemiholdings.com",
+      contactType: "customer support",
+    },
+    sameAs: ["https://www.linkedin.com/company/nemi-ai"],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "NEMI Platform Services",
@@ -41,19 +71,22 @@ export default function RootLayout({
           "@type": "Offer",
           name: "AKIO — Design Intelligence Suite",
           description:
-            "AI-powered product and component design. From idea to production-ready design in weeks, not months.",
+            "AI-powered product and component design. From idea to production-ready validated design in weeks, not months.",
+          url: "https://nemiholdings.com/services",
         },
         {
           "@type": "Offer",
           name: "HENRY — AI-Driven Manufacturing",
           description:
             "Full-stack manufacturing: tooling, metal parts, battery, motor, electronics, and complex assemblies.",
+          url: "https://nemiholdings.com/services",
         },
         {
           "@type": "Offer",
           name: "SAM — Deployment & Lifecycle",
           description:
             "Deploy, monitor, and improve every unit. Real-world performance data feeds back into design.",
+          url: "https://nemiholdings.com/services",
         },
       ],
     },
@@ -62,8 +95,17 @@ export default function RootLayout({
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://nemiholdings.com/#website",
     name: "NEMI AI",
     url: "https://nemiholdings.com",
+    description:
+      "End-to-End Physical AI Platform for Design, Development, and Distribution of physical products.",
+    publisher: { "@id": "https://nemiholdings.com/#organization" },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://nemiholdings.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
   };
 
   return (

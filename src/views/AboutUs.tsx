@@ -299,7 +299,7 @@ const AboutUs = () => {
               {
                 name: "Subramanian R",
                 photo: "/Images/team/image14.png",
-                role: "India CFO",
+                role: "CFO — India",
                 desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods. Expert in greenfield projects and financial systems.",
                 colorHsl: "38 90% 55%",
               },

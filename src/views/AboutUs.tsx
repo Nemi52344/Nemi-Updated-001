@@ -504,37 +504,37 @@ const AboutUs = () => {
             {/* Set A */}
             <div className="flex items-center gap-14 shrink-0 pr-14">
               {[
-                { src: "/Images/team/image61.png",  label: "McKinsey & Company" },
-                { src: "/Images/team/image47.png",  label: "Musashi Seimitsu" },
-                { src: "/Images/team/image51.png",  label: "Airbus" },
-                { src: "/Images/team/image46.png",  label: "Indoshell Mould" },
-                { src: "/Images/team/image52.png",  label: "Air India · Axis CADES" },
-                { src: "/Images/team/image59.png",  label: "Royal Enfield · Ashok Leyland" },
-                { src: "/Images/team/image60.png",  label: "IIT Madras" },
-                { src: "/Images/team/image49.jpeg", label: "De La Crème Ventures" },
-                { src: "/Images/team/image50.png",  label: "NIT Kurukshetra" },
+                { src: "/Images/logos/mckinsey.png",          label: "McKinsey & Company" },
+                { src: "/Images/logos/musashi.png",           label: "Musashi Seimitsu" },
+                { src: "/Images/logos/airbus.png",            label: "Airbus" },
+                { src: "/Images/logos/indoshell.png",         label: "Indoshell Mould" },
+                { src: "/Images/logos/airindia-axiscades.png",label: "Air India · Axis CADES" },
+                { src: "/Images/logos/nissan.png",            label: "Nissan" },
+                { src: "/Images/logos/ustglobal.png",         label: "UST Global" },
+                { src: "/Images/logos/samudhra.png",          label: "Samudhra Industries" },
+                { src: "/Images/logos/delacremeventures.jpeg",label: "De La Crème Ventures" },
               ].map((logo) => (
                 <img key={logo.label} src={logo.src} alt={logo.label} title={logo.label}
                   style={{ height: "36px", width: "auto", maxWidth: "140px", objectFit: "contain",
-                    filter: "brightness(0) invert(1)", opacity: 0.45, flexShrink: 0 }} />
+                    opacity: 0.6, flexShrink: 0 }} />
               ))}
             </div>
             {/* Set B — identical duplicate for seamless loop */}
             <div className="flex items-center gap-14 shrink-0 pr-14" aria-hidden="true">
               {[
-                { src: "/Images/team/image61.png",  label: "McKinsey & Company" },
-                { src: "/Images/team/image47.png",  label: "Musashi Seimitsu" },
-                { src: "/Images/team/image51.png",  label: "Airbus" },
-                { src: "/Images/team/image46.png",  label: "Indoshell Mould" },
-                { src: "/Images/team/image52.png",  label: "Air India · Axis CADES" },
-                { src: "/Images/team/image59.png",  label: "Royal Enfield · Ashok Leyland" },
-                { src: "/Images/team/image60.png",  label: "IIT Madras" },
-                { src: "/Images/team/image49.jpeg", label: "De La Crème Ventures" },
-                { src: "/Images/team/image50.png",  label: "NIT Kurukshetra" },
+                { src: "/Images/logos/mckinsey.png",          label: "McKinsey & Company" },
+                { src: "/Images/logos/musashi.png",           label: "Musashi Seimitsu" },
+                { src: "/Images/logos/airbus.png",            label: "Airbus" },
+                { src: "/Images/logos/indoshell.png",         label: "Indoshell Mould" },
+                { src: "/Images/logos/airindia-axiscades.png",label: "Air India · Axis CADES" },
+                { src: "/Images/logos/nissan.png",            label: "Nissan" },
+                { src: "/Images/logos/ustglobal.png",         label: "UST Global" },
+                { src: "/Images/logos/samudhra.png",          label: "Samudhra Industries" },
+                { src: "/Images/logos/delacremeventures.jpeg",label: "De La Crème Ventures" },
               ].map((logo) => (
                 <img key={logo.label} src={logo.src} alt={logo.label}
                   style={{ height: "36px", width: "auto", maxWidth: "140px", objectFit: "contain",
-                    filter: "brightness(0) invert(1)", opacity: 0.45, flexShrink: 0 }} />
+                    opacity: 0.6, flexShrink: 0 }} />
               ))}
             </div>
           </div>

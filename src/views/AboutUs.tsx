@@ -305,7 +305,7 @@ const AboutUs = () => {
               },
               {
                 name: "Vijay Ramakrishnan",
-                photo: "/Images/team/image20.png",
+                photo: "/Images/team/image19.png",
                 role: "President — iDelivery",
                 desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Previously at Greaves Electric, HDFC, Thomas Cook, and MakeMyTrip. Built and led 100+ person sales teams.",
                 colorHsl: "190 80% 50%",
@@ -326,7 +326,7 @@ const AboutUs = () => {
               },
               {
                 name: "Sadasivam B",
-                photo: "/Images/team/image19.png",
+                photo: "/Images/team/image20.png",
                 role: "President — Etrol",
                 desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation. Leads 100+ engineers in electrical/electronic manufacturing.",
                 colorHsl: "340 75% 55%",
@@ -354,6 +354,7 @@ const AboutUs = () => {
           {[
             {
               initials: "ARN",
+              photo: "/Images/team/image12.png",
               name: "Anirudh Ravi Narayanan",
               title: "Executive Director & CEO",
               tag: "Executive",
@@ -362,6 +363,7 @@ const AboutUs = () => {
             },
             {
               initials: "VT",
+              photo: "/Images/team/image13.png",
               name: "Vinoth Thiruvenkatasamy",
               title: "Executive Board Member",
               tag: "Executive",
@@ -427,6 +429,7 @@ const AboutUs = () => {
           {[
             {
               initials: "SR",
+              photo: "/Images/team/image55.png",
               name: "Dr. Sampath Ravinarayanan",
               title: "Board Advisor",
               color: "38 90% 55%",
@@ -434,6 +437,7 @@ const AboutUs = () => {
             },
             {
               initials: "RM",
+              photo: "/Images/team/image58.png",
               name: "Ramesh Mangaleshwaran",
               title: "Advisor",
               color: "265 75% 60%",
@@ -441,6 +445,7 @@ const AboutUs = () => {
             },
             {
               initials: "VD",
+              photo: "/Images/team/image56.jpeg",
               name: "Vinod K. Dasari",
               title: "Advisor",
               color: "145 75% 45%",
@@ -457,10 +462,14 @@ const AboutUs = () => {
               >
                 <div className="flex items-center gap-4 mb-5">
                   <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                    className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
                     style={{ background: `hsl(${advisor.color} / 0.15)`, border: `1.5px solid hsl(${advisor.color} / 0.4)` }}
                   >
-                    <span className="font-black text-sm" style={{ color: `hsl(${advisor.color})` }}>{advisor.initials}</span>
+                    {(advisor as { photo?: string }).photo ? (
+                      <img src={(advisor as { photo?: string }).photo} alt={advisor.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="font-black text-sm" style={{ color: `hsl(${advisor.color})` }}>{advisor.initials}</span>
+                    )}
                   </div>
                   <div>
                     <p className="font-bold text-sm tracking-wide text-foreground">{advisor.name}</p>

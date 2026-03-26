@@ -490,6 +490,57 @@ const AboutUs = () => {
         </div>
       </section>
 
+      {/* ── CLIENT / PARTNER LOGOS MARQUEE ── */}
+      <section className="py-14 border-t border-border/20 relative z-[1] overflow-hidden">
+        <ScrollReveal>
+          <p className="text-center text-xs tracking-[0.4em] uppercase text-muted-foreground mb-10">
+            Affiliated With &amp; Backed By
+          </p>
+        </ScrollReveal>
+
+        {/* Marquee track */}
+        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <div className="flex" style={{ animation: "partner-scroll-left 32s linear infinite", willChange: "transform" }}>
+            {/* Set A */}
+            <div className="flex items-center gap-14 shrink-0 pr-14">
+              {[
+                { src: "/Images/team/image61.png",  label: "McKinsey & Company" },
+                { src: "/Images/team/image47.png",  label: "Musashi Seimitsu" },
+                { src: "/Images/team/image51.png",  label: "Airbus" },
+                { src: "/Images/team/image46.png",  label: "Indoshell Mould" },
+                { src: "/Images/team/image52.png",  label: "Air India · Axis CADES" },
+                { src: "/Images/team/image59.png",  label: "Royal Enfield · Ashok Leyland" },
+                { src: "/Images/team/image60.png",  label: "IIT Madras" },
+                { src: "/Images/team/image49.jpeg", label: "De La Crème Ventures" },
+                { src: "/Images/team/image50.png",  label: "NIT Kurukshetra" },
+              ].map((logo) => (
+                <img key={logo.label} src={logo.src} alt={logo.label} title={logo.label}
+                  style={{ height: "36px", width: "auto", maxWidth: "140px", objectFit: "contain",
+                    filter: "brightness(0) invert(1)", opacity: 0.45, flexShrink: 0 }} />
+              ))}
+            </div>
+            {/* Set B — identical duplicate for seamless loop */}
+            <div className="flex items-center gap-14 shrink-0 pr-14" aria-hidden="true">
+              {[
+                { src: "/Images/team/image61.png",  label: "McKinsey & Company" },
+                { src: "/Images/team/image47.png",  label: "Musashi Seimitsu" },
+                { src: "/Images/team/image51.png",  label: "Airbus" },
+                { src: "/Images/team/image46.png",  label: "Indoshell Mould" },
+                { src: "/Images/team/image52.png",  label: "Air India · Axis CADES" },
+                { src: "/Images/team/image59.png",  label: "Royal Enfield · Ashok Leyland" },
+                { src: "/Images/team/image60.png",  label: "IIT Madras" },
+                { src: "/Images/team/image49.jpeg", label: "De La Crème Ventures" },
+                { src: "/Images/team/image50.png",  label: "NIT Kurukshetra" },
+              ].map((logo) => (
+                <img key={logo.label} src={logo.src} alt={logo.label}
+                  style={{ height: "36px", width: "auto", maxWidth: "140px", objectFit: "contain",
+                    filter: "brightness(0) invert(1)", opacity: 0.45, flexShrink: 0 }} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── HEADS OF BUSINESS ── */}
       <section className="py-20 px-6 md:px-12 lg:px-16 relative z-[1]">
         <ScrollReveal>

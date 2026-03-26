@@ -255,7 +255,8 @@ const AboutUs = () => {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+          {/* Top row — Core Leadership (3 cards) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-16">
             {[
               {
                 name: "Anirudh Ravi Narayanan",
@@ -278,37 +279,54 @@ const AboutUs = () => {
                 desc: "Designs the Physical AI architecture at the core of NEMI — the technology layer that powers next-generation industrial transformation.",
                 colorHsl: "145 75% 45%",
               },
-              {
-                name: "Subramanian R",
-                initials: "SR",
-                role: "Chief Financial Officer",
-                desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods. Expert in greenfield projects and financial systems.",
-                colorHsl: "38 90% 55%",
-              },
+            ].map((member, i) => (
+              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
+                <LeaderFlipCard member={member} />
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Subsidiary Leadership heading */}
+          <ScrollReveal>
+            <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4 text-center" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
+              Subsidiary Leadership
+            </p>
+          </ScrollReveal>
+
+          {/* Subsidiary row — 5 members */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {[
               {
                 name: "Vinoth Thiruvenkatasamy",
-                initials: "VT",
+                photo: "/Images/team/image13.png",
                 role: "President — BNC Group",
                 desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India, with full product development cycle expertise.",
                 colorHsl: "265 75% 60%",
               },
               {
                 name: "Vijay Ramakrishnan",
-                initials: "VR",
+                photo: "/Images/team/image20.png",
                 role: "President — iDelivery",
                 desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Previously at Greaves Electric, HDFC, Thomas Cook, and MakeMyTrip. Built and led 100+ person sales teams.",
                 colorHsl: "190 80% 50%",
               },
               {
+                name: "Subramanian R",
+                photo: "/Images/team/image14.png",
+                role: "Chief Financial Officer",
+                desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods. Expert in greenfield projects and financial systems.",
+                colorHsl: "38 90% 55%",
+              },
+              {
                 name: "Vijay Ragavalu",
-                initials: "VRG",
+                photo: "/Images/team/image18.png",
                 role: "President — Booma Manufacturing",
                 desc: "30+ years in manufacturing leadership — automation, operational optimization, sustainable engineering, vendor negotiations, and large-scale team management.",
                 colorHsl: "160 70% 45%",
               },
               {
                 name: "Sadasivam B",
-                initials: "SB",
+                photo: "/Images/team/image19.png",
                 role: "President — Etrol",
                 desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation. Leads 100+ engineers in electrical/electronic manufacturing.",
                 colorHsl: "340 75% 55%",
@@ -352,6 +370,7 @@ const AboutUs = () => {
             },
             {
               initials: "SS",
+              photo: "/Images/team/image54.png",
               name: "Sam Swaminathan",
               title: "Non-Executive Board Member",
               tag: "Non-Executive",
@@ -360,6 +379,7 @@ const AboutUs = () => {
             },
             {
               initials: "NN",
+              photo: "/Images/team/image53.jpeg",
               name: "Naoya Nishimura",
               title: "Non-Executive Board Member",
               tag: "Non-Executive",
@@ -371,11 +391,14 @@ const AboutUs = () => {
               <div className="bg-background p-6 h-full flex flex-col" style={{ borderTop: `2px solid hsl(${member.color} / 0.5)` }}>
                 <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
+                    className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
                     style={{ background: `hsl(${member.color} / 0.12)`, border: `1px solid hsl(${member.color} / 0.3)` }}
                   >
-                    <span className="font-black text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
-                  </div>
+                    {(member as { photo?: string }).photo ? (
+                      <img src={(member as { photo?: string }).photo} alt={member.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="font-black text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
+                    )}</div>
                   <span className="text-[0.55rem] tracking-[0.15em] uppercase font-semibold px-2 py-0.5 rounded-full"
                     style={{ color: `hsl(${member.color})`, background: `hsl(${member.color} / 0.1)` }}>
                     {member.tag}

@@ -297,39 +297,39 @@ const AboutUs = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {[
               {
-                name: "Vinoth Thiruvenkatasamy",
-                photo: "/Images/team/image13.png",
-                role: "President — BNC Group",
-                desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India, with full product development cycle expertise.",
-                colorHsl: "265 75% 60%",
-              },
-              {
-                name: "Vijay Ramakrishnan",
-                photo: "/Images/team/image19.png",
-                role: "President — iDelivery",
-                desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Previously at Greaves Electric, HDFC, Thomas Cook, and MakeMyTrip. Built and led 100+ person sales teams.",
-                colorHsl: "190 80% 50%",
-              },
-              {
                 name: "Subramanian R",
                 photo: "/Images/team/image14.png",
-                role: "Chief Financial Officer",
+                role: "India CFO",
                 desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods. Expert in greenfield projects and financial systems.",
                 colorHsl: "38 90% 55%",
               },
               {
+                name: "Vinoth Thiruvenkatasamy",
+                photo: "/Images/team/image13.png",
+                role: "President — HENRY Suite",
+                desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India, with full product development cycle expertise.",
+                colorHsl: "220 85% 55%",
+              },
+              {
                 name: "Vijay Ragavalu",
                 photo: "/Images/team/image18.png",
-                role: "President — Booma Manufacturing",
+                role: "President — AKIO Suite (Mechanical)",
                 desc: "30+ years in manufacturing leadership — automation, operational optimization, sustainable engineering, vendor negotiations, and large-scale team management.",
                 colorHsl: "160 70% 45%",
               },
               {
                 name: "Sadasivam B",
                 photo: "/Images/team/image20.png",
-                role: "President — Etrol",
+                role: "President — AKIO Suite (Electrical)",
                 desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation. Leads 100+ engineers in electrical/electronic manufacturing.",
-                colorHsl: "340 75% 55%",
+                colorHsl: "265 75% 60%",
+              },
+              {
+                name: "Vijay Ramakrishnan",
+                photo: "/Images/team/image19.png",
+                role: "President — SAM",
+                desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Previously at Greaves Electric, HDFC, Thomas Cook, and MakeMyTrip. Built and led 100+ person sales teams.",
+                colorHsl: "190 80% 50%",
               },
             ].map((member, i) => (
               <ScrollReveal key={member.name} variant="scale" delay={i * 100}>

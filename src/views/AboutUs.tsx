@@ -14,7 +14,8 @@ import shreerithImg from "@/assets/shreerith.png";
 
 interface LeaderMember {
   name: string;
-  photo: string;
+  photo?: string;
+  initials?: string;
   role: string;
   desc: string;
   colorHsl: string;
@@ -37,7 +38,7 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
           transform: hovered ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
-        {/* FRONT — Photo + Name + Role */}
+        {/* FRONT — Photo/Initials + Name + Role */}
         <div
           className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-2 md:p-6 lg:p-8 transition-shadow duration-500"
           style={{
@@ -57,15 +58,22 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
             }}
           >
             <div
-              className="rounded-full overflow-hidden"
+              className="rounded-full overflow-hidden flex items-center justify-center"
               style={{
                 width: "6.5rem",
                 height: "6.5rem",
                 border: `1.5px solid hsl(${member.colorHsl} / 0.45)`,
                 boxShadow: `0 0 10px hsl(${member.colorHsl} / 0.2), inset 0 0 8px hsl(${member.colorHsl} / 0.08)`,
+                background: member.photo ? "transparent" : `hsl(${member.colorHsl} / 0.15)`,
               }}
             >
-              <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+              {member.photo ? (
+                <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+              ) : (
+                <span className="font-black text-xl tracking-widest" style={{ color: `hsl(${member.colorHsl})` }}>
+                  {member.initials}
+                </span>
+              )}
             </div>
           </div>
           {/* Ambient glow blob */}
@@ -247,31 +255,66 @@ const AboutUs = () => {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
             {[
               {
                 name: "Anirudh Ravi Narayanan",
                 photo: anirudhImg,
                 role: "Chief Executive Officer",
-                desc: "Anirudh leads NEMI's mission to make manufacturing accessible to everyone — building intelligent systems that turn bold ideas into scalable reality.",
+                desc: "Ex-McKinsey (D.C. & Boston). Advised Fortune 500s on strategy, growth & product development. Yale MBA; Harvard Ph.D. & B.A. in Mathematics.",
                 colorHsl: "0 85% 55%",
               },
               {
                 name: "Gokul Madhavan",
                 photo: gokulImg,
-                role: "Chief Financial Officer",
-                desc: "Gokul brings deep expertise in digital transformation, steering NEMI's financial strategy to fuel the shift from traditional manufacturing to AI-powered operations.",
+                role: "Chief Strategy Officer",
+                desc: "Ex-McKinsey (Silicon Valley). Led turnarounds delivering $100M+ margin gains for Fortune 500s. Yale MBA; B.S. Electrical & Computer Engineering, Rose-Hulman.",
                 colorHsl: "220 85% 55%",
               },
               {
                 name: "Shreerith Seshadri",
                 photo: shreerithImg,
                 role: "Chief Technology Officer",
-                desc: "Shreerith designs the Physical AI architecture at the core of NEMI — the technology layer that powers next-generation industrial transformation.",
+                desc: "Designs the Physical AI architecture at the core of NEMI — the technology layer that powers next-generation industrial transformation.",
                 colorHsl: "145 75% 45%",
               },
+              {
+                name: "Subramanian R",
+                initials: "SR",
+                role: "Chief Financial Officer",
+                desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods. Expert in greenfield projects and financial systems.",
+                colorHsl: "38 90% 55%",
+              },
+              {
+                name: "Vinoth Thiruvenkatasamy",
+                initials: "VT",
+                role: "President — BNC Group",
+                desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India, with full product development cycle expertise.",
+                colorHsl: "265 75% 60%",
+              },
+              {
+                name: "Vijay Ramakrishnan",
+                initials: "VR",
+                role: "President — iDelivery",
+                desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Previously at Greaves Electric, HDFC, Thomas Cook, and MakeMyTrip. Built and led 100+ person sales teams.",
+                colorHsl: "190 80% 50%",
+              },
+              {
+                name: "Vijay Ragavalu",
+                initials: "VRG",
+                role: "President — Booma Manufacturing",
+                desc: "30+ years in manufacturing leadership — automation, operational optimization, sustainable engineering, vendor negotiations, and large-scale team management.",
+                colorHsl: "160 70% 45%",
+              },
+              {
+                name: "Sadasivam B",
+                initials: "SB",
+                role: "President — Etrol",
+                desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation. Leads 100+ engineers in electrical/electronic manufacturing.",
+                colorHsl: "340 75% 55%",
+              },
             ].map((member, i) => (
-              <ScrollReveal key={member.name} variant="scale" delay={i * 150}>
+              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
                 <LeaderFlipCard member={member} />
               </ScrollReveal>
             ))}
@@ -291,23 +334,128 @@ const AboutUs = () => {
         </ScrollReveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30">
           {[
-            { initials: "—", name: "Board Member", title: "Independent Director" },
-            { initials: "—", name: "Board Member", title: "Independent Director" },
-            { initials: "—", name: "Board Member", title: "Investor Representative" },
-            { initials: "ARN", name: "Anirudh Ravi Narayanan", title: "Executive Director & CEO" },
+            {
+              initials: "ARN",
+              name: "Anirudh Ravi Narayanan",
+              title: "Executive Director & CEO",
+              tag: "Executive",
+              color: "0 85% 55%",
+              desc: "Ex-McKinsey. Yale MBA; Harvard Ph.D.",
+            },
+            {
+              initials: "VT",
+              name: "Vinoth Thiruvenkatasamy",
+              title: "Executive Board Member",
+              tag: "Executive",
+              color: "265 75% 60%",
+              desc: "President — BNC Group. 20+ yrs automotive R&D, Nissan & Ford.",
+            },
+            {
+              initials: "SS",
+              name: "Sam Swaminathan",
+              title: "Non-Executive Board Member",
+              tag: "Non-Executive",
+              color: "220 85% 55%",
+              desc: "General Partner, De La Crème Ventures. Ex-SVP Fractal Analytics. IIT Madras & Missouri University alumnus.",
+            },
+            {
+              initials: "NN",
+              name: "Naoya Nishimura",
+              title: "Non-Executive Board Member",
+              tag: "Non-Executive",
+              color: "190 80% 50%",
+              desc: "CEO, Musashi Auto Parts India. 20+ yrs across Japan & North America. Leads EV expansion for Musashi Seimitsu in India & Africa.",
+            },
           ].map((member, i) => (
             <ScrollReveal key={i} delay={i * 100}>
-              <div className="bg-background p-6">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center mb-4 border border-border/40" style={{ background: "hsl(var(--card))" }}>
-                  <span className="font-black text-sm text-muted-foreground">{member.initials}</span>
+              <div className="bg-background p-6 h-full flex flex-col" style={{ borderTop: `2px solid hsl(${member.color} / 0.5)` }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ background: `hsl(${member.color} / 0.12)`, border: `1px solid hsl(${member.color} / 0.3)` }}
+                  >
+                    <span className="font-black text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
+                  </div>
+                  <span className="text-[0.55rem] tracking-[0.15em] uppercase font-semibold px-2 py-0.5 rounded-full"
+                    style={{ color: `hsl(${member.color})`, background: `hsl(${member.color} / 0.1)` }}>
+                    {member.tag}
+                  </span>
                 </div>
                 <p className="font-bold text-sm tracking-[0.05em] uppercase text-foreground mb-1">{member.name}</p>
-                <p className="font-semibold text-[0.58rem] tracking-[0.12em] uppercase text-muted-foreground">{member.title}</p>
+                <p className="font-semibold text-[0.58rem] tracking-[0.12em] uppercase mb-3" style={{ color: `hsl(${member.color})` }}>{member.title}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed mt-auto">{member.desc}</p>
               </div>
             </ScrollReveal>
           ))}
         </div>
-        <p className="text-xs text-muted-foreground mt-6">Board composition being finalized. Full bios will be published prior to Series A close.</p>
+      </section>
+
+      {/* ── ADVISORS ── */}
+      <section className="py-20 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
+        <ScrollReveal>
+          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
+            Strategic Counsel
+          </p>
+          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2] mb-10">
+            Advisors
+          </h2>
+        </ScrollReveal>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              initials: "SR",
+              name: "Dr. Sampath Ravinarayanan",
+              title: "Board Advisor",
+              color: "38 90% 55%",
+              highlights: ["Founder, Microcon — India's automotive testing pioneer", "Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL", "Frost & Sullivan CEO Award | Honorary Doctorate, NIT Kurukshetra"],
+            },
+            {
+              initials: "RM",
+              name: "Ramesh Mangaleshwaran",
+              title: "Advisor",
+              color: "265 75% 60%",
+              highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Founded McKinsey's Chennai & Bangalore offices", "Co-led McKinsey Industrials Practice, India & Asia", "Head of Automotive Practice"],
+            },
+            {
+              initials: "VD",
+              name: "Vinod K. Dasari",
+              title: "Advisor",
+              color: "145 75% 45%",
+              highlights: ["Fmr. MD & CEO — Ashok Leyland & Royal Enfield", "Led global innovation, modernization & international expansion", "Deep expertise in manufacturing, mobility & operational excellence"],
+            },
+          ].map((advisor, i) => (
+            <ScrollReveal key={advisor.name} delay={i * 120}>
+              <div
+                className="rounded-xl border p-6 h-full flex flex-col"
+                style={{
+                  borderColor: `hsl(${advisor.color} / 0.25)`,
+                  background: `linear-gradient(135deg, hsl(${advisor.color} / 0.06), hsl(var(--card) / 0.7))`,
+                }}
+              >
+                <div className="flex items-center gap-4 mb-5">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ background: `hsl(${advisor.color} / 0.15)`, border: `1.5px solid hsl(${advisor.color} / 0.4)` }}
+                  >
+                    <span className="font-black text-sm" style={{ color: `hsl(${advisor.color})` }}>{advisor.initials}</span>
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm tracking-wide text-foreground">{advisor.name}</p>
+                    <p className="text-[0.6rem] tracking-[0.15em] uppercase font-semibold" style={{ color: `hsl(${advisor.color})` }}>{advisor.title}</p>
+                  </div>
+                </div>
+                <ul className="flex flex-col gap-2 mt-auto">
+                  {advisor.highlights.map((h, j) => (
+                    <li key={j} className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed">
+                      <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: `hsl(${advisor.color})` }} />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
       </section>
 
       {/* ── HEADS OF BUSINESS ── */}

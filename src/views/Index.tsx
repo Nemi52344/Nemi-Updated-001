@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useCallback, lazy, Suspense } from "react";
+import { useRef, useEffect, useCallback } from "react";
+import dynamic from "next/dynamic";
 import nemiLogo from "@/assets/nemi-logo.png";
 import nemiNavLogo from "@/assets/nemi-nav-logo.png";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
@@ -8,13 +9,16 @@ import Navbar from "@/components/Navbar";
 import ScrollTransition from "@/components/ScrollTransition";
 import useScrollProgress from "@/hooks/useScrollProgress";
 
-const ProblemSection = lazy(() => import("@/components/ProblemSection"));
-const CoreTechSection = lazy(() => import("@/components/CoreTechSection"));
-const CapabilitiesSection = lazy(() => import("@/components/CapabilitiesSection"));
-const CompetitorsSection = lazy(() => import("@/components/CompetitorsSection"));
-const IndustriesSection = lazy(() => import("@/components/IndustriesSection"));
-const CaseStudyEVSection = lazy(() => import("@/components/CaseStudyEVSection"));
-const CTASection = lazy(() => import("@/components/CTASection"));
+// next/dynamic with ssr:true (default) renders these server-side so all
+// page content is present in the static HTML for crawlers & AI bots.
+// It still code-splits the JS bundles for fast client load.
+const ProblemSection = dynamic(() => import("@/components/ProblemSection"));
+const CoreTechSection = dynamic(() => import("@/components/CoreTechSection"));
+const CapabilitiesSection = dynamic(() => import("@/components/CapabilitiesSection"));
+const CompetitorsSection = dynamic(() => import("@/components/CompetitorsSection"));
+const IndustriesSection = dynamic(() => import("@/components/IndustriesSection"));
+const CaseStudyEVSection = dynamic(() => import("@/components/CaseStudyEVSection"));
+const CTASection = dynamic(() => import("@/components/CTASection"));
 
 const rangeProgress = (scroll: number, start: number, end: number) =>
   Math.min(Math.max((scroll - start) / (end - start), 0), 1);
@@ -93,15 +97,13 @@ const Index = () => {
 
 
       <ConstellationCanvas />
-      <Suspense fallback={null}>
-        <ProblemSection scrollProgress={scrollProgress} />
-        <CoreTechSection scrollProgress={scrollProgress} />
-        <CapabilitiesSection scrollProgress={scrollProgress} />
-        <CompetitorsSection scrollProgress={scrollProgress} />
-        <IndustriesSection scrollProgress={scrollProgress} />
-        <CaseStudyEVSection scrollProgress={scrollProgress} />
-        <CTASection scrollProgress={scrollProgress} />
-      </Suspense>
+      <ProblemSection scrollProgress={scrollProgress} />
+      <CoreTechSection scrollProgress={scrollProgress} />
+      <CapabilitiesSection scrollProgress={scrollProgress} />
+      <CompetitorsSection scrollProgress={scrollProgress} />
+      <IndustriesSection scrollProgress={scrollProgress} />
+      <CaseStudyEVSection scrollProgress={scrollProgress} />
+      <CTASection scrollProgress={scrollProgress} />
 
       {/* Transition dividers between sections */}
       <ScrollTransition scrollProgress={scrollProgress} at={0.08} />

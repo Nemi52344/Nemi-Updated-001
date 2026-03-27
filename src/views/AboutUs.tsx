@@ -14,7 +14,8 @@ import shreerithImg from "@/assets/shreerith.png";
 
 interface LeaderMember {
   name: string;
-  photo: string;
+  photo?: string;
+  initials?: string;
   role: string;
   desc: string;
   colorHsl: string;
@@ -37,7 +38,7 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
           transform: hovered ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
-        {/* FRONT — Photo + Name + Role */}
+        {/* FRONT — Photo/Initials + Name + Role */}
         <div
           className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-2 md:p-6 lg:p-8 transition-shadow duration-500"
           style={{
@@ -57,15 +58,22 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
             }}
           >
             <div
-              className="rounded-full overflow-hidden"
+              className="rounded-full overflow-hidden flex items-center justify-center"
               style={{
                 width: "6.5rem",
                 height: "6.5rem",
                 border: `1.5px solid hsl(${member.colorHsl} / 0.45)`,
                 boxShadow: `0 0 10px hsl(${member.colorHsl} / 0.2), inset 0 0 8px hsl(${member.colorHsl} / 0.08)`,
+                background: member.photo ? "transparent" : `hsl(${member.colorHsl} / 0.15)`,
               }}
             >
-              <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+              {member.photo ? (
+                <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+              ) : (
+                <span className="font-black text-xl tracking-widest" style={{ color: `hsl(${member.colorHsl})` }}>
+                  {member.initials}
+                </span>
+              )}
             </div>
           </div>
           {/* Ambient glow blob */}
@@ -247,31 +255,84 @@ const AboutUs = () => {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {/* Top row — Core Leadership (3 cards) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-16">
             {[
               {
                 name: "Anirudh Ravi Narayanan",
                 photo: anirudhImg,
                 role: "Chief Executive Officer",
-                desc: "Anirudh leads NEMI's mission to make manufacturing accessible to everyone — building intelligent systems that turn bold ideas into scalable reality.",
+                desc: "Ex-McKinsey (D.C. & Boston). Advised Fortune 500s on strategy, growth & product development. Yale MBA; Harvard Ph.D. & B.A. in Mathematics.",
                 colorHsl: "0 85% 55%",
               },
               {
                 name: "Gokul Madhavan",
                 photo: gokulImg,
-                role: "Chief Financial Officer",
-                desc: "Gokul brings deep expertise in digital transformation, steering NEMI's financial strategy to fuel the shift from traditional manufacturing to AI-powered operations.",
+                role: "Chief Strategy Officer",
+                desc: "Ex-McKinsey (Silicon Valley). Led turnarounds delivering $100M+ margin gains for Fortune 500s. Yale MBA; B.S. Electrical & Computer Engineering, Rose-Hulman.",
                 colorHsl: "220 85% 55%",
               },
               {
                 name: "Shreerith Seshadri",
                 photo: shreerithImg,
                 role: "Chief Technology Officer",
-                desc: "Shreerith designs the Physical AI architecture at the core of NEMI — the technology layer that powers next-generation industrial transformation.",
+                desc: "Designs the Physical AI architecture at the core of NEMI — the technology layer that powers next-generation industrial transformation.",
                 colorHsl: "145 75% 45%",
               },
             ].map((member, i) => (
-              <ScrollReveal key={member.name} variant="scale" delay={i * 150}>
+              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
+                <LeaderFlipCard member={member} />
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Subsidiary Leadership heading */}
+          <ScrollReveal>
+            <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4 text-center" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
+              Subsidiary Leadership
+            </p>
+          </ScrollReveal>
+
+          {/* Subsidiary row — 5 members */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {[
+              {
+                name: "Subramanian R",
+                photo: "/Images/team/image14.png",
+                role: "CFO — India",
+                desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods. Expert in greenfield projects and financial systems.",
+                colorHsl: "38 90% 55%",
+              },
+              {
+                name: "Vinoth Thiruvenkatasamy",
+                photo: "/Images/team/image13.png",
+                role: "President — HENRY Suite",
+                desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India, with full product development cycle expertise.",
+                colorHsl: "220 85% 55%",
+              },
+              {
+                name: "Vijay Ragavalu",
+                photo: "/Images/team/image18.png",
+                role: "President — AKIO Suite (Mechanical)",
+                desc: "30+ years in manufacturing leadership — automation, operational optimization, sustainable engineering, vendor negotiations, and large-scale team management.",
+                colorHsl: "160 70% 45%",
+              },
+              {
+                name: "Sadasivam B",
+                photo: "/Images/team/image20.png",
+                role: "President — AKIO Suite (Electrical)",
+                desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation. Leads 100+ engineers in electrical/electronic manufacturing.",
+                colorHsl: "265 75% 60%",
+              },
+              {
+                name: "Vijay Ramakrishnan",
+                photo: "/Images/team/image19.png",
+                role: "President — SAM",
+                desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Previously at Greaves Electric, HDFC, Thomas Cook, and MakeMyTrip. Built and led 100+ person sales teams.",
+                colorHsl: "190 80% 50%",
+              },
+            ].map((member, i) => (
+              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
                 <LeaderFlipCard member={member} />
               </ScrollReveal>
             ))}
@@ -291,23 +352,193 @@ const AboutUs = () => {
         </ScrollReveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30">
           {[
-            { initials: "—", name: "Board Member", title: "Independent Director" },
-            { initials: "—", name: "Board Member", title: "Independent Director" },
-            { initials: "—", name: "Board Member", title: "Investor Representative" },
-            { initials: "ARN", name: "Anirudh Ravi Narayanan", title: "Executive Director & CEO" },
+            {
+              initials: "ARN",
+              photo: "/Images/team/image12.png",
+              name: "Anirudh Ravi Narayanan",
+              title: "Executive Director & CEO",
+              tag: "Executive",
+              color: "0 85% 55%",
+              desc: "Ex-McKinsey. Yale MBA; Harvard Ph.D.",
+            },
+            {
+              initials: "VT",
+              photo: "/Images/team/image13.png",
+              name: "Vinoth Thiruvenkatasamy",
+              title: "Executive Board Member",
+              tag: "Executive",
+              color: "265 75% 60%",
+              desc: "President — BNC Group. 20+ yrs automotive R&D, Nissan & Ford.",
+            },
+            {
+              initials: "SS",
+              photo: "/Images/team/image54.png",
+              name: "Sam Swaminathan",
+              title: "Non-Executive Board Member",
+              tag: "Non-Executive",
+              color: "220 85% 55%",
+              desc: "General Partner, De La Crème Ventures. Ex-SVP Fractal Analytics. IIT Madras & Missouri University alumnus.",
+            },
+            {
+              initials: "NN",
+              photo: "/Images/team/image53.jpeg",
+              name: "Naoya Nishimura",
+              title: "Non-Executive Board Member",
+              tag: "Non-Executive",
+              color: "190 80% 50%",
+              desc: "CEO, Musashi Auto Parts India. 20+ yrs across Japan & North America. Leads EV expansion for Musashi Seimitsu in India & Africa.",
+            },
           ].map((member, i) => (
             <ScrollReveal key={i} delay={i * 100}>
-              <div className="bg-background p-6">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center mb-4 border border-border/40" style={{ background: "hsl(var(--card))" }}>
-                  <span className="font-black text-sm text-muted-foreground">{member.initials}</span>
+              <div className="bg-background p-6 h-full flex flex-col" style={{ borderTop: `2px solid hsl(${member.color} / 0.5)` }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div
+                    className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
+                    style={{ background: `hsl(${member.color} / 0.12)`, border: `1px solid hsl(${member.color} / 0.3)` }}
+                  >
+                    {(member as { photo?: string }).photo ? (
+                      <img src={(member as { photo?: string }).photo} alt={member.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="font-black text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
+                    )}</div>
+                  <span className="text-[0.55rem] tracking-[0.15em] uppercase font-semibold px-2 py-0.5 rounded-full"
+                    style={{ color: `hsl(${member.color})`, background: `hsl(${member.color} / 0.1)` }}>
+                    {member.tag}
+                  </span>
                 </div>
                 <p className="font-bold text-sm tracking-[0.05em] uppercase text-foreground mb-1">{member.name}</p>
-                <p className="font-semibold text-[0.58rem] tracking-[0.12em] uppercase text-muted-foreground">{member.title}</p>
+                <p className="font-semibold text-[0.58rem] tracking-[0.12em] uppercase mb-3" style={{ color: `hsl(${member.color})` }}>{member.title}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed mt-auto">{member.desc}</p>
               </div>
             </ScrollReveal>
           ))}
         </div>
-        <p className="text-xs text-muted-foreground mt-6">Board composition being finalized. Full bios will be published prior to Series A close.</p>
+      </section>
+
+      {/* ── ADVISORS ── */}
+      <section className="py-20 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
+        <ScrollReveal>
+          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
+            Strategic Counsel
+          </p>
+          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2] mb-10">
+            Advisors
+          </h2>
+        </ScrollReveal>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              initials: "SR",
+              photo: "/Images/team/image55.png",
+              name: "Dr. Sampath Ravinarayanan",
+              title: "Board Advisor",
+              color: "38 90% 55%",
+              highlights: ["Founder, Microcon — India's automotive testing pioneer", "Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL", "Frost & Sullivan CEO Award | Honorary Doctorate, NIT Kurukshetra"],
+            },
+            {
+              initials: "RM",
+              photo: "/Images/team/image58.png",
+              name: "Ramesh Mangaleshwaran",
+              title: "Advisor",
+              color: "265 75% 60%",
+              highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Founded McKinsey's Chennai & Bangalore offices", "Co-led McKinsey Industrials Practice, India & Asia", "Head of Automotive Practice"],
+            },
+            {
+              initials: "VD",
+              photo: "/Images/team/image56.jpeg",
+              name: "Vinod K. Dasari",
+              title: "Advisor",
+              color: "145 75% 45%",
+              highlights: ["Fmr. MD & CEO — Ashok Leyland & Royal Enfield", "Led global innovation, modernization & international expansion", "Deep expertise in manufacturing, mobility & operational excellence"],
+            },
+          ].map((advisor, i) => (
+            <ScrollReveal key={advisor.name} delay={i * 120}>
+              <div
+                className="rounded-xl border p-6 h-full flex flex-col"
+                style={{
+                  borderColor: `hsl(${advisor.color} / 0.25)`,
+                  background: `linear-gradient(135deg, hsl(${advisor.color} / 0.06), hsl(var(--card) / 0.7))`,
+                }}
+              >
+                <div className="flex items-center gap-4 mb-5">
+                  <div
+                    className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
+                    style={{ background: `hsl(${advisor.color} / 0.15)`, border: `1.5px solid hsl(${advisor.color} / 0.4)` }}
+                  >
+                    {(advisor as { photo?: string }).photo ? (
+                      <img src={(advisor as { photo?: string }).photo} alt={advisor.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="font-black text-sm" style={{ color: `hsl(${advisor.color})` }}>{advisor.initials}</span>
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm tracking-wide text-foreground">{advisor.name}</p>
+                    <p className="text-[0.6rem] tracking-[0.15em] uppercase font-semibold" style={{ color: `hsl(${advisor.color})` }}>{advisor.title}</p>
+                  </div>
+                </div>
+                <ul className="flex flex-col gap-2 mt-auto">
+                  {advisor.highlights.map((h, j) => (
+                    <li key={j} className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed">
+                      <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: `hsl(${advisor.color})` }} />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ── CLIENT / PARTNER LOGOS MARQUEE ── */}
+      <section className="py-14 border-t border-border/20 relative z-[1] overflow-hidden">
+        <ScrollReveal>
+          <p className="text-center text-xs tracking-[0.4em] uppercase text-muted-foreground mb-10">
+            Affiliated With &amp; Backed By
+          </p>
+        </ScrollReveal>
+
+        {/* Marquee track */}
+        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <div className="flex" style={{ animation: "partner-scroll-left 32s linear infinite", willChange: "transform" }}>
+            {/* Set A */}
+            <div className="flex items-center gap-14 shrink-0 pr-14">
+              {[
+                { src: "/Images/logos/mckinsey.png",          label: "McKinsey & Company" },
+                { src: "/Images/logos/musashi.png",           label: "Musashi Seimitsu" },
+                { src: "/Images/logos/airbus.png",            label: "Airbus" },
+                { src: "/Images/logos/indoshell.png",         label: "Indoshell Mould" },
+                { src: "/Images/logos/airindia-axiscades.png",label: "Air India · Axis CADES" },
+                { src: "/Images/logos/nissan.png",            label: "Nissan" },
+                { src: "/Images/logos/ustglobal.png",         label: "UST Global" },
+                { src: "/Images/logos/samudhra.png",          label: "Samudhra Industries" },
+                { src: "/Images/logos/delacremeventures.jpeg",label: "De La Crème Ventures" },
+              ].map((logo) => (
+                <img key={logo.label} src={logo.src} alt={logo.label} title={logo.label}
+                  style={{ height: "36px", width: "auto", maxWidth: "140px", objectFit: "contain",
+                    opacity: 0.6, flexShrink: 0 }} />
+              ))}
+            </div>
+            {/* Set B — identical duplicate for seamless loop */}
+            <div className="flex items-center gap-14 shrink-0 pr-14" aria-hidden="true">
+              {[
+                { src: "/Images/logos/mckinsey.png",          label: "McKinsey & Company" },
+                { src: "/Images/logos/musashi.png",           label: "Musashi Seimitsu" },
+                { src: "/Images/logos/airbus.png",            label: "Airbus" },
+                { src: "/Images/logos/indoshell.png",         label: "Indoshell Mould" },
+                { src: "/Images/logos/airindia-axiscades.png",label: "Air India · Axis CADES" },
+                { src: "/Images/logos/nissan.png",            label: "Nissan" },
+                { src: "/Images/logos/ustglobal.png",         label: "UST Global" },
+                { src: "/Images/logos/samudhra.png",          label: "Samudhra Industries" },
+                { src: "/Images/logos/delacremeventures.jpeg",label: "De La Crème Ventures" },
+              ].map((logo) => (
+                <img key={logo.label} src={logo.src} alt={logo.label}
+                  style={{ height: "36px", width: "auto", maxWidth: "140px", objectFit: "contain",
+                    opacity: 0.6, flexShrink: 0 }} />
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ── HEADS OF BUSINESS ── */}

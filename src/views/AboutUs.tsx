@@ -1,16 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useVideoAutoplay } from "@/hooks/useVideoAutoplay";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import ScrollReveal from "@/hooks/ScrollReveal";
-const factoryImg1 = "/Images/nemi%2001.png";
-const factoryImg2 = "/Images/Nemi%2002.jpeg";
-import anirudhImg from "@/assets/anirudh.png";
-import gokulImg from "@/assets/gokul.png";
-import shreerithImg from "@/assets/shreerith.png";
+import PageCTAFooter from "@/components/PageCTAFooter";
 
 interface LeaderMember {
   name: string;
@@ -38,7 +33,7 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
           transform: hovered ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
-        {/* FRONT — Photo/Initials + Name + Role */}
+        {/* FRONT */}
         <div
           className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-2 md:p-6 lg:p-8 transition-shadow duration-500"
           style={{
@@ -48,20 +43,17 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
             background: `linear-gradient(135deg, hsl(${member.colorHsl} / 0.08), hsl(var(--card) / 0.7))`,
           }}
         >
-          {/* Outer glow ring */}
           <div
             className="rounded-full mb-2 md:mb-4 relative z-10 flex items-center justify-center"
             style={{
-              width: "8rem",
-              height: "8rem",
+              width: "8rem", height: "8rem",
               background: `radial-gradient(circle, hsl(${member.colorHsl} / 0.2) 50%, hsl(${member.colorHsl} / 0.05) 65%, transparent 72%)`,
             }}
           >
             <div
               className="rounded-full overflow-hidden flex items-center justify-center"
               style={{
-                width: "6.5rem",
-                height: "6.5rem",
+                width: "6.5rem", height: "6.5rem",
                 border: `1.5px solid hsl(${member.colorHsl} / 0.45)`,
                 boxShadow: `0 0 10px hsl(${member.colorHsl} / 0.2), inset 0 0 8px hsl(${member.colorHsl} / 0.08)`,
                 background: member.photo ? "transparent" : `hsl(${member.colorHsl} / 0.15)`,
@@ -76,36 +68,23 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
               )}
             </div>
           </div>
-          {/* Ambient glow blob */}
           <div
             className="absolute w-20 h-20 md:w-44 md:h-44 rounded-full blur-2xl opacity-20"
-            style={{
-              background: `radial-gradient(circle, hsl(${member.colorHsl} / 0.4), transparent)`,
-              top: "10%",
-            }}
+            style={{ background: `radial-gradient(circle, hsl(${member.colorHsl} / 0.4), transparent)`, top: "10%" }}
           />
-
-          <h3
-            className="text-xs md:text-xl font-semibold text-foreground tracking-wider mb-0 md:mb-1"
-            style={{
-              textShadow: `0 0 12px hsl(${member.colorHsl} / 0.4)`,
-              animation: "text-glow-pulse 3s ease-in-out infinite",
-            }}
+          <h3 className="text-xs md:text-xl font-semibold text-foreground tracking-wider mb-0 md:mb-1"
+            style={{ textShadow: `0 0 12px hsl(${member.colorHsl} / 0.4)`, animation: "text-glow-pulse 3s ease-in-out infinite" }}
           >
             {member.name}
           </h3>
-          <p
-            className="text-[10px] md:text-sm tracking-[0.15em] md:tracking-[0.3em] uppercase font-medium"
-            style={{
-              color: `hsl(${member.colorHsl})`,
-              animation: "fade-in 0.6s ease-out both",
-            }}
+          <p className="text-[10px] md:text-sm tracking-[0.15em] md:tracking-[0.3em] uppercase font-medium"
+            style={{ color: `hsl(${member.colorHsl})` }}
           >
             {member.role}
           </p>
         </div>
 
-        {/* BACK — Bio text */}
+        {/* BACK */}
         <div
           className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-2 md:p-6 lg:p-8 transition-shadow duration-500"
           style={{
@@ -116,8 +95,7 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
             background: `linear-gradient(135deg, hsl(${member.colorHsl} / 0.1), hsl(var(--card) / 0.85))`,
           }}
         >
-          <p
-            className="text-[10px] mb-2 md:text-sm md:mb-4 tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium"
+          <p className="text-[10px] mb-2 md:text-sm md:mb-4 tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium"
             style={{ color: `hsl(${member.colorHsl})` }}
           >
             {member.role}
@@ -131,154 +109,157 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
   );
 };
 
-const strategySteps = [
-  { num: "01", code: "ACQ", title: "Acquire Manufacturing Companies", body: "NEMI acquires or partners with established manufacturing businesses — companies with real machines, real customers, and years of accumulated process data. These are not greenfield builds; they are proven operations with untapped AI potential." },
-  { num: "02", code: "RFT", title: "Retrofit with the LMM Stack", body: "We overlay the LMM stack onto these acquired operations — connecting machines to sensors, digitizing process parameters, and deploying AI-driven scheduling, quality prediction, and process optimization. Legacy assets become intelligent ones." },
-  { num: "03", code: "STR", title: "Data Captured Strengthens LMM", body: "Every production run generates ground-truth manufacturing data — process parameters, quality outcomes, sensor readings. This data flows back into the LMM, making it progressively more accurate and capable. Each acquisition makes the whole platform smarter." },
-];
-
 const AboutUs = () => {
-  const galleryVideoRef = useVideoAutoplay();
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
       {/* CONSTELLATION + GLOW BACKGROUND */}
       <div className="fixed inset-0 z-0">
         <ConstellationCanvas />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at 50% 45%, hsl(var(--accent) / 0.18) 0%, transparent 65%)",
-          }}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 50% 45%, hsl(var(--accent) / 0.18) 0%, transparent 65%)" }}
         />
       </div>
 
       <Navbar scrollProgress={1} />
 
       {/* ── HERO ── */}
-      <section className="min-h-screen flex items-center relative z-[1] overflow-hidden pt-32 pb-16 px-6 md:px-12 lg:px-16">
-        <div className="text-center relative z-[3] w-full">
-          <ScrollReveal>
-            <h1
-              className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase text-foreground mb-6"
-              style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)" }}
+      <section className="min-h-screen flex items-center justify-center relative z-[1] overflow-hidden pt-32 pb-16 px-6 md:px-12 lg:px-16">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `
+              radial-gradient(ellipse 40% 35% at 50% 45%, hsl(275 80% 40% / 0.15) 0%, transparent 60%),
+              radial-gradient(ellipse 55% 45% at 50% 50%, hsl(260 70% 30% / 0.1) 0%, transparent 55%)
+            `,
+          }}
+        />
+        <div className="text-center relative z-[3] max-w-4xl mx-auto">
+          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary/80 mb-6 font-bold"
+            style={{ animation: "hero-label-in 0.8s ease-out 0.2s both" }}
+          >
+            About NEMI
+          </p>
+          <h1
+            className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
+            style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
+          >
+            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
+              We Build
+            </span>
+            <br />
+            <span
+              className="bg-clip-text text-transparent inline-block"
+              style={{
+                backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary) / 0.8))",
+                backgroundSize: "200% 200%",
+                animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both, hero-gradient-shift 6s ease-in-out infinite 1.4s",
+              }}
             >
-              Building the Future
-              <br />
-              of{" "}
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary-foreground) / 0.9))",
-                }}
-              >
-                Manufacturing
-              </span>
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal>
-            <p
-              className="text-sm md:text-lg font-light text-center text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[680px] mx-auto"
-              style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.4), 0 0 40px hsl(270 70% 50% / 0.2)" }}
-            >
-              We bring Physical AI into the heart of manufacturing — so complex industrial processes become
-              intelligent, scalable systems.
-            </p>
-          </ScrollReveal>
+              Intelligent
+            </span>
+            <br />
+            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}>
+              Factories.
+            </span>
+          </h1>
+          <p className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[600px] mx-auto"
+            style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
+          >
+            Physical AI for the next era of manufacturing.
+          </p>
         </div>
       </section>
 
-      {/* ── ABOUT ── */}
-      <section className="py-28 px-6 md:px-12 lg:px-16 bg-card/80 backdrop-blur-sm border-t border-b border-border/30 relative z-[1]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <ScrollReveal variant="scale">
-            <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border/40">
-              <img
-                src={factoryImg1}
-                alt="AI-powered manufacturing technology"
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-          </ScrollReveal>
+      {/* ── WHAT WE DO ── */}
+      <section className="py-24 px-6 md:px-12 lg:px-16 relative z-[1]">
+        <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <div>
-              <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-                About NEMI
-              </p>
-              <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2] mb-6">
-                Manufacturing Hasn't Kept Pace With Software.{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
-                  }}
-                >
-                  We're changing that.
-                </span>
-              </h2>
-              <p className="text-sm md:text-lg leading-[1.75] text-muted-foreground max-w-[640px] tracking-wide">
-                NEMI is an end-to-end Physical AI platform that rethinks how products go from concept to
-                production to delivery. We blend artificial intelligence, automation, and deep manufacturing
-                know-how to help businesses cut inefficiencies, shorten iteration cycles, and get to market
-                faster than ever.
-              </p>
-              <div className="mt-10 p-6 rounded-r-xl border-l-[3px] border-primary" style={{ background: "hsl(var(--primary) / 0.05)" }}>
-                <p className="text-sm md:text-base font-medium leading-[1.6] italic tracking-wide" style={{ color: "hsl(var(--primary) / 0.85)" }}>
-                  We're not here to tweak what already exists. We re-architect manufacturing processes from
-                  the ground up — designed around intelligence.
+            <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-4 font-bold">What We Do</p>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20 items-start">
+            <ScrollReveal delay={100}>
+              <div>
+                <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-6">
+                  One platform.<br />Three systems.
+                </h2>
+                <p className="text-sm md:text-base text-muted-foreground leading-[1.8] max-w-[400px]">
+                  From first sketch to final delivery — NEMI covers the entire product lifecycle with AI at every step.
                 </p>
               </div>
+            </ScrollReveal>
+
+            <div className="flex flex-col gap-0">
+              {[
+                { color: "hsl(0, 72%, 52%)", label: "AKIO", subtitle: "Design Intelligence",
+                  body: "AI-powered CAD generation, simulation, prototyping. Concept to production-ready design in weeks." },
+                { color: "hsl(217, 91%, 60%)", label: "HENRY", subtitle: "Manufacturing Engine",
+                  body: "Full-stack production — metal parts, electronics, batteries, motors. Sensor-driven quality at every stage." },
+                { color: "hsl(142, 71%, 45%)", label: "SAM", subtitle: "Deployment & Lifecycle",
+                  body: "Fleet deployment, last-mile logistics, leasing. Real-world data feeds back into design." },
+              ].map((pillar, i) => (
+                <ScrollReveal key={pillar.label} delay={i * 150}>
+                  <div
+                    className="group flex gap-6 md:gap-8 items-start py-8 cursor-default transition-all duration-300"
+                    style={{ borderBottom: "1px solid hsl(var(--border) / 0.3)" }}
+                  >
+                    {/* Number + accent */}
+                    <div className="flex flex-col items-center gap-2 pt-1">
+                      <div className="w-3 h-3 rounded-full transition-transform duration-300 group-hover:scale-125"
+                        style={{ background: pillar.color, boxShadow: `0 0 12px ${pillar.color}40` }}
+                      />
+                      <div className="w-px h-full min-h-[40px] opacity-20" style={{ background: pillar.color }} />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1">
+                      <div className="flex items-baseline gap-3 mb-1">
+                        <h3 className="text-xl md:text-2xl font-extrabold tracking-wider uppercase group-hover:text-foreground transition-colors"
+                          style={{ color: pillar.color }}
+                        >
+                          {pillar.label}
+                        </h3>
+                        <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase text-muted-foreground/50">
+                          {pillar.subtitle}
+                        </span>
+                      </div>
+                      <p className="text-xs md:text-sm text-muted-foreground leading-[1.9] max-w-[500px]">
+                        {pillar.body}
+                      </p>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
             </div>
-          </ScrollReveal>
+          </div>
         </div>
       </section>
 
-      {/* ── LEADERSHIP ── */}
-      <section className="py-28 px-6 md:px-12 lg:px-16 relative z-[1]">
+      {/* ── THE TEAM ── */}
+      <section className="py-24 px-6 md:px-12 lg:px-16 relative z-[1]">
         <div className="text-center">
           <ScrollReveal>
-            <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-              Leadership Team
-            </p>
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2] mb-14">
-              Meet the Team Behind{" "}
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
-                }}
-              >
-                NEMI
-              </span>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+            >
+              The Team
             </h2>
           </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14">
+              Operators, not observers. We build what we ship.
+            </p>
+          </ScrollReveal>
 
-          {/* Top row — Core Leadership (3 cards) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-16">
+          {/* Core Leadership */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
             {[
-              {
-                name: "Anirudh Ravi Narayanan",
-                photo: anirudhImg,
-                role: "Chief Executive Officer",
-                desc: "Ex-McKinsey (D.C. & Boston). Advised Fortune 500s on strategy, growth & product development. Yale MBA; Harvard Ph.D. & B.A. in Mathematics.",
-                colorHsl: "0 85% 55%",
-              },
-              {
-                name: "Gokul Madhavan",
-                photo: gokulImg,
-                role: "Chief Strategy Officer",
-                desc: "Ex-McKinsey (Silicon Valley). Led turnarounds delivering $100M+ margin gains for Fortune 500s. Yale MBA; B.S. Electrical & Computer Engineering, Rose-Hulman.",
-                colorHsl: "220 85% 55%",
-              },
-              {
-                name: "Shreerith Seshadri",
-                photo: shreerithImg,
-                role: "Chief Technology Officer",
-                desc: "Designs the Physical AI architecture at the core of NEMI — the technology layer that powers next-generation industrial transformation.",
-                colorHsl: "145 75% 45%",
-              },
+              { name: "Anirudh Ravi Narayanan", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.png", role: "Chief Executive Officer",
+                desc: "Leads NEMI's mission to make manufacturing accessible — building intelligent systems that turn bold ideas into scalable reality.", colorHsl: "275 85% 65%" },
+              { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.png", role: "Chief Financial Officer",
+                desc: "Deep expertise in digital transformation, steering NEMI's financial strategy to fuel the shift from traditional manufacturing to AI-powered operations.", colorHsl: "268 82% 62%" },
+              { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.png", role: "Chief Technology Officer",
+                desc: "Designs the Physical AI architecture at the core of NEMI — the technology layer powering next-generation industrial transformation.", colorHsl: "282 78% 60%" },
             ].map((member, i) => (
               <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
                 <LeaderFlipCard member={member} />
@@ -286,51 +267,19 @@ const AboutUs = () => {
             ))}
           </div>
 
-          {/* Subsidiary Leadership heading */}
-          <ScrollReveal>
-            <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4 text-center" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-              Subsidiary Leadership
-            </p>
-          </ScrollReveal>
-
-          {/* Subsidiary row — 5 members */}
+          {/* Extended Leadership */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {[
-              {
-                name: "Subramanian R",
-                photo: "/Images/team/image14.png",
-                role: "CFO — India",
-                desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods. Expert in greenfield projects and financial systems.",
-                colorHsl: "38 90% 55%",
-              },
-              {
-                name: "Vinoth Thiruvenkatasamy",
-                photo: "/Images/team/image13.png",
-                role: "President — HENRY Suite",
-                desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India, with full product development cycle expertise.",
-                colorHsl: "220 85% 55%",
-              },
-              {
-                name: "Vijay Ragavalu",
-                photo: "/Images/team/image18.png",
-                role: "President — AKIO Suite (Mechanical)",
-                desc: "30+ years in manufacturing leadership — automation, operational optimization, sustainable engineering, vendor negotiations, and large-scale team management.",
-                colorHsl: "160 70% 45%",
-              },
-              {
-                name: "Sadasivam B",
-                photo: "/Images/team/image20.png",
-                role: "President — AKIO Suite (Electrical)",
-                desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation. Leads 100+ engineers in electrical/electronic manufacturing.",
-                colorHsl: "265 75% 60%",
-              },
-              {
-                name: "Vijay Ramakrishnan",
-                photo: "/Images/team/image19.png",
-                role: "President — SAM",
-                desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Previously at Greaves Electric, HDFC, Thomas Cook, and MakeMyTrip. Built and led 100+ person sales teams.",
-                colorHsl: "190 80% 50%",
-              },
+              { name: "Subramanian R", photo: "/Images/team/Subramanian%20R.png", role: "CFO — India",
+                desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods.", colorHsl: "275 55% 52%" },
+              { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.png", role: "President — HENRY Suite",
+                desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India.", colorHsl: "268 52% 50%" },
+              { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.png", role: "President — AKIO Suite (Mechanical)",
+                desc: "30+ years in manufacturing leadership — automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%" },
+              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.png", role: "President — AKIO Suite (Electrical)",
+                desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation.", colorHsl: "272 48% 50%" },
+              { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.png", role: "President — SAM",
+                desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Built and led 100+ person sales teams.", colorHsl: "278 53% 49%" },
             ].map((member, i) => (
               <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
                 <LeaderFlipCard member={member} />
@@ -340,67 +289,42 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* ── BOARD OF DIRECTORS ── */}
+      {/* ── BOARD & ADVISORS ── */}
       <section className="py-20 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
         <ScrollReveal>
-          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-            Governance
-          </p>
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2] mb-10">
-            Board of Directors
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+          >
+            Board & Advisors
           </h2>
         </ScrollReveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30">
+        <ScrollReveal delay={100}>
+          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-12">
+            Guided by operators who scaled global enterprises.
+          </p>
+        </ScrollReveal>
+
+        {/* Board of Directors */}
+        <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6 font-bold">Board of Directors</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30 mb-16">
           {[
-            {
-              initials: "ARN",
-              photo: "/Images/team/image12.png",
-              name: "Anirudh Ravi Narayanan",
-              title: "Executive Director & CEO",
-              tag: "Executive",
-              color: "0 85% 55%",
-              desc: "Ex-McKinsey. Yale MBA; Harvard Ph.D.",
-            },
-            {
-              initials: "VT",
-              photo: "/Images/team/image13.png",
-              name: "Vinoth Thiruvenkatasamy",
-              title: "Executive Board Member",
-              tag: "Executive",
-              color: "265 75% 60%",
-              desc: "President — BNC Group. 20+ yrs automotive R&D, Nissan & Ford.",
-            },
-            {
-              initials: "SS",
-              photo: "/Images/team/image54.png",
-              name: "Sam Swaminathan",
-              title: "Non-Executive Board Member",
-              tag: "Non-Executive",
-              color: "220 85% 55%",
-              desc: "General Partner, De La Crème Ventures. Ex-SVP Fractal Analytics. IIT Madras & Missouri University alumnus.",
-            },
-            {
-              initials: "NN",
-              photo: "/Images/team/image53.jpeg",
-              name: "Naoya Nishimura",
-              title: "Non-Executive Board Member",
-              tag: "Non-Executive",
-              color: "190 80% 50%",
-              desc: "CEO, Musashi Auto Parts India. 20+ yrs across Japan & North America. Leads EV expansion for Musashi Seimitsu in India & Africa.",
-            },
+            { initials: "ARN", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.png", name: "Anirudh Ravi Narayanan", title: "Executive Director & CEO", tag: "Executive", color: "275 42% 45%", desc: "CEO & Founder of BNC Motors. Drives NEMI's vision of making manufacturing accessible through Physical AI." },
+            { initials: "VT", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.png", name: "Vinoth Thiruvenkatasamy", title: "Executive Board Member", tag: "Executive", color: "268 40% 43%", desc: "CTO at BNC Motors. 20+ years in automotive R&D with experience at Nissan & Ford." },
+            { initials: "SS", photo: "/Images/team/Sam%20Swaminathan.png", name: "Sam Swaminathan", title: "Non-Executive Board Member", tag: "Non-Executive", color: "282 38% 41%", desc: "General Partner, De La Crème Ventures. Ex-SVP Fractal Analytics. IIT Madras alumnus." },
+            { initials: "NN", photo: "/Images/team/Naoya%20Nishimura.png", name: "Naoya Nishimura", title: "Non-Executive Board Member", tag: "Non-Executive", color: "272 36% 39%", desc: "CEO, Musashi Auto Parts India. Leads EV expansion for Musashi Seimitsu in India & Africa." },
           ].map((member, i) => (
             <ScrollReveal key={i} delay={i * 100}>
               <div className="bg-background p-6 h-full flex flex-col" style={{ borderTop: `2px solid hsl(${member.color} / 0.5)` }}>
                 <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
+                  <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
                     style={{ background: `hsl(${member.color} / 0.12)`, border: `1px solid hsl(${member.color} / 0.3)` }}
                   >
-                    {(member as { photo?: string }).photo ? (
-                      <img src={(member as { photo?: string }).photo} alt={member.name} className="w-full h-full object-cover" />
+                    {member.photo ? (
+                      <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
                     ) : (
                       <span className="font-black text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
-                    )}</div>
+                    )}
+                  </div>
                   <span className="text-[0.55rem] tracking-[0.15em] uppercase font-semibold px-2 py-0.5 rounded-full"
                     style={{ color: `hsl(${member.color})`, background: `hsl(${member.color} / 0.1)` }}>
                     {member.tag}
@@ -413,60 +337,28 @@ const AboutUs = () => {
             </ScrollReveal>
           ))}
         </div>
-      </section>
 
-      {/* ── ADVISORS ── */}
-      <section className="py-20 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
-        <ScrollReveal>
-          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-            Strategic Counsel
-          </p>
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2] mb-10">
-            Advisors
-          </h2>
-        </ScrollReveal>
+        {/* Advisors */}
+        <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6 font-bold">Advisors</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            {
-              initials: "SR",
-              photo: "/Images/team/image55.png",
-              name: "Dr. Sampath Ravinarayanan",
-              title: "Board Advisor",
-              color: "38 90% 55%",
-              highlights: ["Founder, Microcon — India's automotive testing pioneer", "Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL", "Frost & Sullivan CEO Award | Honorary Doctorate, NIT Kurukshetra"],
-            },
-            {
-              initials: "RM",
-              photo: "/Images/team/image58.png",
-              name: "Ramesh Mangaleshwaran",
-              title: "Advisor",
-              color: "265 75% 60%",
-              highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Founded McKinsey's Chennai & Bangalore offices", "Co-led McKinsey Industrials Practice, India & Asia", "Head of Automotive Practice"],
-            },
-            {
-              initials: "VD",
-              photo: "/Images/team/image56.jpeg",
-              name: "Vinod K. Dasari",
-              title: "Advisor",
-              color: "145 75% 45%",
-              highlights: ["Fmr. MD & CEO — Ashok Leyland & Royal Enfield", "Led global innovation, modernization & international expansion", "Deep expertise in manufacturing, mobility & operational excellence"],
-            },
+            { initials: "SR", photo: "/Images/team/Sampath%20Ravi%20Narayanan.png", name: "Dr. Sampath Ravinarayanan", title: "Board Advisor", color: "275 30% 38%",
+              highlights: ["Founder, Microcon; Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL"] },
+            { initials: "RM", photo: "/Images/team/Ramesh%20Mangaleshwaran.png", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%",
+              highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Co-led Industrials Practice, India & Asia"] },
+            { initials: "VD", photo: "/Images/team/Vinod%20K%20Dasari.png", name: "Vinod K. Dasari", title: "Advisor", color: "282 26% 35%",
+              highlights: ["Fmr. MD & CEO, Ashok Leyland & Royal Enfield", "Led global innovation, modernization & international expansion"] },
           ].map((advisor, i) => (
             <ScrollReveal key={advisor.name} delay={i * 120}>
-              <div
-                className="rounded-xl border p-6 h-full flex flex-col"
-                style={{
-                  borderColor: `hsl(${advisor.color} / 0.25)`,
-                  background: `linear-gradient(135deg, hsl(${advisor.color} / 0.06), hsl(var(--card) / 0.7))`,
-                }}
+              <div className="rounded-xl border p-6 h-full flex flex-col"
+                style={{ borderColor: `hsl(${advisor.color} / 0.25)`, background: `linear-gradient(135deg, hsl(${advisor.color} / 0.06), hsl(var(--card) / 0.7))` }}
               >
                 <div className="flex items-center gap-4 mb-5">
-                  <div
-                    className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
+                  <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
                     style={{ background: `hsl(${advisor.color} / 0.15)`, border: `1.5px solid hsl(${advisor.color} / 0.4)` }}
                   >
-                    {(advisor as { photo?: string }).photo ? (
-                      <img src={(advisor as { photo?: string }).photo} alt={advisor.name} className="w-full h-full object-cover" />
+                    {advisor.photo ? (
+                      <img src={advisor.photo} alt={advisor.name} className="w-full h-full object-cover" />
                     ) : (
                       <span className="font-black text-sm" style={{ color: `hsl(${advisor.color})` }}>{advisor.initials}</span>
                     )}
@@ -490,232 +382,125 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* ── CLIENT / PARTNER LOGOS MARQUEE ── */}
-      <section className="py-14 border-t border-border/20 relative z-[1] overflow-hidden">
+      {/* ── PARTNER LOGOS ── */}
+      <section className="py-16 md:py-20 border-t border-border/20 relative z-[1] overflow-hidden">
         <ScrollReveal>
-          <p className="text-center text-xs tracking-[0.4em] uppercase text-muted-foreground mb-10">
-            Affiliated With &amp; Backed By
+          <p className="text-center text-xs tracking-[0.4em] uppercase text-muted-foreground mb-12">
+            Affiliated & Partnered With
           </p>
         </ScrollReveal>
 
-        {/* Marquee track */}
-        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <div className="flex" style={{ animation: "partner-scroll-left 32s linear infinite", willChange: "transform" }}>
-            {/* Set A */}
-            <div className="flex items-center gap-14 shrink-0 pr-14">
-              {[
-                { src: "/Images/logos/mckinsey.png",          label: "McKinsey & Company" },
-                { src: "/Images/logos/musashi.png",           label: "Musashi Seimitsu" },
-                { src: "/Images/logos/airbus.png",            label: "Airbus" },
-                { src: "/Images/logos/indoshell.png",         label: "Indoshell Mould" },
-                { src: "/Images/logos/airindia-axiscades.png",label: "Air India · Axis CADES" },
-                { src: "/Images/logos/nissan.png",            label: "Nissan" },
-                { src: "/Images/logos/ustglobal.png",         label: "UST Global" },
-                { src: "/Images/logos/samudhra.png",          label: "Samudhra Industries" },
-                { src: "/Images/logos/delacremeventures.jpeg",label: "De La Crème Ventures" },
-              ].map((logo) => (
-                <img key={logo.label} src={logo.src} alt={logo.label} title={logo.label}
-                  style={{ height: "36px", width: "auto", maxWidth: "140px", objectFit: "contain",
-                    opacity: 0.6, flexShrink: 0 }} />
-              ))}
-            </div>
-            {/* Set B — identical duplicate for seamless loop */}
-            <div className="flex items-center gap-14 shrink-0 pr-14" aria-hidden="true">
-              {[
-                { src: "/Images/logos/mckinsey.png",          label: "McKinsey & Company" },
-                { src: "/Images/logos/musashi.png",           label: "Musashi Seimitsu" },
-                { src: "/Images/logos/airbus.png",            label: "Airbus" },
-                { src: "/Images/logos/indoshell.png",         label: "Indoshell Mould" },
-                { src: "/Images/logos/airindia-axiscades.png",label: "Air India · Axis CADES" },
-                { src: "/Images/logos/nissan.png",            label: "Nissan" },
-                { src: "/Images/logos/ustglobal.png",         label: "UST Global" },
-                { src: "/Images/logos/samudhra.png",          label: "Samudhra Industries" },
-                { src: "/Images/logos/delacremeventures.jpeg",label: "De La Crème Ventures" },
-              ].map((logo) => (
-                <img key={logo.label} src={logo.src} alt={logo.label}
-                  style={{ height: "36px", width: "auto", maxWidth: "140px", objectFit: "contain",
-                    opacity: 0.6, flexShrink: 0 }} />
-              ))}
-            </div>
+        {/* Row 1 — scrolls left */}
+        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] mb-3 md:mb-4">
+          <div className="flex" style={{ animation: "partner-scroll-left 40s linear infinite", willChange: "transform" }}>
+            {[0, 1].map((set) => (
+              <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
+                {[
+                  { src: "/Images/logos/samsung.png", label: "Samsung" },
+                  { src: "/Images/logos/tata.png", label: "Tata" },
+                  { src: "/Images/logos/lamborghini.png", label: "Lamborghini" },
+                  { src: "/Images/logos/whirlpool.png", label: "Whirlpool" },
+                  { src: "/Images/logos/abb.png", label: "ABB" },
+                  { src: "/Images/logos/caterpillar.png", label: "Caterpillar" },
+                  { src: "/Images/logos/isro.png", label: "ISRO" },
+                  { src: "/Images/logos/drdo.png", label: "DRDO" },
+                  { src: "/Images/logos/boeing.png", label: "Boeing" },
+                  { src: "/Images/logos/ashok-leyland.png", label: "Ashok Leyland" },
+                ].map((logo) => (
+                  <div
+                    key={logo.label + set}
+                    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm"
+                    style={{ width: "160px", height: "80px" }}
+                  >
+                    <img src={logo.src} alt={logo.label} title={logo.label}
+                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2 — scrolls right */}
+        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+          <div className="flex" style={{ animation: "partner-scroll-right 38s linear infinite", willChange: "transform" }}>
+            {[0, 1].map((set) => (
+              <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
+                {[
+                  { src: "/Images/logos/royal-enfield.jpeg", label: "Royal Enfield" },
+                  { src: "/Images/logos/brahmos.jpeg", label: "BrahMos" },
+                  { src: "/Images/logos/bharat-dynamics.jpeg", label: "Bharat Dynamics" },
+                  { src: "/Images/logos/exide.jpeg", label: "Exide" },
+                  { src: "/Images/logos/flipkart.png", label: "Flipkart" },
+                  { src: "/Images/logos/zomato.png", label: "Zomato" },
+                  { src: "/Images/logos/rapido.jpeg", label: "Rapido" },
+                  { src: "/Images/logos/tvs-mobility.jpeg", label: "TVS Mobility" },
+                  { src: "/Images/logos/mahindra.jpeg", label: "Mahindra" },
+                  { src: "/Images/logos/ducati.png", label: "Ducati" },
+                ].map((logo) => (
+                  <div
+                    key={logo.label + set}
+                    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm"
+                    style={{ width: "160px", height: "80px" }}
+                  >
+                    <img src={logo.src} alt={logo.label} title={logo.label}
+                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} />
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── HEADS OF BUSINESS ── */}
-      <section className="py-20 px-6 md:px-12 lg:px-16 relative z-[1]">
+      {/* ── WHY WE WIN ── */}
+      <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
         <ScrollReveal>
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2] mb-10">
-            Heads of Business —{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{ backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))" }}
-            >
-              AI Subsidiary Leadership
-            </span>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+          >
+            Why We Win
           </h2>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/30">
-          {[
-            { color: "0 85% 55%", label: "AKIO", name: "Head of Design Intelligence", title: "AKIO Division Lead", desc: "Overseeing AKIO's product design, component engineering, and prototyping & validation capabilities." },
-            { color: "220 85% 55%", label: "HENRY", name: "Head of Manufacturing", title: "HENRY Division Lead", desc: "Leading HENRY's full-stack manufacturing operations across tooling, metal parts, electronics, battery, motor, and complex assembly production." },
-            { color: "145 75% 45%", label: "SAM", name: "Head of Deployment", title: "SAM Division Lead", desc: "Driving SAM's product deployment, leasing, financing, and real-world performance monitoring operations across India and Africa." },
-          ].map((sub, i) => (
-            <ScrollReveal key={sub.label} delay={i * 150}>
-              <div className="bg-background p-6 h-full" style={{ borderTop: `2px solid hsl(${sub.color})` }}>
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-2 h-2 rounded-full" style={{ background: `hsl(${sub.color})` }} />
-                  <span className="font-black text-[0.65rem] tracking-[0.2em] uppercase" style={{ color: `hsl(${sub.color})` }}>{sub.label}</span>
-                </div>
-                <p className="font-bold text-sm tracking-[0.05em] uppercase text-foreground mb-1">{sub.name}</p>
-                <p className="font-semibold text-[0.58rem] tracking-[0.12em] uppercase text-muted-foreground mb-3">{sub.title}</p>
-                <p className="text-xs text-muted-foreground leading-[1.6]">{sub.desc}</p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ── GEOGRAPHICAL ADVANTAGE ── */}
-      <section className="py-20 px-6 md:px-12 lg:px-16 relative z-[1]">
-        <ScrollReveal>
-          <div className="rounded-xl border border-border/40 p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center" style={{ background: "hsl(var(--card) / 0.7)" }}>
-            <div>
-              <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-                Geographical Advantage
-              </p>
-              <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2]">
-                Coimbatore —<br />An Automotive Hub
-              </h2>
-            </div>
-            <div className="flex flex-col gap-6">
-              {[
-                { bold: "India's manufacturing powerhouse:", text: "25,000+ SME manufacturers, dense supplier ecosystem." },
-                { bold: "Deep, underrated talent pool:", text: "Hands-on engineering graduates rare in metro hubs." },
-                { bold: "10× capital efficiency:", text: "Same output as Silicon Valley, fraction of cost." },
-                { bold: "Gateway to emerging markets:", text: "Port access to South Asia, Southeast Asia, Africa." },
-              ].map((point) => (
-                <div key={point.bold} className="flex gap-4 items-start">
-                  <div className="w-2 h-2 rounded-full bg-primary shrink-0 mt-1.5" />
-                  <p className="text-sm text-muted-foreground leading-[1.7]">
-                    <strong className="text-foreground font-bold">{point.bold}</strong> {point.text}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* ── STRATEGIC MOATS ── */}
-      <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
-        {/* Section header */}
-        <ScrollReveal>
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-16">
-            <div>
-              <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-3" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-                Competitive Advantage
-              </p>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05]">
-                Strategic{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))" }}
-                >
-                  Moats
-                </span>
-              </h2>
-            </div>
-            <p className="text-sm md:text-base text-muted-foreground max-w-sm leading-[1.7] tracking-wide lg:text-right">
-              Building the foundation of national manufacturing resilience through technical and capital superiority.
-            </p>
-          </div>
+        <ScrollReveal delay={100}>
+          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-16 max-w-[500px]">
+            Six structural advantages. Not features — moats.
+          </p>
         </ScrollReveal>
 
-        {/* Moat rows */}
         <div className="flex flex-col">
           {[
-            {
-              num: "01",
-              color: "220 85% 55%",
-              tag: "RESILIENCE-AS-A-SERVICE",
-              title: "Sovereign Manufacturing",
-              desc: "By keeping AI processing at the edge within national borders, we ensure industrial data sovereignty. NEMI's LMM empowers nations to reshore manufacturing without the labor dependency of the 20th century.",
-              flag: null,
-            },
-            {
-              num: "02",
-              color: "145 75% 45%",
-              tag: "WORLD-CLASS ENGINEERING · LOCALIZED COSTS",
-              title: "Extreme Capital Efficiency",
-              desc: "Our Coimbatore-based operations hub lets us operate at 1/5th the cost of US-based competitors — delivering the same engineering quality at a fraction of the spend, accelerating R&D velocity per dollar invested.",
-              flag: "🇮🇳",
-            },
-            {
-              num: "03",
-              color: "275 80% 60%",
-              tag: "PROPRIETARY AI",
-              title: "The LMM Advantage",
-              desc: "Our Large Manufacturing Model is trained on real manufacturing data — CAD, sensors, quality outcomes, process parameters — creating an AI that grows smarter with every production job we run.",
-              flag: null,
-            },
-            {
-              num: "04",
-              color: "0 85% 55%",
-              tag: "ONE PARTNER · FULL STACK",
-              title: "End-to-End Integration",
-              desc: "Unlike point solutions, NEMI owns the entire value chain — from concept design through manufacturing to deployment and lifecycle monitoring. One partner. Full accountability. No integration gaps.",
-              flag: null,
-            },
-            {
-              num: "05",
-              color: "35 95% 55%",
-              tag: "RETROFIT · NOT REPLACE",
-              title: "AI Retrofit for Legacy Assets",
-              desc: "We upgrade existing manufacturing operations with the LMM stack — turning legacy factories into intelligent production facilities without the capital expenditure of building from scratch.",
-              flag: null,
-            },
-            {
-              num: "06",
-              color: "190 80% 50%",
-              tag: "ACCESSIBLE PHYSICAL AI",
-              title: "Mid-Market Focus",
-              desc: "While competitors chase Fortune 50 contracts, NEMI unlocks Physical AI for the global mid-market — companies with real manufacturing needs but without the budget for enterprise robotics incumbents.",
-              flag: null,
-            },
+            { num: "01", color: "275 85% 65%", tag: "RESILIENCE-AS-A-SERVICE", title: "Sovereign Manufacturing",
+              desc: "Edge AI within national borders. No cloud dependency. Full data sovereignty." },
+            { num: "02", color: "272 78% 58%", tag: "WORLD-CLASS ENGINEERING · LOCALIZED COSTS", title: "Extreme Capital Efficiency",
+              desc: "Coimbatore ops at 1/5th US cost. Same engineering quality." },
+            { num: "03", color: "269 70% 52%", tag: "PROPRIETARY AI", title: "The LMM Advantage",
+              desc: "Proprietary AI trained on real production data. Smarter every job." },
+            { num: "04", color: "266 62% 46%", tag: "ONE PARTNER · FULL STACK", title: "End-to-End Integration",
+              desc: "Design to delivery. One partner. No integration gaps." },
+            { num: "05", color: "263 55% 40%", tag: "RETROFIT · NOT REPLACE", title: "AI Retrofit for Legacy",
+              desc: "Upgrade existing factories. No greenfield capital needed." },
+            { num: "06", color: "260 48% 35%", tag: "ACCESSIBLE PHYSICAL AI", title: "Mid-Market Focus",
+              desc: "Physical AI for companies enterprise vendors ignore." },
           ].map((moat, i) => (
             <ScrollReveal key={moat.num} delay={i * 80}>
-              <div
-                className="group grid grid-cols-[3rem_1fr] md:grid-cols-[5rem_1fr_1fr] lg:grid-cols-[6rem_1fr_1.2fr] gap-6 md:gap-10 items-start py-8 border-t border-border/20 transition-all duration-300 hover:border-border/50"
-              >
-                {/* Number */}
-                <div
-                  className="font-black text-2xl md:text-4xl lg:text-5xl leading-none tabular-nums transition-all duration-300 group-hover:scale-110 origin-left"
+              <div className="group grid grid-cols-[3rem_1fr] md:grid-cols-[5rem_1fr_1fr] lg:grid-cols-[6rem_1fr_1.2fr] gap-6 md:gap-10 items-start py-8 border-t border-border/20 transition-all duration-300 hover:border-border/50">
+                <div className="font-black text-2xl md:text-4xl lg:text-5xl leading-none tabular-nums transition-all duration-300 group-hover:scale-110 origin-left"
                   style={{ color: `hsl(${moat.color} / 0.25)`, fontVariantNumeric: "tabular-nums" }}
                 >
                   {moat.num}
                 </div>
-
-                {/* Title + tag */}
                 <div className="flex flex-col gap-3">
                   <h3 className="text-lg md:text-2xl lg:text-3xl font-bold tracking-tight leading-[1.15] text-foreground group-hover:text-primary transition-colors duration-300">
                     {moat.title}
                   </h3>
                   <div className="flex items-center gap-2">
-                    <div
-                      className="w-1.5 h-1.5 rounded-full shrink-0"
-                      style={{ background: `hsl(${moat.color})` }}
-                    />
-                    <span
-                      className="text-[0.6rem] font-bold tracking-[0.2em] uppercase"
-                      style={{ color: `hsl(${moat.color})` }}
-                    >
-                      {moat.flag && <span className="mr-1">{moat.flag}</span>}
+                    <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: `hsl(${moat.color})` }} />
+                    <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase" style={{ color: `hsl(${moat.color})` }}>
                       {moat.tag}
                     </span>
                   </div>
                 </div>
-
-                {/* Description */}
                 <p className="col-span-2 md:col-span-1 text-sm md:text-base leading-[1.75] text-muted-foreground tracking-wide pl-[3.5rem] md:pl-0">
                   {moat.desc}
                 </p>
@@ -723,224 +508,80 @@ const AboutUs = () => {
             </ScrollReveal>
           ))}
         </div>
-
-        {/* Bottom border close */}
         <div className="border-t border-border/20 mt-0" />
       </section>
 
-      {/* ── STRATEGY (from Technology) ── */}
-      <section className="py-20 px-6 md:px-12 lg:px-16 relative z-[1]">
-        <ScrollReveal>
-          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-            Our Strategy
-          </p>
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-10">
-            Acquire. Retrofit. Strengthen.
-          </h2>
-        </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/30 auto-rows-fr">
-          {strategySteps.map((step, i) => (
-            <ScrollReveal key={step.num} delay={i * 150} className="h-full">
-              <div className="bg-background p-8 md:p-10 relative h-full">
-                <span className="absolute top-4 right-6 font-black text-5xl md:text-6xl text-foreground/[0.04] leading-none">{step.num}</span>
-                <div
-                  className="w-10 h-10 flex items-center justify-center mb-6 border-l-2 border-primary"
-                  style={{ background: "hsl(var(--card))" }}
-                >
-                  <span className="font-black text-[0.65rem] tracking-[0.1em] text-primary">{step.code}</span>
-                </div>
-                <h3 className="font-bold text-xs md:text-sm tracking-[0.15em] uppercase text-foreground mb-3">{step.title}</h3>
-                <p className="text-xs md:text-sm text-muted-foreground leading-[1.8]">{step.body}</p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ── WHY NEMI ── */}
-      <section className="py-28 px-6 md:px-12 lg:px-16 bg-card/80 backdrop-blur-sm border-t border-border/30 relative z-[1]">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-center">
+      {/* ── WHERE WE'RE GOING ── */}
+      <section className="py-24 px-6 md:px-12 lg:px-16 bg-card/80 backdrop-blur-sm border-t border-b border-border/30 relative z-[1]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <ScrollReveal>
             <div>
-              <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2] mb-6">
-                Why Companies Choose{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
-                  }}
-                >
-                  NEMI
-                </span>
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-6"
+                style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+              >
+                Where We're Going
               </h2>
-              <p className="text-sm md:text-lg leading-[1.7] text-muted-foreground mt-4 tracking-wide">
-                In manufacturing, three things matter above all else.
+              <p className="text-base md:text-lg text-muted-foreground mb-3 tracking-wide">
+                Every factory on earth, running on NEMI.
+              </p>
+              <p className="text-sm text-muted-foreground leading-[1.8] mb-3">
+                We are building the operating system for physical production.
+              </p>
+              <p className="text-sm text-muted-foreground leading-[1.8] mb-3">
+                Today: India. Tomorrow: every manufacturing hub on the planet.
+              </p>
+              <p className="text-sm text-muted-foreground leading-[1.8] mb-10">
+                The LMM gets smarter with every part we make.
               </p>
 
-              <ul className="mt-8 flex flex-col gap-4">
+              <div className="flex gap-8 md:gap-12">
                 {[
-                  { label: "Cost", detail: "10× capital efficiency, fraction of cost." },
-                  { label: "Quality", detail: "AI-driven, zero-defect manufacturing output." },
-                  { label: "Speed", detail: "60% faster design-to-production cycles." },
-                ].map((item) => (
-                  <li
-                    key={item.label}
-                    className="flex items-start gap-4 py-5 px-5 rounded-xl border border-border/30 transition-all duration-300 hover:translate-x-1.5 hover:border-primary/20"
-                    style={{ background: "hsl(var(--primary) / 0.03)" }}
-                  >
-                    <div
-                      className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                      style={{ background: "hsl(var(--primary) / 0.12)" }}
-                    >
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="hsl(var(--primary))"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    </div>
-                    <div>
-                      <span className="text-sm md:text-base font-bold text-foreground tracking-wide uppercase">{item.label}</span>
-                      <p className="text-xs md:text-sm text-muted-foreground leading-[1.7] mt-1">{item.detail}</p>
-                    </div>
-                  </li>
+                  { num: "10×", label: "Capital efficiency" },
+                  { num: "60%", label: "Faster cycles" },
+                  { num: "80%", label: "Less engineering time" },
+                ].map((stat) => (
+                  <div key={stat.num}>
+                    <p className="text-3xl md:text-4xl font-black text-primary">{stat.num}</p>
+                    <p className="text-xs text-muted-foreground tracking-wide uppercase mt-1">{stat.label}</p>
+                  </div>
                 ))}
-              </ul>
-
-              <div className="mt-8 p-5 rounded-r-xl border-l-[3px] border-accent" style={{ background: "hsl(var(--accent) / 0.05)" }}>
-                <p className="text-sm md:text-base font-medium leading-[1.6] italic tracking-wide" style={{ color: "hsl(var(--accent) / 0.85)" }}>
-                  We deliver all three.
-                </p>
               </div>
             </div>
           </ScrollReveal>
 
           <ScrollReveal variant="scale">
-            <div className="w-full aspect-square rounded-2xl overflow-hidden border border-border/30 relative">
-              <img
-                src={factoryImg2}
-                alt="Modern automated manufacturing facility"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div
-                className="absolute inset-0 z-[1]"
-                style={{
-                  background: "linear-gradient(180deg, transparent 50%, hsl(var(--background) / 0.5) 100%)",
-                }}
-              />
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { src: "/Images/Nemi%2002.jpeg", span: "col-span-2", h: "h-48 md:h-56" },
+                { src: "/Images/nemi%2001.png", span: "", h: "h-36 md:h-44" },
+                { src: "/Images/Nemi%20parking.jpeg", span: "", h: "h-36 md:h-44" },
+                { src: "/Images/Electronics%20production.jpeg", span: "", h: "h-32 md:h-40" },
+                { src: "/Images/Nemi%20stores.png", span: "", h: "h-32 md:h-40" },
+              ].map((img, i) => (
+                <div
+                  key={i}
+                  className={`${img.span} rounded-xl overflow-hidden border border-border/20`}
+                  style={{ boxShadow: "0 4px 20px hsl(275 80% 40% / 0.08)" }}
+                >
+                  <img
+                    src={img.src}
+                    alt="NEMI Office & Workspace"
+                    className={`w-full ${img.h} object-cover`}
+                    loading="lazy"
+                  />
+                </div>
+              ))}
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ── A LOOK INSIDE OUR WORLD ── */}
-      <section className="py-28 px-6 md:px-12 lg:px-16 border-t border-b border-border/30 relative z-[1]">
-        <ScrollReveal>
-          <div className="text-center mb-14">
-            <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-              Life at NEMI
-            </p>
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.2] mb-6">
-              A Look Inside{" "}
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
-                }}
-              >
-                Our World
-              </span>
-            </h2>
-            <p className="text-sm md:text-lg leading-[1.75] text-muted-foreground max-w-[640px] mx-auto tracking-wide">
-              From our workspaces to the factory floor — here's where ideas become intelligent systems.
-            </p>
-          </div>
-        </ScrollReveal>
-
-        {/* Featured Video */}
-        <ScrollReveal>
-          <div className="rounded-2xl overflow-hidden border border-border/30" style={{ background: "hsl(var(--card) / 0.5)" }}>
-            <video
-              ref={galleryVideoRef}
-              src="/videos/Factory%20Video%20(1).mp4"
-              controls
-              muted
-              playsInline
-              preload="metadata"
-              className="w-full"
-              style={{ maxHeight: 620, objectFit: "cover" }}
-            />
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="py-32 px-6 md:px-12 lg:px-16 text-center relative overflow-hidden z-[1]">
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, hsl(var(--nemi-nebula) / 0.12), transparent 65%)",
-          }}
-        />
-        <div className="relative z-[2]">
-          <ScrollReveal>
-            <h2
-              className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider mb-5"
-              style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4)" }}
-            >
-              Ready to{" "}
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
-                }}
-              >
-                rethink
-              </span>{" "}
-              how you manufacture?
-            </h2>
-            <p className="text-sm md:text-lg text-muted-foreground mb-10 max-w-[500px] mx-auto leading-[1.7] tracking-wide">
-              We'd love to show you what's possible. Talk to our team and see how NEMI can fit into your
-              operations.
-            </p>
-            <Link
-              href="/services"
-              className="inline-block px-8 py-3.5 rounded-lg text-sm md:text-base font-semibold text-primary-foreground tracking-[0.15em] uppercase transition-all duration-300 hover:-translate-y-0.5"
-              style={{
-                background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                boxShadow: "0 4px 20px hsl(var(--primary) / 0.25)",
-              }}
-            >
-              Get Started
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── FOOTER ── */}
-      <footer className="py-12 px-6 md:px-12 lg:px-16 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-[1]">
-        <span className="font-bold text-xl tracking-[0.1em] uppercase text-muted-foreground">NEMI</span>
-        <ul className="flex gap-8 list-none">
-          {["Privacy", "Terms", "Contact"].map((link) => (
-            <li key={link}>
-              <a
-                href="#"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
-              >
-                {link}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <p className="text-sm text-muted-foreground">&copy; 2026 NEMI. All rights reserved.</p>
-      </footer>
+      <PageCTAFooter
+        headline="Let's Build."
+        tagline="Talk to our team. See what NEMI can do for your operations."
+        buttonText="Get Started"
+        buttonHref="/services"
+      />
     </div>
   );
 };

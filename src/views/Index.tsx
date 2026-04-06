@@ -58,10 +58,11 @@ const Index = () => {
 
 
 
-  // Reduce overlay so hands are more visible
+  // Overlay: dark during hero/hands, fades for content sections
   const overlayOpacity = scrollProgress < 0.04 ? 0.15
-    : scrollProgress < 0.07 ? 0.15 + (scrollProgress - 0.04) / 0.03 * 0.5
-    : 0.65 - (scrollProgress - 0.07) / 0.93 * 0.15;
+    : scrollProgress < 0.07 ? 0.15 + (scrollProgress - 0.04) / 0.03 * 0.45
+    : scrollProgress < 0.09 ? 0.60 - (scrollProgress - 0.07) / 0.02 * 0.50
+    : 0.10;
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "1200vh" }}>
@@ -106,7 +107,7 @@ const Index = () => {
       <CTASection scrollProgress={scrollProgress} />
 
       {/* Transition dividers between sections */}
-      <ScrollTransition scrollProgress={scrollProgress} at={0.08} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.05} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.25} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.45} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.62} />

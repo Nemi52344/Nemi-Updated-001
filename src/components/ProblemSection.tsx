@@ -152,14 +152,14 @@ const StepCard = ({
 };
 
 const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
-  const enter = rangeProgress(scrollProgress, 0.08, 0.11);
+  const enter = rangeProgress(scrollProgress, 0.05, 0.08);
   const exit = rangeProgress(scrollProgress, 0.17, 0.20);
 
   if (enter <= 0 && exit <= 0) return null;
 
   const opacity = Math.min(easeOut(enter), 1 - easeOut(exit));
   const translateY = (1 - easeOut(enter)) * 60;
-  const cardsP = easeOut(rangeProgress(scrollProgress, 0.09, 0.14));
+  const cardsP = easeOut(rangeProgress(scrollProgress, 0.06, 0.11));
 
   return (
     <div

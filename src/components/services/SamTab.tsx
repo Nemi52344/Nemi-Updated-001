@@ -97,7 +97,7 @@ const SamTab = () => {
       </ScrollReveal>
 
       {/* SERVICES GRID */}
-      <div className="services-grid-wrapper pb-20 pt-4">
+      <div className="services-grid-wrapper pb-10 pt-4">
         <ScrollReveal>
           <p className="font-bold text-xl md:text-2xl tracking-wider uppercase mb-10" style={{ color: sam }}>SAM Services</p>
         </ScrollReveal>

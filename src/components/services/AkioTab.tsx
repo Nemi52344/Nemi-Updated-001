@@ -99,7 +99,7 @@ const AkioTab = () => {
       </ScrollReveal>
 
       {/* SERVICES GRID */}
-      <div className="services-grid-wrapper pb-20 pt-4">
+      <div className="services-grid-wrapper pb-10 pt-4">
         <ScrollReveal>
           <p className="font-bold text-xl md:text-2xl tracking-wider uppercase mb-10" style={{ color: akio }}>AKIO Services</p>
         </ScrollReveal>
@@ -120,7 +120,7 @@ const AkioTab = () => {
       </div>
 
       {/* CASE STUDIES */}
-      <ScrollReveal className="pt-20 pb-8">
+      <ScrollReveal className="pt-10 pb-8">
         <div style={{ display: "inline-block" }}>
           <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Studies — AKIO</p>
           <div style={{ height: 2, background: akio, width: "100%" }} />

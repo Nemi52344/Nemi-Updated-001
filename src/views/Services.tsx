@@ -64,7 +64,7 @@ const Services = () => {
       </div>
 
       {/* TAB CONTENT */}
-      <div className="relative overflow-hidden z-[1]">
+      <div className="relative overflow-hidden z-[2]">
         <TabContent activeKey={activeTab} tabKey="akio">
           <AkioTab />
         </TabContent>

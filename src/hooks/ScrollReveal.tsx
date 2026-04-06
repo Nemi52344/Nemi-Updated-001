@@ -60,7 +60,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
           el.style.transform = initial.transform;
         }
       },
-      { threshold, rootMargin: "0px 0px -60px 0px" }
+      { threshold: Math.min(threshold, 0.05), rootMargin: "0px 0px 50px 0px" }
     );
 
     observer.observe(el);

@@ -4,12 +4,13 @@
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import ScrollReveal from "@/hooks/ScrollReveal";
+import PageCTAFooter from "@/components/PageCTAFooter";
 
 const values = [
-  { title: "Bias for Physical", body: "We test things in the real world. Simulations are a starting point, not a destination. We make parts, run machines, and learn with real world implementations." },
-  { title: "Capital Discipline", body: "Extreme efficiency is a competitive weapon. We build more with less — and we're proud of it. The 10× cost advantage is a culture, not just a metric." },
-  { title: "End-to-End Thinking", body: "We don't hand off problems. Every person on the team understands the full DDD loop — from design intent to deployed product — and takes ownership of outcomes, not just tasks." },
-  { title: "Data First", body: "Every decision is a data decision. We instrument everything, measure everything, and let ground-truth manufacturing data drive our AI — not assumptions." },
+  { title: "Bias for Physical", body: "We make parts, run machines, and learn in the real world — not just simulations.", img: "https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?w=800&h=500&fit=crop&q=80" },
+  { title: "Capital Discipline", body: "We build more with less. The 10× cost advantage is a culture, not just a metric.", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=500&fit=crop&q=80" },
+  { title: "End-to-End Thinking", body: "From design intent to deployed product — we own the full loop, not just tasks.", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=500&fit=crop&q=80" },
+  { title: "Data First", body: "Ground-truth manufacturing data drives our AI — not assumptions.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop&q=80" },
 ];
 
 const jobs = [
@@ -61,9 +62,15 @@ const Careers = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30">
           {values.map((val, i) => (
             <ScrollReveal key={val.title} delay={i * 100}>
-              <div className="bg-background p-6 md:p-8 border-t-2 border-primary/40 h-full">
-                <h3 className="font-bold text-xs md:text-sm tracking-[0.15em] uppercase text-foreground mb-3">{val.title}</h3>
-                <p className="text-xs md:text-sm text-muted-foreground leading-[1.8]">{val.body}</p>
+              <div className="bg-background h-full overflow-hidden group border-t-2 border-primary/40">
+                <div className="h-36 md:h-40 overflow-hidden relative">
+                  <img src={val.img} alt={val.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.3) 50%, transparent 100%)" }} />
+                </div>
+                <div className="p-6 md:p-8">
+                  <h3 className="font-bold text-xs md:text-sm tracking-[0.15em] uppercase text-foreground mb-3 group-hover:text-primary transition-colors">{val.title}</h3>
+                  <p className="text-xs md:text-sm text-muted-foreground leading-[1.8]">{val.body}</p>
+                </div>
               </div>
             </ScrollReveal>
           ))}
@@ -93,11 +100,12 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-12 px-6 md:px-12 lg:px-16 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-[1]">
-        <span className="font-bold text-xl tracking-[0.1em] uppercase text-muted-foreground">NEMI</span>
-        <p className="text-sm text-muted-foreground">&copy; 2026 NEMI. All rights reserved.</p>
-      </footer>
+      <PageCTAFooter
+        headline="Shape the Future."
+        tagline="Join the team building the operating system for manufacturing."
+        buttonText="Get in Touch"
+        buttonHref="mailto:Humans@nemiholdings.com"
+      />
     </div>
   );
 };

@@ -1,12 +1,3 @@
-import factory1 from "@/assets/factory-1.jpg";
-import factory2 from "@/assets/factory-2.jpg";
-import factory3 from "@/assets/factory-3.jpg";
-import factory4 from "@/assets/factory-4.jpg";
-import factory5 from "@/assets/factory-5.jpg";
-import factory6 from "@/assets/factory-6.jpg";
-import factory7 from "@/assets/factory-7.jpg";
-import factory8 from "@/assets/factory-8.jpg";
-
 interface CompetitorsSectionProps {
   scrollProgress: number;
 }
@@ -17,8 +8,14 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const factoryImages = [
-  factory1, factory2, factory3, factory4,
-  factory5, factory6, factory7, factory8,
+  "/Images/Injection%20modling%20.png",
+  "/Images/Nemi%20battery%20manufacturing%2001.jpeg",
+  "/Images/Electronics%20production.jpeg",
+  "/Images/Nemi%20Testing%20components.jpeg",
+  "/Images/Pipe%20bending.png",
+  "/Images/Tooling%20and%20fixturing.png",
+  "/Images/Nemi%20stores.png",
+  "/Images/Nemi%20parking.jpeg",
 ];
 
 const stats = [
@@ -83,7 +80,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
               >
                 <img
                   src={src}
-                  alt="Factory"
+                  alt="NEMI Factory"
                   className="w-full h-24 md:h-36 lg:h-40 object-cover"
                   loading="eager"
                 />
@@ -97,7 +94,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           className="flex items-center justify-center gap-6 md:gap-12"
           style={{ opacity: statsP, transform: `translateY(${(1 - statsP) * 25}px)` }}
         >
-          {stats.map((stat, i) => (
+          {stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="flex items-baseline justify-center gap-1">
                 <span

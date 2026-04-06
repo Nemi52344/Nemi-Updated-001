@@ -37,16 +37,18 @@ const insights: InsightData[] = [
 ];
 
 const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
-  const sectionVisible = scrollProgress > 0.835;
+  const sectionVisible = scrollProgress > 0.835 && scrollProgress < 0.96;
   const enterP = easeOut(rangeProgress(scrollProgress, 0.85, 0.88));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.92, 0.95));
   const barsP = easeOut(rangeProgress(scrollProgress, 0.87, 0.91));
+  const opacity = Math.min(enterP, 1 - exitP);
 
   if (!sectionVisible) return null;
 
   return (
     <div
       className="fixed inset-0 flex items-start md:items-center justify-center pointer-events-none pt-14 md:pt-0 pb-[24vh] md:pb-[18vh] overflow-y-auto"
-      style={{ zIndex: 40, background: "hsl(230 25% 4%)", opacity: enterP }}
+      style={{ zIndex: 40, background: "hsl(230 25% 4%)", opacity }}
     >
       <div className="max-w-6xl w-full mx-4 md:mx-6">
         {/* Title */}

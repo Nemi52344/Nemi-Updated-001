@@ -11,12 +11,12 @@ const henry = "hsl(217, 91%, 60%)";
 const sam = "hsl(142, 71%, 45%)";
 
 const lmmLayers = [
-  { name: "Inference Engine", tag: "NEMI M-OS", desc: "Routes every task to the right sub-model. The central nervous system of the platform.", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=500&fit=crop&q=80" },
-  { name: "Process Intelligence", tag: "OPTIMIZATION", desc: "Predicts optimal speed, temperature, and tooling — before a single cut is made.", img: "https://images.unsplash.com/photo-1666618090858-fbcee636bd3e?w=800&h=500&fit=crop&q=80" },
-  { name: "Quality Prediction", tag: "ZERO-DEFECT", desc: "Catches defects before they happen. Eliminates scrap. Kills rework.", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=500&fit=crop&q=80" },
-  { name: "Design-to-Mfg Bridge", tag: "AUTOMATION", desc: "Turns CAD files into production-ready process plans in minutes, not weeks.", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=500&fit=crop&q=80" },
-  { name: "Supply Chain Engine", tag: "ROUTING", desc: "Dynamically routes work across suppliers for lowest cost and fastest delivery.", img: "https://images.unsplash.com/photo-1759272840712-c7e5ea852367?w=800&h=500&fit=crop&q=80" },
-  { name: "Lifecycle Intelligence", tag: "FEEDBACK", desc: "Field data flows back into design. Every failure makes the next build better.", img: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=800&h=500&fit=crop&q=80" },
+  { name: "Inference Engine", tag: "NEMI M-OS", desc: "Routes every task to the right sub-model. The central nervous system of the platform.", img: "/images/Image in technology/Screenshot 2026-04-06 141717.png" },
+  { name: "Process Intelligence", tag: "OPTIMIZATION", desc: "Predicts optimal speed, temperature, and tooling — before a single cut is made.", img: "/images/Image in technology/freepik__clean-this-image-more-brit-should-look-very-neat-a__60512.png" },
+  { name: "Quality Prediction", tag: "ZERO-DEFECT", desc: "Catches defects before they happen. Eliminates scrap. Kills rework.", img: "/images/Image in technology/freepik__this-chassis-and-everything-is-fine-brbut-the-bacg__75353.png" },
+  { name: "Design-to-Mfg Bridge", tag: "AUTOMATION", desc: "Turns CAD files into production-ready process plans in minutes, not weeks.", img: "/images/Image in technology/freepik__i-want-a-image-ehener-thsi-img2-is-on-the-left-sid__60508.png" },
+  { name: "Supply Chain Engine", tag: "ROUTING", desc: "Dynamically routes work across suppliers for lowest cost and fastest delivery.", img: "/images/Image in technology/Screenshot 2026-04-07 093826.png" },
+  { name: "Lifecycle Intelligence", tag: "FEEDBACK", desc: "Field data flows back into design. Every failure makes the next build better.", img: "/images/Image in technology/Feeback loop .png" },
 ];
 
 const flywheelNodes = [
@@ -33,14 +33,6 @@ const strategySteps = [
   { num: "03", code: "STR", title: "Strengthen", body: "Every job feeds the model. Each factory makes the whole network smarter." },
 ];
 
-const capabilities = [
-  { title: "Process Parameter Prediction", body: "Optimal machining params predicted before the first cut.", img: "https://images.unsplash.com/photo-1738162837451-2041c1418f54?w=800&h=500&fit=crop&q=80" },
-  { title: "Quality Anomaly Detection", body: "Real-time sensor monitoring. Flags deviation before defects.", img: "https://images.unsplash.com/photo-1745921204896-c2011440a4e2?w=800&h=500&fit=crop&q=80" },
-  { title: "Design-to-Process Conversion", body: "CAD to manufacturing plan. 80% less engineering time.", img: "https://images.unsplash.com/photo-1539262049339-675563d440dc?w=800&h=500&fit=crop&q=80" },
-  { title: "Supplier Network Routing", body: "Dynamic work routing by cost, lead time, and capacity.", img: "https://images.unsplash.com/photo-1741792003907-11e3bdc2a180?w=800&h=500&fit=crop&q=80" },
-  { title: "Predictive Maintenance", body: "Predicts failures before downtime. Extends equipment life.", img: "https://images.unsplash.com/photo-1748002757537-00ab5114135b?w=800&h=500&fit=crop&q=80" },
-  { title: "Field Feedback Integration", body: "Deployed product data feeds back into design.", img: "https://images.unsplash.com/photo-1748348713828-12035b2d0a57?w=800&h=500&fit=crop&q=80" },
-];
 
 const comparisonRows = [
   { dimension: "Intelligence", legacy: "Rule-based automation", nemi: "AI that learns from every job" },
@@ -146,33 +138,56 @@ const Technology = () => {
             Each layer is a specialized AI. Together, they form a unified manufacturing brain that orchestrates everything from design to deployment.
           </p>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/20">
-          {lmmLayers.map((layer, i) => (
-            <ScrollReveal key={layer.name} delay={i * 80} className="h-full">
-              <div className="bg-background h-full relative overflow-hidden group hover:bg-card/60 transition-colors duration-500 cursor-default"
-                style={{ borderLeft: "2px solid transparent", transition: "border-color 0.3s, background 0.5s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.borderLeftColor = "hsl(var(--primary))")}
-                onMouseLeave={(e) => (e.currentTarget.style.borderLeftColor = "transparent")}
-              >
-                <div className="h-36 md:h-40 overflow-hidden relative">
-                  <img src={layer.img} alt={layer.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.4) 40%, transparent 100%)" }} />
-                  <span className="absolute top-3 right-4 font-black text-3xl md:text-4xl text-white/10 select-none leading-none">
+        <div className="flex flex-col gap-4">
+          {/* Row 1: Three cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {lmmLayers.slice(0, 3).map((layer, i) => (
+              <ScrollReveal key={layer.name} delay={i * 120}>
+                <div className="relative rounded-2xl overflow-hidden group cursor-default h-[320px] md:h-[360px]">
+                  <img src={layer.img} alt={layer.name} className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.75) 40%, hsl(var(--background) / 0.2) 70%, transparent 100%)" }} />
+                  <div className="absolute inset-0 border border-border/20 rounded-2xl pointer-events-none" />
+                  <span className="absolute top-4 right-5 font-black text-5xl md:text-6xl text-white/[0.06] select-none leading-none">
                     {String(i + 1).padStart(2, "0")}
                   </span>
+                  <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7">
+                    <span className="inline-block text-[0.55rem] font-bold tracking-[0.3em] uppercase text-primary/70 mb-2 px-2.5 py-1 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm">
+                      {layer.tag}
+                    </span>
+                    <h3 className="text-base md:text-lg font-bold tracking-wider uppercase text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+                      {layer.name}
+                    </h3>
+                    <p className="text-xs md:text-sm text-muted-foreground/80 leading-[1.8]">{layer.desc}</p>
+                  </div>
                 </div>
-                <div className="p-6 md:p-8">
-                  <span className="text-[0.6rem] font-bold tracking-[0.25em] uppercase text-primary/40 mb-3 block">
-                    {layer.tag}
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Row 2: Three cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {lmmLayers.slice(3, 6).map((layer, i) => (
+              <ScrollReveal key={layer.name} delay={(i + 3) * 120}>
+                <div className="relative rounded-2xl overflow-hidden group cursor-default h-[320px] md:h-[360px]">
+                  <img src={layer.img} alt={layer.name} className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.75) 40%, hsl(var(--background) / 0.2) 70%, transparent 100%)" }} />
+                  <div className="absolute inset-0 border border-border/20 rounded-2xl pointer-events-none" />
+                  <span className="absolute top-4 right-5 font-black text-5xl md:text-6xl text-white/[0.06] select-none leading-none">
+                    {String(i + 4).padStart(2, "0")}
                   </span>
-                  <h3 className="text-base md:text-lg font-bold tracking-wider uppercase text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
-                    {layer.name}
-                  </h3>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-[1.9]">{layer.desc}</p>
+                  <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7">
+                    <span className="inline-block text-[0.55rem] font-bold tracking-[0.3em] uppercase text-primary/70 mb-2 px-2.5 py-1 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm">
+                      {layer.tag}
+                    </span>
+                    <h3 className="text-base md:text-lg font-bold tracking-wider uppercase text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+                      {layer.name}
+                    </h3>
+                    <p className="text-xs md:text-sm text-muted-foreground/80 leading-[1.8]">{layer.desc}</p>
+                  </div>
                 </div>
-              </div>
-            </ScrollReveal>
-          ))}
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -240,44 +255,6 @@ const Technology = () => {
         </div>
       </section>
 
-      {/* ── CAPABILITIES ── */}
-      <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
-        <ScrollReveal>
-          <p className="text-xs tracking-[0.4em] uppercase text-primary mb-4 font-bold"
-            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-          >
-            Capabilities
-          </p>
-          <h2
-            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
-            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-          >
-            What the LMM Does Today
-          </h2>
-        </ScrollReveal>
-        <ScrollReveal delay={100}>
-          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14 max-w-[500px]">
-            Not promises. Production intelligence running right now.
-          </p>
-        </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/30 auto-rows-fr">
-          {capabilities.map((cap, i) => (
-            <ScrollReveal key={cap.title} delay={i * 80} className="h-full">
-              <div className="bg-background h-full group hover:bg-card transition-colors duration-300 overflow-hidden">
-                <div className="h-32 md:h-36 overflow-hidden relative">
-                  <img src={cap.img} alt={cap.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.3) 50%, transparent 100%)" }} />
-                </div>
-                <div className="p-6 md:p-8">
-                  <div className="w-8 h-[2px] bg-primary mb-4 group-hover:w-12 transition-all duration-300" />
-                  <h3 className="font-bold text-xs tracking-[0.15em] uppercase text-foreground mb-3 group-hover:text-primary transition-colors">{cap.title}</h3>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-[1.8]">{cap.body}</p>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
 
       {/* ── NEMI M-OS ARCHITECTURE ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">

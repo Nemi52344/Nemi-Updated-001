@@ -512,68 +512,79 @@ const AboutUs = () => {
       </section>
 
       {/* ── WHERE WE'RE GOING ── */}
-      <section className="py-24 px-6 md:px-12 lg:px-16 bg-card/80 backdrop-blur-sm border-t border-b border-border/30 relative z-[1]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-b border-border/30 relative z-[1]">
+        {/* Top: Centered text + stats */}
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <ScrollReveal>
-            <div>
-              <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-6"
-                style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-              >
-                Where We're Going
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground mb-3 tracking-wide">
-                Every factory on earth, running on NEMI.
-              </p>
-              <p className="text-sm text-muted-foreground leading-[1.8] mb-3">
-                We are building the operating system for physical production.
-              </p>
-              <p className="text-sm text-muted-foreground leading-[1.8] mb-3">
-                Today: India. Tomorrow: every manufacturing hub on the planet.
-              </p>
-              <p className="text-sm text-muted-foreground leading-[1.8] mb-10">
-                The LMM gets smarter with every part we make.
-              </p>
-
-              <div className="flex gap-8 md:gap-12">
-                {[
-                  { num: "10×", label: "Capital efficiency" },
-                  { num: "60%", label: "Faster cycles" },
-                  { num: "80%", label: "Less engineering time" },
-                ].map((stat) => (
-                  <div key={stat.num}>
-                    <p className="text-3xl md:text-4xl font-black text-primary">{stat.num}</p>
-                    <p className="text-xs text-muted-foreground tracking-wide uppercase mt-1">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <p className="text-xs tracking-[0.4em] uppercase text-primary mb-4 font-bold"
+              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+            >
+              Our Vision
+            </p>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-6"
+              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.15)" }}
+            >
+              Where We're Going
+            </h2>
           </ScrollReveal>
-
-          <ScrollReveal variant="scale">
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { src: "/Images/Nemi%2002.jpeg", span: "col-span-2", h: "h-48 md:h-56" },
-                { src: "/Images/nemi%2001.png", span: "", h: "h-36 md:h-44" },
-                { src: "/Images/Nemi%20parking.jpeg", span: "", h: "h-36 md:h-44" },
-                { src: "/Images/Electronics%20production.jpeg", span: "", h: "h-32 md:h-40" },
-                { src: "/Images/Nemi%20stores.png", span: "", h: "h-32 md:h-40" },
-              ].map((img, i) => (
-                <div
-                  key={i}
-                  className={`${img.span} rounded-xl overflow-hidden border border-border/20`}
-                  style={{ boxShadow: "0 4px 20px hsl(275 80% 40% / 0.08)" }}
-                >
-                  <img
-                    src={img.src}
-                    alt="NEMI Office & Workspace"
-                    className={`w-full ${img.h} object-cover`}
-                    loading="lazy"
-                  />
-                </div>
-              ))}
-            </div>
+          <ScrollReveal delay={100}>
+            <p className="text-base md:text-lg text-muted-foreground tracking-wide mb-3">
+              300,000 sq ft of AI-powered manufacturing — and growing.
+            </p>
+            <p className="text-sm text-muted-foreground/70 leading-[1.9] max-w-xl mx-auto">
+              Our factories combine advanced machinery with real-time AI intelligence. Every square foot is built for precision, speed, and scale — from prototyping to full production.
+            </p>
           </ScrollReveal>
         </div>
+
+        {/* Bottom: Bento image grid */}
+        <ScrollReveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[180px] md:auto-rows-[200px]">
+            {/* Large image — spans 2 cols & 2 rows */}
+            <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/Nemi%2002.jpeg"
+                alt="NEMI Headquarters"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            {/* Top right */}
+            <div className="rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/nemi%2001.png"
+                alt="NEMI Campus"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/Nemi%20parking.jpeg"
+                alt="NEMI Facility"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            {/* Bottom right */}
+            <div className="rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/Electronics%20production.jpeg"
+                alt="Electronics Production"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/Nemi%20stores.png"
+                alt="NEMI Stores"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </ScrollReveal>
       </section>
 
       <PageCTAFooter

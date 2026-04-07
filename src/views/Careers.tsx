@@ -7,7 +7,7 @@ import ScrollReveal from "@/hooks/ScrollReveal";
 import PageCTAFooter from "@/components/PageCTAFooter";
 
 const values = [
-  { title: "Bias for Physical", body: "We make parts, run machines, and learn in the real world — not just simulations.", img: "https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?w=800&h=500&fit=crop&q=80" },
+  { title: "Team Player", body: "We make parts, run machines, and learn in the real world — not just simulations.", img: "https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?w=800&h=500&fit=crop&q=80" },
   { title: "Capital Discipline", body: "We build more with less. The 10× cost advantage is a culture, not just a metric.", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=500&fit=crop&q=80" },
   { title: "End-to-End Thinking", body: "From design intent to deployed product — we own the full loop, not just tasks.", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=500&fit=crop&q=80" },
   { title: "Data First", body: "Ground-truth manufacturing data drives our AI — not assumptions.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop&q=80" },
@@ -35,45 +35,60 @@ const Careers = () => {
 
       <Navbar scrollProgress={1} />
 
-      {/* HERO */}
-      <section className="pt-32 pb-16 px-6 md:px-12 lg:px-16 relative z-[1]">
+      {/* HERO — Full screen */}
+      <section className="min-h-screen flex flex-col items-center justify-center relative z-[1] px-6 md:px-12 lg:px-16 text-center">
         <ScrollReveal>
           <h1
-            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase leading-[1.05] mb-6"
+            className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
             style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)" }}
           >
             Build the<br />Physical Internet
           </h1>
         </ScrollReveal>
-        <ScrollReveal>
-          <p className="text-sm md:text-lg leading-[1.8] text-muted-foreground max-w-[600px] tracking-wide">
+        <ScrollReveal delay={200}>
+          <p className="text-sm md:text-lg leading-[1.8] text-muted-foreground max-w-[600px] mx-auto tracking-wide">
             We're building the team that brings Physical AI to manufacturing. If you want your work to result in real things being made — faster and better — you belong here.
           </p>
         </ScrollReveal>
       </section>
 
-      {/* VALUES */}
-      <section className="py-16 px-6 md:px-12 lg:px-16 relative z-[1]">
-        <ScrollReveal>
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-10">
-            Our Values
-          </h2>
-        </ScrollReveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30">
-          {values.map((val, i) => (
-            <ScrollReveal key={val.title} delay={i * 100}>
-              <div className="bg-background h-full overflow-hidden group border-t-2 border-primary/40">
-                <div className="h-36 md:h-40 overflow-hidden relative">
-                  <img src={val.img} alt={val.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.3) 50%, transparent 100%)" }} />
-                </div>
-                <div className="p-6 md:p-8">
-                  <h3 className="font-bold text-xs md:text-sm tracking-[0.15em] uppercase text-foreground mb-3 group-hover:text-primary transition-colors">{val.title}</h3>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-[1.8]">{val.body}</p>
-                </div>
-              </div>
+      {/* OUR TEAM + VALUES — Team image background with purple shade & values overlay */}
+      <section className="relative z-[1] w-full">
+        <div className="relative min-h-[70vh] overflow-hidden flex flex-col">
+          {/* Team background image */}
+          <img
+            src="/images/about us.png"
+            alt="NEMI team"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            loading="lazy"
+          />
+          {/* Tinted black overlay */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.82) 100%)" }} />
+
+          {/* Content — centered vertically */}
+          <div className="relative z-10 flex flex-col flex-1 min-h-[70vh] items-center justify-center px-6 md:px-12 lg:px-16 text-center">
+            {/* Section heading */}
+            <ScrollReveal>
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] text-white mb-14 md:mb-16">
+                Our Values
+              </h2>
             </ScrollReveal>
-          ))}
+
+            {/* Values grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 w-full max-w-6xl">
+              {values.map((val, i) => (
+                <ScrollReveal key={val.title} delay={i * 100}>
+                  <div className="p-5 md:p-7 group flex flex-col items-center">
+                    <div className="w-10 h-[2px] mb-5 transition-all duration-300 group-hover:w-16" style={{ background: "linear-gradient(to right, hsl(275 80% 75%), hsl(275 80% 75% / 0.3))" }} />
+                    <h3 className="font-bold text-xs md:text-sm tracking-[0.18em] uppercase text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">
+                      {val.title}
+                    </h3>
+                    <p className="text-xs md:text-sm text-white/60 leading-[1.9] max-w-[250px]">{val.body}</p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

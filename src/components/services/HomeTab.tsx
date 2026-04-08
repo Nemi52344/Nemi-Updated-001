@@ -1,4 +1,4 @@
-import factory1 from "@/assets/factory-1.jpg";
+import factory1 from "@/assets/factory-1.webp";
 import { ScrollReveal } from "@/hooks/ScrollReveal";
 
 interface HomeTabProps {

@@ -2,8 +2,8 @@
 
 import { useRef, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
-import nemiLogo from "@/assets/nemi-logo.png";
-import nemiNavLogo from "@/assets/nemi-nav-logo.png";
+import nemiLogo from "@/assets/nemi-logo.webp";
+import nemiNavLogo from "@/assets/nemi-nav-logo.webp";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import Navbar from "@/components/Navbar";
 import ScrollTransition from "@/components/ScrollTransition";

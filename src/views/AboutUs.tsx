@@ -254,11 +254,11 @@ const AboutUs = () => {
           {/* Core Leadership */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
             {[
-              { name: "Anirudh Ravi Narayanan", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.png", role: "Chief Executive Officer",
+              { name: "Anirudh Ravi Narayanan", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp", role: "Chief Executive Officer",
                 desc: "Leads NEMI's mission to make manufacturing accessible — building intelligent systems that turn bold ideas into scalable reality.", colorHsl: "275 85% 65%" },
-              { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.png", role: "Chief Financial Officer",
+              { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.webp", role: "Chief Financial Officer",
                 desc: "Deep expertise in digital transformation, steering NEMI's financial strategy to fuel the shift from traditional manufacturing to AI-powered operations.", colorHsl: "268 82% 62%" },
-              { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.png", role: "Chief Technology Officer",
+              { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.webp", role: "Chief Technology Officer",
                 desc: "Designs the Physical AI architecture at the core of NEMI — the technology layer powering next-generation industrial transformation.", colorHsl: "282 78% 60%" },
             ].map((member, i) => (
               <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
@@ -270,15 +270,15 @@ const AboutUs = () => {
           {/* Extended Leadership */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {[
-              { name: "Subramanian R", photo: "/Images/team/Subramanian%20R.png", role: "CFO — India",
+              { name: "Subramanian R", photo: "/Images/team/Subramanian%20R.webp", role: "CFO — India",
                 desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods.", colorHsl: "275 55% 52%" },
-              { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.png", role: "President — HENRY Suite",
+              { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", role: "President — HENRY Suite",
                 desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India.", colorHsl: "268 52% 50%" },
-              { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.png", role: "President — AKIO Suite (Mechanical)",
+              { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "President — AKIO Suite (Mechanical)",
                 desc: "30+ years in manufacturing leadership — automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%" },
-              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.png", role: "President — AKIO Suite (Electrical)",
+              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President — AKIO Suite (Electrical)",
                 desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation.", colorHsl: "272 48% 50%" },
-              { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.png", role: "President — SAM",
+              { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.webp", role: "President — SAM",
                 desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Built and led 100+ person sales teams.", colorHsl: "278 53% 49%" },
             ].map((member, i) => (
               <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
@@ -308,10 +308,10 @@ const AboutUs = () => {
         <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6 font-bold">Board of Directors</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30 mb-16">
           {[
-            { initials: "ARN", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.png", name: "Anirudh Ravi Narayanan", title: "Executive Director & CEO", tag: "Executive", color: "275 42% 45%", desc: "CEO & Founder of BNC Motors. Drives NEMI's vision of making manufacturing accessible through Physical AI." },
-            { initials: "VT", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.png", name: "Vinoth Thiruvenkatasamy", title: "Executive Board Member", tag: "Executive", color: "268 40% 43%", desc: "CTO at BNC Motors. 20+ years in automotive R&D with experience at Nissan & Ford." },
-            { initials: "SS", photo: "/Images/team/Sam%20Swaminathan.png", name: "Sam Swaminathan", title: "Non-Executive Board Member", tag: "Non-Executive", color: "282 38% 41%", desc: "General Partner, De La Crème Ventures. Ex-SVP Fractal Analytics. IIT Madras alumnus." },
-            { initials: "NN", photo: "/Images/team/Naoya%20Nishimura.png", name: "Naoya Nishimura", title: "Non-Executive Board Member", tag: "Non-Executive", color: "272 36% 39%", desc: "CEO, Musashi Auto Parts India. Leads EV expansion for Musashi Seimitsu in India & Africa." },
+            { initials: "ARN", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp", name: "Anirudh Ravi Narayanan", title: "Executive Director & CEO", tag: "Executive", color: "275 42% 45%", desc: "CEO & Founder of BNC Motors. Drives NEMI's vision of making manufacturing accessible through Physical AI." },
+            { initials: "VT", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", name: "Vinoth Thiruvenkatasamy", title: "Executive Board Member", tag: "Executive", color: "268 40% 43%", desc: "CTO at BNC Motors. 20+ years in automotive R&D with experience at Nissan & Ford." },
+            { initials: "SS", photo: "/Images/team/Sam%20Swaminathan.webp", name: "Sam Swaminathan", title: "Non-Executive Board Member", tag: "Non-Executive", color: "282 38% 41%", desc: "General Partner, De La Crème Ventures. Ex-SVP Fractal Analytics. IIT Madras alumnus." },
+            { initials: "NN", photo: "/Images/team/Naoya%20Nishimura.webp", name: "Naoya Nishimura", title: "Non-Executive Board Member", tag: "Non-Executive", color: "272 36% 39%", desc: "CEO, Musashi Auto Parts India. Leads EV expansion for Musashi Seimitsu in India & Africa." },
           ].map((member, i) => (
             <ScrollReveal key={i} delay={i * 100}>
               <div className="bg-background p-6 h-full flex flex-col" style={{ borderTop: `2px solid hsl(${member.color} / 0.5)` }}>
@@ -342,11 +342,11 @@ const AboutUs = () => {
         <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6 font-bold">Advisors</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { initials: "SR", photo: "/Images/team/Sampath%20Ravi%20Narayanan.png", name: "Dr. Sampath Ravinarayanan", title: "Board Advisor", color: "275 30% 38%",
+            { initials: "SR", photo: "/Images/team/Sampath%20Ravi%20Narayanan.webp", name: "Dr. Sampath Ravinarayanan", title: "Board Advisor", color: "275 30% 38%",
               highlights: ["Founder, Microcon; Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL"] },
-            { initials: "RM", photo: "/Images/team/Ramesh%20Mangaleshwaran.png", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%",
+            { initials: "RM", photo: "/Images/team/Ramesh%20Mangaleshwaran.webp", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%",
               highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Co-led Industrials Practice, India & Asia"] },
-            { initials: "VD", photo: "/Images/team/Vinod%20K%20Dasari.png", name: "Vinod K. Dasari", title: "Advisor", color: "282 26% 35%",
+            { initials: "VD", photo: "/Images/team/Vinod%20K%20Dasari.webp", name: "Vinod K. Dasari", title: "Advisor", color: "282 26% 35%",
               highlights: ["Fmr. MD & CEO, Ashok Leyland & Royal Enfield", "Led global innovation, modernization & international expansion"] },
           ].map((advisor, i) => (
             <ScrollReveal key={advisor.name} delay={i * 120}>
@@ -396,16 +396,16 @@ const AboutUs = () => {
             {[0, 1].map((set) => (
               <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
                 {[
-                  { src: "/Images/logos/samsung.png", label: "Samsung" },
-                  { src: "/Images/logos/tata.png", label: "Tata" },
-                  { src: "/Images/logos/lamborghini.png", label: "Lamborghini" },
-                  { src: "/Images/logos/whirlpool.png", label: "Whirlpool" },
-                  { src: "/Images/logos/abb.png", label: "ABB" },
-                  { src: "/Images/logos/caterpillar.png", label: "Caterpillar" },
-                  { src: "/Images/logos/isro.png", label: "ISRO" },
-                  { src: "/Images/logos/drdo.png", label: "DRDO" },
-                  { src: "/Images/logos/boeing.png", label: "Boeing" },
-                  { src: "/Images/logos/ashok-leyland.png", label: "Ashok Leyland" },
+                  { src: "/Images/logos/samsung.webp", label: "Samsung" },
+                  { src: "/Images/logos/tata.webp", label: "Tata" },
+                  { src: "/Images/logos/lamborghini.webp", label: "Lamborghini" },
+                  { src: "/Images/logos/whirlpool.webp", label: "Whirlpool" },
+                  { src: "/Images/logos/abb.webp", label: "ABB" },
+                  { src: "/Images/logos/caterpillar.webp", label: "Caterpillar" },
+                  { src: "/Images/logos/isro.webp", label: "ISRO" },
+                  { src: "/Images/logos/drdo.webp", label: "DRDO" },
+                  { src: "/Images/logos/boeing.webp", label: "Boeing" },
+                  { src: "/Images/logos/ashok-leyland.webp", label: "Ashok Leyland" },
                 ].map((logo) => (
                   <div
                     key={logo.label + set}
@@ -427,16 +427,16 @@ const AboutUs = () => {
             {[0, 1].map((set) => (
               <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
                 {[
-                  { src: "/Images/logos/royal-enfield.jpeg", label: "Royal Enfield" },
-                  { src: "/Images/logos/brahmos.jpeg", label: "BrahMos" },
-                  { src: "/Images/logos/bharat-dynamics.jpeg", label: "Bharat Dynamics" },
-                  { src: "/Images/logos/exide.jpeg", label: "Exide" },
-                  { src: "/Images/logos/flipkart.png", label: "Flipkart" },
-                  { src: "/Images/logos/zomato.png", label: "Zomato" },
-                  { src: "/Images/logos/rapido.jpeg", label: "Rapido" },
-                  { src: "/Images/logos/tvs-mobility.jpeg", label: "TVS Mobility" },
-                  { src: "/Images/logos/mahindra.jpeg", label: "Mahindra" },
-                  { src: "/Images/logos/ducati.png", label: "Ducati" },
+                  { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield" },
+                  { src: "/Images/logos/brahmos.webp", label: "BrahMos" },
+                  { src: "/Images/logos/bharat-dynamics.webp", label: "Bharat Dynamics" },
+                  { src: "/Images/logos/exide.webp", label: "Exide" },
+                  { src: "/Images/logos/flipkart.webp", label: "Flipkart" },
+                  { src: "/Images/logos/zomato.webp", label: "Zomato" },
+                  { src: "/Images/logos/rapido.webp", label: "Rapido" },
+                  { src: "/Images/logos/tvs-mobility.webp", label: "TVS Mobility" },
+                  { src: "/Images/logos/mahindra.webp", label: "Mahindra" },
+                  { src: "/Images/logos/ducati.webp", label: "Ducati" },
                 ].map((logo) => (
                   <div
                     key={logo.label + set}
@@ -543,7 +543,7 @@ const AboutUs = () => {
             {/* Large image — spans 2 cols & 2 rows */}
             <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden group">
               <img
-                src="/Images/Nemi%2002.jpeg"
+                src="/Images/Nemi%2002.webp"
                 alt="NEMI Headquarters"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
@@ -552,7 +552,7 @@ const AboutUs = () => {
             {/* Top right */}
             <div className="rounded-2xl overflow-hidden group">
               <img
-                src="/Images/nemi%2001.png"
+                src="/Images/nemi%2001.webp"
                 alt="NEMI Campus"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
@@ -560,7 +560,7 @@ const AboutUs = () => {
             </div>
             <div className="rounded-2xl overflow-hidden group">
               <img
-                src="/Images/Nemi%20parking.jpeg"
+                src="/Images/Nemi%20parking.webp"
                 alt="NEMI Facility"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
@@ -569,7 +569,7 @@ const AboutUs = () => {
             {/* Bottom right */}
             <div className="rounded-2xl overflow-hidden group">
               <img
-                src="/Images/Electronics%20production.jpeg"
+                src="/Images/Electronics%20production.webp"
                 alt="Electronics Production"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
@@ -577,7 +577,7 @@ const AboutUs = () => {
             </div>
             <div className="rounded-2xl overflow-hidden group">
               <img
-                src="/Images/Nemi%20stores.png"
+                src="/Images/Nemi%20stores.webp"
                 alt="NEMI Stores"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"

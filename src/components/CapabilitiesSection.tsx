@@ -1,22 +1,22 @@
 import { useState } from "react";
 
-import droneFull from "@/assets/drone-full.png";
-import droneBattery from "@/assets/drone-battery.png";
-import droneElectronics from "@/assets/drone-electronics.png";
-import droneMechanical from "@/assets/drone-mechanical.png";
-import droneMotor from "@/assets/drone-motor.png";
+import droneFull from "@/assets/drone-full.webp";
+import droneBattery from "@/assets/drone-battery.webp";
+import droneElectronics from "@/assets/drone-electronics.webp";
+import droneMechanical from "@/assets/drone-mechanical.webp";
+import droneMotor from "@/assets/drone-motor.webp";
 
-import vehicleFull from "@/assets/vehicle-full.png";
-import vehicleBattery from "@/assets/vehicle-battery.png";
-import vehicleElectronics from "@/assets/vehicle-electronics.png";
-import vehicleMechanical from "@/assets/vehicle-mechanical.png";
-import vehicleMotor from "@/assets/vehicle-motor.png";
+import vehicleFull from "@/assets/vehicle-full.webp";
+import vehicleBattery from "@/assets/vehicle-battery.webp";
+import vehicleElectronics from "@/assets/vehicle-electronics.webp";
+import vehicleMechanical from "@/assets/vehicle-mechanical.webp";
+import vehicleMotor from "@/assets/vehicle-motor.webp";
 
-import humanoidFull from "@/assets/humanoid-full.png";
-import humanoidBattery from "@/assets/humanoid-battery.png";
-import humanoidElectronics from "@/assets/humanoid-electronics.png";
-import humanoidMechanical from "@/assets/humanoid-mechanical.png";
-import humanoidMotor from "@/assets/humanoid-motor.png";
+import humanoidFull from "@/assets/humanoid-full.webp";
+import humanoidBattery from "@/assets/humanoid-battery.webp";
+import humanoidElectronics from "@/assets/humanoid-electronics.webp";
+import humanoidMechanical from "@/assets/humanoid-mechanical.webp";
+import humanoidMotor from "@/assets/humanoid-motor.webp";
 
 interface CapabilitiesSectionProps {
   scrollProgress: number;

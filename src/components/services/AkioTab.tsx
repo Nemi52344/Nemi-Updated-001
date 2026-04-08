@@ -2,13 +2,13 @@ const akio = "hsl(0, 72%, 52%)";
 
 import { CaseStudy } from "./CaseStudy";
 import { ScrollReveal } from "@/hooks/ScrollReveal";
-import droneFull from "@/assets/drone-full.png";
+import droneFull from "@/assets/drone-full.webp";
 import { useVideoAutoplay } from "@/hooks/useVideoAutoplay";
 
 const services = [
-  { title: "Product Design", desc: "Rapidly design and engineer your products.", img: "/Images/Design%20and%20Development.png" },
-  { title: "Component Design", desc: "Design specific components (e.g., battery, electronics) that go into your products.", img: "/Images/Parts%20Manufacturing.png" },
-  { title: "Prototyping & Validation", desc: "Physically build out or simulate and validate your design before production.", img: "/Images/Validation.png" },
+  { title: "Product Design", desc: "Rapidly design and engineer your products.", img: "/Images/Design%20and%20Development.webp" },
+  { title: "Component Design", desc: "Design specific components (e.g., battery, electronics) that go into your products.", img: "/Images/Parts%20Manufacturing.webp" },
+  { title: "Prototyping & Validation", desc: "Physically build out or simulate and validate your design before production.", img: "/Images/Validation.webp" },
 ];
 
 const AkioTab = () => {
@@ -50,7 +50,7 @@ const AkioTab = () => {
             style={{ background: "linear-gradient(to right, hsl(var(--background) / 0.55), transparent)" }}
           />
           <img
-            src="/Images/AKIO.png"
+            src="/Images/AKIO.webp"
             alt="AKIO"
             className="w-full h-full object-cover opacity-75 block hover:scale-105"
             style={{ transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }}
@@ -134,7 +134,7 @@ const AkioTab = () => {
         context="Coffee machine manufacturer requested support to design refrigerator for storing milk."
         outcome="Design completed in 1 week, prototype delivered within 2 months."
         color={akio}
-        imageSrc="/Images/Refrigerator.png"
+        imageSrc="/Images/Refrigerator.webp"
         imageAlt="Coffee Machine"
         metrics={[
           { label: "Design time", before: "6 months", after: "1 month", barPercent: 17, color: akio },
@@ -169,7 +169,7 @@ const AkioTab = () => {
         context="Ruggedised electric motorcycle design required for African road conditions and bike taxi use cases."
         outcome="PRD to production-ready in 6 months — delivering full CAD and component designs. Tooling and fixture designs, and supplier base all delivered in additional 3 months."
         color={akio}
-        imageSrc="/Images/Messenger.png"
+        imageSrc="/Images/Messenger.webp"
         imageAlt="Electric Motorcycle"
         metrics={[
           { label: "Design time", before: "24 months", after: "9 months", barPercent: 38, color: akio },

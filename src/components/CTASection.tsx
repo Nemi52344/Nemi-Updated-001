@@ -1,4 +1,4 @@
-import nemiNavLogo from "@/assets/nemi-nav-logo.png";
+import nemiNavLogo from "@/assets/nemi-nav-logo.webp";
 import { Mail } from "lucide-react";
 
 interface CTASectionProps {

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import nemiNavLogo from "@/assets/nemi-nav-logo.png";
+import nemiNavLogo from "@/assets/nemi-nav-logo.webp";
 
 interface NavbarProps {
   scrollProgress?: number;

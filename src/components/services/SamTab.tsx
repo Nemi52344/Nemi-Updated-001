@@ -4,9 +4,9 @@ import { ScrollReveal } from "@/hooks/ScrollReveal";
 import { useVideoAutoplay } from "@/hooks/useVideoAutoplay";
 
 const services = [
-  { title: "Last Mile Delivery", desc: "SAM manages deployment and delivery of products to real-world environments. Supporting 2500+ EV fleet and consumer vehicles across India and Africa.", img: "/Images/Last%20mile%20Delivery%20.png" },
-  { title: "Usage Tracking", desc: "Once products are deployed, SAM continuously monitors their performance and feeds data back into AKIO and Henry.", img: "/Images/Usage%20tracking.jpeg" },
-  { title: "Predictive Maintenance", desc: "SAM enables proactive maintenance using operational data, reducing downtime and improving product reliability.", img: "/Images/Predictive%20Maintenance.png" },
+  { title: "Last Mile Delivery", desc: "SAM manages deployment and delivery of products to real-world environments. Supporting 2500+ EV fleet and consumer vehicles across India and Africa.", img: "/Images/Last%20mile%20Delivery%20.webp" },
+  { title: "Usage Tracking", desc: "Once products are deployed, SAM continuously monitors their performance and feeds data back into AKIO and Henry.", img: "/Images/Usage%20tracking.webp" },
+  { title: "Predictive Maintenance", desc: "SAM enables proactive maintenance using operational data, reducing downtime and improving product reliability.", img: "/Images/Predictive%20Maintenance.webp" },
 ];
 
 const SamTab = () => {
@@ -48,7 +48,7 @@ const SamTab = () => {
             style={{ background: "linear-gradient(to right, hsl(var(--background) / 0.55), transparent)" }}
           />
           <img
-            src="/Images/SAM.png"
+            src="/Images/SAM.webp"
             alt="SAM"
             className="w-full h-full object-cover opacity-75 block hover:scale-105"
             style={{ transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }}

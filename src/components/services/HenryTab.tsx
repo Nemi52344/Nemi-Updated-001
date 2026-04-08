@@ -4,19 +4,19 @@ const sam = "hsl(142, 71%, 45%)";
 
 import { CaseStudy } from "./CaseStudy";
 import { ScrollReveal } from "@/hooks/ScrollReveal";
-import factoryImg2 from "@/assets/factory-2.jpg";
+import factoryImg2 from "@/assets/factory-2.webp";
 import { useVideoAutoplay } from "@/hooks/useVideoAutoplay";
 
 const services: { title: string; desc: string; img: string }[] = [
-  { title: "Tooling & Fixturing", desc: "Injection molding tools, Die casting tools, Press tools, Machining, Welding, and Assembly fixtures", img: "/Images/Tooling%20and%20fixturing.png" },
+  { title: "Tooling & Fixturing", desc: "Injection molding tools, Die casting tools, Press tools, Machining, Welding, and Assembly fixtures", img: "/Images/Tooling%20and%20fixturing.webp" },
   { title: "SPMs", desc: "Special purpose machinery and robotic automation to automate production of various parts", img: factoryImg2 },
-  { title: "Metal Parts Manufacturing", desc: "Cutting, bending, forming, welding, machining, pipe metal, casting, forging", img: "/Images/Pipe%20bending.png" },
-  { title: "Plastics, Rubbers, Composites", desc: "Injection moulding, extrusion, blow molding, thermoforming, compression molding", img: "/Images/Injection%20modling%20.png" },
-  { title: "Battery Manufacturing", desc: "From portable chargers to drones to EVs to industrial energy storage", img: "/Images/Battery%20manufacturing.jpeg" },
-  { title: "Motor Manufacturing", desc: "Design and manufacturing of BLDC, Axial Flux and other motors", img: "/Images/Motor.png" },
-  { title: "Electronics Production", desc: "PCB assemblies, box builds / system integration, and testing", img: "/Images/Electronics%20production.jpeg" },
-  { title: "Speedshop", desc: "Rapid response production for fast turnaround", img: "/Images/speedshop.png" },
-  { title: "Complex Assemblies", desc: "Combining multiple different types of parts into complex assemblies — e.g., EVs, drones, industrial robotics", img: "/Images/Titanium-Alloys-for-Drone-Frames.jpg" },
+  { title: "Metal Parts Manufacturing", desc: "Cutting, bending, forming, welding, machining, pipe metal, casting, forging", img: "/Images/Pipe%20bending.webp" },
+  { title: "Plastics, Rubbers, Composites", desc: "Injection moulding, extrusion, blow molding, thermoforming, compression molding", img: "/Images/Injection%20modling%20.webp" },
+  { title: "Battery Manufacturing", desc: "From portable chargers to drones to EVs to industrial energy storage", img: "/Images/Battery%20manufacturing.webp" },
+  { title: "Motor Manufacturing", desc: "Design and manufacturing of BLDC, Axial Flux and other motors", img: "/Images/Motor.webp" },
+  { title: "Electronics Production", desc: "PCB assemblies, box builds / system integration, and testing", img: "/Images/Electronics%20production.webp" },
+  { title: "Speedshop", desc: "Rapid response production for fast turnaround", img: "/Images/speedshop.webp" },
+  { title: "Complex Assemblies", desc: "Combining multiple different types of parts into complex assemblies — e.g., EVs, drones, industrial robotics", img: "/Images/Titanium-Alloys-for-Drone-Frames.webp" },
 ];
 
 const HenryTab = () => {
@@ -58,7 +58,7 @@ const HenryTab = () => {
             style={{ background: "linear-gradient(to right, hsl(var(--background) / 0.55), transparent)" }}
           />
           <img
-            src="/Images/Henry.png"
+            src="/Images/Henry.webp"
             alt="Henry"
             className="w-full h-full object-cover opacity-75 block hover:scale-105"
             style={{ transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }}
@@ -142,7 +142,7 @@ const HenryTab = () => {
         context="A high-end sports car manufacturer required tooling, bonding & trimming jigs, FRP machining, and sheet metal tooling and part production — demanding precision across every surface and tight dimensional tolerance."
         outcome="Complete tooling suite — composites moulds, aluminium jigs, FRP machined parts, and sheet metal components — all within spec and integrated with the customer's production workflow."
         color={henry}
-        imageSrc="/Images/aluminium.png"
+        imageSrc="/Images/aluminium.webp"
         imageAlt="Composites & Aluminium Tooling"
         metrics={[
           { label: "Lead time", before: "18 weeks", after: "7 weeks", barPercent: 39, color: henry },
@@ -173,7 +173,7 @@ const HenryTab = () => {
         context="Mass production of automated coffee machine."
         outcome="End-to-end manufacturing from fabrication, machining, electronics, wiring harnesses to complete assembly."
         color={henry}
-        imageSrc="/Images/COffee%20mfg.png"
+        imageSrc="/Images/COffee%20mfg.webp"
         imageAlt="Complex Assembly Production"
         metrics={[
           { label: "Initial setup lead time", before: "Benchmark", after: "<6 weeks", barPercent: 40, color: henry },

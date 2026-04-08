@@ -8,14 +8,14 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const factoryImages = [
-  "/Images/Injection%20modling%20.png",
-  "/Images/Nemi%20battery%20manufacturing%2001.jpeg",
-  "/Images/Electronics%20production.jpeg",
-  "/Images/Nemi%20Testing%20components.jpeg",
-  "/Images/Pipe%20bending.png",
-  "/Images/Tooling%20and%20fixturing.png",
-  "/Images/Nemi%20stores.png",
-  "/Images/Nemi%20parking.jpeg",
+  "/Images/Injection%20modling%20.webp",
+  "/Images/Nemi%20battery%20manufacturing%2001.webp",
+  "/Images/Electronics%20production.webp",
+  "/Images/Nemi%20Testing%20components.webp",
+  "/Images/Pipe%20bending.webp",
+  "/Images/Tooling%20and%20fixturing.webp",
+  "/Images/Nemi%20stores.webp",
+  "/Images/Nemi%20parking.webp",
 ];
 
 const stats = [

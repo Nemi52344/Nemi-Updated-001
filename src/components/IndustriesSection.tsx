@@ -1,7 +1,7 @@
-import industryAerospace from "@/assets/industry-aerospace.png";
-import industryAutomotive from "@/assets/industry-automotive.png";
-import industryElectronics from "@/assets/industry-electronics.png";
-import industryRobotics from "@/assets/industry-robotics.png";
+import industryAerospace from "@/assets/industry-aerospace.webp";
+import industryAutomotive from "@/assets/industry-automotive.webp";
+import industryElectronics from "@/assets/industry-electronics.webp";
+import industryRobotics from "@/assets/industry-robotics.webp";
 
 interface IndustriesSectionProps {
   scrollProgress: number;

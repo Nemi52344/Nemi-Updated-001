@@ -1,5 +1,3 @@
-"use client";
-
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import ScrollReveal from "@/hooks/ScrollReveal";
@@ -11,12 +9,12 @@ const henry = "hsl(217, 91%, 60%)";
 const sam = "hsl(142, 71%, 45%)";
 
 const lmmLayers = [
-  { name: "Inference Engine", tag: "NEMI M-OS", desc: "Routes every task to the right sub-model. The central nervous system of the platform.", img: "/images/Image in technology/Screenshot 2026-04-06 141717.png" },
-  { name: "Process Intelligence", tag: "OPTIMIZATION", desc: "Predicts optimal speed, temperature, and tooling — before a single cut is made.", img: "/images/Image in technology/freepik__clean-this-image-more-brit-should-look-very-neat-a__60512.png" },
-  { name: "Quality Prediction", tag: "ZERO-DEFECT", desc: "Catches defects before they happen. Eliminates scrap. Kills rework.", img: "/images/Image in technology/freepik__this-chassis-and-everything-is-fine-brbut-the-bacg__75353.png" },
-  { name: "Design-to-Mfg Bridge", tag: "AUTOMATION", desc: "Turns CAD files into production-ready process plans in minutes, not weeks.", img: "/images/Image in technology/freepik__i-want-a-image-ehener-thsi-img2-is-on-the-left-sid__60508.png" },
-  { name: "Supply Chain Engine", tag: "ROUTING", desc: "Dynamically routes work across suppliers for lowest cost and fastest delivery.", img: "/images/Image in technology/Screenshot 2026-04-07 093826.png" },
-  { name: "Lifecycle Intelligence", tag: "FEEDBACK", desc: "Field data flows back into design. Every failure makes the next build better.", img: "/images/Image in technology/Feeback loop .png" },
+  { name: "Inference Engine", tag: "NEMI M-OS", desc: "Routes every task to the right sub-model. The central nervous system of the platform.", img: "/images/Image in technology/Screenshot 2026-04-06 141717.webp" },
+  { name: "Process Intelligence", tag: "OPTIMIZATION", desc: "Predicts optimal speed, temperature, and tooling — before a single cut is made.", img: "/images/Image in technology/freepik__clean-this-image-more-brit-should-look-very-neat-a__60512.webp" },
+  { name: "Quality Prediction", tag: "ZERO-DEFECT", desc: "Catches defects before they happen. Eliminates scrap. Kills rework.", img: "/images/Image in technology/freepik__this-chassis-and-everything-is-fine-brbut-the-bacg__75353.webp" },
+  { name: "Design-to-Mfg Bridge", tag: "AUTOMATION", desc: "Turns CAD files into production-ready process plans in minutes, not weeks.", img: "/images/Image in technology/freepik__i-want-a-image-ehener-thsi-img2-is-on-the-left-sid__60508.webp" },
+  { name: "Supply Chain Engine", tag: "ROUTING", desc: "Dynamically routes work across suppliers for lowest cost and fastest delivery.", img: "/images/Image in technology/Screenshot 2026-04-07 093826.webp" },
+  { name: "Lifecycle Intelligence", tag: "FEEDBACK", desc: "Field data flows back into design. Every failure makes the next build better.", img: "/images/Image in technology/Feeback loop .webp" },
 ];
 
 const flywheelNodes = [

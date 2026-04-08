@@ -1,19 +1,19 @@
 import { useState } from "react";
-import developSupplyChain from "@/assets/develop-supply-chain.png";
-import developTooling from "@/assets/develop-tooling.png";
-import developParts from "@/assets/develop-parts.png";
-import developProduction from "@/assets/develop-production.png";
-import developTesting from "@/assets/develop-testing.png";
-import distributeSales from "@/assets/distribute-sales.png";
-import distributeShipment from "@/assets/distribute-shipment.png";
-import distributeWarehousing from "@/assets/distribute-warehousing.png";
-import distributeFinancing from "@/assets/distribute-financing.png";
-import distributeAftersales from "@/assets/distribute-aftersales.png";
-import designIdeation from "@/assets/design-ideation.png";
-import designRendering from "@/assets/design-rendering.png";
-import designEngineering from "@/assets/design-engineering.png";
-import designSimulation from "@/assets/design-simulation.png";
-import designRelease from "@/assets/design-release.png";
+import developSupplyChain from "@/assets/develop-supply-chain.webp";
+import developTooling from "@/assets/develop-tooling.webp";
+import developParts from "@/assets/develop-parts.webp";
+import developProduction from "@/assets/develop-production.webp";
+import developTesting from "@/assets/develop-testing.webp";
+import distributeSales from "@/assets/distribute-sales.webp";
+import distributeShipment from "@/assets/distribute-shipment.webp";
+import distributeWarehousing from "@/assets/distribute-warehousing.webp";
+import distributeFinancing from "@/assets/distribute-financing.webp";
+import distributeAftersales from "@/assets/distribute-aftersales.webp";
+import designIdeation from "@/assets/design-ideation.webp";
+import designRendering from "@/assets/design-rendering.webp";
+import designEngineering from "@/assets/design-engineering.webp";
+import designSimulation from "@/assets/design-simulation.webp";
+import designRelease from "@/assets/design-release.webp";
 
 interface ProblemSectionProps {
   scrollProgress: number;

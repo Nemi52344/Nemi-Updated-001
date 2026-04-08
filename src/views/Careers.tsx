@@ -1,6 +1,3 @@
-"use client";
-
-
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import ScrollReveal from "@/hooks/ScrollReveal";
@@ -57,7 +54,7 @@ const Careers = () => {
         <div className="relative min-h-[70vh] overflow-hidden flex flex-col">
           {/* Team background image */}
           <img
-            src="/images/about us.png"
+            src="/images/about us.webp"
             alt="NEMI team"
             className="absolute inset-0 w-full h-full object-cover object-center"
             loading="lazy"

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import akioImg from "@/assets/akio.png";
-import henryImg from "@/assets/henry.png";
-import samImg from "@/assets/sam.png";
+import akioImg from "@/assets/akio.webp";
+import henryImg from "@/assets/henry.webp";
+import samImg from "@/assets/sam.webp";
 
 interface CoreTechSectionProps {
   scrollProgress: number;

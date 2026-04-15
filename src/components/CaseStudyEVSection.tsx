@@ -47,10 +47,10 @@ const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-start md:items-center justify-center pointer-events-none pt-14 md:pt-0 pb-[24vh] md:pb-[18vh] overflow-y-auto"
+      className="fixed inset-0 flex items-start md:items-center justify-center pointer-events-none pt-14 md:pt-0 pb-[20vh] md:pb-0 overflow-y-auto"
       style={{ zIndex: 40, background: "hsl(230 25% 4%)", opacity }}
     >
-      <div className="max-w-6xl w-full mx-4 md:mx-6">
+      <div className="max-w-5xl w-full mx-4 md:mx-6 lg:mx-auto">
         {/* Title */}
         <div
           className="text-center mb-2 md:mb-8"
@@ -71,7 +71,7 @@ const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
         </div>
 
         {/* Main content: aligned bar rows + insight cards */}
-        <div className="flex flex-col gap-3 md:gap-4">
+        <div className="flex flex-col gap-3 md:gap-5">
           {metrics.map((metric, i) => {
             const barDelay = i * 0.15;
             const barProgress = Math.min(Math.max((barsP - barDelay) / 0.4, 0), 1);
@@ -83,9 +83,9 @@ const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
             const nemiWidth = (metric.nemiVal / maxVal) * 100;
 
             return (
-              <div key={metric.label} className="flex flex-col lg:flex-row items-stretch gap-1 lg:gap-6">
+              <div key={metric.label} className="flex flex-col lg:flex-row items-center gap-1 lg:gap-6">
                 {/* Bar section */}
-                <div className="flex-1 flex items-center gap-2 md:gap-4">
+                <div className="flex-1 w-full flex items-center gap-2 md:gap-4">
                   <div className="w-24 md:w-40 shrink-0 text-right">
                     <span className="text-xs md:text-sm text-muted-foreground tracking-wider">
                       {metric.label}
@@ -105,7 +105,7 @@ const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
                           }}
                         />
                       </div>
-                      <span className="text-[10px] md:text-xs text-muted-foreground w-20 md:w-24">
+                      <span className="text-[10px] md:text-xs text-muted-foreground w-20 md:w-24 shrink-0">
                         {animatedBar > 0.5 ? metric.traditional : ""}
                       </span>
                     </div>
@@ -124,7 +124,7 @@ const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
                         />
                       </div>
                       <span
-                        className="text-[10px] md:text-xs font-semibold w-20 md:w-24"
+                        className="text-[10px] md:text-xs font-semibold w-20 md:w-24 shrink-0"
                         style={{ color: `hsl(${metric.colorHsl})` }}
                       >
                         {animatedBar > 0.5 ? metric.withNemi : ""}
@@ -135,7 +135,7 @@ const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
 
                 {/* Insight card aligned to bar row */}
                 <div
-                  className="lg:w-56 rounded-lg px-2 py-1.5 md:px-3 md:py-3 flex flex-col justify-center"
+                  className="hidden lg:flex lg:w-52 shrink-0 rounded-lg px-3 py-3 flex-col justify-center"
                   style={{
                     background: `hsl(${insight.colorHsl} / 0.08)`,
                     borderLeft: `3px solid hsl(${insight.colorHsl})`,
@@ -144,12 +144,12 @@ const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
                   }}
                 >
                   <span
-                    className="text-[10px] md:text-xs font-bold tracking-wide block"
+                    className="text-xs font-bold tracking-wide block"
                     style={{ color: `hsl(${insight.colorHsl})` }}
                   >
                     {insight.title}
                   </span>
-                  <span className="text-[9px] md:text-[11px] text-foreground leading-snug">
+                  <span className="text-[11px] text-foreground leading-snug">
                     {insight.description}
                   </span>
                 </div>

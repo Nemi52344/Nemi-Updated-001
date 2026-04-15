@@ -13,8 +13,10 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/technology", label: "Technology" },
-  { href: "/about", label: "About Us" },
+  { href: "/proof", label: "Proof" },
+  { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },
+  { href: "/investors", label: "Investor Inquiries" },
 ];
 
 const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
@@ -68,13 +70,15 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
           })}
         </div>
 
-        {/* Get in Touch CTA */}
-        <Link
-          href="/#contact"
-          className="hidden md:block font-montserrat font-bold text-[0.65rem] tracking-[0.12em] uppercase bg-accent text-accent-foreground px-5 py-2.5 no-underline transition-opacity duration-200 hover:opacity-80"
-        >
-          Get in Touch
-        </Link>
+        {/* CTA Buttons */}
+        <div className="hidden md:flex items-center gap-2">
+          <Link
+            href="/#contact"
+            className="font-montserrat font-bold text-[0.65rem] tracking-[0.12em] uppercase bg-accent text-accent-foreground px-5 py-2.5 no-underline transition-opacity duration-200 hover:opacity-80"
+          >
+            Request Demo
+          </Link>
+        </div>
 
         {/* Mobile hamburger */}
         <button

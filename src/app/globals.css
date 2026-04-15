@@ -201,3 +201,47 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* Why Now Venn diagram animations */
+@keyframes venn-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes venn-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes venn-glow-pulse {
+  0%, 100% { box-shadow: 0 0 30px hsl(275 80% 55% / 0.2), inset 0 0 30px hsl(275 80% 55% / 0.05); }
+  50% { box-shadow: 0 0 60px hsl(275 80% 55% / 0.4), inset 0 0 50px hsl(275 80% 55% / 0.15); }
+}
+
+.venn-circle {
+  animation: venn-glow-pulse 4s ease-in-out infinite, venn-float 6s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+
+.venn-circle-2 {
+  animation-delay: -1.5s, -2s;
+}
+
+.venn-circle-3 {
+  animation-delay: -3s, -4s;
+}
+
+@keyframes why-now-arrow {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(-8px); opacity: 1; }
+}
+
+.why-now-arrow {
+  animation: why-now-arrow 2.5s ease-in-out infinite;
+}

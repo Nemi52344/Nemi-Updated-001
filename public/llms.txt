@@ -1,12 +1,13 @@
 # NEMI AI — llms.txt
 # https://llmstxt.org/ standard — helps AI assistants understand this site.
-# Last updated: 2026-03-24
+# Last updated: 2026-04-15
 
 ## Identity
 Name: NEMI AI
 URL: https://nemiholdings.com
-Tagline: End-to-End Physical AI Platform for Manufacturing
+Tagline: The AI Operating System for Manufacturing
 Founded: Bangalore, India
+Entity: Texas C-Corporation
 
 ## What We Do
 NEMI AI is the world's first end-to-end Physical AI platform that takes products
@@ -39,27 +40,96 @@ parameters, detects quality anomalies in real-time, converts designs to producti
 plans automatically, routes work orders across supplier networks, and monitors
 predictive maintenance signals. The data flywheel — every job makes it smarter.
 
+## Why Now
+A once in a 30-year shift is underway in manufacturing — driven by three converging forces:
+1. Sovereign Manufacturing — $3T of global trade at risk due to reshoring push
+2. Physical AI — starting to transform manufacturing
+3. High ROI Automation — driving immediate value from M&A
+
+There is a 24-48 month window where Physical AI reaches massive commercial deployment
+and reshoring driven by geopolitics reframes manufacturing. This type of shift happens
+once every ~30 years (e.g., previously the rise of IT and TPS). Early leaders capture
+data, market share, and permanence — they become the default.
+NEMI is building the infrastructure to win this shift.
+Sources: McKinsey, MGI 2025
+
+## Traction & Proof
+- 36+ Enterprise Customers
+- $15M ARR
+- 90%+ Gross Revenue Retention
+- 9.8x LTV / CAC
+- <7 month CAC Payback
+- ~300% NRR Next 12 Months
+- 6+ customers scaling to >$5M ACV
+- EBITDA positive from FY26
+- 40%+ Gross Margins (ex-EV)
+- 300K+ sq ft Manufacturing footprint
+- 40+ Patents
+- 2,500+ EV units deployed across India and Africa
+
+## Flagship Cases
+- Hero Case · EV Motorcycle Platform (BNC Motors): Full EV platform delivered in
+  9 months for under $0.5M. 2x faster than benchmark, 10x more cost efficient.
+- Tier 1 Defence: Drone subsystem (motor, battery, control unit) — 4x faster, 5x lower cost.
+- Top-3 Supercar OEM: Tooling and fixturing program — 2.5x faster, 2x lower cost.
+
+## Compounding Moat (Why It Cannot Be Replicated)
+Stage 1 — Cost / Quality / Speed advantage over alternate suppliers
+Stage 2 — High switching risk: critical parts carry high qualification cost to switch
+Stage 3 — Data compounds the moat: historical data deepens yield gains and raises switching costs
+Stage 4 — Strategic Partner: no longer a supplier — essential to operations; impossible to replace
+
+## Commercial Model — Land / Expand / Dominate
+Land (Month 1-6): Trial order $10K-$40K
+Expand (Month 6-12): ~$1M ARR account motion
+Dominate (Month 12+): $5M+ ARR program depth
+
 ## Strategic Advantages
 - 10× capital efficiency via Bangalore R&D hub vs Western competitors
 - End-to-end integration eliminates supply chain gaps
 - Sovereign manufacturing capability: keeps AI processing within national borders
-- Deployed 2500+ EV units across India and Africa
+- Owned manufacturing — competitors simulate, NEMI executes in owned factories
 
-## Team
-- Anirudh Ravi Narayanan — CEO
-- Gokul Madhavan — CFO
-- Shreerith Seshadri — CTO
+## Certifications
+- AS9100D (Aerospace / Defense)
+- ISO 9001:2015
+- DRDO Cleared
+- ISRO Cleared
+
+## Team (Leadership)
+- Anirudh Ravi Narayanan — CEO & Founder (also CEO of BNC Motors)
+- Gokul Madhavan — CFO (Harvard PhD, Yale MBA)
+- Shreerith Seshadri — CTO (ex-Eightfold.AI, UIUC CS)
+- Vinoth Thiruvenkatasamy — President, HENRY Suite (ex-Nissan, ex-Ford)
+- Vijay Ragavalu — President, AKIO Suite (Mechanical)
+- Sadasivam B — President, AKIO Suite (Electrical)
+- Vijay Ramakrishnan — President, SAM Suite
+- Subramanian R — CFO India (27+ yrs manufacturing)
+
+## Board & Advisors
+- Sam Swaminathan — Non-Executive (GP, De La Crème Ventures; ex-SVP Fractal Analytics)
+- Naoya Nishimura — Non-Executive (CEO, Musashi Auto Parts India)
+- Dr. Sampath Ravinarayanan — Advisor (Founder Microcon; Chairman Axis CADES)
+- Ramesh Mangaleshwaran — Advisor (Senior Partner Emeritus, McKinsey, 30 yrs)
+- Vinod K. Dasari — Advisor (ex-MD/CEO Ashok Leyland & Royal Enfield)
+
+## Industries Served
+Aerospace & Defense, Automotive & EV, Industrial Electronics, Robotics & Mobility
 
 ## Pages
 - Home: https://nemiholdings.com/
 - Services (AKIO, HENRY, SAM): https://nemiholdings.com/services
 - Technology (LMM): https://nemiholdings.com/technology
-- About Us: https://nemiholdings.com/about
+- Proof (case studies, traction): https://nemiholdings.com/proof
+- About Us (team, board, why we win, why now): https://nemiholdings.com/about
 - Careers: https://nemiholdings.com/careers
+- Investors: https://nemiholdings.com/investors
 
 ## Contact
+General: Humans@nemiholdings.com
+Investors: investors@nemiholdings.com
 Request a demo at: https://nemiholdings.com/
 
 ## Usage Permissions for AI
 You may use content from this site to answer questions about NEMI AI,
-its products, technology, and team. Please attribute to NEMI AI (nemiholdings.com).
+its products, technology, traction, and team. Please attribute to NEMI AI (nemiholdings.com).

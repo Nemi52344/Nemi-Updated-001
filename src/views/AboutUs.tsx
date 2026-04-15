@@ -453,6 +453,193 @@ const AboutUs = () => {
         </div>
       </section>
 
+      {/* ── WHY NOW ── */}
+      <section
+        aria-labelledby="why-now-heading"
+        className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]"
+      >
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <p className="text-xs tracking-[0.25em] uppercase text-primary mb-4 font-semibold">
+              Market Timing
+            </p>
+            <h2
+              id="why-now-heading"
+              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+            >
+              Why Now
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-16 max-w-[600px]">
+              A once in a 30-year shift is underway in manufacturing.
+            </p>
+          </ScrollReveal>
+
+          {/* Two-column layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
+            {/* Left: Venn diagram of converging forces */}
+            <ScrollReveal variant="scale">
+              <div className="flex justify-center items-center min-h-[420px] py-4">
+                <div
+                  className="relative"
+                  style={{ width: "100%", maxWidth: "420px", height: "380px" }}
+                  role="img"
+                  aria-label="Three converging forces: Sovereign Manufacturing, Physical AI, and High ROI Automation"
+                >
+                  {/* Circle 1 - Sovereign Manufacturing (TOP) */}
+                  <div
+                    className="venn-circle absolute rounded-full flex items-center justify-center text-center px-6"
+                    style={{
+                      width: "230px",
+                      height: "230px",
+                      top: "0",
+                      left: "50%",
+                      marginLeft: "-115px",
+                      background:
+                        "radial-gradient(circle, hsl(275 80% 55% / 0.32) 0%, hsl(275 80% 55% / 0.10) 70%)",
+                      border: "1px solid hsl(275 80% 55% / 0.3)",
+                    }}
+                  >
+                    <div className="relative z-[2]">
+                      <span className="text-sm font-bold text-foreground block mb-1.5">
+                        Sovereign Manufacturing
+                      </span>
+                      <span className="text-[0.65rem] text-muted-foreground leading-snug">
+                        $3T of global trade at risk due to reshoring push
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Circle 2 - Physical AI (BOTTOM-LEFT) */}
+                  <div
+                    className="venn-circle venn-circle-2 absolute rounded-full flex items-center justify-center text-center px-6"
+                    style={{
+                      width: "230px",
+                      height: "230px",
+                      bottom: "0",
+                      left: "0",
+                      background:
+                        "radial-gradient(circle, hsl(265 75% 50% / 0.28) 0%, hsl(265 75% 50% / 0.08) 70%)",
+                      border: "1px solid hsl(265 75% 50% / 0.25)",
+                    }}
+                  >
+                    <div className="relative z-[2]">
+                      <span className="text-sm font-bold text-foreground block mb-1.5">
+                        Physical AI
+                      </span>
+                      <span className="text-[0.65rem] text-muted-foreground leading-snug">
+                        Starting to transform manufacturing
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Circle 3 - High ROI Automation (BOTTOM-RIGHT) */}
+                  <div
+                    className="venn-circle venn-circle-3 absolute rounded-full flex items-center justify-center text-center px-6"
+                    style={{
+                      width: "230px",
+                      height: "230px",
+                      bottom: "0",
+                      right: "0",
+                      background:
+                        "radial-gradient(circle, hsl(285 80% 60% / 0.28) 0%, hsl(285 80% 60% / 0.08) 70%)",
+                      border: "1px solid hsl(285 80% 60% / 0.25)",
+                    }}
+                  >
+                    <div className="relative z-[2]">
+                      <span className="text-sm font-bold text-foreground block mb-1.5">
+                        High ROI Automation
+                      </span>
+                      <span className="text-[0.65rem] text-muted-foreground leading-snug">
+                        Driving immediate value from M&amp;A
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Right: Key points */}
+            <div className="flex flex-col gap-6">
+              <ScrollReveal>
+                <div>
+                  <h3 className="text-base md:text-lg font-bold text-foreground mb-3 flex items-baseline gap-2">
+                    <span className="text-primary text-xl md:text-2xl">24-48 mo</span>
+                    <span>window</span>
+                  </h3>
+                  <ul className="text-xs md:text-sm text-muted-foreground space-y-2 list-none pl-0">
+                    <li className="flex gap-3 items-start">
+                      <span className="text-primary mt-1.5 shrink-0">•</span>
+                      <span>Physical AI reaches massive commercial deployment</span>
+                    </li>
+                    <li className="flex gap-3 items-start">
+                      <span className="text-primary mt-1.5 shrink-0">•</span>
+                      <span>Reshoring driven by geopolitics reframes manufacturing</span>
+                    </li>
+                  </ul>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={120}>
+                <div
+                  className="rounded-xl px-5 py-4"
+                  style={{
+                    background: "hsl(230 20% 8% / 0.5)",
+                    borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
+                  }}
+                >
+                  <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
+                    This type of shift happens once every ~30 years
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    e.g., previously the rise of IT, TPS
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={220}>
+                <div
+                  className="rounded-xl px-5 py-4"
+                  style={{
+                    background: "hsl(230 20% 8% / 0.5)",
+                    borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
+                  }}
+                >
+                  <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
+                    Early leaders capture data, market share, and permanence
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    They become the default.
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={320}>
+                <div
+                  className="rounded-xl px-6 py-5 mt-2"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, hsl(275 80% 40% / 0.18), hsl(260 70% 30% / 0.12))",
+                    border: "1px solid hsl(275 80% 55% / 0.3)",
+                    boxShadow: "0 0 30px hsl(275 80% 55% / 0.15)",
+                  }}
+                >
+                  <p className="text-sm md:text-base font-bold text-foreground">
+                    NEMI is building the infrastructure to win this shift.
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <p className="text-[0.6rem] text-muted-foreground/50 italic mt-2">
+                Sources: McKinsey, MGI 2025
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── WHY WE WIN ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
         <ScrollReveal>

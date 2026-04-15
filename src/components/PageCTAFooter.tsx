@@ -7,9 +7,18 @@ interface PageCTAFooterProps {
   tagline: string;
   buttonText: string;
   buttonHref: string;
+  secondaryButtonText?: string;
+  secondaryButtonHref?: string;
 }
 
-const PageCTAFooter = ({ headline, tagline, buttonText, buttonHref }: PageCTAFooterProps) => {
+const PageCTAFooter = ({
+  headline,
+  tagline,
+  buttonText,
+  buttonHref,
+  secondaryButtonText,
+  secondaryButtonHref,
+}: PageCTAFooterProps) => {
   return (
     <>
       {/* ── CTA ── */}
@@ -37,16 +46,31 @@ const PageCTAFooter = ({ headline, tagline, buttonText, buttonHref }: PageCTAFoo
           </p>
         </ScrollReveal>
         <ScrollReveal delay={300}>
-          <a
-            href={buttonHref}
-            className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-4 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 relative text-primary-foreground"
-            style={{
-              background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-              boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-            }}
-          >
-            {buttonText}
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href={buttonHref}
+              className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-4 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 relative text-primary-foreground"
+              style={{
+                background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
+                boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
+              }}
+            >
+              {buttonText}
+            </a>
+            {secondaryButtonText && secondaryButtonHref && (
+              <a
+                href={secondaryButtonHref}
+                className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-4 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 relative text-foreground"
+                style={{
+                  border: "1px solid hsl(275 80% 55% / 0.4)",
+                  background: "hsl(275 80% 55% / 0.08)",
+                  boxShadow: "0 4px 25px hsl(275 80% 55% / 0.1)",
+                }}
+              >
+                {secondaryButtonText}
+              </a>
+            )}
+          </div>
         </ScrollReveal>
       </section>
 

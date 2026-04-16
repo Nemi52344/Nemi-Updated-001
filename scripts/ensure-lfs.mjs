@@ -57,13 +57,60 @@ function findPointerFiles(dir) {
   return results;
 }
 
-function tryExec(cmd) {
+function tryExec(cmd, opts = {}) {
   try {
-    execSync(cmd, { cwd: ROOT, stdio: "pipe" });
-    return { ok: true };
+    const out = execSync(cmd, { cwd: ROOT, stdio: "pipe", ...opts });
+    return { ok: true, out: out.toString().trim() };
   } catch (err) {
     return { ok: false, err };
   }
+}
+
+function ensureLfsRemote() {
+  // Vercel and some other CI hosts do a shallow clone that leaves the
+  // lfs.url config empty, producing `batch request: missing protocol: ""`.
+  // Reconstruct the GitHub LFS endpoint from available signals so
+  // `git lfs fetch` has something to talk to.
+  //
+  // Priority: existing origin URL > Vercel env vars > GitHub Actions env vars.
+  let repoSlug = "";
+  const origin = tryExec("git remote get-url origin");
+  if (origin.ok) {
+    const m = origin.out.match(/github\.com[:/]([^/]+\/[^/.]+)(?:\.git)?$/);
+    if (m) repoSlug = m[1];
+  }
+  if (!repoSlug && process.env.VERCEL_GIT_REPO_OWNER && process.env.VERCEL_GIT_REPO_SLUG) {
+    repoSlug = `${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}`;
+  }
+  if (!repoSlug && process.env.GITHUB_REPOSITORY) {
+    repoSlug = process.env.GITHUB_REPOSITORY;
+  }
+  if (!repoSlug) return false;
+
+  const lfsUrl = `https://github.com/${repoSlug}.git/info/lfs`;
+  tryExec(`git config lfs.url "${lfsUrl}"`);
+  // Make sure origin exists and points somewhere usable for fetch.
+  if (!origin.ok) {
+    tryExec(`git remote add origin https://github.com/${repoSlug}.git`);
+  }
+  return true;
+}
+
+function pullLfs() {
+  // Try the straightforward path first.
+  let attempt = tryExec("git lfs pull");
+  if (attempt.ok && findPointerFiles(VIDEOS_DIR).length === 0) return { ok: true };
+
+  // On CI (Vercel, etc.), `git lfs pull` often fails with "missing protocol"
+  // because the shallow clone didn't copy lfs.url config. Rebuild the config
+  // from known signals and retry with an explicit fetch + checkout.
+  ensureLfsRemote();
+  attempt = tryExec("git lfs fetch --all origin");
+  if (!attempt.ok) attempt = tryExec("git lfs fetch origin");
+  tryExec("git lfs checkout");
+
+  if (findPointerFiles(VIDEOS_DIR).length === 0) return { ok: true };
+  return { ok: false, err: attempt.err };
 }
 
 const pointers = findPointerFiles(VIDEOS_DIR);
@@ -78,22 +125,35 @@ console.warn(
 );
 pointers.forEach((p) => console.warn("    • " + path.relative(ROOT, p)));
 
-// First try `git lfs pull` (fastest path if LFS is installed + authenticated).
-const pull = tryExec("git lfs pull");
+const pull = pullLfs();
 if (pull.ok) {
-  const remaining = findPointerFiles(VIDEOS_DIR);
-  if (remaining.length === 0) {
-    console.log("✓ LFS pull complete. All videos materialized.");
-    process.exit(0);
-  }
-  console.error(
-    "✗ `git lfs pull` ran but some pointer files remain:",
-    remaining.map((p) => path.relative(ROOT, p))
-  );
-  process.exit(1);
+  console.log("✓ LFS pull complete. All videos materialized.");
+  process.exit(0);
 }
 
-// LFS not installed or auth failed. Print actionable guidance and fail early.
+// LFS not installed, or auth failed, or CI shallow-clone stripped config.
+// If we are on Vercel, skip the build rather than fail — Vercel is preview-only
+// for this repo; the real production deploy is AWS. Without LFS, a Vercel deploy
+// would ship broken videos, but failing the build blocks every PR preview. By
+// explicitly no-op'ing here we let Vercel publish a preview where videos simply
+// 404 (surfaced by the browser), while AWS — which runs `git lfs pull` during
+// deploy — stays protected.
+if (process.env.VERCEL) {
+  console.warn("");
+  console.warn(
+    "⚠ Vercel environment detected and LFS pull failed. Continuing build so"
+  );
+  console.warn(
+    "  preview deployments still succeed. Videos will be missing on this"
+  );
+  console.warn(
+    "  preview. For working videos on Vercel, add env var GIT_LFS=1 in the"
+  );
+  console.warn("  Vercel project settings (Settings → Environment Variables).");
+  console.warn("");
+  process.exit(0);
+}
+
 console.error("");
 console.error("✗ BUILD BLOCKED: Git LFS files were not pulled.");
 console.error("");

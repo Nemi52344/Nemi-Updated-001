@@ -174,14 +174,14 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
                     loading="eager"
                     style={{
                       opacity: showOverlay ? 0.15 : 1,
-                    }}
+                    }} decoding="async"
                   />
                   {showOverlay && (
                     <img
                       src={highlightImg!}
                       alt={`${v.label} - ${selectedPart}`}
                       className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
-                      style={{ opacity: 1 }}
+                      style={{ opacity: 1 }} decoding="async"
                     />
                   )}
                 </div>

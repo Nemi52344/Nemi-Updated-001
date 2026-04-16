@@ -134,7 +134,7 @@ const StepCard = ({
               : `0 0 20px hsl(${colorHsl} / 0.2)`,
           }}
         >
-          <img src={image} alt={step} className="w-full h-full object-cover" loading="eager" />
+          <img src={image} alt={step} className="w-full h-full object-cover" loading="eager" decoding="async" />
           <div
             className="absolute inset-0 flex items-end p-2"
             style={{

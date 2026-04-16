@@ -57,7 +57,7 @@ const Careers = () => {
             src="/images/about us.webp"
             alt="NEMI team"
             className="absolute inset-0 w-full h-full object-cover object-center"
-            loading="lazy"
+            loading="lazy" decoding="async"
           />
           {/* Tinted black overlay */}
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.82) 100%)" }} />

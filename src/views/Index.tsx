@@ -169,6 +169,31 @@ const Index = () => {
         </p>
       </div>
 
+      {/*
+        Crawlable navigation footer — always rendered in SSR HTML so search
+        engines and AI crawlers can discover every page from the homepage.
+        Visually hidden; the scroll-driven CTASection provides the visible CTA.
+      */}
+      <footer className="sr-only" aria-label="Site navigation for crawlers">
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/services">Services (AKIO, HENRY, SAM)</a></li>
+            <li><a href="/technology">Technology (Large Manufacturing Model)</a></li>
+            <li><a href="/proof">Proof — traction and case studies</a></li>
+            <li><a href="/about">About NEMI AI</a></li>
+            <li><a href="/careers">Careers</a></li>
+            <li><a href="/investors">Investor relations</a></li>
+            <li><a href="/sitemap.xml">Sitemap</a></li>
+            <li><a href="mailto:Humans@nemi-ai.com">Humans@nemi-ai.com</a></li>
+            <li><a href="mailto:investors@nemi-ai.com">investors@nemi-ai.com</a></li>
+          </ul>
+        </nav>
+        <p>
+          NEMI AI — The AI Operating System for Manufacturing. Certifications:
+          AS9100D, ISO 9001:2015, DRDO Cleared, ISRO Cleared.
+        </p>
+      </footer>
 
     </div>
   );

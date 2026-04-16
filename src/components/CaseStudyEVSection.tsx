@@ -37,10 +37,10 @@ const insights: InsightData[] = [
 ];
 
 const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
-  const sectionVisible = scrollProgress > 0.835 && scrollProgress < 0.96;
+  const sectionVisible = scrollProgress > 0.835 && scrollProgress < 0.895;
   const enterP = easeOut(rangeProgress(scrollProgress, 0.85, 0.88));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.92, 0.95));
-  const barsP = easeOut(rangeProgress(scrollProgress, 0.87, 0.91));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.875, 0.895));
+  const barsP = easeOut(rangeProgress(scrollProgress, 0.87, 0.89));
   const opacity = Math.min(enterP, 1 - exitP);
 
   if (!sectionVisible) return null;

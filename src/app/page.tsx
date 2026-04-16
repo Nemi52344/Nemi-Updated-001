@@ -4,7 +4,7 @@ import Index from "@/views/Index";
 export const metadata: Metadata = {
   title: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
   description:
-    "NEMI AI is the world's first end-to-end Physical AI platform. Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs. Powered by the Large Manufacturing Model (LMM).",
+    "NEMI AI is an end-to-end Physical AI platform. Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs. Powered by the Large Manufacturing Model (LMM).",
   alternates: { canonical: "https://nemi-ai.com/" },
   openGraph: {
     title: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
@@ -27,7 +27,7 @@ export default function HomePage() {
     url: "https://nemi-ai.com/",
     name: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
     description:
-      "NEMI AI is the world's first end-to-end Physical AI platform. Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs.",
+      "NEMI AI is an end-to-end Physical AI platform. Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs.",
     isPartOf: { "@id": "https://nemi-ai.com/#website" },
     about: { "@id": "https://nemi-ai.com/#organization" },
     breadcrumb: {
@@ -55,7 +55,7 @@ export default function HomePage() {
         <main>
           <h1>NEMI AI — End-to-End Physical AI Platform for Manufacturing</h1>
           <p>
-            NEMI AI is the world's first end-to-end Physical AI platform for design,
+            NEMI AI is an end-to-end Physical AI platform for design,
             development, and distribution of physical products. Powered by the Large
             Manufacturing Model (LMM), NEMI enables hardware companies to build 10× faster
             at a fraction of Western costs — all from Bangalore, India.

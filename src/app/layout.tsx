@@ -55,7 +55,7 @@ export default function RootLayout({
       height: 630,
     },
     description:
-      "NEMI AI is the world's first end-to-end Physical AI platform. Design with AKIO, manufacture with HENRY, deploy with SAM — powered by the Large Manufacturing Model (LMM).",
+      "NEMI AI is an end-to-end Physical AI platform. Design with AKIO, manufacture with HENRY, deploy with SAM — powered by the Large Manufacturing Model (LMM).",
     foundingLocation: { "@type": "Place", name: "Bangalore, India" },
     contactPoint: {
       "@type": "ContactPoint",

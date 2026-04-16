@@ -152,6 +152,8 @@ const Index = () => {
               drop-shadow(0 0 100px hsl(280 80% 45% / 0.15))
             `,
           }}
+          decoding="async"
+          fetchPriority="high"
         />
         <h1
           className="mt-0 text-5xl md:text-7xl font-bold tracking-[0.3em] text-foreground"

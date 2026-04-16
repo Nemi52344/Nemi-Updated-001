@@ -61,7 +61,7 @@ const HenryTab = () => {
             src="/Images/Henry.webp"
             alt="Henry"
             className="w-full h-full object-cover opacity-75 block hover:scale-105"
-            style={{ transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }}
+            style={{ transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} decoding="async"
           />
         </div>
       </div>
@@ -97,7 +97,8 @@ const HenryTab = () => {
                   controls
                   muted
                   playsInline
-                  preload="metadata"
+                  preload="none"
+                  poster="/Images/Henry.webp"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -116,7 +117,7 @@ const HenryTab = () => {
             <ScrollReveal key={s.title} delay={i * 100}>
               <div className="bg-background hover:bg-card transition-colors duration-300 cursor-default h-full" style={{ padding: "2rem" }}>
                 <div className="bg-card" style={{ height: 140, marginBottom: "1.5rem", overflow: "hidden", borderLeft: `2px solid ${henry}`, padding: 0 }}>
-                  <img src={s.img} alt={s.title} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.65, transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} className="hover:scale-105" />
+                  <img src={s.img} alt={s.title} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.65, transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} className="hover:scale-105" decoding="async" />
                 </div>
                 <div style={{ width: "3rem", height: 2, background: henry, marginBottom: "1.2rem" }} />
                 <h3 className="text-foreground font-bold text-base md:text-lg tracking-wider uppercase mb-3">{s.title}</h3>

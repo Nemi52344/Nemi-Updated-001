@@ -44,7 +44,7 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
             src={nemiNavLogo}
             alt="NEMI"
             className="h-5 w-auto object-contain"
-            style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 60% / 0.4))" }}
+            style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 60% / 0.4))" }} decoding="async"
           />
         </Link>
 

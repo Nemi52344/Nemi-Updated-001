@@ -80,7 +80,7 @@ const IndustriesSection = ({ scrollProgress }: IndustriesSectionProps) => {
                     src={industry.image}
                     alt={industry.name}
                     className="w-full h-full object-cover"
-                    loading="eager"
+                    loading="eager" decoding="async"
                   />
                 </div>
                 <div className="p-4 text-center">

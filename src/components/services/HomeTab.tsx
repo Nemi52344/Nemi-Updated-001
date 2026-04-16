@@ -85,7 +85,7 @@ const HomeTab = ({ onTabChange }: HomeTabProps) => {
               src={factory1}
               alt="NEMI Facility"
               className="w-full h-full object-cover opacity-75 block hover:scale-105"
-              style={{ transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }}
+              style={{ transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} decoding="async"
             />
           </div>
         </div>

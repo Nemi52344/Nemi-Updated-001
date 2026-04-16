@@ -142,7 +142,7 @@ const Technology = () => {
             {lmmLayers.slice(0, 3).map((layer, i) => (
               <ScrollReveal key={layer.name} delay={i * 120}>
                 <div className="relative rounded-2xl overflow-hidden group cursor-default h-[320px] md:h-[360px]">
-                  <img src={layer.img} alt={layer.name} className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                  <img src={layer.img} alt={layer.name} className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" decoding="async" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.75) 40%, hsl(var(--background) / 0.2) 70%, transparent 100%)" }} />
                   <div className="absolute inset-0 border border-border/20 rounded-2xl pointer-events-none" />
                   <span className="absolute top-4 right-5 font-black text-5xl md:text-6xl text-white/[0.06] select-none leading-none">
@@ -167,7 +167,7 @@ const Technology = () => {
             {lmmLayers.slice(3, 6).map((layer, i) => (
               <ScrollReveal key={layer.name} delay={(i + 3) * 120}>
                 <div className="relative rounded-2xl overflow-hidden group cursor-default h-[320px] md:h-[360px]">
-                  <img src={layer.img} alt={layer.name} className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                  <img src={layer.img} alt={layer.name} className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" decoding="async" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.75) 40%, hsl(var(--background) / 0.2) 70%, transparent 100%)" }} />
                   <div className="absolute inset-0 border border-border/20 rounded-2xl pointer-events-none" />
                   <span className="absolute top-4 right-5 font-black text-5xl md:text-6xl text-white/[0.06] select-none leading-none">

@@ -116,7 +116,7 @@ const Careers = () => {
         headline="Shape the Future."
         tagline="Join the team building the operating system for manufacturing."
         buttonText="Get in Touch"
-        buttonHref="mailto:Humans@nemiholdings.com"
+        buttonHref="mailto:Humans@nemi-ai.com"
       />
     </div>
   );

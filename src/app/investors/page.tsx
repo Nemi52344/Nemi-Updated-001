@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: "Investor Relations | NEMI AI",
   description:
     "Institutional-grade manufacturing intelligence. Request investor materials, review NEMI's traction, and connect with the team.",
-  alternates: { canonical: "https://nemiholdings.com/investors" },
+  alternates: { canonical: "https://nemi-ai.com/investors" },
   openGraph: {
     title: "Investor Relations | NEMI AI",
     description:
       "The AI Operating System for Manufacturing. Request investor materials and explore NEMI's institutional-grade manufacturing platform.",
-    url: "https://nemiholdings.com/investors",
+    url: "https://nemi-ai.com/investors",
   },
   twitter: {
     title: "Investor Relations | NEMI AI",
@@ -23,18 +23,18 @@ export default function InvestorsPage() {
   const webPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://nemiholdings.com/investors#webpage",
-    url: "https://nemiholdings.com/investors",
+    "@id": "https://nemi-ai.com/investors#webpage",
+    url: "https://nemi-ai.com/investors",
     name: "Investor Relations | NEMI AI",
     description:
       "Institutional-grade manufacturing intelligence. Request investor materials and connect with NEMI.",
-    isPartOf: { "@id": "https://nemiholdings.com/#website" },
-    about: { "@id": "https://nemiholdings.com/#organization" },
+    isPartOf: { "@id": "https://nemi-ai.com/#website" },
+    about: { "@id": "https://nemi-ai.com/#organization" },
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://nemiholdings.com/" },
-        { "@type": "ListItem", position: 2, name: "Investors", item: "https://nemiholdings.com/investors" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://nemi-ai.com/" },
+        { "@type": "ListItem", position: 2, name: "Investors", item: "https://nemi-ai.com/investors" },
       ],
     },
   };

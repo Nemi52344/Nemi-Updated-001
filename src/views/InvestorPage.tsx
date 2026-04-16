@@ -85,7 +85,7 @@ const InvestorPage = () => {
     const body = encodeURIComponent(
       `Name: ${d.fullName}\nFirm: ${d.firm}\nTitle: ${d.title}\nEmail: ${d.email}\nPhone: ${d.phone || "N/A"}\nGeography: ${d.geography || "N/A"}\nCheck Size: ${d.checkSize || "N/A"}\nStage: ${d.stagePreference || "N/A"}`
     );
-    window.location.href = `mailto:investors@nemiholdings.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:investors@nemi-ai.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
 
@@ -163,7 +163,7 @@ const InvestorPage = () => {
                 <h3 className="text-xl font-bold text-foreground mb-2">Inquiry Ready</h3>
                 <p className="text-sm text-muted-foreground">
                   Your email client should open with the inquiry pre-filled.<br />
-                  Fallback: email <span className="text-primary">investors@nemiholdings.com</span> directly.
+                  Fallback: email <span className="text-primary">investors@nemi-ai.com</span> directly.
                 </p>
               </div>
             </ScrollReveal>
@@ -237,7 +237,7 @@ const InvestorPage = () => {
                   Send Investor Inquiry
                 </button>
                 <p className="text-[0.6rem] text-muted-foreground/60 text-center mt-1">
-                  Fallback: email <a href="mailto:investors@nemiholdings.com" className="text-primary/70 hover:text-primary transition-colors">investors@nemiholdings.com</a>
+                  Fallback: email <a href="mailto:investors@nemi-ai.com" className="text-primary/70 hover:text-primary transition-colors">investors@nemi-ai.com</a>
                 </p>
               </form>
             </ScrollReveal>
@@ -317,7 +317,7 @@ const InvestorPage = () => {
         buttonText="Request Demo"
         buttonHref="/#contact"
         secondaryButtonText="Investor Materials"
-        secondaryButtonHref="mailto:investors@nemiholdings.com"
+        secondaryButtonHref="mailto:investors@nemi-ai.com"
       />
     </div>
   );

@@ -4,7 +4,7 @@ import AboutUs from "@/views/AboutUs";
 export const metadata: Metadata = {
   title: "About NEMI AI — Building the Future of Manufacturing",
   description:
-    "Learn about NEMI AI — the team, mission, and technology behind the world's first end-to-end Physical AI manufacturing platform. Led from Bangalore, India.",
+    "Learn about NEMI AI — the team, mission, and technology behind the end-to-end Physical AI manufacturing platform. Led from Bangalore, India.",
   alternates: { canonical: "https://nemi-ai.com/about" },
   openGraph: {
     title: "About NEMI AI — Building the Future of Manufacturing",
@@ -27,7 +27,7 @@ export default function AboutPage() {
     url: "https://nemi-ai.com/about",
     name: "About NEMI AI — Building the Future of Manufacturing",
     description:
-      "Learn about NEMI AI — the team, mission, and technology behind the world's first end-to-end Physical AI manufacturing platform.",
+      "Learn about NEMI AI — the team, mission, and technology behind the end-to-end Physical AI manufacturing platform.",
     isPartOf: { "@id": "https://nemi-ai.com/#website" },
     about: { "@id": "https://nemi-ai.com/#organization" },
     breadcrumb: {

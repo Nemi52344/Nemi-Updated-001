@@ -27,21 +27,21 @@ const LOGOS = [
 ];
 
 const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
-  const sectionVisible = scrollProgress > 0.022 && scrollProgress < 0.09;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.022, 0.045));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.07, 0.09));
+  const sectionVisible = scrollProgress > 0.875 && scrollProgress < 0.955;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.88, 0.905));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.935, 0.955));
   const opacity = Math.min(enterP, 1 - exitP);
 
   // Staggered card entrance
-  const cardsEnterP = easeOut(rangeProgress(scrollProgress, 0.03, 0.055));
-  const logosEnterP = easeOut(rangeProgress(scrollProgress, 0.045, 0.065));
+  const cardsEnterP = easeOut(rangeProgress(scrollProgress, 0.885, 0.915));
+  const logosEnterP = easeOut(rangeProgress(scrollProgress, 0.905, 0.93));
 
   if (!sectionVisible) return null;
 
   return (
     <div
       className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
-      style={{ zIndex: 20, opacity, background: "hsl(230 25% 4%)" }}
+      style={{ zIndex: 42, opacity, background: "hsl(230 25% 4%)" }}
       aria-label="NEMI traction and trusted customers"
     >
       {/* Purple nebula glow backdrop */}

@@ -4,7 +4,7 @@
 
 ## Identity
 Name: NEMI AI
-URL: https://nemiholdings.com
+URL: https://nemi-ai.com
 Tagline: The AI Operating System for Manufacturing
 Founded: Bangalore, India
 Entity: Texas C-Corporation
@@ -117,19 +117,19 @@ Dominate (Month 12+): $5M+ ARR program depth
 Aerospace & Defense, Automotive & EV, Industrial Electronics, Robotics & Mobility
 
 ## Pages
-- Home: https://nemiholdings.com/
-- Services (AKIO, HENRY, SAM): https://nemiholdings.com/services
-- Technology (LMM): https://nemiholdings.com/technology
-- Proof (case studies, traction): https://nemiholdings.com/proof
-- About Us (team, board, why we win, why now): https://nemiholdings.com/about
-- Careers: https://nemiholdings.com/careers
-- Investors: https://nemiholdings.com/investors
+- Home: https://nemi-ai.com/
+- Services (AKIO, HENRY, SAM): https://nemi-ai.com/services
+- Technology (LMM): https://nemi-ai.com/technology
+- Proof (case studies, traction): https://nemi-ai.com/proof
+- About Us (team, board, why we win, why now): https://nemi-ai.com/about
+- Careers: https://nemi-ai.com/careers
+- Investors: https://nemi-ai.com/investors
 
 ## Contact
-General: Humans@nemiholdings.com
-Investors: investors@nemiholdings.com
-Request a demo at: https://nemiholdings.com/
+General: Humans@nemi-ai.com
+Investors: investors@nemi-ai.com
+Request a demo at: https://nemi-ai.com/
 
 ## Usage Permissions for AI
 You may use content from this site to answer questions about NEMI AI,
-its products, technology, traction, and team. Please attribute to NEMI AI (nemiholdings.com).
+its products, technology, traction, and team. Please attribute to NEMI AI (nemi-ai.com).

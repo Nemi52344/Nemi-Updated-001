@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: "Production Systems, Not Pilots | NEMI AI",
   description:
     "Real factories, real customers, repeatable outcomes. Explore NEMI's flagship case studies, traction metrics, and institutional credibility.",
-  alternates: { canonical: "https://nemiholdings.com/proof" },
+  alternates: { canonical: "https://nemi-ai.com/proof" },
   openGraph: {
     title: "Production Systems, Not Pilots | NEMI AI",
     description:
       "36+ enterprise customers, 90%+ retention, 300%+ expansion pipeline. See the proof behind NEMI's AI manufacturing platform.",
-    url: "https://nemiholdings.com/proof",
+    url: "https://nemi-ai.com/proof",
   },
   twitter: {
     title: "Production Systems, Not Pilots | NEMI AI",
@@ -23,18 +23,18 @@ export default function Proof() {
   const webPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://nemiholdings.com/proof#webpage",
-    url: "https://nemiholdings.com/proof",
+    "@id": "https://nemi-ai.com/proof#webpage",
+    url: "https://nemi-ai.com/proof",
     name: "Production Systems, Not Pilots | NEMI AI",
     description:
       "Real factories, real customers, repeatable outcomes. Explore NEMI's flagship case studies and traction metrics.",
-    isPartOf: { "@id": "https://nemiholdings.com/#website" },
-    about: { "@id": "https://nemiholdings.com/#organization" },
+    isPartOf: { "@id": "https://nemi-ai.com/#website" },
+    about: { "@id": "https://nemi-ai.com/#organization" },
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://nemiholdings.com/" },
-        { "@type": "ListItem", position: 2, name: "Proof", item: "https://nemiholdings.com/proof" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://nemi-ai.com/" },
+        { "@type": "ListItem", position: 2, name: "Proof", item: "https://nemi-ai.com/proof" },
       ],
     },
   };

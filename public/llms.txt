@@ -10,7 +10,7 @@ Founded: Bangalore, India
 Entity: Texas C-Corporation
 
 ## What We Do
-NEMI AI is the world's first end-to-end Physical AI platform that takes products
+NEMI AI is an end-to-end Physical AI platform that takes products
 from concept to production to deployed fleet — entirely under one AI-powered roof.
 We combine design automation (AKIO), full-stack manufacturing (HENRY), and
 intelligent deployment & lifecycle management (SAM) into a single integrated system.

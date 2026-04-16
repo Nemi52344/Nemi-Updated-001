@@ -16,7 +16,7 @@ const navLinks = [
   { href: "/proof", label: "Proof" },
   { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },
-  { href: "/investors", label: "Investor Inquiries" },
+  { href: "/investors", label: "Investors" },
 ];
 
 const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {

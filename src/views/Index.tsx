@@ -162,11 +162,58 @@ const Index = () => {
           NEMI AI
         </h1>
         <p
-          className="mt-4 text-sm md:text-lg lg:text-xl font-light text-center text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-3xl mx-4"
-          style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.4), 0 0 40px hsl(270 70% 50% / 0.2)" }}
+          className="mt-5 text-base md:text-xl lg:text-2xl font-semibold text-center text-foreground leading-snug tracking-wide mx-4"
+          style={{ textShadow: "0 0 24px hsl(275 80% 60% / 0.5), 0 0 48px hsl(270 70% 50% / 0.25)" }}
         >
-          End-to-end Physical AI Platform for Design, Development, and Distribution
+          Production at scale, not pilots.
         </p>
+        <p
+          className="mt-3 text-[0.68rem] md:text-sm font-medium text-center text-muted-foreground tracking-[0.14em] uppercase mx-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 max-w-3xl"
+        >
+          <span className="text-foreground">$15M ARR</span>
+          <span className="text-primary/40">·</span>
+          <span className="text-foreground">36 enterprise customers</span>
+          <span className="text-primary/40">·</span>
+          <span className="text-foreground">90% gross retention</span>
+          <span className="text-primary/40">·</span>
+          <span className="text-foreground">AS9100D-certified</span>
+        </p>
+
+        {/* Customer / partner logo strip (above the fold) */}
+        <div
+          className="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-x-6 md:gap-x-10 gap-y-3 max-w-5xl mx-4 px-4"
+          aria-label="Customers and partners"
+        >
+          {[
+            { src: "/Images/logos/samsung.webp", label: "Samsung" },
+            { src: "/Images/logos/tata.webp", label: "Tata" },
+            { src: "/Images/logos/lamborghini.webp", label: "Lamborghini" },
+            { src: "/Images/logos/boeing.webp", label: "Boeing" },
+            { src: "/Images/logos/isro.webp", label: "ISRO" },
+            { src: "/Images/logos/drdo.webp", label: "DRDO" },
+            { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield" },
+            { src: "/Images/logos/mahindra.webp", label: "Mahindra" },
+            { src: "/Images/logos/ducati.webp", label: "Ducati" },
+          ].map((logo) => (
+            <img
+              key={logo.label}
+              src={logo.src}
+              alt={logo.label}
+              title={logo.label}
+              decoding="async"
+              loading="eager"
+              style={{
+                height: "28px",
+                width: "auto",
+                maxWidth: "96px",
+                objectFit: "contain",
+                opacity: 0.75,
+                filter: "grayscale(0.3) brightness(1.1)",
+              }}
+              className="md:!h-8 transition-opacity duration-300 hover:!opacity-100"
+            />
+          ))}
+        </div>
       </div>
 
       {/*

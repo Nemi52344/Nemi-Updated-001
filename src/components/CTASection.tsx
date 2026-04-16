@@ -1,5 +1,16 @@
+import Link from "next/link";
 import nemiNavLogo from "@/assets/nemi-nav-logo.webp";
 import { Mail } from "lucide-react";
+
+const FOOTER_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Technology", href: "/technology" },
+  { label: "Proof", href: "/proof" },
+  { label: "About", href: "/about" },
+  { label: "Careers", href: "/careers" },
+  { label: "Investors", href: "/investors" },
+];
 
 interface CTASectionProps {
   scrollProgress: number;
@@ -56,31 +67,59 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-border/30 px-6 md:px-16">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 py-6">
-          <div className="flex items-center gap-3">
-            <img
-              src={nemiNavLogo}
-              alt="NEMI"
-              className="h-5 md:h-6 w-auto object-contain"
-              style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 60% / 0.4))" }} decoding="async"
-            />
-            <span className="text-[0.6rem] md:text-xs tracking-[0.3em] uppercase text-muted-foreground">
-              Physical AI Platform
-            </span>
+      <footer className="border-t border-border/30 px-6 md:px-16" aria-labelledby="home-footer-heading">
+        <h2 id="home-footer-heading" className="sr-only">Site footer</h2>
+        <div className="max-w-6xl mx-auto py-6 flex flex-col gap-4">
+          {/* Top row — branding + contact */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <img
+                src={nemiNavLogo}
+                alt="NEMI"
+                className="h-5 md:h-6 w-auto object-contain"
+                style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 60% / 0.4))" }}
+                decoding="async"
+              />
+              <span className="text-[0.6rem] md:text-xs tracking-[0.3em] uppercase text-muted-foreground">
+                Physical AI Platform
+              </span>
+            </div>
+            <a
+              href="mailto:Humans@nemi-ai.com"
+              className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5 text-primary" />
+              Humans@nemi-ai.com
+            </a>
+            <p className="text-[10px] md:text-xs text-muted-foreground/60">
+              © 2026 NEMI AI. All rights reserved.
+            </p>
           </div>
-          <a
-            href="mailto:Humans@nemi-ai.com"
-            className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <Mail className="w-3.5 h-3.5 text-primary" />
-            Humans@nemi-ai.com
-          </a>
-          <p className="text-[10px] md:text-xs text-muted-foreground/60">
-            © 2026 NEMI. All rights reserved.
-          </p>
+          {/* Nav links — help crawlers reach every page */}
+          <nav aria-label="Footer navigation" className="border-t border-border/20 pt-3">
+            <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 list-none p-0">
+              {FOOTER_LINKS.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-[0.65rem] md:text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="/sitemap.xml"
+                  className="text-[0.65rem] md:text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Sitemap
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
-      </div>
+      </footer>
     </div>
   );
 };

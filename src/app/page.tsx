@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
   description:
     "NEMI AI is the world's first end-to-end Physical AI platform. Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs. Powered by the Large Manufacturing Model (LMM).",
-  alternates: { canonical: "https://nemiholdings.com/" },
+  alternates: { canonical: "https://nemi-ai.com/" },
   openGraph: {
     title: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
     description:
       "Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs. One partner. The full stack.",
-    url: "https://nemiholdings.com/",
+    url: "https://nemi-ai.com/",
   },
   twitter: {
     title: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
@@ -23,17 +23,17 @@ export default function HomePage() {
   const webPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://nemiholdings.com/#webpage",
-    url: "https://nemiholdings.com/",
+    "@id": "https://nemi-ai.com/#webpage",
+    url: "https://nemi-ai.com/",
     name: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
     description:
       "NEMI AI is the world's first end-to-end Physical AI platform. Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs.",
-    isPartOf: { "@id": "https://nemiholdings.com/#website" },
-    about: { "@id": "https://nemiholdings.com/#organization" },
+    isPartOf: { "@id": "https://nemi-ai.com/#website" },
+    about: { "@id": "https://nemi-ai.com/#organization" },
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://nemiholdings.com/" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://nemi-ai.com/" },
       ],
     },
   };
@@ -191,7 +191,7 @@ export default function HomePage() {
             <h2>Get in Touch</h2>
             <p>
               Ready to build your next physical product with NEMI AI?
-              Contact us at Humans@nemiholdings.com or request a demo at nemiholdings.com.
+              Contact us at Humans@nemi-ai.com or request a demo at nemi-ai.com.
             </p>
           </section>
         </main>

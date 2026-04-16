@@ -82,7 +82,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   src={src}
                   alt="NEMI Factory"
                   className="w-full h-24 md:h-36 lg:h-40 object-cover"
-                  loading="eager"
+                  loading="eager" decoding="async"
                 />
               </div>
             );

@@ -63,7 +63,7 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
               src={nemiNavLogo}
               alt="NEMI"
               className="h-5 md:h-6 w-auto object-contain"
-              style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 60% / 0.4))" }}
+              style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 60% / 0.4))" }} decoding="async"
             />
             <span className="text-[0.6rem] md:text-xs tracking-[0.3em] uppercase text-muted-foreground">
               Physical AI Platform

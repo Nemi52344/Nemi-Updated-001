@@ -45,7 +45,7 @@ const ContactFormModal = ({ open, onClose }: ContactFormModalProps) => {
     const body = encodeURIComponent(
       `Name: ${result.data.name}\nEmail: ${result.data.email}\nCompany: ${result.data.company || "N/A"}\n\n${result.data.message}`
     );
-    window.location.href = `mailto:contact@nemi.ai?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:Humans@nemi-ai.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
 
@@ -94,7 +94,7 @@ const ContactFormModal = ({ open, onClose }: ContactFormModalProps) => {
               <Send className="w-7 h-7 text-primary" />
             </div>
             <h3 className="text-xl font-bold text-foreground mb-2">Message Ready</h3>
-            <p className="text-sm text-muted-foreground">Your email client should open with the message pre-filled. If not, email us at contact@nemi.ai</p>
+            <p className="text-sm text-muted-foreground">Your email client should open with the message pre-filled. If not, email us at Humans@nemi-ai.com</p>
             <button
               onClick={handleClose}
               className="mt-6 px-6 py-2 rounded-xl text-sm font-semibold tracking-wider uppercase transition-all duration-300 hover:scale-105"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import ScrollReveal from "@/hooks/ScrollReveal";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import Navbar from "@/components/Navbar";
@@ -8,6 +9,16 @@ import TabContent from "@/components/services/TabContent";
 import AkioTab from "@/components/services/AkioTab";
 import HenryTab from "@/components/services/HenryTab";
 import SamTab from "@/components/services/SamTab";
+
+const FOOTER_NAV = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Technology", href: "/technology" },
+  { label: "Proof", href: "/proof" },
+  { label: "About", href: "/about" },
+  { label: "Careers", href: "/careers" },
+  { label: "Investors", href: "/investors" },
+];
 
 const tabs = [
   { key: "akio", label: "AKIO", colorClass: "text-[hsl(0,72%,52%)]", borderClass: "border-b-[hsl(0,72%,52%)]", dotBg: "bg-[hsl(0,72%,52%)]" },
@@ -77,30 +88,93 @@ const Services = () => {
       </div>
 
       <ScrollReveal>
-        <footer className="border-t border-border p-12 flex justify-between items-center">
-          <ScrollReveal delay={100}>
-            <div>
+        <footer
+          className="border-t border-border pt-14 pb-10 px-6 md:px-12 lg:px-16"
+          aria-labelledby="services-footer-heading"
+        >
+          <h2 id="services-footer-heading" className="sr-only">
+            Site footer
+          </h2>
+
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+            {/* Brand */}
+            <div className="md:col-span-2">
               <div className="font-black text-3xl tracking-[0.1em] uppercase">
                 NEMI<span className="text-accent">.</span>AI
               </div>
-              <div className="font-medium text-[0.6rem] tracking-[0.2em] uppercase text-muted-foreground mt-1.5">
+              <div className="font-medium text-[0.6rem] tracking-[0.2em] uppercase text-muted-foreground mt-1.5 mb-4">
                 AI-Driven Manufacturing Platform
               </div>
+              <p className="text-xs text-muted-foreground max-w-sm leading-relaxed mb-3">
+                The AI Operating System for Manufacturing. Design, manufacture, and
+                deploy physical products under one Large Manufacturing Model.
+              </p>
+              <p className="text-xs text-muted-foreground">
+                <a href="mailto:Humans@nemi-ai.com" className="hover:text-primary transition-colors">
+                  Humans@nemi-ai.com
+                </a>
+                {" · "}
+                <a href="mailto:investors@nemi-ai.com" className="hover:text-primary transition-colors">
+                  investors@nemi-ai.com
+                </a>
+              </p>
             </div>
-          </ScrollReveal>
-          <ScrollReveal delay={300}>
-            <nav className="flex gap-8">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.key}
-                  onClick={() => handleTabChange(tab.key)}
-                  className="font-semibold text-[0.6rem] tracking-[0.15em] uppercase text-muted-foreground bg-transparent border-none cursor-pointer hover:text-foreground transition-colors"
-                >
-                  {tab.label}
-                </button>
-              ))}
+
+            {/* Explore */}
+            <nav aria-label="Footer navigation">
+              <p className="text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground font-bold mb-4">
+                Explore
+              </p>
+              <ul className="flex flex-col gap-2 list-none p-0">
+                {FOOTER_NAV.slice(0, 4).map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </nav>
-          </ScrollReveal>
+
+            {/* Company */}
+            <nav aria-label="Company footer navigation">
+              <p className="text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground font-bold mb-4">
+                Company
+              </p>
+              <ul className="flex flex-col gap-2 list-none p-0">
+                {FOOTER_NAV.slice(4).map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href="/sitemap.xml"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Sitemap
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div className="max-w-6xl mx-auto mt-12 pt-6 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-muted-foreground">
+              &copy; 2026 NEMI AI. All rights reserved.
+            </p>
+            <p className="text-[0.65rem] tracking-[0.15em] uppercase text-muted-foreground/60">
+              AS9100D · ISO 9001 · DRDO Cleared · ISRO Cleared
+            </p>
+          </div>
         </footer>
       </ScrollReveal>
 

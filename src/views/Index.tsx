@@ -164,13 +164,7 @@ const Index = () => {
           NEMI AI
         </h1>
         <p
-          className="mt-6 text-base md:text-xl lg:text-2xl font-semibold text-center text-foreground leading-snug tracking-wide mx-4 max-w-2xl"
-          style={{ textShadow: "0 0 24px hsl(275 80% 60% / 0.5), 0 0 48px hsl(270 70% 50% / 0.25)" }}
-        >
-          Production at scale, not pilots.
-        </p>
-        <p
-          className="mt-3 text-xs md:text-sm font-light text-center text-muted-foreground/80 tracking-[0.2em] uppercase mx-4"
+          className="mt-5 text-xs md:text-sm font-light text-center text-muted-foreground/80 tracking-[0.2em] uppercase mx-4"
         >
           End-to-end Physical AI for Design, Development &amp; Distribution
         </p>

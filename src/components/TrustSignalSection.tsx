@@ -7,11 +7,13 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
+// Brand-palette purple gradient — shades stay within NEMI's purple family
+// rather than using contrasting accent colors.
 const KPIS: { value: string; label: string; accent: string; long?: boolean }[] = [
-  { value: "$15M", label: "ARR", accent: "275 80% 60%" },
-  { value: "36+", label: "Enterprise Customers", accent: "220 85% 60%" },
-  { value: "90%+", label: "Gross Retention", accent: "142 71% 50%" },
-  { value: "AS9100D", label: "Aerospace Certified", accent: "0 72% 58%", long: true },
+  { value: "$15M", label: "ARR", accent: "285 85% 68%" },
+  { value: "36+", label: "Enterprise Customers", accent: "275 80% 62%" },
+  { value: "90%+", label: "Gross Retention", accent: "265 75% 58%" },
+  { value: "AS9100D", label: "Aerospace Certified", accent: "255 70% 54%", long: true },
 ];
 
 const LOGOS = [

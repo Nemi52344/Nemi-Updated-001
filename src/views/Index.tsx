@@ -204,10 +204,6 @@ const Index = () => {
           <span className="text-[0.65rem] md:text-xs font-semibold tracking-[0.15em] uppercase text-foreground whitespace-nowrap">
             AS9100D
           </span>
-          <span className="text-primary/30 hidden md:inline">&middot;</span>
-          <span className="hidden md:inline text-[0.6rem] font-medium tracking-[0.15em] uppercase text-muted-foreground whitespace-nowrap">
-            Boeing &middot; Samsung &middot; ISRO &middot; DRDO &middot; Lamborghini
-          </span>
         </div>
       </div>
 

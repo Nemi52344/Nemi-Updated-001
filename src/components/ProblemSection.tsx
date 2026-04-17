@@ -163,7 +163,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center pointer-events-none"
+      className="fixed inset-0 flex items-center justify-center pointer-events-none px-4 md:px-6"
       style={{
         zIndex: 15,
         opacity,
@@ -172,7 +172,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
       }}
     >
       <div
-        className="relative max-w-6xl w-full px-4 md:px-6 pointer-events-auto"
+        className="relative max-w-5xl w-full mx-auto pointer-events-auto"
         style={{ opacity: cardsP, transform: `translateY(${(1 - cardsP) * 50}px)` }}
       >
         <h2

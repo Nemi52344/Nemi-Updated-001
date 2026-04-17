@@ -185,22 +185,6 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
           Why hardware fails.
         </h2>
 
-        {/* Concrete stat strip */}
-        <div className="flex flex-wrap gap-x-6 md:gap-x-10 gap-y-2 mb-6 md:mb-8 text-[0.65rem] md:text-xs text-muted-foreground font-medium">
-          <span>
-            <span className="text-foreground font-bold">$5M–$50M</span>{" "}
-            <span className="uppercase tracking-wider">invested before first unit ships</span>
-          </span>
-          <span>
-            <span className="text-foreground font-bold">12–48 mo</span>{" "}
-            <span className="uppercase tracking-wider">to market</span>
-          </span>
-          <span>
-            <span className="text-foreground font-bold">25% margin</span>{" "}
-            <span className="uppercase tracking-wider">leakage across vendors</span>
-          </span>
-        </div>
-
         {/* Three category rows */}
         <div className="flex flex-col gap-4 md:gap-5">
           {rows.map((row, rowIdx) => (

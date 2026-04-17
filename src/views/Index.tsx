@@ -164,10 +164,51 @@ const Index = () => {
           NEMI AI
         </h1>
         <p
-          className="mt-5 text-xs md:text-sm font-light text-center text-muted-foreground/80 tracking-[0.2em] uppercase mx-4"
+          className="mt-5 text-base md:text-xl lg:text-2xl font-semibold text-center text-foreground leading-snug tracking-wide mx-4 max-w-2xl"
+          style={{ textShadow: "0 0 24px hsl(275 80% 60% / 0.45), 0 0 48px hsl(270 70% 50% / 0.22)" }}
         >
-          End-to-end Physical AI for Design, Development &amp; Distribution
+          The AI Operating System for Manufacturing.
         </p>
+        <p
+          className="mt-3 text-xs md:text-sm font-light text-center text-muted-foreground/85 tracking-[0.15em] uppercase mx-4 max-w-xl"
+        >
+          Design, manufacture, and deploy physical products &mdash; 10&times; faster, at Western quality.
+        </p>
+      </div>
+
+      {/*
+        Compact hero proof bar — always rendered in SSR HTML so crawlers and
+        first-impression investors see $ numbers + customer names within 5s
+        of landing. Fades out as the user scrolls past the hero.
+      */}
+      <div
+        className="fixed inset-x-0 bottom-4 md:bottom-8 pointer-events-none flex justify-center px-4"
+        style={{ zIndex: 11, opacity: heroOpacity }}
+      >
+        <div
+          className="pointer-events-auto rounded-full border border-primary/20 bg-background/70 backdrop-blur-md px-4 py-2 md:px-6 md:py-2.5 flex flex-wrap items-center justify-center gap-x-3 md:gap-x-5 gap-y-1 max-w-5xl"
+          style={{ boxShadow: "0 0 30px hsl(275 80% 55% / 0.18)" }}
+        >
+          <span className="text-[0.65rem] md:text-xs font-semibold tracking-[0.15em] uppercase text-foreground whitespace-nowrap">
+            <span className="text-primary">$15M</span> ARR
+          </span>
+          <span className="text-primary/30 hidden sm:inline">&middot;</span>
+          <span className="text-[0.65rem] md:text-xs font-semibold tracking-[0.15em] uppercase text-foreground whitespace-nowrap">
+            <span className="text-primary">36+</span> Customers
+          </span>
+          <span className="text-primary/30 hidden sm:inline">&middot;</span>
+          <span className="text-[0.65rem] md:text-xs font-semibold tracking-[0.15em] uppercase text-foreground whitespace-nowrap">
+            <span className="text-primary">90%+</span> Retention
+          </span>
+          <span className="text-primary/30 hidden sm:inline">&middot;</span>
+          <span className="text-[0.65rem] md:text-xs font-semibold tracking-[0.15em] uppercase text-foreground whitespace-nowrap">
+            AS9100D
+          </span>
+          <span className="text-primary/30 hidden md:inline">&middot;</span>
+          <span className="hidden md:inline text-[0.6rem] font-medium tracking-[0.15em] uppercase text-muted-foreground whitespace-nowrap">
+            Boeing &middot; Samsung &middot; ISRO &middot; DRDO &middot; Lamborghini
+          </span>
+        </div>
       </div>
 
       {/*

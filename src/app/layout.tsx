@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Providers from "./providers";
+
+const GA_MEASUREMENT_ID = "G-RLBK1DLVN7";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nemi-ai.com"),
@@ -131,6 +134,20 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Google Analytics 4 — loads after interactive so it never blocks LCP */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
+
         <Providers>{children}</Providers>
       </body>
     </html>

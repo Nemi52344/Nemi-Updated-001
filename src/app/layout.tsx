@@ -134,6 +134,62 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/*
+          <noscript> fallback — shown only when JavaScript is disabled.
+          Gives search engines without JS + assistive tools a complete,
+          readable summary of NEMI and links to every canonical route.
+        */}
+        <noscript>
+          <div style={{
+            maxWidth: "800px",
+            margin: "0 auto",
+            padding: "2rem",
+            color: "hsl(0 0% 95%)",
+            background: "hsl(230 25% 4%)",
+            fontFamily: "system-ui, -apple-system, sans-serif",
+            lineHeight: 1.6,
+          }}>
+            <h1 style={{ fontSize: "2rem", margin: "0 0 0.5rem" }}>NEMI AI</h1>
+            <p style={{ fontSize: "1.25rem", fontWeight: 600, margin: "0 0 1rem" }}>
+              The AI Operating System for Manufacturing.
+            </p>
+            <p style={{ margin: "0 0 1rem", opacity: 0.85 }}>
+              Design, manufacture, and deploy physical products &mdash; 10&times; faster,
+              at Western quality. $15M ARR &middot; 36+ enterprise customers &middot;
+              90%+ gross retention &middot; AS9100D certified.
+            </p>
+            <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Platform</h2>
+            <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+              <li><strong>AKIO</strong> &mdash; Design Intelligence Suite</li>
+              <li><strong>HENRY</strong> &mdash; AI-Driven Manufacturing</li>
+              <li><strong>SAM</strong> &mdash; Deployment &amp; Lifecycle</li>
+              <li>
+                Powered by the <strong>Large Manufacturing Model (LMM)</strong>
+              </li>
+            </ul>
+            <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Explore</h2>
+            <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+              <li><a href="/services" style={{ color: "hsl(275 80% 65%)" }}>Services (AKIO, HENRY, SAM)</a></li>
+              <li><a href="/technology" style={{ color: "hsl(275 80% 65%)" }}>Technology (Large Manufacturing Model)</a></li>
+              <li><a href="/proof" style={{ color: "hsl(275 80% 65%)" }}>Proof (case studies, traction)</a></li>
+              <li><a href="/about" style={{ color: "hsl(275 80% 65%)" }}>About NEMI AI</a></li>
+              <li><a href="/careers" style={{ color: "hsl(275 80% 65%)" }}>Careers</a></li>
+              <li><a href="/investors" style={{ color: "hsl(275 80% 65%)" }}>Investor Relations</a></li>
+            </ul>
+            <p style={{ margin: "1.5rem 0 0", opacity: 0.8 }}>
+              Certifications: AS9100D &middot; ISO 9001 &middot; DRDO Cleared &middot; ISRO Cleared.
+              <br />
+              Contact: <a href="mailto:Humans@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>Humans@nemi-ai.com</a>
+              {" "}&middot;{" "}
+              <a href="mailto:investors@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>investors@nemi-ai.com</a>
+            </p>
+            <p style={{ margin: "1rem 0 0", fontSize: "0.85rem", opacity: 0.6 }}>
+              This page uses JavaScript for its interactive scroll experience.
+              You can still access the full site via the links above.
+            </p>
+          </div>
+        </noscript>
+
         {/* Google Analytics 4 — loads after interactive so it never blocks LCP */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}

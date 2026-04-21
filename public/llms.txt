@@ -53,36 +53,25 @@ data, market share, and permanence — they become the default.
 NEMI is building the infrastructure to win this shift.
 Sources: McKinsey, MGI 2025
 
-## Traction & Proof
-- 36+ Enterprise Customers
-- $15M ARR
-- 90%+ Gross Revenue Retention
-- 9.8x LTV / CAC
-- <7 month CAC Payback
-- ~300% NRR Next 12 Months
-- 6+ customers scaling to >$5M ACV
-- EBITDA positive from FY26
-- 40%+ Gross Margins (ex-EV)
-- 300K+ sq ft Manufacturing footprint
-- 40+ Patents
+## Public Proof Points
+- 300K+ sq ft of owned manufacturing footprint across India
 - 2,500+ EV units deployed across India and Africa
+- Programmes shipped with 2x–10x improvements in speed and cost vs. benchmarks
 
-## Flagship Cases
-- Hero Case · EV Motorcycle Platform (BNC Motors): Full EV platform delivered in
-  9 months for under $0.5M. 2x faster than benchmark, 10x more cost efficient.
-- Tier 1 Defence: Drone subsystem (motor, battery, control unit) — 4x faster, 5x lower cost.
-- Top-3 Supercar OEM: Tooling and fixturing program — 2.5x faster, 2x lower cost.
+## Flagship Public Cases
+- EV Platform: Full EV platform delivered in 9 months. 2x faster than benchmark,
+  10x more cost efficient. Over 2,500 units deployed.
+- Defence Subsystem: Drone subsystem (motor, battery, control unit) — 4x faster,
+  5x lower cost.
+- Precision Tooling: Tooling and fixturing programme for supercar OEM — 2.5x faster,
+  2x lower cost.
 
-## Compounding Moat (Why It Cannot Be Replicated)
-Stage 1 — Cost / Quality / Speed advantage over alternate suppliers
-Stage 2 — High switching risk: critical parts carry high qualification cost to switch
-Stage 3 — Data compounds the moat: historical data deepens yield gains and raises switching costs
-Stage 4 — Strategic Partner: no longer a supplier — essential to operations; impossible to replace
-
-## Commercial Model — Land / Expand / Dominate
-Land (Month 1-6): Trial order $10K-$40K
-Expand (Month 6-12): ~$1M ARR account motion
-Dominate (Month 12+): $5M+ ARR program depth
+## Why outcomes repeat
+- Shared data model: engineering, process, and field data reinforce one another
+  under one system instead of fragmenting across vendors.
+- Physical execution control: owned manufacturing + certifications keep the model
+  grounded in production reality, not simulation.
+- Closed commercial loop: every production run sharpens the next design.
 
 ## Strategic Advantages
 - 10× capital efficiency via Bangalore R&D hub vs Western competitors

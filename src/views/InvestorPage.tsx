@@ -26,15 +26,17 @@ type InvestorForm = z.infer<typeof investorSchema>;
 const processSteps = [
   { step: "01", title: "Submit the inquiry", desc: "Share firm, title, contact details, check size, and what you want to evaluate." },
   { step: "02", title: "NEMI reviews fit", desc: "The team prioritizes serious institutional and strategic conversations." },
-  { step: "03", title: "Receive follow-up", desc: "Qualified investors receive the right next step: call, summary materials, or deeper diligence." },
+  { step: "03", title: "Receive follow-up", desc: "Qualified investors receive the right next step: call, teaser summary, or data-room access." },
   { step: "04", title: "Enter diligence", desc: "Customer references and data-room materials can be shared as the process advances." },
 ];
 
+// Ordered: Certifications first, then IP, then corporate status, then traction.
 const signals = [
-  "Texas C-Corporation",
-  "300K+ sq ft manufacturing",
   "AS9100D and ISO 9001",
   "DRDO and ISRO cleared",
+  "Patents across core IP",
+  "Texas C-Corporation",
+  "300K+ sq ft manufacturing",
   "Four industries in production",
 ];
 
@@ -109,7 +111,7 @@ const InvestorPage = () => {
             style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
           >
             <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
-              Funding the
+              Investor
             </span>
             <br />
             <span
@@ -120,18 +122,14 @@ const InvestorPage = () => {
                 animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both, hero-gradient-shift 6s ease-in-out infinite 1.4s",
               }}
             >
-              Physical AI
-            </span>
-            <br />
-            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}>
-              Era.
+              Relations.
             </span>
           </h1>
           <p
             className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[640px] mx-auto"
             style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
           >
-            The infrastructure layer for everything the world builds next.
+            The AI Operating System for Manufacturing.
           </p>
         </div>
       </section>
@@ -308,6 +306,38 @@ const InvestorPage = () => {
               </ScrollReveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── How We Think About Risk ── */}
+      <section className="relative z-[1] py-16 md:py-20 px-6 md:px-12">
+        <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
+            <h2
+              className="text-xl md:text-2xl font-extrabold tracking-tight uppercase mb-6 text-center"
+              style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4)" }}
+            >
+              How We Think About Risk
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <div
+              className="rounded-2xl p-6 md:p-10"
+              style={{
+                background: "hsl(230 20% 8% / 0.6)",
+                border: "1px solid hsl(275 80% 55% / 0.14)",
+              }}
+            >
+              <p className="text-sm md:text-base text-muted-foreground leading-[1.8]">
+                Manufacturing is capital-intensive. Defence programmes are regulated.
+                Customer concentration is an early-stage reality. NEMI&apos;s structure
+                &mdash; AS9100D-certified operations, a diversified programme mix across
+                four industries, retrofit-first capital deployment, and board-level
+                operating experience &mdash; is designed to address each. Full discussion
+                available in diligence.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 

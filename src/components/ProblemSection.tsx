@@ -182,7 +182,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
               "0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.15)",
           }}
         >
-          Why hardware fails.
+          Hardware is hard.
         </h2>
 
         {/* Three category rows */}

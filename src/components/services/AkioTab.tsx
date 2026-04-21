@@ -161,7 +161,7 @@ const AkioTab = () => {
       />
     </ScrollReveal>
     <ScrollReveal>
-      <p className="text-muted-foreground text-xs tracking-wide px-6 md:px-12 lg:px-16 -mt-8 mb-4">* Designed free of cost against commitment of mass production</p>
+      <p className="text-muted-foreground text-xs tracking-wide px-6 md:px-12 lg:px-16 -mt-8 mb-4">* Engineering cost waived against mass-production commitment.</p>
     </ScrollReveal>
 
     <ScrollReveal style={{ marginBottom: "5rem" }}>

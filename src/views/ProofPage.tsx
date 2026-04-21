@@ -57,6 +57,23 @@ const whyRepeats = [
   },
 ];
 
+// Traction bar — ordered: customers -> retention -> unit economics -> revenue.
+// ARR moves to the end per stakeholder feedback.
+const tractionBar = [
+  { value: "36+", label: "Enterprise Customers" },
+  { value: "90%+", label: "Gross Revenue Retention" },
+  { value: "9.8\u00d7", label: "LTV / CAC" },
+  { value: "$15M", label: "ARR" },
+];
+
+// Compounding moat — stages customers move through.
+const compoundingStages = [
+  { stage: "01", title: "Cost, quality, speed", desc: "A clear advantage over the alternate supplier set." },
+  { stage: "02", title: "High switching risk", desc: "Critical parts carry heavy re-qualification cost to switch away." },
+  { stage: "03", title: "Data compounds the moat", desc: "Historical process and field data deepen yield, lower cost, and raise switching cost further." },
+  { stage: "04", title: "Strategic partner", desc: "No longer a supplier \u2014 essential to operations. Impossible to replace." },
+];
+
 const certifications = ["AS9100D", "ISO 9001:2015", "DRDO Cleared", "ISRO Cleared"];
 
 const ProofPage = () => {
@@ -112,6 +129,31 @@ const ProofPage = () => {
           >
             Real factories. Real programmes. Real hardware at scale.
           </p>
+        </div>
+      </section>
+
+      {/* ── Traction bar ── */}
+      <section className="relative z-[1] py-10 md:py-12 px-6 md:px-12 border-y border-border/20">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          {tractionBar.map((t, i) => (
+            <ScrollReveal key={t.label} delay={i * 80}>
+              <div className="text-center">
+                <p
+                  className="text-2xl md:text-4xl font-extrabold tracking-tight mb-1"
+                  style={{
+                    background: "linear-gradient(135deg, hsl(275 85% 68%), hsl(260 80% 55%))",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  {t.value}
+                </p>
+                <p className="text-[0.55rem] md:text-[0.65rem] tracking-[0.15em] uppercase text-muted-foreground font-semibold">
+                  {t.label}
+                </p>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
@@ -171,10 +213,36 @@ const ProofPage = () => {
                       </div>
                     ))}
                   </div>
+                  <p className="text-[0.65rem] text-muted-foreground/50 italic mt-5 leading-relaxed">
+                    Customer name withheld under NDA. Reference available on request during investor diligence.
+                  </p>
                 </div>
               </ScrollReveal>
             ))}
           </div>
+
+          {/* DRDL testimonial — attribution per diligence policy */}
+          <ScrollReveal delay={200}>
+            <blockquote
+              className="mt-12 text-center max-w-2xl mx-auto py-8 px-6 rounded-2xl"
+              style={{
+                background: "hsl(230 20% 8% / 0.5)",
+                border: "1px solid hsl(275 80% 55% / 0.12)",
+              }}
+            >
+              <p className="text-sm md:text-base text-foreground/90 italic leading-relaxed mb-3">
+                &ldquo;No one in India was able to accomplish this. We are thoroughly impressed
+                by the capabilities demonstrated.&rdquo;
+              </p>
+              <cite className="text-[0.65rem] tracking-[0.15em] uppercase text-muted-foreground not-italic font-semibold leading-relaxed block">
+                &mdash; Senior Scientist, Defence Research and Development Laboratory (DRDL).
+                <br />
+                <span className="text-muted-foreground/60 normal-case tracking-wide text-[0.6rem]">
+                  Full attribution available under NDA.
+                </span>
+              </cite>
+            </blockquote>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -204,6 +272,47 @@ const ProofPage = () => {
                 >
                   <h3 className="text-sm font-bold uppercase tracking-wider mb-3 text-foreground">{item.title}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Compounding Moat ── */}
+      <section className="relative z-[1] py-16 md:py-20 px-6 md:px-12">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <h2
+              className="text-2xl md:text-3xl font-extrabold tracking-tight uppercase mb-4 text-center"
+              style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4)" }}
+            >
+              Compounding Moat
+            </h2>
+            <p className="text-xs md:text-sm text-muted-foreground text-center mb-12 max-w-xl mx-auto leading-relaxed">
+              Customers move up the ladder. Each stage raises switching cost and deepens the data moat.
+            </p>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {compoundingStages.map((s, i) => (
+              <ScrollReveal key={s.stage} delay={i * 90}>
+                <div
+                  className="p-5 rounded-2xl h-full flex flex-col"
+                  style={{
+                    background: "hsl(230 20% 8% / 0.6)",
+                    border: "1px solid hsl(275 80% 55% / 0.12)",
+                  }}
+                >
+                  <span
+                    className="text-[0.6rem] tracking-[0.3em] uppercase font-bold mb-3"
+                    style={{ color: "hsl(275 80% 65%)" }}
+                  >
+                    Stage {s.stage}
+                  </span>
+                  <h3 className="text-sm md:text-base font-bold text-foreground mb-2 leading-tight">
+                    {s.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
                 </div>
               </ScrollReveal>
             ))}

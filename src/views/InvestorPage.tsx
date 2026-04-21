@@ -86,21 +86,54 @@ const InvestorPage = () => {
       <ConstellationCanvas />
       <Navbar />
 
-      {/* ── Hero ── */}
-      <section className="relative z-[1] pt-32 pb-16 px-6 md:px-12 lg:px-16 text-center">
-        <ScrollReveal>
-          <p className="text-xs tracking-[0.25em] uppercase text-primary mb-4 font-semibold">For Investors</p>
-          <h1
-            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase mb-6"
-            style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)" }}
+      {/* ── Hero — full-screen, matches About / Careers / Proof style ── */}
+      <section className="min-h-screen flex items-center justify-center relative z-[1] overflow-hidden pt-32 pb-16 px-6 md:px-12 lg:px-16">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `
+              radial-gradient(ellipse 40% 35% at 50% 45%, hsl(275 80% 40% / 0.15) 0%, transparent 60%),
+              radial-gradient(ellipse 55% 45% at 50% 50%, hsl(260 70% 30% / 0.1) 0%, transparent 55%)
+            `,
+          }}
+        />
+        <div className="text-center relative z-[3] max-w-5xl mx-auto">
+          <p
+            className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary/80 mb-6 font-bold"
+            style={{ animation: "hero-label-in 0.8s ease-out 0.2s both" }}
           >
-            The AI Operating System<br />for Manufacturing
-          </h1>
-          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            One model connects every design decision, every machine, and every deployed unit.
-            Use this page to request investor materials.
+            For Investors
           </p>
-        </ScrollReveal>
+          <h1
+            className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
+            style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
+          >
+            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
+              The Reshoring
+            </span>
+            <br />
+            <span
+              className="bg-clip-text text-transparent inline-block"
+              style={{
+                backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary) / 0.8))",
+                backgroundSize: "200% 200%",
+                animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both, hero-gradient-shift 6s ease-in-out infinite 1.4s",
+              }}
+            >
+              Decade
+            </span>
+            <br />
+            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}>
+              Starts Here.
+            </span>
+          </h1>
+          <p
+            className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[640px] mx-auto"
+            style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
+          >
+            Physical AI + sovereign manufacturing. A 30-year shift, only one default.
+          </p>
+        </div>
       </section>
 
       {/* ── Inquiry Form ── */}

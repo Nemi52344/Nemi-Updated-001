@@ -94,7 +94,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
       className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-y-auto"
       style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
     >
-      <div className="max-w-6xl w-full px-4 md:px-6 mx-auto pointer-events-auto flex flex-col items-center py-8 md:py-0">
+      <div className="max-w-6xl w-full px-4 md:px-6 mx-auto pointer-events-auto flex flex-col items-center py-16 md:py-20 lg:py-24">
         {/* Subtitle */}
         <h2
           className="text-[10px] md:text-sm tracking-[0.4em] uppercase mb-3 md:mb-6"
@@ -109,7 +109,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
         {/* Heading */}
         <h3
-          className="text-sm md:text-3xl lg:text-4xl font-light text-foreground tracking-wide text-center max-w-4xl mx-auto mb-4 md:mb-10"
+          className="text-sm md:text-2xl lg:text-3xl font-light text-foreground tracking-wide text-center max-w-3xl mx-auto mb-4 md:mb-8"
           style={{
             opacity: enterP,
             transform: `translateY(${(1 - enterP) * 25}px)`,
@@ -120,7 +120,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
         {/* Parts pills - horizontal row */}
         <div
-          className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-14 px-2"
+          className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-10 px-2"
           style={{ opacity: enterP }}
         >
           {parts.map((part) => {
@@ -166,7 +166,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
             return (
               <div key={v.key} className="flex flex-col items-center gap-2 md:gap-4">
-                <div className="relative w-[7.5rem] h-[8.5rem] md:w-52 md:h-56 lg:w-72 lg:h-72 flex items-center justify-center">
+                <div className="relative w-[7.5rem] h-[8.5rem] md:w-48 md:h-52 lg:w-60 lg:h-60 flex items-center justify-center">
                   <img
                     src={data.full}
                     alt={v.label}

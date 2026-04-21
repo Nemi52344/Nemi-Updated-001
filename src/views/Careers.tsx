@@ -32,21 +32,54 @@ const Careers = () => {
 
       <Navbar scrollProgress={1} />
 
-      {/* HERO — Full screen */}
-      <section className="min-h-screen flex flex-col items-center justify-center relative z-[1] px-6 md:px-12 lg:px-16 text-center">
-        <ScrollReveal>
+      {/* HERO — Full screen (matches About page style) */}
+      <section className="min-h-screen flex items-center justify-center relative z-[1] overflow-hidden pt-32 pb-16 px-6 md:px-12 lg:px-16">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `
+              radial-gradient(ellipse 40% 35% at 50% 45%, hsl(275 80% 40% / 0.15) 0%, transparent 60%),
+              radial-gradient(ellipse 55% 45% at 50% 50%, hsl(260 70% 30% / 0.1) 0%, transparent 55%)
+            `,
+          }}
+        />
+        <div className="text-center relative z-[3] max-w-4xl mx-auto">
+          <p
+            className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary/80 mb-6 font-bold"
+            style={{ animation: "hero-label-in 0.8s ease-out 0.2s both" }}
+          >
+            Careers
+          </p>
           <h1
             className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
-            style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)" }}
+            style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
           >
-            Build the<br />Physical Internet
+            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
+              Engineer the
+            </span>
+            <br />
+            <span
+              className="bg-clip-text text-transparent inline-block"
+              style={{
+                backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary) / 0.8))",
+                backgroundSize: "200% 200%",
+                animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both, hero-gradient-shift 6s ease-in-out infinite 1.4s",
+              }}
+            >
+              Physical
+            </span>
+            <br />
+            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}>
+              Future.
+            </span>
           </h1>
-        </ScrollReveal>
-        <ScrollReveal delay={200}>
-          <p className="text-sm md:text-lg leading-[1.8] text-muted-foreground max-w-[600px] mx-auto tracking-wide">
-            We're building the team that brings Physical AI to manufacturing. If you want your work to result in real things being made — faster and better — you belong here.
+          <p
+            className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[600px] mx-auto"
+            style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
+          >
+            The next decade of products runs on Physical AI. Help build the stack.
           </p>
-        </ScrollReveal>
+        </div>
       </section>
 
       {/* OUR TEAM + VALUES — Team image background with purple shade & values overlay */}
@@ -54,7 +87,7 @@ const Careers = () => {
         <div className="relative min-h-[70vh] overflow-hidden flex flex-col">
           {/* Team background image */}
           <img
-            src="/images/about us.webp"
+            src="/Images/about us.webp"
             alt="NEMI team"
             className="absolute inset-0 w-full h-full object-cover object-center"
             loading="lazy" decoding="async"

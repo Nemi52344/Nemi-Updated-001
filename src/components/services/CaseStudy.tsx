@@ -76,8 +76,8 @@ const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt
   );
 
   const imageBlock = (
-    <ScrollReveal variant="zoom" repeat>
-      <div style={{ height: 380, overflow: "hidden" }}>
+    <ScrollReveal variant="zoom" repeat style={{ height: "100%" }}>
+      <div style={{ height: "100%", minHeight: 380, overflow: "hidden" }}>
         <img src={imageSrc} alt={imageAlt} style={{ width: "100%", height: "100%", objectFit: "cover" as const, opacity: 0.65, transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} className="hover:scale-105" decoding="async" />
       </div>
     </ScrollReveal>

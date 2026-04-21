@@ -109,7 +109,7 @@ const InvestorPage = () => {
             style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
           >
             <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
-              The Reshoring
+              Funding the
             </span>
             <br />
             <span
@@ -120,18 +120,18 @@ const InvestorPage = () => {
                 animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both, hero-gradient-shift 6s ease-in-out infinite 1.4s",
               }}
             >
-              Decade
+              Physical AI
             </span>
             <br />
             <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}>
-              Starts Here.
+              Era.
             </span>
           </h1>
           <p
             className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[640px] mx-auto"
             style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
           >
-            Physical AI + sovereign manufacturing. A 30-year shift, only one default.
+            The infrastructure layer for everything the world builds next.
           </p>
         </div>
       </section>

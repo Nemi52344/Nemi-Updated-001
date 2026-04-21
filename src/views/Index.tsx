@@ -164,15 +164,10 @@ const Index = () => {
           NEMI AI
         </h1>
         <p
-          className="mt-5 text-base md:text-xl lg:text-2xl font-semibold text-center text-foreground leading-snug tracking-wide mx-4 max-w-2xl"
-          style={{ textShadow: "0 0 24px hsl(275 80% 60% / 0.45), 0 0 48px hsl(270 70% 50% / 0.22)" }}
+          className="mt-6 text-sm md:text-base lg:text-lg font-light text-center text-muted-foreground tracking-[0.25em] uppercase mx-4"
+          style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}
         >
-          The AI Operating System for Manufacturing.
-        </p>
-        <p
-          className="mt-3 text-xs md:text-sm font-light text-center text-muted-foreground/85 tracking-[0.15em] uppercase mx-4 max-w-xl"
-        >
-          Design, manufacture, and deploy physical products &mdash; 10&times; faster, at Western quality.
+          The AI Operating System for Manufacturing
         </p>
       </div>
 

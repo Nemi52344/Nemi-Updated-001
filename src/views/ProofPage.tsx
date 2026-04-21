@@ -57,15 +57,6 @@ const whyRepeats = [
   },
 ];
 
-// Traction bar — ordered: customers -> retention -> unit economics -> revenue.
-// ARR moves to the end per stakeholder feedback.
-const tractionBar = [
-  { value: "36+", label: "Enterprise Customers" },
-  { value: "90%+", label: "Gross Revenue Retention" },
-  { value: "9.8\u00d7", label: "LTV / CAC" },
-  { value: "$15M", label: "ARR" },
-];
-
 // Compounding moat — stages customers move through.
 const compoundingStages = [
   { stage: "01", title: "Cost, quality, speed", desc: "A clear advantage over the alternate supplier set." },
@@ -105,11 +96,11 @@ const ProofPage = () => {
             style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
           >
             <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
-              A Factory
+              Hardware
             </span>
             <br />
             <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both" }}>
-              is the
+              in the
             </span>
             <br />
             <span
@@ -120,40 +111,15 @@ const ProofPage = () => {
                 animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both, hero-gradient-shift 6s ease-in-out infinite 1.4s",
               }}
             >
-              Best Demo.
+              Field.
             </span>
           </h1>
           <p
             className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[600px] mx-auto"
             style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
           >
-            Real factories. Real programmes. Real hardware at scale.
+            Real factories. Real programmes. Real field data.
           </p>
-        </div>
-      </section>
-
-      {/* ── Traction bar ── */}
-      <section className="relative z-[1] py-10 md:py-12 px-6 md:px-12 border-y border-border/20">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {tractionBar.map((t, i) => (
-            <ScrollReveal key={t.label} delay={i * 80}>
-              <div className="text-center">
-                <p
-                  className="text-2xl md:text-4xl font-extrabold tracking-tight mb-1"
-                  style={{
-                    background: "linear-gradient(135deg, hsl(275 85% 68%), hsl(260 80% 55%))",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  {t.value}
-                </p>
-                <p className="text-[0.55rem] md:text-[0.65rem] tracking-[0.15em] uppercase text-muted-foreground font-semibold">
-                  {t.label}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
         </div>
       </section>
 
@@ -221,28 +187,6 @@ const ProofPage = () => {
             ))}
           </div>
 
-          {/* DRDL testimonial — attribution per diligence policy */}
-          <ScrollReveal delay={200}>
-            <blockquote
-              className="mt-12 text-center max-w-2xl mx-auto py-8 px-6 rounded-2xl"
-              style={{
-                background: "hsl(230 20% 8% / 0.5)",
-                border: "1px solid hsl(275 80% 55% / 0.12)",
-              }}
-            >
-              <p className="text-sm md:text-base text-foreground/90 italic leading-relaxed mb-3">
-                &ldquo;No one in India was able to accomplish this. We are thoroughly impressed
-                by the capabilities demonstrated.&rdquo;
-              </p>
-              <cite className="text-[0.65rem] tracking-[0.15em] uppercase text-muted-foreground not-italic font-semibold leading-relaxed block">
-                &mdash; Senior Scientist, Defence Research and Development Laboratory (DRDL).
-                <br />
-                <span className="text-muted-foreground/60 normal-case tracking-wide text-[0.6rem]">
-                  Full attribution available under NDA.
-                </span>
-              </cite>
-            </blockquote>
-          </ScrollReveal>
         </div>
       </section>
 

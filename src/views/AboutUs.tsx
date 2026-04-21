@@ -673,15 +673,16 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* ── CUSTOMER & PROGRAM ENGAGEMENTS ── */}
+      {/* ── PARTNER LOGOS ── */}
       <section className="py-16 md:py-20 border-t border-border/20 relative z-[1] overflow-hidden">
         <ScrollReveal>
           <p className="text-center text-xs tracking-[0.4em] uppercase text-muted-foreground mb-12">
-            Customer &amp; Program Engagements
+            Affiliated &amp; Partnered With
           </p>
         </ScrollReveal>
 
-        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+        {/* Row 1 — scrolls left */}
+        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] mb-3 md:mb-4">
           <div className="flex" style={{ animation: "partner-scroll-left 40s linear infinite", willChange: "transform" }}>
             {[0, 1].map((set) => (
               <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
@@ -695,15 +696,7 @@ const AboutUs = () => {
                   { src: "/Images/logos/isro.webp", label: "ISRO" },
                   { src: "/Images/logos/drdo.webp", label: "DRDO" },
                   { src: "/Images/logos/boeing.webp", label: "Boeing" },
-                  { src: "/Images/logos/brahmos.webp", label: "BrahMos" },
-                  { src: "/Images/logos/bharat-dynamics.webp", label: "Bharat Dynamics" },
-                  { src: "/Images/logos/exide.webp", label: "Exide" },
-                  { src: "/Images/logos/flipkart.webp", label: "Flipkart" },
-                  { src: "/Images/logos/zomato.webp", label: "Zomato" },
-                  { src: "/Images/logos/rapido.webp", label: "Rapido" },
-                  { src: "/Images/logos/tvs-mobility.webp", label: "TVS Mobility" },
-                  { src: "/Images/logos/mahindra.webp", label: "Mahindra" },
-                  { src: "/Images/logos/ducati.webp", label: "Ducati" },
+                  { src: "/Images/logos/ashok-leyland.webp", label: "Ashok Leyland" },
                 ].map((logo) => (
                   <div
                     key={logo.label + set}
@@ -718,33 +711,23 @@ const AboutUs = () => {
             ))}
           </div>
         </div>
-      </section>
 
-      {/* ── LEADERSHIP EXPERIENCE ACROSS ── */}
-      <section className="py-16 md:py-20 border-t border-border/20 relative z-[1] overflow-hidden">
-        <ScrollReveal>
-          <p className="text-center text-xs tracking-[0.4em] uppercase text-muted-foreground mb-12">
-            Leadership Experience Across
-          </p>
-        </ScrollReveal>
-
+        {/* Row 2 — scrolls right */}
         <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
           <div className="flex" style={{ animation: "partner-scroll-right 38s linear infinite", willChange: "transform" }}>
             {[0, 1].map((set) => (
               <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
                 {[
-                  { src: "/Images/logos/mckinsey.webp", label: "McKinsey" },
-                  { src: "/Images/logos/ashok-leyland.webp", label: "Ashok Leyland" },
                   { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield" },
-                  { src: "/Images/logos/nissan.webp", label: "Nissan" },
-                  { src: "/Images/logos/musashi.webp", label: "Musashi" },
-                  { src: "/Images/logos/airbus.webp", label: "Airbus" },
-                  { src: "/Images/logos/airindia-axiscades.webp", label: "Air India / Axis CADES" },
-                  { src: "/Images/logos/delacremeventures.webp", label: "De La Cr\u00e8me Ventures" },
-                  { src: "/Images/logos/indoshell.webp", label: "Indoshell" },
-                  { src: "/Images/logos/jtrack.webp", label: "JTrack" },
-                  { src: "/Images/logos/ustglobal.webp", label: "UST Global" },
-                  { src: "/Images/logos/samudhra.webp", label: "Samudhra" },
+                  { src: "/Images/logos/brahmos.webp", label: "BrahMos" },
+                  { src: "/Images/logos/bharat-dynamics.webp", label: "Bharat Dynamics" },
+                  { src: "/Images/logos/exide.webp", label: "Exide" },
+                  { src: "/Images/logos/flipkart.webp", label: "Flipkart" },
+                  { src: "/Images/logos/zomato.webp", label: "Zomato" },
+                  { src: "/Images/logos/rapido.webp", label: "Rapido" },
+                  { src: "/Images/logos/tvs-mobility.webp", label: "TVS Mobility" },
+                  { src: "/Images/logos/mahindra.webp", label: "Mahindra" },
+                  { src: "/Images/logos/ducati.webp", label: "Ducati" },
                 ].map((logo) => (
                   <div
                     key={logo.label + set}

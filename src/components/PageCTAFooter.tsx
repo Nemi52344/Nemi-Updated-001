@@ -94,40 +94,31 @@ const PageCTAFooter = ({
           Site footer
         </h2>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
-          {/* Brand */}
-          <div className="md:col-span-2">
-            <p className="font-bold text-xl tracking-[0.15em] uppercase text-foreground mb-2">
-              NEMI AI
-            </p>
-            <p className="text-xs md:text-sm text-muted-foreground max-w-sm leading-relaxed mb-4">
-              The AI Operating System for Manufacturing. Design, manufacture, and
-              deploy physical products under one Large Manufacturing Model.
-            </p>
-            <p className="text-xs text-muted-foreground">
-              <a
-                href="mailto:Humans@nemi-ai.com"
-                className="hover:text-primary transition-colors"
-              >
-                Humans@nemi-ai.com
-              </a>
-              {" · "}
-              <a
-                href="mailto:investors@nemi-ai.com"
-                className="hover:text-primary transition-colors"
-              >
-                investors@nemi-ai.com
-              </a>
-            </p>
-          </div>
+        {/* Brand band */}
+        <div className="max-w-6xl mx-auto mb-10 md:mb-14">
+          <p className="font-bold text-xl tracking-[0.15em] uppercase text-foreground mb-2">
+            NEMI AI
+          </p>
+          <p className="text-xs md:text-sm text-muted-foreground max-w-2xl leading-relaxed">
+            The AI Operating System for Manufacturing. Design, manufacture, and
+            deploy physical products under one Large Manufacturing Model.
+          </p>
+        </div>
 
-          {/* Explore */}
-          <nav aria-label="Footer navigation">
+        {/* 3-column footer nav */}
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+          {/* Platform */}
+          <nav aria-label="Platform links">
             <p className="text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground font-bold mb-4">
-              Explore
+              Platform
             </p>
             <ul className="flex flex-col gap-2 list-none p-0">
-              {FOOTER_NAV.slice(0, 4).map((item) => (
+              {[
+                { label: "Home", href: "/" },
+                { label: "Services", href: "/services" },
+                { label: "Technology", href: "/technology" },
+                { label: "Proof", href: "/proof" },
+              ].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -141,12 +132,17 @@ const PageCTAFooter = ({
           </nav>
 
           {/* Company */}
-          <nav aria-label="Company footer navigation">
+          <nav aria-label="Company links">
             <p className="text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground font-bold mb-4">
               Company
             </p>
             <ul className="flex flex-col gap-2 list-none p-0">
-              {FOOTER_NAV.slice(4).map((item) => (
+              {[
+                { label: "About", href: "/about" },
+                { label: "Careers", href: "/careers" },
+                { label: "Investors", href: "/investors" },
+                { label: "Sitemap", href: "/sitemap.xml" },
+              ].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -156,16 +152,45 @@ const PageCTAFooter = ({
                   </Link>
                 </li>
               ))}
+            </ul>
+          </nav>
+
+          {/* Contact */}
+          <div>
+            <p className="text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground font-bold mb-4">
+              Contact
+            </p>
+            <ul className="flex flex-col gap-2 list-none p-0">
               <li>
                 <a
-                  href="/sitemap.xml"
+                  href="mailto:Humans@nemi-ai.com"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Sitemap
+                  <span className="block text-[0.55rem] tracking-[0.15em] uppercase text-primary/70 mb-0.5">General</span>
+                  Humans@nemi-ai.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:investors@nemi-ai.com"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <span className="block text-[0.55rem] tracking-[0.15em] uppercase text-primary/70 mb-0.5 mt-1">Investors</span>
+                  investors@nemi-ai.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/nemi-ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-block mt-2"
+                >
+                  LinkedIn &rarr;
                 </a>
               </li>
             </ul>
-          </nav>
+          </div>
         </div>
 
         <div className="max-w-6xl mx-auto mt-12 pt-6 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-4">

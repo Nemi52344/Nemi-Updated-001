@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Production Systems, Not Pilots | NEMI AI",
     description:
-      "36+ enterprise customers, 90%+ retention, 300%+ expansion pipeline. See the proof behind NEMI's AI manufacturing platform.",
+      "Real factories, real programmes, real field data. See NEMI's flagship case studies across EV, defence, and precision tooling.",
     url: "https://nemi-ai.com/proof",
   },
   twitter: {
     title: "Production Systems, Not Pilots | NEMI AI",
     description:
-      "36+ enterprise customers, 90%+ retention, 300%+ expansion pipeline. See the proof behind NEMI's AI manufacturing platform.",
+      "Real factories, real programmes, real field data. See NEMI's flagship case studies across EV, defence, and precision tooling.",
   },
 };
 

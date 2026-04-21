@@ -23,13 +23,6 @@ const investorSchema = z.object({
 type InvestorForm = z.infer<typeof investorSchema>;
 
 /* ── Data ── */
-const kpis = [
-  { value: "36+", label: "Enterprise Customers" },
-  { value: "300K+", label: "Sq Ft Manufacturing" },
-  { value: "40+", label: "Patents" },
-  { value: "90%+", label: "Gross Revenue Retention" },
-];
-
 const processSteps = [
   { step: "01", title: "Submit the inquiry", desc: "Share firm, title, contact details, check size, and what you want to evaluate." },
   { step: "02", title: "NEMI reviews fit", desc: "The team prioritizes serious institutional and strategic conversations." },
@@ -39,10 +32,9 @@ const processSteps = [
 
 const signals = [
   "Texas C-Corporation",
-  "36+ enterprise customers",
   "300K+ sq ft manufacturing",
-  "40+ patents",
   "AS9100D and ISO 9001",
+  "DRDO and ISRO cleared",
   "Four industries in production",
 ];
 
@@ -109,31 +101,6 @@ const InvestorPage = () => {
             Use this page to request investor materials.
           </p>
         </ScrollReveal>
-      </section>
-
-      {/* ── KPI Strip ── */}
-      <section className="relative z-[1] py-10 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-          {kpis.map((kpi) => (
-            <ScrollReveal key={kpi.label}>
-              <div className="text-center py-4">
-                <span
-                  className="text-2xl md:text-4xl font-extrabold block mb-1"
-                  style={{
-                    background: "linear-gradient(135deg, hsl(275 80% 65%), hsl(var(--foreground)))",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  {kpi.value}
-                </span>
-                <span className="text-[0.6rem] md:text-xs tracking-[0.15em] uppercase text-muted-foreground font-semibold">
-                  {kpi.label}
-                </span>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
       </section>
 
       {/* ── Inquiry Form ── */}

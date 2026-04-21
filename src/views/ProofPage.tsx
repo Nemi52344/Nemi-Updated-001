@@ -57,6 +57,14 @@ const whyRepeats = [
   },
 ];
 
+// Compounding moat — stages customers move through.
+const compoundingStages = [
+  { stage: "01", title: "Cost, quality, speed", desc: "A clear advantage over the alternate supplier set." },
+  { stage: "02", title: "High switching risk", desc: "Critical parts carry heavy re-qualification cost to switch away." },
+  { stage: "03", title: "Data compounds the moat", desc: "Historical process and field data deepen yield, lower cost, and raise switching cost further." },
+  { stage: "04", title: "Strategic partner", desc: "No longer a supplier \u2014 essential to operations. Impossible to replace." },
+];
+
 const certifications = ["AS9100D", "ISO 9001:2015", "DRDO Cleared", "ISRO Cleared"];
 
 const ProofPage = () => {
@@ -88,11 +96,11 @@ const ProofPage = () => {
             style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
           >
             <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
-              A Factory
+              Hardware
             </span>
             <br />
             <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both" }}>
-              is the
+              in the
             </span>
             <br />
             <span
@@ -103,14 +111,14 @@ const ProofPage = () => {
                 animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both, hero-gradient-shift 6s ease-in-out infinite 1.4s",
               }}
             >
-              Best Demo.
+              Field.
             </span>
           </h1>
           <p
             className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[600px] mx-auto"
             style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
           >
-            Real factories. Real programmes. Real hardware at scale.
+            Real factories. Real programmes. Real field data.
           </p>
         </div>
       </section>
@@ -171,10 +179,14 @@ const ProofPage = () => {
                       </div>
                     ))}
                   </div>
+                  <p className="text-[0.65rem] text-muted-foreground/50 italic mt-5 leading-relaxed">
+                    Customer name withheld under NDA. Reference available on request during investor diligence.
+                  </p>
                 </div>
               </ScrollReveal>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -204,6 +216,47 @@ const ProofPage = () => {
                 >
                   <h3 className="text-sm font-bold uppercase tracking-wider mb-3 text-foreground">{item.title}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Compounding Moat ── */}
+      <section className="relative z-[1] py-16 md:py-20 px-6 md:px-12">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <h2
+              className="text-2xl md:text-3xl font-extrabold tracking-tight uppercase mb-4 text-center"
+              style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4)" }}
+            >
+              Compounding Moat
+            </h2>
+            <p className="text-xs md:text-sm text-muted-foreground text-center mb-12 max-w-xl mx-auto leading-relaxed">
+              Customers move up the ladder. Each stage raises switching cost and deepens the data moat.
+            </p>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {compoundingStages.map((s, i) => (
+              <ScrollReveal key={s.stage} delay={i * 90}>
+                <div
+                  className="p-5 rounded-2xl h-full flex flex-col"
+                  style={{
+                    background: "hsl(230 20% 8% / 0.6)",
+                    border: "1px solid hsl(275 80% 55% / 0.12)",
+                  }}
+                >
+                  <span
+                    className="text-[0.6rem] tracking-[0.3em] uppercase font-bold mb-3"
+                    style={{ color: "hsl(275 80% 65%)" }}
+                  >
+                    Stage {s.stage}
+                  </span>
+                  <h3 className="text-sm md:text-base font-bold text-foreground mb-2 leading-tight">
+                    {s.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
                 </div>
               </ScrollReveal>
             ))}

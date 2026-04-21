@@ -155,7 +155,7 @@ export default function RootLayout({
             </p>
             <p style={{ margin: "0 0 1rem", opacity: 0.85 }}>
               Design, manufacture, and deploy physical products &mdash; 10&times; faster,
-              at Western quality. AS9100D and ISO 9001 certified. DRDO and ISRO cleared.
+              at aerospace-grade quality. AS9100D and ISO 9001 certified. DRDO and ISRO cleared.
             </p>
             <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Platform</h2>
             <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>

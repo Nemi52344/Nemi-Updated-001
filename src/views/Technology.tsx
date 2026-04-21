@@ -96,7 +96,7 @@ const Technology = () => {
           <p className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed max-w-[600px] mx-auto mb-14"
             style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
           >
-            The LMM learns from every part, every sensor, every run. It doesn't just automate — it thinks.
+            The LMM learns from every part, every sensor, every run. It doesn't just automate &mdash; it reasons.
           </p>
           <div
             className="inline-flex items-center gap-0 rounded-2xl border border-border/30 overflow-hidden"
@@ -113,6 +113,14 @@ const Technology = () => {
               </div>
             ))}
           </div>
+          <p
+            className="text-[0.65rem] md:text-xs text-muted-foreground/55 italic leading-relaxed max-w-[640px] mx-auto mt-6 px-4"
+            style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1.4s forwards" }}
+          >
+            10&times; and 80% figures reflect outcomes across published AKIO case studies
+            (Refrigerator Design, Drone Powertrain, EV Motorcycle). Methodology available
+            under NDA.
+          </p>
         </div>
       </section>
 
@@ -324,7 +332,7 @@ const Technology = () => {
             {/* Header Row */}
             <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-card p-5 border-b border-border/30">
               <span className="text-[0.6rem] font-bold tracking-[0.25em] uppercase text-muted-foreground"></span>
-              <span className="text-[0.6rem] font-bold tracking-[0.25em] uppercase text-muted-foreground/50">Legacy Vendors</span>
+              <span className="text-[0.6rem] font-bold tracking-[0.25em] uppercase text-muted-foreground/50">Traditional MES / PLM Vendors</span>
               <span className="text-[0.6rem] font-bold tracking-[0.25em] uppercase text-primary">NEMI</span>
             </div>
             {/* Data Rows */}
@@ -356,7 +364,7 @@ const Technology = () => {
         headline="See It in Action."
         tagline="Book a walkthrough. See the LMM run on real production data."
         buttonText="Request a Demo"
-        buttonHref="/services"
+        buttonHref="/#contact"
       />
     </div>
   );

@@ -14,7 +14,20 @@ interface LeaderMember {
   role: string;
   desc: string;
   colorHsl: string;
+  linkedin?: string;
 }
+
+// Small inline LinkedIn glyph — inherits color + current font size.
+const LinkedInIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="w-3.5 h-3.5 md:w-4 md:h-4"
+    aria-hidden="true"
+  >
+    <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.67H9.35V9h3.42v1.56h.05c.48-.91 1.65-1.86 3.4-1.86 3.64 0 4.3 2.4 4.3 5.52v6.23zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .78 0 1.73v20.53C0 23.22.79 24 1.77 24h20.45c.98 0 1.77-.78 1.77-1.74V1.73C24 .78 23.21 0 22.22 0z" />
+  </svg>
+);
 
 const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
   const [hovered, setHovered] = useState(false);
@@ -103,6 +116,18 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
           <p className="text-[10px] leading-relaxed md:text-sm text-muted-foreground text-center">
             {member.desc}
           </p>
+          <a
+            href={member.linkedin || "https://www.linkedin.com/company/nemi-ai"}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            aria-label={`${member.name} on LinkedIn`}
+            className="mt-3 md:mt-4 inline-flex items-center gap-1.5 text-[10px] md:text-xs font-semibold uppercase tracking-[0.15em] transition-opacity hover:opacity-100 opacity-80"
+            style={{ color: `hsl(${member.colorHsl})` }}
+          >
+            <LinkedInIcon />
+            LinkedIn
+          </a>
         </div>
       </div>
     </div>
@@ -196,7 +221,7 @@ const AboutUs = () => {
                 { color: "hsl(217, 91%, 60%)", label: "HENRY", subtitle: "Manufacturing Engine",
                   body: "Full-stack production — metal parts, electronics, batteries, motors. Sensor-driven quality at every stage." },
                 { color: "hsl(142, 71%, 45%)", label: "SAM", subtitle: "Deployment & Lifecycle",
-                  body: "Fleet deployment, last-mile logistics, leasing. Real-world data feeds back into design." },
+                  body: "Fleet deployment, last-mile logistics, leasing, financing, field monitoring. Real-world data feeds back into AKIO designs." },
               ].map((pillar, i) => (
                 <ScrollReveal key={pillar.label} delay={i * 150}>
                   <div
@@ -231,224 +256,6 @@ const AboutUs = () => {
                 </ScrollReveal>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── THE TEAM ── */}
-      <section className="py-24 px-6 md:px-12 lg:px-16 relative z-[1]">
-        <div className="text-center">
-          <ScrollReveal>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
-              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-            >
-              The Team
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={100}>
-            <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14">
-              Operators, not observers. We build what we ship.
-            </p>
-          </ScrollReveal>
-
-          {/* Core Leadership */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
-            {[
-              { name: "Anirudh Ravi Narayanan", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp", role: "Chief Executive Officer",
-                desc: "Leads NEMI's mission to make manufacturing accessible — building intelligent systems that turn bold ideas into scalable reality.", colorHsl: "275 85% 65%" },
-              { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.webp", role: "Chief Financial Officer",
-                desc: "Deep expertise in digital transformation, steering NEMI's financial strategy to fuel the shift from traditional manufacturing to AI-powered operations.", colorHsl: "268 82% 62%" },
-              { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.webp", role: "Chief Technology Officer",
-                desc: "Designs the Physical AI architecture at the core of NEMI — the technology layer powering next-generation industrial transformation.", colorHsl: "282 78% 60%" },
-            ].map((member, i) => (
-              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
-                <LeaderFlipCard member={member} />
-              </ScrollReveal>
-            ))}
-          </div>
-
-          {/* Extended Leadership */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {[
-              { name: "Subramanian R", photo: "/Images/team/Subramanian%20R.webp", role: "CFO — India",
-                desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods.", colorHsl: "275 55% 52%" },
-              { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", role: "President — HENRY Suite",
-                desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India.", colorHsl: "268 52% 50%" },
-              { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "President — AKIO Suite (Mechanical)",
-                desc: "30+ years in manufacturing leadership — automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%" },
-              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President — AKIO Suite (Electrical)",
-                desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation.", colorHsl: "272 48% 50%" },
-              { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.webp", role: "President — SAM",
-                desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Built and led 100+ person sales teams.", colorHsl: "278 53% 49%" },
-            ].map((member, i) => (
-              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
-                <LeaderFlipCard member={member} />
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── BOARD & ADVISORS ── */}
-      <section className="py-20 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
-        <ScrollReveal>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
-            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-          >
-            Board & Advisors
-          </h2>
-        </ScrollReveal>
-        <ScrollReveal delay={100}>
-          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-12">
-            Guided by operators who scaled global enterprises.
-          </p>
-        </ScrollReveal>
-
-        {/* Board of Directors */}
-        <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6 font-bold">Board of Directors</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30 mb-16">
-          {[
-            { initials: "ARN", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp", name: "Anirudh Ravi Narayanan", title: "Executive Director & CEO", tag: "Executive", color: "275 42% 45%", desc: "CEO & Founder of BNC Motors. Drives NEMI's vision of making manufacturing accessible through Physical AI." },
-            { initials: "VT", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", name: "Vinoth Thiruvenkatasamy", title: "Executive Board Member", tag: "Executive", color: "268 40% 43%", desc: "CTO at BNC Motors. 20+ years in automotive R&D with experience at Nissan & Ford." },
-            { initials: "SS", photo: "/Images/team/Sam%20Swaminathan.webp", name: "Sam Swaminathan", title: "Non-Executive Board Member", tag: "Non-Executive", color: "282 38% 41%", desc: "General Partner, De La Crème Ventures. Ex-SVP Fractal Analytics. IIT Madras alumnus." },
-            { initials: "NN", photo: "/Images/team/Naoya%20Nishimura.webp", name: "Naoya Nishimura", title: "Non-Executive Board Member", tag: "Non-Executive", color: "272 36% 39%", desc: "CEO, Musashi Auto Parts India. Leads EV expansion for Musashi Seimitsu in India & Africa." },
-          ].map((member, i) => (
-            <ScrollReveal key={i} delay={i * 100}>
-              <div className="bg-background p-6 h-full flex flex-col" style={{ borderTop: `2px solid hsl(${member.color} / 0.5)` }}>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
-                    style={{ background: `hsl(${member.color} / 0.12)`, border: `1px solid hsl(${member.color} / 0.3)` }}
-                  >
-                    {member.photo ? (
-                      <img src={member.photo} alt={member.name} className="w-full h-full object-cover" decoding="async" />
-                    ) : (
-                      <span className="font-black text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
-                    )}
-                  </div>
-                  <span className="text-[0.55rem] tracking-[0.15em] uppercase font-semibold px-2 py-0.5 rounded-full"
-                    style={{ color: `hsl(${member.color})`, background: `hsl(${member.color} / 0.1)` }}>
-                    {member.tag}
-                  </span>
-                </div>
-                <p className="font-bold text-sm tracking-[0.05em] uppercase text-foreground mb-1">{member.name}</p>
-                <p className="font-semibold text-[0.58rem] tracking-[0.12em] uppercase mb-3" style={{ color: `hsl(${member.color})` }}>{member.title}</p>
-                <p className="text-xs text-muted-foreground leading-relaxed mt-auto">{member.desc}</p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-
-        {/* Advisors */}
-        <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6 font-bold">Advisors</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { initials: "SR", photo: "/Images/team/Sampath%20Ravi%20Narayanan.webp", name: "Dr. Sampath Ravinarayanan", title: "Board Advisor", color: "275 30% 38%",
-              highlights: ["Founder, Microcon; Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL"] },
-            { initials: "RM", photo: "/Images/team/Ramesh%20Mangaleshwaran.webp", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%",
-              highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Co-led Industrials Practice, India & Asia"] },
-            { initials: "VD", photo: "/Images/team/Vinod%20K%20Dasari.webp", name: "Vinod K. Dasari", title: "Advisor", color: "282 26% 35%",
-              highlights: ["Fmr. MD & CEO, Ashok Leyland & Royal Enfield", "Led global innovation, modernization & international expansion"] },
-          ].map((advisor, i) => (
-            <ScrollReveal key={advisor.name} delay={i * 120}>
-              <div className="rounded-xl border p-6 h-full flex flex-col"
-                style={{ borderColor: `hsl(${advisor.color} / 0.25)`, background: `linear-gradient(135deg, hsl(${advisor.color} / 0.06), hsl(var(--card) / 0.7))` }}
-              >
-                <div className="flex items-center gap-4 mb-5">
-                  <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
-                    style={{ background: `hsl(${advisor.color} / 0.15)`, border: `1.5px solid hsl(${advisor.color} / 0.4)` }}
-                  >
-                    {advisor.photo ? (
-                      <img src={advisor.photo} alt={advisor.name} className="w-full h-full object-cover" decoding="async" />
-                    ) : (
-                      <span className="font-black text-sm" style={{ color: `hsl(${advisor.color})` }}>{advisor.initials}</span>
-                    )}
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm tracking-wide text-foreground">{advisor.name}</p>
-                    <p className="text-[0.6rem] tracking-[0.15em] uppercase font-semibold" style={{ color: `hsl(${advisor.color})` }}>{advisor.title}</p>
-                  </div>
-                </div>
-                <ul className="flex flex-col gap-2 mt-auto">
-                  {advisor.highlights.map((h, j) => (
-                    <li key={j} className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed">
-                      <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: `hsl(${advisor.color})` }} />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ── PARTNER LOGOS ── */}
-      <section className="py-16 md:py-20 border-t border-border/20 relative z-[1] overflow-hidden">
-        <ScrollReveal>
-          <p className="text-center text-xs tracking-[0.4em] uppercase text-muted-foreground mb-12">
-            Affiliated & Partnered With
-          </p>
-        </ScrollReveal>
-
-        {/* Row 1 — scrolls left */}
-        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] mb-3 md:mb-4">
-          <div className="flex" style={{ animation: "partner-scroll-left 40s linear infinite", willChange: "transform" }}>
-            {[0, 1].map((set) => (
-              <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
-                {[
-                  { src: "/Images/logos/samsung.webp", label: "Samsung" },
-                  { src: "/Images/logos/tata.webp", label: "Tata" },
-                  { src: "/Images/logos/lamborghini.webp", label: "Lamborghini" },
-                  { src: "/Images/logos/whirlpool.webp", label: "Whirlpool" },
-                  { src: "/Images/logos/abb.webp", label: "ABB" },
-                  { src: "/Images/logos/caterpillar.webp", label: "Caterpillar" },
-                  { src: "/Images/logos/isro.webp", label: "ISRO" },
-                  { src: "/Images/logos/drdo.webp", label: "DRDO" },
-                  { src: "/Images/logos/boeing.webp", label: "Boeing" },
-                  { src: "/Images/logos/ashok-leyland.webp", label: "Ashok Leyland" },
-                ].map((logo) => (
-                  <div
-                    key={logo.label + set}
-                    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm"
-                    style={{ width: "160px", height: "80px" }}
-                  >
-                    <img src={logo.src} alt={logo.label} title={logo.label}
-                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} decoding="async" />
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Row 2 — scrolls right */}
-        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-          <div className="flex" style={{ animation: "partner-scroll-right 38s linear infinite", willChange: "transform" }}>
-            {[0, 1].map((set) => (
-              <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
-                {[
-                  { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield" },
-                  { src: "/Images/logos/brahmos.webp", label: "BrahMos" },
-                  { src: "/Images/logos/bharat-dynamics.webp", label: "Bharat Dynamics" },
-                  { src: "/Images/logos/exide.webp", label: "Exide" },
-                  { src: "/Images/logos/flipkart.webp", label: "Flipkart" },
-                  { src: "/Images/logos/zomato.webp", label: "Zomato" },
-                  { src: "/Images/logos/rapido.webp", label: "Rapido" },
-                  { src: "/Images/logos/tvs-mobility.webp", label: "TVS Mobility" },
-                  { src: "/Images/logos/mahindra.webp", label: "Mahindra" },
-                  { src: "/Images/logos/ducati.webp", label: "Ducati" },
-                ].map((logo) => (
-                  <div
-                    key={logo.label + set}
-                    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm"
-                    style={{ width: "160px", height: "80px" }}
-                  >
-                    <img src={logo.src} alt={logo.label} title={logo.label}
-                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} decoding="async" />
-                  </div>
-                ))}
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -633,7 +440,7 @@ const AboutUs = () => {
               </ScrollReveal>
 
               <p className="text-[0.6rem] text-muted-foreground/50 italic mt-2">
-                Sources: McKinsey, MGI 2025
+                Source: McKinsey Global Institute, 2025.
               </p>
             </div>
           </div>
@@ -697,6 +504,246 @@ const AboutUs = () => {
         </div>
         <div className="border-t border-border/20 mt-0" />
       </section>
+      {/* ── THE TEAM ── */}
+      <section className="py-24 px-6 md:px-12 lg:px-16 relative z-[1]">
+        <div className="text-center">
+          <ScrollReveal>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+            >
+              The Team
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14">
+              Operators, not observers. We build what we ship.
+            </p>
+          </ScrollReveal>
+
+          {/* Core Leadership */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
+            {[
+              { name: "Anirudh Ravi Narayanan", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp", role: "Chief Executive Officer",
+                desc: "Leads NEMI's mission to make manufacturing accessible — building intelligent systems that turn bold ideas into scalable reality.", colorHsl: "275 85% 65%" },
+              { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.webp", role: "Chief Financial Officer",
+                desc: "Deep expertise in digital transformation, steering NEMI's financial strategy to fuel the shift from traditional manufacturing to AI-powered operations.", colorHsl: "268 82% 62%" },
+              { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.webp", role: "Chief Technology Officer",
+                desc: "Designs the Physical AI architecture at the core of NEMI — the technology layer powering next-generation industrial transformation.", colorHsl: "282 78% 60%" },
+            ].map((member, i) => (
+              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
+                <LeaderFlipCard member={member} />
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Extended Leadership */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {[
+              { name: "Subramanian R", photo: "/Images/team/Subramanian%20R.webp", role: "CFO — India",
+                desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods.", colorHsl: "275 55% 52%" },
+              { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", role: "President — HENRY Suite",
+                desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India.", colorHsl: "268 52% 50%" },
+              { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "President — AKIO Suite (Mechanical)",
+                desc: "30+ years in manufacturing leadership — automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%" },
+              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President — AKIO Suite (Electrical)",
+                desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation.", colorHsl: "272 48% 50%" },
+              { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.webp", role: "President — SAM",
+                desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Built and led 100+ person sales teams.", colorHsl: "278 53% 49%" },
+            ].map((member, i) => (
+              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
+                <LeaderFlipCard member={member} />
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOARD & ADVISORS ── */}
+      <section className="py-20 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
+        <ScrollReveal>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+          >
+            Board & Advisors
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal delay={100}>
+          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-12">
+            Guided by operators who scaled global enterprises.
+          </p>
+        </ScrollReveal>
+
+        {/* Board of Directors */}
+        <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6 font-bold">Board of Directors</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30 mb-16">
+          {[
+            { initials: "ARN", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp", name: "Anirudh Ravi Narayanan", title: "Executive Director & CEO", tag: "Executive", color: "275 42% 45%", desc: "CEO & Founder of BNC Motors. Drives NEMI's vision of making manufacturing accessible through Physical AI." },
+            { initials: "VT", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", name: "Vinoth Thiruvenkatasamy", title: "Executive Board Member", tag: "Executive", color: "268 40% 43%", desc: "CTO at BNC Motors. 20+ years in automotive R&D with experience at Nissan & Ford." },
+            { initials: "SS", photo: "/Images/team/Sam%20Swaminathan.webp", name: "Sam Swaminathan", title: "Non-Executive Board Member", tag: "Non-Executive", color: "282 38% 41%", desc: "General Partner, De La Crème Ventures. Ex-SVP Fractal Analytics. IIT Madras alumnus." },
+            { initials: "NN", photo: "/Images/team/Naoya%20Nishimura.webp", name: "Naoya Nishimura", title: "Non-Executive Board Member", tag: "Non-Executive", color: "272 36% 39%", desc: "CEO, Musashi Auto Parts India. Leads EV expansion for Musashi Seimitsu in India & Africa." },
+          ].map((member, i) => (
+            <ScrollReveal key={i} delay={i * 100}>
+              <div className="bg-background p-6 h-full flex flex-col" style={{ borderTop: `2px solid hsl(${member.color} / 0.5)` }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
+                    style={{ background: `hsl(${member.color} / 0.12)`, border: `1px solid hsl(${member.color} / 0.3)` }}
+                  >
+                    {member.photo ? (
+                      <img src={member.photo} alt={member.name} className="w-full h-full object-cover" decoding="async" />
+                    ) : (
+                      <span className="font-black text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
+                    )}
+                  </div>
+                  <span className="text-[0.55rem] tracking-[0.15em] uppercase font-semibold px-2 py-0.5 rounded-full"
+                    style={{ color: `hsl(${member.color})`, background: `hsl(${member.color} / 0.1)` }}>
+                    {member.tag}
+                  </span>
+                </div>
+                <p className="font-bold text-sm tracking-[0.05em] uppercase text-foreground mb-1">{member.name}</p>
+                <p className="font-semibold text-[0.58rem] tracking-[0.12em] uppercase mb-3" style={{ color: `hsl(${member.color})` }}>{member.title}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">{member.desc}</p>
+                <a
+                  href="https://www.linkedin.com/company/nemi-ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${member.name} on LinkedIn`}
+                  className="mt-4 inline-flex items-center gap-1.5 text-[0.6rem] font-semibold uppercase tracking-[0.15em] opacity-70 hover:opacity-100 transition-opacity self-start"
+                  style={{ color: `hsl(${member.color})` }}
+                >
+                  <LinkedInIcon />
+                  LinkedIn
+                </a>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+
+        {/* Advisors */}
+        <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6 font-bold">Advisors</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { initials: "SR", photo: "/Images/team/Sampath%20Ravi%20Narayanan.webp", name: "Dr. Sampath Ravinarayanan", title: "Board Advisor", color: "275 30% 38%",
+              highlights: ["Founder, Microcon; Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL"] },
+            { initials: "RM", photo: "/Images/team/Ramesh%20Mangaleshwaran.webp", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%",
+              highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Co-led Industrials Practice, India & Asia"] },
+            { initials: "VD", photo: "/Images/team/Vinod%20K%20Dasari.webp", name: "Vinod K. Dasari", title: "Advisor", color: "282 26% 35%",
+              highlights: ["Fmr. MD & CEO, Ashok Leyland & Royal Enfield", "Led global innovation, modernization & international expansion"] },
+          ].map((advisor, i) => (
+            <ScrollReveal key={advisor.name} delay={i * 120}>
+              <div className="rounded-xl border p-6 h-full flex flex-col"
+                style={{ borderColor: `hsl(${advisor.color} / 0.25)`, background: `linear-gradient(135deg, hsl(${advisor.color} / 0.06), hsl(var(--card) / 0.7))` }}
+              >
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
+                    style={{ background: `hsl(${advisor.color} / 0.15)`, border: `1.5px solid hsl(${advisor.color} / 0.4)` }}
+                  >
+                    {advisor.photo ? (
+                      <img src={advisor.photo} alt={advisor.name} className="w-full h-full object-cover" decoding="async" />
+                    ) : (
+                      <span className="font-black text-sm" style={{ color: `hsl(${advisor.color})` }}>{advisor.initials}</span>
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-bold text-sm tracking-wide text-foreground">{advisor.name}</p>
+                    <p className="text-[0.6rem] tracking-[0.15em] uppercase font-semibold" style={{ color: `hsl(${advisor.color})` }}>{advisor.title}</p>
+                  </div>
+                </div>
+                <ul className="flex flex-col gap-2">
+                  {advisor.highlights.map((h, j) => (
+                    <li key={j} className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed">
+                      <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: `hsl(${advisor.color})` }} />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="https://www.linkedin.com/company/nemi-ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${advisor.name} on LinkedIn`}
+                  className="mt-5 inline-flex items-center gap-1.5 text-[0.6rem] font-semibold uppercase tracking-[0.15em] opacity-70 hover:opacity-100 transition-opacity self-start"
+                  style={{ color: `hsl(${advisor.color})` }}
+                >
+                  <LinkedInIcon />
+                  LinkedIn
+                </a>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PARTNER LOGOS ── */}
+      <section className="py-16 md:py-20 border-t border-border/20 relative z-[1] overflow-hidden">
+        <ScrollReveal>
+          <p className="text-center text-xs tracking-[0.4em] uppercase text-muted-foreground mb-12">
+            Affiliated &amp; Partnered With
+          </p>
+        </ScrollReveal>
+
+        {/* Row 1 — scrolls left */}
+        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] mb-3 md:mb-4">
+          <div className="flex" style={{ animation: "partner-scroll-left 40s linear infinite", willChange: "transform" }}>
+            {[0, 1].map((set) => (
+              <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
+                {[
+                  { src: "/Images/logos/samsung.webp", label: "Samsung" },
+                  { src: "/Images/logos/tata.webp", label: "Tata" },
+                  { src: "/Images/logos/lamborghini.webp", label: "Lamborghini" },
+                  { src: "/Images/logos/whirlpool.webp", label: "Whirlpool" },
+                  { src: "/Images/logos/abb.webp", label: "ABB" },
+                  { src: "/Images/logos/caterpillar.webp", label: "Caterpillar" },
+                  { src: "/Images/logos/isro.webp", label: "ISRO" },
+                  { src: "/Images/logos/drdo.webp", label: "DRDO" },
+                  { src: "/Images/logos/boeing.webp", label: "Boeing" },
+                  { src: "/Images/logos/ashok-leyland.webp", label: "Ashok Leyland" },
+                ].map((logo) => (
+                  <div
+                    key={logo.label + set}
+                    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm"
+                    style={{ width: "160px", height: "80px" }}
+                  >
+                    <img src={logo.src} alt={logo.label} title={logo.label}
+                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} decoding="async" />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2 — scrolls right */}
+        <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+          <div className="flex" style={{ animation: "partner-scroll-right 38s linear infinite", willChange: "transform" }}>
+            {[0, 1].map((set) => (
+              <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
+                {[
+                  { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield" },
+                  { src: "/Images/logos/brahmos.webp", label: "BrahMos" },
+                  { src: "/Images/logos/bharat-dynamics.webp", label: "Bharat Dynamics" },
+                  { src: "/Images/logos/exide.webp", label: "Exide" },
+                  { src: "/Images/logos/flipkart.webp", label: "Flipkart" },
+                  { src: "/Images/logos/zomato.webp", label: "Zomato" },
+                  { src: "/Images/logos/rapido.webp", label: "Rapido" },
+                  { src: "/Images/logos/tvs-mobility.webp", label: "TVS Mobility" },
+                  { src: "/Images/logos/mahindra.webp", label: "Mahindra" },
+                  { src: "/Images/logos/ducati.webp", label: "Ducati" },
+                ].map((logo) => (
+                  <div
+                    key={logo.label + set}
+                    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm"
+                    style={{ width: "160px", height: "80px" }}
+                  >
+                    <img src={logo.src} alt={logo.label} title={logo.label}
+                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} decoding="async" />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* ── WHERE WE'RE GOING ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-b border-border/30 relative z-[1]">

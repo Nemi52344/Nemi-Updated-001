@@ -71,6 +71,9 @@ const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt
         <div style={{ display: "flex", flexDirection: "column" as const, gap: "0.9rem" }}>
           {metrics.map((m) => <MetricBar key={m.label} {...m} />)}
         </div>
+        <p className="text-[0.65rem] text-muted-foreground/50 italic mt-5 leading-relaxed">
+          Customer name withheld under NDA. Reference available on request during investor diligence.
+        </p>
       </div>
     </div>
   );

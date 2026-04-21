@@ -62,10 +62,11 @@ export default function HomePage() {
           </p>
 
           <section aria-label="Hardware challenges">
-            <h2>Hardware remains hard</h2>
+            <h2>Hardware is hard.</h2>
             <p>
-              Building physical products requires navigating design, manufacturing, and
-              distribution — three complex domains that few companies master simultaneously.
+              Building physical products requires mastering design, manufacturing, and
+              distribution simultaneously &mdash; three domains most companies navigate in
+              isolation.
             </p>
             <h3>DESIGN</h3>
             <ul>
@@ -96,10 +97,9 @@ export default function HomePage() {
           <section aria-label="Why companies choose NEMI">
             <h2>Why Companies Choose NEMI</h2>
             <p>
-              In manufacturing, three things matter above all else: Speed to market,
-              Cost of goods sold, and Quality at scale. NEMI is built to deliver all three
-              simultaneously through an integrated AI platform that removes the gaps between
-              design, manufacturing, and deployment.
+              Three things matter in manufacturing: speed to market, cost of goods sold,
+              quality at scale. NEMI delivers all three through a single integrated
+              platform &mdash; removing the gaps between design, manufacturing, and deployment.
             </p>
           </section>
 
@@ -178,20 +178,22 @@ export default function HomePage() {
             <p>Over 2,500 EV units deployed across India and Africa.</p>
           </section>
 
-          <section aria-label="India R&amp;D advantage">
-            <h2>India R&amp;D Advantage</h2>
+          <section aria-label="Capital efficiency by design">
+            <h2>Capital Efficiency by Design</h2>
             <p>
-              NEMI operates from Bangalore, India — giving clients 10× capital efficiency
-              versus Western competitors. Our engineering talent, manufacturing infrastructure,
-              and operational costs combine to create an unbeatable cost-quality-speed profile.
+              NEMI operates from Bangalore, India &mdash; giving clients 10&times; capital
+              efficiency versus Western competitors. Engineering talent, manufacturing
+              infrastructure, and operational costs combine into an aerospace-grade
+              cost-quality-speed profile.
             </p>
           </section>
 
           <section aria-label="Contact">
-            <h2>Get in Touch</h2>
+            <h2>Book a Walkthrough</h2>
             <p>
               Ready to build your next physical product with NEMI AI?
-              Contact us at Humans@nemi-ai.com or request a demo at nemi-ai.com.
+              General: <a href="mailto:Humans@nemi-ai.com">Humans@nemi-ai.com</a>.
+              Investors: <a href="mailto:investors@nemi-ai.com">investors@nemi-ai.com</a>.
             </p>
           </section>
         </main>

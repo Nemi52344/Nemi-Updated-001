@@ -169,6 +169,23 @@ const Index = () => {
         >
           The AI Operating System for Manufacturing
         </p>
+
+        {/* Certifications badge strip */}
+        <div className="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-2 md:gap-3 px-4 max-w-3xl">
+          {["AS9100D", "ISO 9001:2015", "DRDO Cleared", "ISRO Cleared"].map((cert) => (
+            <span
+              key={cert}
+              className="inline-block text-[0.6rem] md:text-[0.7rem] tracking-[0.15em] uppercase font-semibold px-3.5 py-1.5 rounded-full whitespace-nowrap"
+              style={{
+                background: "hsl(275 80% 55% / 0.08)",
+                border: "1px solid hsl(275 80% 55% / 0.25)",
+                color: "hsl(var(--muted-foreground))",
+              }}
+            >
+              {cert}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/*

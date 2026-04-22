@@ -198,7 +198,7 @@ const PageCTAFooter = ({
             &copy; 2026 NEMI AI. All rights reserved.
           </p>
           <p className="text-[0.65rem] tracking-[0.15em] uppercase text-muted-foreground/60">
-            AS9100D · ISO 9001 · DRDO Cleared · ISRO Cleared
+            AS9100D · ISO 9001
           </p>
         </div>
       </footer>

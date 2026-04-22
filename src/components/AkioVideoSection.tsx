@@ -66,7 +66,7 @@ const AkioVideoSection = ({ scrollProgress }: AkioVideoSectionProps) => {
               playsInline
               onEnded={() => setIsPlaying(false)}
             >
-              {/* Placeholder — swap source when video is ready */}
+              {/* Placeholder, swap source when video is ready */}
             </video>
 
             {/* Play/pause overlay */}

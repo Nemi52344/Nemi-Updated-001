@@ -10,7 +10,7 @@ const sam = "hsl(142, 71%, 45%)";
 
 const lmmLayers = [
   { name: "Inference Engine", tag: "NEMI M-OS", desc: "Routes every task to the right sub-model. The central nervous system of the platform.", img: "/Images/Image in technology/Screenshot 2026-04-06 141717.webp" },
-  { name: "Process Intelligence", tag: "OPTIMIZATION", desc: "Predicts optimal speed, temperature, and tooling — before a single cut is made.", img: "/Images/Image in technology/freepik__clean-this-image-more-brit-should-look-very-neat-a__60512.webp" },
+  { name: "Process Intelligence", tag: "OPTIMIZATION", desc: "Predicts optimal speed, temperature, and tooling, before a single cut is made.", img: "/Images/Image in technology/freepik__clean-this-image-more-brit-should-look-very-neat-a__60512.webp" },
   { name: "Quality Prediction", tag: "ZERO-DEFECT", desc: "Catches defects before they happen. Eliminates scrap. Kills rework.", img: "/Images/Image in technology/freepik__this-chassis-and-everything-is-fine-brbut-the-bacg__75353.webp" },
   { name: "Design-to-Mfg Bridge", tag: "AUTOMATION", desc: "Turns CAD files into production-ready process plans in minutes, not weeks.", img: "/Images/Image in technology/freepik__i-want-a-image-ehener-thsi-img2-is-on-the-left-sid__60508.webp" },
   { name: "Supply Chain Engine", tag: "ROUTING", desc: "Dynamically routes work across suppliers for lowest cost and fastest delivery.", img: "/Images/Image in technology/Screenshot 2026-04-07 093826.webp" },
@@ -66,11 +66,6 @@ const Technology = () => {
           }}
         />
         <div className="text-center relative z-[3] max-w-5xl mx-auto">
-          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary/80 mb-6 font-bold"
-            style={{ animation: "hero-label-in 0.8s ease-out 0.2s both" }}
-          >
-            The Technology
-          </p>
           <h1
             className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
             style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.15), 0 0 40px hsl(270 70% 50% / 0.08)" }}
@@ -96,7 +91,7 @@ const Technology = () => {
           <p className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed max-w-[600px] mx-auto mb-14"
             style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
           >
-            The LMM learns from every part, every sensor, every run. It doesn't just automate &mdash; it reasons.
+            The LMM learns from every part, every sensor, every run. It doesn't just automate, it reasons.
           </p>
           <div
             className="inline-flex items-center gap-0 rounded-2xl border border-border/30 overflow-hidden"
@@ -124,7 +119,7 @@ const Technology = () => {
         </div>
       </section>
 
-      {/* ── CORE TECHNOLOGY — 6 AI LAYERS ── */}
+      {/* ── CORE TECHNOLOGY, 6 AI LAYERS ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
         <ScrollReveal>
           <p className="text-xs tracking-[0.4em] uppercase text-primary mb-4 font-bold"
@@ -281,9 +276,9 @@ const Technology = () => {
         <ScrollReveal variant="scale">
           <div className="rounded-xl border border-border/30 overflow-hidden" style={{ background: "hsl(var(--card) / 0.5)" }}>
             {[
-              { name: "Applications Layer", desc: "AKIO · HENRY · SAM — the user-facing systems that run on top of the OS",
+              { name: "Applications Layer", desc: "AKIO · HENRY · SAM, the user-facing systems that run on top of the OS",
                 bg: "hsl(var(--accent) / 0.12)", border: "hsl(var(--accent))" },
-              { name: "Large Manufacturing Model (LMM)", desc: "AI inference engine — process intelligence, quality prediction, supply chain optimization",
+              { name: "Large Manufacturing Model (LMM)", desc: "AI inference engine, process intelligence, quality prediction, supply chain optimization",
                 bg: "hsl(var(--accent) / 0.07)", border: "hsl(var(--accent) / 0.5)" },
               { name: "Data Infrastructure", desc: "Sensor networks, machine telemetry, CAD ingestion, quality data pipelines",
                 bg: "hsl(var(--accent) / 0.04)", border: "hsl(var(--accent) / 0.3)" },

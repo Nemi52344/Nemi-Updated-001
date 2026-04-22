@@ -12,15 +12,15 @@ const easeInOut = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 const bootLines = [
-  "NEMI BIOS v4.2.1 — Initializing...",
+  "NEMI BIOS v4.2.1, Initializing...",
   "CPU: Quantum Neural Processor × 128 cores",
   "RAM: 2.048 TB Unified Manufacturing Memory",
-  "GPU: Physical AI Accelerator — ONLINE",
+  "GPU: Physical AI Accelerator, ONLINE",
   "Loading AKIO Intelligence Suite...",
   "Mounting design modules............ OK",
   "Calibrating generative engine...... OK",
   "Connecting to LMM backbone......... OK",
-  "AKIO INTELLIGENCE SUITE — READY",
+  "AKIO INTELLIGENCE SUITE, READY",
 ];
 
 const bannerWords = "We can design just about any hardware".split(" ");
@@ -42,7 +42,7 @@ const AkioDesignSection = ({ scrollProgress }: AkioDesignSectionProps) => {
   // Section: 0.23–0.33
   const sectionVisible = scrollProgress > 0.225 && scrollProgress < 0.335;
 
-  // No separate banner — integrated into section
+  // No separate banner, integrated into section
   const bannerP = rangeProgress(scrollProgress, 0.23, 0.245);
   const bannerExitP = easeOut(rangeProgress(scrollProgress, 0.245, 0.25));
 
@@ -160,7 +160,7 @@ const AkioDesignSection = ({ scrollProgress }: AkioDesignSectionProps) => {
       )}
 
 
-      {/* ============ WHITE ROOM — Challenger, Humanoid, Drone ============ */}
+      {/* ============ WHITE ROOM, Challenger, Humanoid, Drone ============ */}
       {roomEnterP > 0 && roomExitP < 1 && (
         <div
           className="fixed inset-0 pointer-events-none"
@@ -262,7 +262,7 @@ const AkioDesignSection = ({ scrollProgress }: AkioDesignSectionProps) => {
         </div>
       )}
 
-      {/* ============ PARTS HIGHLIGHT — Battery etc. ============ */}
+      {/* ============ PARTS HIGHLIGHT, Battery etc. ============ */}
       {partsP > 0 && partsExitP < 1 && (
         <div
           className="fixed inset-0 pointer-events-none"
@@ -367,7 +367,7 @@ const AkioDesignSection = ({ scrollProgress }: AkioDesignSectionProps) => {
             </div>
           </div>
 
-          {/* Patent card sliding from right — centered */}
+          {/* Patent card sliding from right, centered */}
           <div
             className="absolute inset-0 flex items-center justify-center"
             style={{
@@ -383,7 +383,7 @@ const AkioDesignSection = ({ scrollProgress }: AkioDesignSectionProps) => {
                 boxShadow: "0 10px 40px hsl(0 0% 0% / 0.4), 0 0 20px hsl(45 50% 45% / 0.15)",
               }}
             >
-              {/* Left — 40+ */}
+              {/* Left, 40+ */}
               <div
                 className="flex-shrink-0"
                 style={{
@@ -403,7 +403,7 @@ const AkioDesignSection = ({ scrollProgress }: AkioDesignSectionProps) => {
                 </div>
               </div>
 
-              {/* Right — description & certification */}
+              {/* Right, description & certification */}
               <div className="flex flex-col gap-4 max-w-xs">
                 <p
                   className="text-sm md:text-base leading-relaxed font-light"

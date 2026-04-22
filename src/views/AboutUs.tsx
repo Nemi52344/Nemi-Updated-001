@@ -17,7 +17,7 @@ interface LeaderMember {
   linkedin?: string;
 }
 
-// Small inline LinkedIn glyph — inherits color + current font size.
+// Small inline LinkedIn glyph, inherits color + current font size.
 const LinkedInIcon = () => (
   <svg
     viewBox="0 0 24 24"
@@ -160,11 +160,6 @@ const AboutUs = () => {
           }}
         />
         <div className="text-center relative z-[3] max-w-4xl mx-auto">
-          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary/80 mb-6 font-bold"
-            style={{ animation: "hero-label-in 0.8s ease-out 0.2s both" }}
-          >
-            About NEMI
-          </p>
           <h1
             className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
             style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
@@ -209,7 +204,7 @@ const AboutUs = () => {
                   One platform.<br />Three systems.
                 </h2>
                 <p className="text-sm md:text-base text-muted-foreground leading-[1.8] max-w-[400px]">
-                  From first sketch to final delivery — NEMI covers the entire product lifecycle with AI at every step.
+                  From first sketch to final delivery, NEMI covers the entire product lifecycle with AI at every step.
                 </p>
               </div>
             </ScrollReveal>
@@ -219,7 +214,7 @@ const AboutUs = () => {
                 { color: "hsl(0, 72%, 52%)", label: "AKIO", subtitle: "Design Intelligence",
                   body: "AI-powered CAD generation, simulation, prototyping. Concept to production-ready design in weeks." },
                 { color: "hsl(217, 91%, 60%)", label: "HENRY", subtitle: "Manufacturing Engine",
-                  body: "Full-stack production — metal parts, electronics, batteries, motors. Sensor-driven quality at every stage." },
+                  body: "Full-stack production, metal parts, electronics, batteries, motors. Sensor-driven quality at every stage." },
                 { color: "hsl(142, 71%, 45%)", label: "SAM", subtitle: "Deployment & Lifecycle",
                   body: "Fleet deployment, last-mile logistics, leasing, financing, field monitoring. Real-world data feeds back into AKIO designs." },
               ].map((pillar, i) => (
@@ -458,7 +453,7 @@ const AboutUs = () => {
         </ScrollReveal>
         <ScrollReveal delay={100}>
           <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-16 max-w-[500px]">
-            Six structural advantages. Not features — moats.
+            Six structural advantages. Not features, moats.
           </p>
         </ScrollReveal>
 
@@ -506,29 +501,52 @@ const AboutUs = () => {
       </section>
       {/* ── THE TEAM ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 relative z-[1]">
-        <div className="text-center">
+        <div className="text-center max-w-6xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-4"
               style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
             >
               The Team
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={100}>
-            <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14">
-              Operators, not observers. We build what we ship.
+            <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14 max-w-2xl mx-auto">
+              Leadership team that built manufacturing at scale and AI systems at scale, now combining both.
             </p>
           </ScrollReveal>
 
           {/* Core Leadership */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-14">
             {[
-              { name: "Anirudh Ravi Narayanan", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp", role: "Chief Executive Officer",
-                desc: "Leads NEMI's mission to make manufacturing accessible — building intelligent systems that turn bold ideas into scalable reality.", colorHsl: "275 85% 65%" },
-              { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.webp", role: "Chief Financial Officer",
-                desc: "Deep expertise in digital transformation, steering NEMI's financial strategy to fuel the shift from traditional manufacturing to AI-powered operations.", colorHsl: "268 82% 62%" },
-              { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.webp", role: "Chief Technology Officer",
-                desc: "Designs the Physical AI architecture at the core of NEMI — the technology layer powering next-generation industrial transformation.", colorHsl: "282 78% 60%" },
+              {
+                name: "Anirudh Ravi Narayanan",
+                photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp",
+                role: "Chief Executive Officer",
+                desc: "Built Nemi from a garage to 300k sq ft and $15M ARR; led 10+ recovery and margin transformations at McKinsey. BS ECE Rose-Hulman, MBA Yale.",
+                colorHsl: "275 85% 65%",
+                linkedin: "https://www.linkedin.com/in/anirudh-narayanan-26b0a121/",
+              },
+              {
+                name: "Gokul Madhavan",
+                photo: "/Images/team/Gokul%20Madhavan.webp",
+                role: "Chief Financial Officer",
+                desc: "Supported M&A integrations, built digital finance ops, led digital transformations. A.B., PhD from Harvard, MBA from Yale.",
+                colorHsl: "268 82% 62%",
+              },
+              {
+                name: "Shreerith Seshadri",
+                photo: "/Images/team/Sreeridh%20Seshahri.webp",
+                role: "Chief Technology Officer",
+                desc: "Deployed AI systems used by 100M+ users, shaped early architecture and infrastructure at eightfold.AI. CS, UIUC.",
+                colorHsl: "282 78% 60%",
+              },
+              {
+                name: "Vinoth Thiruvenkatasamy",
+                photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp",
+                role: "Chief Operating Officer",
+                desc: "20+ years in automotive manufacturing. Scaled production lines from pilot to 100K+ units multiple times.",
+                colorHsl: "272 80% 58%",
+              },
             ].map((member, i) => (
               <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
                 <LeaderFlipCard member={member} />
@@ -537,17 +555,20 @@ const AboutUs = () => {
           </div>
 
           {/* Extended Leadership */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <ScrollReveal>
+            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-6 font-bold">
+              Extended Leadership
+            </p>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "Subramanian R", photo: "/Images/team/Subramanian%20R.webp", role: "CFO — India",
+              { name: "Subramanian R", photo: "/Images/team/Subramanian%20R.webp", role: "CFO, India",
                 desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods.", colorHsl: "275 55% 52%" },
-              { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", role: "President — HENRY Suite",
-                desc: "20+ years in automotive design & development. R&D at Nissan Technical Center Japan and Ford Engineering Services India.", colorHsl: "268 52% 50%" },
-              { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "President — AKIO Suite (Mechanical)",
-                desc: "30+ years in manufacturing leadership — automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%" },
-              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President — AKIO Suite (Electrical)",
+              { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "President, AKIO Suite (Mechanical)",
+                desc: "30+ years in manufacturing leadership, automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%" },
+              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President, AKIO Suite (Electrical)",
                 desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation.", colorHsl: "272 48% 50%" },
-              { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.webp", role: "President — SAM",
+              { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.webp", role: "President, SAM",
                 desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Built and led 100+ person sales teams.", colorHsl: "278 53% 49%" },
             ].map((member, i) => (
               <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
@@ -681,7 +702,7 @@ const AboutUs = () => {
           </p>
         </ScrollReveal>
 
-        {/* Row 1 — scrolls left */}
+        {/* Row 1, scrolls left */}
         <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] mb-3 md:mb-4">
           <div className="flex" style={{ animation: "partner-scroll-left 40s linear infinite", willChange: "transform" }}>
             {[0, 1].map((set) => (
@@ -712,7 +733,7 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* Row 2 — scrolls right */}
+        {/* Row 2, scrolls right */}
         <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
           <div className="flex" style={{ animation: "partner-scroll-right 38s linear infinite", willChange: "transform" }}>
             {[0, 1].map((set) => (
@@ -763,10 +784,10 @@ const AboutUs = () => {
           </ScrollReveal>
           <ScrollReveal delay={100}>
             <p className="text-base md:text-lg text-muted-foreground tracking-wide mb-3">
-              300,000 sq ft of AI-powered manufacturing — and growing.
+              300,000 sq ft of AI-powered manufacturing, and growing.
             </p>
             <p className="text-sm text-muted-foreground/70 leading-[1.9] max-w-xl mx-auto">
-              Our factories combine advanced machinery with real-time AI intelligence. Every square foot is built for precision, speed, and scale — from prototyping to full production.
+              Our factories combine advanced machinery with real-time AI intelligence. Every square foot is built for precision, speed, and scale, from prototyping to full production.
             </p>
           </ScrollReveal>
         </div>
@@ -774,7 +795,7 @@ const AboutUs = () => {
         {/* Bottom: Bento image grid */}
         <ScrollReveal>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[180px] md:auto-rows-[200px]">
-            {/* Large image — spans 2 cols & 2 rows */}
+            {/* Large image, spans 2 cols & 2 rows */}
             <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden group">
               <img
                 src="/Images/Nemi%2002.webp"
@@ -819,6 +840,86 @@ const AboutUs = () => {
             </div>
           </div>
         </ScrollReveal>
+      </section>
+
+      {/* ── Quality Certifications ── */}
+      <section className="py-20 md:py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <p className="text-[0.65rem] md:text-xs tracking-[0.4em] uppercase text-muted-foreground mb-3 font-bold">
+                Certified Excellence
+              </p>
+              <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight leading-[1.1]">
+                Quality{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
+                  }}
+                >
+                  Certifications
+                </span>
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
+            {[
+              {
+                img: "/Images/certifications/iso-9001.webp",
+                alt: "ISO 9001:2015 Certificate of Registration",
+                title: "ISO 9001:2015",
+                subtitle: "Quality Management System",
+                id: "25EQOJ38",
+                validity: "Valid through 19/03/2028",
+              },
+              {
+                img: "/Images/certifications/icat-type-approval.webp",
+                alt: "ICAT Type Approval Certificate",
+                title: "ICAT Type Approval",
+                subtitle: "AIS-037 Compliance",
+                id: "CR6816",
+                validity: "Issued: 02/09/2024",
+              },
+            ].map((cert, i) => (
+              <ScrollReveal key={cert.title} delay={i * 120}>
+                <div
+                  className="group rounded-xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1"
+                  style={{
+                    background:
+                      "linear-gradient(145deg, hsl(230 20% 10%), hsl(230 25% 6%))",
+                    border: "1px solid hsl(275 80% 55% / 0.2)",
+                    boxShadow: "0 4px 24px hsl(230 25% 4% / 0.4)",
+                  }}
+                >
+                  <div className="bg-white overflow-hidden h-[220px] md:h-[260px]">
+                    <img
+                      src={cert.img}
+                      alt={cert.alt}
+                      className="w-full h-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-5 md:p-6 border-t border-border/30">
+                    <h3 className="text-base md:text-lg font-bold text-foreground mb-1">
+                      {cert.title}
+                    </h3>
+                    <p className="text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-muted-foreground mb-3">
+                      {cert.subtitle}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.7rem] text-muted-foreground/80">
+                      <span className="font-mono">{cert.id}</span>
+                      <span className="opacity-40">·</span>
+                      <span>{cert.validity}</span>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       <PageCTAFooter

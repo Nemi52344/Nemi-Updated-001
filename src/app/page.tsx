@@ -2,18 +2,18 @@ import type { Metadata } from "next";
 import Index from "@/views/Index";
 
 export const metadata: Metadata = {
-  title: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
+  title: "NEMI AI, End-to-End Physical AI Platform for Manufacturing",
   description:
     "NEMI AI is an end-to-end Physical AI platform. Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs. Powered by the Large Manufacturing Model (LMM).",
   alternates: { canonical: "https://nemi-ai.com/" },
   openGraph: {
-    title: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
+    title: "NEMI AI, End-to-End Physical AI Platform for Manufacturing",
     description:
       "Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs. One partner. The full stack.",
     url: "https://nemi-ai.com/",
   },
   twitter: {
-    title: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
+    title: "NEMI AI, End-to-End Physical AI Platform for Manufacturing",
     description:
       "Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs. One partner. The full stack.",
   },
@@ -25,7 +25,7 @@ export default function HomePage() {
     "@type": "WebPage",
     "@id": "https://nemi-ai.com/#webpage",
     url: "https://nemi-ai.com/",
-    name: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
+    name: "NEMI AI, End-to-End Physical AI Platform for Manufacturing",
     description:
       "NEMI AI is an end-to-end Physical AI platform. Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs.",
     isPartOf: { "@id": "https://nemi-ai.com/#website" },
@@ -53,19 +53,19 @@ export default function HomePage() {
       */}
       <div className="sr-only" aria-hidden="false">
         <main>
-          <h1>NEMI AI — End-to-End Physical AI Platform for Manufacturing</h1>
+          <h1>NEMI AI, End-to-End Physical AI Platform for Manufacturing</h1>
           <p>
             NEMI AI is an end-to-end Physical AI platform for design,
             development, and distribution of physical products. Powered by the Large
             Manufacturing Model (LMM), NEMI enables hardware companies to build 10× faster
-            at a fraction of Western costs — all from Bangalore, India.
+            at a fraction of Western costs, all from Bangalore, India.
           </p>
 
           <section aria-label="Hardware challenges">
             <h2>Hardware is hard.</h2>
             <p>
               Building physical products requires mastering design, manufacturing, and
-              distribution simultaneously &mdash; three domains most companies navigate in
+              distribution simultaneously, three domains most companies navigate in
               isolation.
             </p>
             <h3>DESIGN</h3>
@@ -99,26 +99,26 @@ export default function HomePage() {
             <p>
               Three things matter in manufacturing: speed to market, cost of goods sold,
               quality at scale. NEMI delivers all three through a single integrated
-              platform &mdash; removing the gaps between design, manufacturing, and deployment.
+              platform, removing the gaps between design, manufacturing, and deployment.
             </p>
           </section>
 
           <section aria-label="NEMI AI Products">
-            <h2>AKIO — Design Intelligence Suite</h2>
+            <h2>AKIO, Design Intelligence Suite</h2>
             <p>
               AI-powered product and component design. From idea to production-ready validated
               design in weeks, not months. AKIO handles concept design, CAD generation,
               simulation, prototyping, and PLM integration.
             </p>
 
-            <h2>HENRY — AI-Driven Manufacturing</h2>
+            <h2>HENRY, AI-Driven Manufacturing</h2>
             <p>
               Full-stack manufacturing partner. HENRY covers metal parts, CNC machining,
               injection moulding, tooling &amp; fixturing, electronics production, battery
               manufacturing, motor production, and complex assemblies.
             </p>
 
-            <h2>SAM — Deployment &amp; Lifecycle Management</h2>
+            <h2>SAM, Deployment &amp; Lifecycle Management</h2>
             <p>
               Fleet deployment, last-mile logistics, leasing, financing, and field monitoring.
               Real-world performance data from SAM feeds back into AKIO for continuous
@@ -135,7 +135,7 @@ export default function HomePage() {
             </p>
             <h3>Electric Vehicle Manufacturing</h3>
             <p>
-              Complete EV development from design to production — battery packs, powertrains,
+              Complete EV development from design to production, battery packs, powertrains,
               mechanical systems, and electronics integration.
             </p>
             <h3>Humanoid Robot Manufacturing</h3>
@@ -148,10 +148,10 @@ export default function HomePage() {
           <section aria-label="Industries served">
             <h2>Industries We Serve</h2>
             <ul>
-              <li>Aerospace — Aerospace machined parts and aerospace manufacturing</li>
-              <li>Automotive — Automotive components and EV systems</li>
-              <li>Electronics — PCB, harnesses, and electronics manufacturing</li>
-              <li>Robotics — Humanoid and industrial robot components</li>
+              <li>Aerospace, Aerospace machined parts and aerospace manufacturing</li>
+              <li>Automotive, Automotive components and EV systems</li>
+              <li>Electronics, PCB, harnesses, and electronics manufacturing</li>
+              <li>Robotics, Humanoid and industrial robot components</li>
             </ul>
           </section>
 
@@ -168,7 +168,7 @@ export default function HomePage() {
           </section>
 
           <section aria-label="Case study">
-            <h2>Case Study — EV Development</h2>
+            <h2>Case Study, EV Development</h2>
             <p>
               NEMI reduced EV development time from 18 months to 9 months (2× faster),
               reduced required manpower from 20 to 6 people (70% reduction), cut COGS from
@@ -181,7 +181,7 @@ export default function HomePage() {
           <section aria-label="Capital efficiency by design">
             <h2>Capital Efficiency by Design</h2>
             <p>
-              NEMI operates from Bangalore, India &mdash; giving clients 10&times; capital
+              NEMI operates from Bangalore, India, giving clients 10&times; capital
               efficiency versus Western competitors. Engineering talent, manufacturing
               infrastructure, and operational costs combine into an aerospace-grade
               cost-quality-speed profile.

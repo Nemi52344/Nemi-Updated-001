@@ -34,7 +34,7 @@ const AkioTab = () => {
           </ScrollReveal>
           <ScrollReveal delay={300}>
             <p className="text-muted-foreground text-sm md:text-lg leading-[1.8] max-w-[480px] tracking-wide">
-              From idea to production-ready design — in weeks, not months.
+              From idea to production-ready design, in weeks, not months.
             </p>
           </ScrollReveal>
         </div>
@@ -70,7 +70,7 @@ const AkioTab = () => {
             <div className="font-bold text-5xl md:text-6xl lg:text-7xl uppercase tracking-wider mb-2" style={{ color: akio }}>AKIO</div>
             <div className="font-semibold text-muted-foreground text-base md:text-xl uppercase tracking-wider mb-6">Design Intelligence Suite</div>
             <p className="text-muted-foreground text-sm md:text-base leading-[1.8] mb-8 max-w-[500px] tracking-wide">
-              Tell us what you need built. AKIO's AI-driven design engine handles the engineering — CAD, simulation, prototyping — so you get a validated, production-ready design without the 6-month wait or the $200k bill.
+              Tell us what you need built. AKIO's AI-driven design engine handles the engineering, CAD, simulation, prototyping, so you get a validated, production-ready design without the 6-month wait or the $200k bill.
             </p>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem", marginBottom: "2rem", padding: 0 }}>
               {["Concept visualization in hours instead of months", "Faster iterations for every design feedback cycle", "Reduced engineering effort and cost", "Integrates prototyping, simulation & PLM"].map((b) => (
@@ -123,7 +123,7 @@ const AkioTab = () => {
       {/* CASE STUDIES */}
       <ScrollReveal className="pt-10 pb-8">
         <div style={{ display: "inline-block" }}>
-          <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Studies — AKIO</p>
+          <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Studies, AKIO</p>
           <div style={{ height: 2, background: akio, width: "100%" }} />
         </div>
       </ScrollReveal>
@@ -147,7 +147,7 @@ const AkioTab = () => {
     <ScrollReveal>
       <CaseStudy
         title="Drone Components Design,<br/>Prototyping & Validation"
-        context="Due to issues with existing suppliers, customer requested rapid design, prototyping and validation of key drone powertrain components — Battery, Motor, and ESC."
+        context="Due to issues with existing suppliers, customer requested rapid design, prototyping and validation of key drone powertrain components, Battery, Motor, and ESC."
         outcome="Delivered validated prototypes for the battery pack, motor, and ESC, ready for mass production."
         color={akio}
         imageSrc={droneFull}
@@ -168,7 +168,7 @@ const AkioTab = () => {
       <CaseStudy
         title="Electric Motorcycle<br/>for Africa"
         context="Ruggedised electric motorcycle design required for African road conditions and bike taxi use cases."
-        outcome="PRD to production-ready in 6 months — delivering full CAD and component designs. Tooling and fixture designs, and supplier base all delivered in additional 3 months."
+        outcome="PRD to production-ready in 6 months, delivering full CAD and component designs. Tooling and fixture designs, and supplier base all delivered in additional 3 months."
         color={akio}
         imageSrc="/Images/Messenger.webp"
         imageAlt="Electric Motorcycle"

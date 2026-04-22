@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         url: "https://nemi-ai.com/Images/nemi%2001.png",
         width: 1200,
         height: 630,
-        alt: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
+        alt: "NEMI AI, End-to-End Physical AI Platform for Manufacturing",
       },
     ],
     locale: "en_US",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://nemi-ai.com/Images/nemi%2001.png",
-        alt: "NEMI AI — End-to-End Physical AI Platform for Manufacturing",
+        alt: "NEMI AI, End-to-End Physical AI Platform for Manufacturing",
       },
     ],
   },
@@ -58,7 +58,7 @@ export default function RootLayout({
       height: 630,
     },
     description:
-      "NEMI AI is an end-to-end Physical AI platform. Design with AKIO, manufacture with HENRY, deploy with SAM — powered by the Large Manufacturing Model (LMM).",
+      "NEMI AI is an end-to-end Physical AI platform. Design with AKIO, manufacture with HENRY, deploy with SAM, powered by the Large Manufacturing Model (LMM).",
     foundingLocation: { "@type": "Place", name: "Bangalore, India" },
     contactPoint: {
       "@type": "ContactPoint",
@@ -72,21 +72,21 @@ export default function RootLayout({
       itemListElement: [
         {
           "@type": "Offer",
-          name: "AKIO — Design Intelligence Suite",
+          name: "AKIO, Design Intelligence Suite",
           description:
             "AI-powered product and component design. From idea to production-ready validated design in weeks, not months.",
           url: "https://nemi-ai.com/services",
         },
         {
           "@type": "Offer",
-          name: "HENRY — AI-Driven Manufacturing",
+          name: "HENRY, AI-Driven Manufacturing",
           description:
             "Full-stack manufacturing: tooling, metal parts, battery, motor, electronics, and complex assemblies.",
           url: "https://nemi-ai.com/services",
         },
         {
           "@type": "Offer",
-          name: "SAM — Deployment & Lifecycle",
+          name: "SAM, Deployment & Lifecycle",
           description:
             "Deploy, monitor, and improve every unit. Real-world performance data feeds back into design.",
           url: "https://nemi-ai.com/services",
@@ -135,7 +135,7 @@ export default function RootLayout({
       </head>
       <body>
         {/*
-          <noscript> fallback — shown only when JavaScript is disabled.
+          <noscript> fallback, shown only when JavaScript is disabled.
           Gives search engines without JS + assistive tools a complete,
           readable summary of NEMI and links to every canonical route.
         */}
@@ -154,14 +154,14 @@ export default function RootLayout({
               The AI Operating System for Manufacturing.
             </p>
             <p style={{ margin: "0 0 1rem", opacity: 0.85 }}>
-              Design, manufacture, and deploy physical products &mdash; 10&times; faster,
-              at aerospace-grade quality. AS9100D and ISO 9001 certified. DRDO and ISRO cleared.
+              Design, manufacture, and deploy physical products, 10&times; faster,
+              at aerospace-grade quality. AS9100D and ISO 9001 certified.
             </p>
             <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Platform</h2>
             <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
-              <li><strong>AKIO</strong> &mdash; Design Intelligence Suite</li>
-              <li><strong>HENRY</strong> &mdash; AI-Driven Manufacturing</li>
-              <li><strong>SAM</strong> &mdash; Deployment &amp; Lifecycle</li>
+              <li><strong>AKIO</strong>, Design Intelligence Suite</li>
+              <li><strong>HENRY</strong>, AI-Driven Manufacturing</li>
+              <li><strong>SAM</strong>, Deployment &amp; Lifecycle</li>
               <li>
                 Powered by the <strong>Large Manufacturing Model (LMM)</strong>
               </li>
@@ -176,7 +176,7 @@ export default function RootLayout({
               <li><a href="/investors" style={{ color: "hsl(275 80% 65%)" }}>Investor Relations</a></li>
             </ul>
             <p style={{ margin: "1.5rem 0 0", opacity: 0.8 }}>
-              Certifications: AS9100D &middot; ISO 9001 &middot; DRDO Cleared &middot; ISRO Cleared.
+              Certifications: AS9100D &middot; ISO 9001.
               <br />
               Contact: <a href="mailto:Humans@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>Humans@nemi-ai.com</a>
               {" "}&middot;{" "}
@@ -189,7 +189,7 @@ export default function RootLayout({
           </div>
         </noscript>
 
-        {/* Google Analytics 4 — loads after interactive so it never blocks LCP */}
+        {/* Google Analytics 4, loads after interactive so it never blocks LCP */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"

@@ -8,7 +8,7 @@ import Script from "next/script";
 // single canonical URL for all ranking signals.
 
 export const metadata: Metadata = {
-  title: "Redirecting — NEMI AI",
+  title: "Redirecting, NEMI AI",
   alternates: { canonical: "https://nemi-ai.com/" },
   robots: { index: false, follow: true },
 };

@@ -30,16 +30,6 @@ const processSteps = [
   { step: "04", title: "Enter diligence", desc: "Customer references and data-room materials can be shared as the process advances." },
 ];
 
-// Ordered: Certifications first, then IP, then corporate status, then traction.
-const signals = [
-  "AS9100D and ISO 9001",
-  "DRDO and ISRO cleared",
-  "Patents across core IP",
-  "Texas C-Corporation",
-  "300K+ sq ft manufacturing",
-  "Four industries in production",
-];
-
 /* ── Styles ── */
 const inputClasses =
   "w-full px-4 py-3 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all";
@@ -75,7 +65,7 @@ const InvestorPage = () => {
       return;
     }
     const d = result.data;
-    const subject = encodeURIComponent(`Investor Inquiry from ${d.fullName} — ${d.firm}`);
+    const subject = encodeURIComponent(`Investor Inquiry from ${d.fullName}, ${d.firm}`);
     const body = encodeURIComponent(
       `Name: ${d.fullName}\nFirm: ${d.firm}\nTitle: ${d.title}\nEmail: ${d.email}\nPhone: ${d.phone || "N/A"}\nGeography: ${d.geography || "N/A"}\nCheck Size: ${d.checkSize || "N/A"}\nStage: ${d.stagePreference || "N/A"}`
     );
@@ -88,7 +78,7 @@ const InvestorPage = () => {
       <ConstellationCanvas />
       <Navbar />
 
-      {/* ── Hero — full-screen, matches About / Careers / Proof style ── */}
+      {/* ── Hero, full-screen, matches About / Careers / Proof style ── */}
       <section className="min-h-screen flex items-center justify-center relative z-[1] overflow-hidden pt-32 pb-16 px-6 md:px-12 lg:px-16">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -100,12 +90,6 @@ const InvestorPage = () => {
           }}
         />
         <div className="text-center relative z-[3] max-w-5xl mx-auto">
-          <p
-            className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary/80 mb-6 font-bold"
-            style={{ animation: "hero-label-in 0.8s ease-out 0.2s both" }}
-          >
-            For Investors
-          </p>
           <h1
             className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
             style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
@@ -279,36 +263,6 @@ const InvestorPage = () => {
         </div>
       </section>
 
-      {/* ── Institutional Signals ── */}
-      <section className="relative z-[1] py-16 px-6 md:px-12">
-        <div className="max-w-3xl mx-auto text-center">
-          <ScrollReveal>
-            <h2
-              className="text-xl md:text-2xl font-extrabold tracking-tight uppercase mb-8"
-              style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4)" }}
-            >
-              Institutional Signals
-            </h2>
-          </ScrollReveal>
-          <div className="flex flex-wrap justify-center gap-3">
-            {signals.map((sig, i) => (
-              <ScrollReveal key={sig} delay={i * 60}>
-                <span
-                  className="inline-block text-[0.65rem] tracking-[0.1em] uppercase font-semibold px-5 py-2.5 rounded-full"
-                  style={{
-                    background: "hsl(275 80% 55% / 0.08)",
-                    border: "1px solid hsl(275 80% 55% / 0.2)",
-                    color: "hsl(var(--muted-foreground))",
-                  }}
-                >
-                  {sig}
-                </span>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── How We Think About Risk ── */}
       <section className="relative z-[1] py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-3xl mx-auto">
@@ -331,9 +285,9 @@ const InvestorPage = () => {
               <p className="text-sm md:text-base text-muted-foreground leading-[1.8]">
                 Manufacturing is capital-intensive. Defence programmes are regulated.
                 Customer concentration is an early-stage reality. NEMI&apos;s structure
-                &mdash; AS9100D-certified operations, a diversified programme mix across
+               , AS9100D-certified operations, a diversified programme mix across
                 four industries, retrofit-first capital deployment, and board-level
-                operating experience &mdash; is designed to address each. Full discussion
+                operating experience, is designed to address each. Full discussion
                 available in diligence.
               </p>
             </div>

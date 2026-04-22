@@ -80,7 +80,7 @@ const DistributeSection = ({ scrollProgress }: DistributeSectionProps) => {
               className="text-lg md:text-xl font-light leading-relaxed text-foreground tracking-wide"
               style={{ textShadow: "0 0 20px hsl(145 75% 50% / 0.3)" }}
             >
-              Thank you for making the purchase — we're dispatching your order now. Don't worry about waiting time, we're fast and autonomous.
+              Thank you for making the purchase, we're dispatching your order now. Don't worry about waiting time, we're fast and autonomous.
             </p>
           </div>
         </div>

@@ -24,7 +24,7 @@ const HomeTab = ({ onTabChange }: HomeTabProps) => {
     {
       name: "SAM",
       sub: "Deployment & Lifecycle",
-      desc: "Product deployment, fleet operations, and real-world performance monitoring — creating a continuous feedback loop that improves future designs.",
+      desc: "Product deployment, fleet operations, and real-world performance monitoring, creating a continuous feedback loop that improves future designs.",
       colorHsl: "142 71% 45%",
       tab: "sam",
     },
@@ -66,7 +66,7 @@ const HomeTab = ({ onTabChange }: HomeTabProps) => {
               <p className="text-sm md:text-lg leading-[1.8] text-muted-foreground max-w-[480px] tracking-wide">
                 Nemi combines advanced manufacturing with AI driven automation to
                 design, develop and distribute products faster, cheaper, and more
-                reliably — all under one roof.
+                reliably, all under one roof.
               </p>
             </ScrollReveal>
           </div>
@@ -155,7 +155,7 @@ const HomeTab = ({ onTabChange }: HomeTabProps) => {
   );
 };
 
-/* ── Service Card — no flip, shows all content ── */
+/* ── Service Card, no flip, shows all content ── */
 interface CardData {
   name: string;
   sub: string;

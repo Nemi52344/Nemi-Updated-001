@@ -18,7 +18,7 @@ const pillars: PillarData[] = [
     icon: "⚡",
     title: "Physical AI",
     description:
-      "Bridging the gap between digital intelligence and physical execution — our AI models understand the real world of materials, forces, and tolerances.",
+      "Bridging the gap between digital intelligence and physical execution, our AI models understand the real world of materials, forces, and tolerances.",
   },
   {
     icon: "🏭",
@@ -30,7 +30,7 @@ const pillars: PillarData[] = [
     icon: "🌍",
     title: "Global Impact",
     description:
-      "Democratizing advanced manufacturing for industries worldwide — making precision, speed, and sustainability accessible at every scale.",
+      "Democratizing advanced manufacturing for industries worldwide, making precision, speed, and sustainability accessible at every scale.",
   },
 ];
 
@@ -97,7 +97,7 @@ const MissionSection = ({ scrollProgress }: MissionSectionProps) => {
             Redefining What's Possible
           </h2>
           <p className="text-base md:text-xl text-muted-foreground leading-relaxed tracking-wide">
-            NEMI exists to unlock a new era of manufacturing — where Physical AI
+            NEMI exists to unlock a new era of manufacturing, where Physical AI
             transforms raw potential into precision reality, at scale.
           </p>
         </div>

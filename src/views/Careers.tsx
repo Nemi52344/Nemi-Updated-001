@@ -6,12 +6,13 @@ import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import ScrollReveal from "@/hooks/ScrollReveal";
 import PageCTAFooter from "@/components/PageCTAFooter";
+import { supabase } from "@/lib/supabase";
 
 const values = [
-  { title: "Team Player", body: "We make parts, run machines, and learn in the real world — not just simulations.", img: "https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?w=800&h=500&fit=crop&q=80" },
+  { title: "Team Player", body: "We make parts, run machines, and learn in the real world, not just simulations.", img: "https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?w=800&h=500&fit=crop&q=80" },
   { title: "Capital Discipline", body: "We build more with less. The 10× cost advantage is a culture, not just a metric.", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=500&fit=crop&q=80" },
-  { title: "End-to-End Thinking", body: "From design intent to deployed product — we own the full loop, not just tasks.", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=500&fit=crop&q=80" },
-  { title: "Data First", body: "Ground-truth manufacturing data drives our AI — not assumptions.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop&q=80" },
+  { title: "End-to-End Thinking", body: "From design intent to deployed product, we own the full loop, not just tasks.", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=500&fit=crop&q=80" },
+  { title: "Data First", body: "Ground-truth manufacturing data drives our AI, not assumptions.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop&q=80" },
 ];
 
 interface Job {
@@ -24,32 +25,32 @@ interface Job {
 // 150-word job descriptions. Send applications to Humans@nemi-ai.com.
 const jobs: Job[] = [
   {
-    dept: "Engineering — AI/ML",
+    dept: "Engineering, AI/ML",
     title: "LMM Research Engineer",
     meta: "Bangalore · Full-time · Hybrid",
     jd:
-      "We are building the Large Manufacturing Model — a foundation model trained on real CAD geometries, sensor streams, quality outcomes, and process parameters. As an LMM Research Engineer, you will design training objectives, curate multi-modal industrial datasets, and evaluate the model against field outcomes on our production floors. You will publish internally, iterate quickly, and ship your work into live programmes across aerospace, defence, EV, and precision tooling. You should have strong intuition for deep learning, comfort with distributed training, and a bias towards reality over benchmarks. Prior exposure to any subset of computer vision, graph neural networks, reinforcement learning, or physics-informed ML is a plus. You will work alongside mechanical, electrical, and manufacturing engineers — so the ability to explain tradeoffs to non-ML colleagues matters. Send your resume to Humans@nemi-ai.com.",
+      "We are building the Large Manufacturing Model, a foundation model trained on real CAD geometries, sensor streams, quality outcomes, and process parameters. As an LMM Research Engineer, you will design training objectives, curate multi-modal industrial datasets, and evaluate the model against field outcomes on our production floors. You will publish internally, iterate quickly, and ship your work into live programmes across aerospace, defence, EV, and precision tooling. You should have strong intuition for deep learning, comfort with distributed training, and a bias towards reality over benchmarks. Prior exposure to any subset of computer vision, graph neural networks, reinforcement learning, or physics-informed ML is a plus. You will work alongside mechanical, electrical, and manufacturing engineers, so the ability to explain tradeoffs to non-ML colleagues matters. Send your resume to Humans@nemi-ai.com.",
   },
   {
-    dept: "Engineering — Manufacturing",
+    dept: "Engineering, Manufacturing",
     title: "Mechanical Design Engineer (AKIO)",
     meta: "Bangalore · Full-time · On-site",
     jd:
-      "AKIO compresses concept-to-production design cycles from months to weeks. As a Mechanical Design Engineer on the AKIO suite, you will own the CAD, DFM, and simulation loop for real hardware programmes — drones, EV subsystems, precision tooling, consumer electronics. You will work alongside AI engineers who augment your workflow with generative design, simulation automation, and PLM integration. You should bring 3–7 years of production design experience, fluency in SolidWorks / NX / CATIA (one is fine), and a portfolio of parts that actually shipped. Familiarity with structural FEA, thermal analysis, or tolerance stack-up is a strong plus. You will iterate with a tight manufacturing team on the floor, so on-site presence matters. This is a shipping role, not a research role. Send your resume to Humans@nemi-ai.com.",
+      "AKIO compresses concept-to-production design cycles from months to weeks. As a Mechanical Design Engineer on the AKIO suite, you will own the CAD, DFM, and simulation loop for real hardware programmes, drones, EV subsystems, precision tooling, consumer electronics. You will work alongside AI engineers who augment your workflow with generative design, simulation automation, and PLM integration. You should bring 3–7 years of production design experience, fluency in SolidWorks / NX / CATIA (one is fine), and a portfolio of parts that actually shipped. Familiarity with structural FEA, thermal analysis, or tolerance stack-up is a strong plus. You will iterate with a tight manufacturing team on the floor, so on-site presence matters. This is a shipping role, not a research role. Send your resume to Humans@nemi-ai.com.",
   },
   {
-    dept: "Engineering — Manufacturing",
+    dept: "Engineering, Manufacturing",
     title: "Process Engineer (HENRY)",
     meta: "Bangalore · Full-time · On-site",
     jd:
-      "HENRY is NEMI's full-stack manufacturing layer — tooling, CNC, injection moulding, electronics, batteries, motors, complex assemblies. As a Process Engineer, you will own the translation from design intent to running production, including tooling specification, cycle-time optimisation, yield improvement, and quality sign-off. You will work with sensor-instrumented lines that feed data back into the LMM, so you will be closer to the model than most process engineers ever get. Bring 4–8 years of process engineering experience, hands-on comfort across at least two of CNC / injection moulding / battery assembly / PCBA, and a track record of driving measurable yield or cost improvements. AS9100 or ISO 9001 familiarity is helpful. This is an on-site role because real production demands real presence. Send your resume to Humans@nemi-ai.com.",
+      "HENRY is NEMI's full-stack manufacturing layer, tooling, CNC, injection moulding, electronics, batteries, motors, complex assemblies. As a Process Engineer, you will own the translation from design intent to running production, including tooling specification, cycle-time optimisation, yield improvement, and quality sign-off. You will work with sensor-instrumented lines that feed data back into the LMM, so you will be closer to the model than most process engineers ever get. Bring 4–8 years of process engineering experience, hands-on comfort across at least two of CNC / injection moulding / battery assembly / PCBA, and a track record of driving measurable yield or cost improvements. AS9100 or ISO 9001 familiarity is helpful. This is an on-site role because real production demands real presence. Send your resume to Humans@nemi-ai.com.",
   },
   {
     dept: "Operations",
     title: "Fleet Operations Manager (SAM)",
     meta: "Africa / Remote · Full-time",
     jd:
-      "SAM is where NEMI's hardware meets the real world — thousands of units operating across India and Africa. As Fleet Operations Manager, you will own uptime, last-mile logistics, maintenance cadence, and the feedback loop from field telemetry back to AKIO and HENRY. You will scale playbooks for deployment, training local operators, financing tie-ups, and after-sales service. Bring 5+ years in fleet ops, logistics, or deployed-hardware support (EV, drones, heavy equipment, or similar). You should be comfortable travelling across Africa and India, building teams on the ground, and running operations against tight margins. Data fluency matters — you will work with live telemetry dashboards every day. Send your resume to Humans@nemi-ai.com.",
+      "SAM is where NEMI's hardware meets the real world, thousands of units operating across India and Africa. As Fleet Operations Manager, you will own uptime, last-mile logistics, maintenance cadence, and the feedback loop from field telemetry back to AKIO and HENRY. You will scale playbooks for deployment, training local operators, financing tie-ups, and after-sales service. Bring 5+ years in fleet ops, logistics, or deployed-hardware support (EV, drones, heavy equipment, or similar). You should be comfortable travelling across Africa and India, building teams on the ground, and running operations against tight margins. Data fluency matters, you will work with live telemetry dashboards every day. Send your resume to Humans@nemi-ai.com.",
   },
   {
     dept: "Business Development",
@@ -59,16 +60,69 @@ const jobs: Job[] = [
       "We land with design compression, expand into full-stack manufacturing, and dominate inside each account with deployed fleet data. The Strategic Partnerships Lead runs the expand-and-dominate motion with enterprise customers across aerospace, defence, automotive, and industrial. You will map accounts, structure multi-year programme deals, and work closely with the founders on institutional wins. You should bring 7+ years in complex B2B sales or strategic partnerships, fluency in hardware / manufacturing / aerospace buying cycles, and a track record of programme-sized deals ($5M+). Comfort with NDA-heavy sales cycles, defence procurement, and institutional diligence is required. You will split time between Bangalore and London, with customer travel across EU and India. Send your resume to Humans@nemi-ai.com.",
   },
   {
-    dept: "Engineering — Software",
+    dept: "Engineering, Software",
     title: "Manufacturing OS Platform Engineer",
     meta: "Bangalore · Full-time · Hybrid",
     jd:
-      "NEMI M-OS is the operating system for our factories — scheduling, inference routing, telemetry, quality prediction, and the feedback loop back into the LMM. As a Platform Engineer, you will design and ship the backbone services that every application (AKIO, HENRY, SAM) runs on. You will own latency, reliability, observability, and developer experience for our internal engineering teams. Bring 5+ years of distributed systems experience, fluency in TypeScript / Go / Rust (pick two), and comfort with Kubernetes, event streaming (Kafka / NATS), and time-series data. Any exposure to edge compute, industrial protocols (OPC-UA, Modbus), or real-time scheduling is a plus. Hybrid from Bangalore, with periodic on-site time at our factories. Send your resume to Humans@nemi-ai.com.",
+      "NEMI M-OS is the operating system for our factories, scheduling, inference routing, telemetry, quality prediction, and the feedback loop back into the LMM. As a Platform Engineer, you will design and ship the backbone services that every application (AKIO, HENRY, SAM) runs on. You will own latency, reliability, observability, and developer experience for our internal engineering teams. Bring 5+ years of distributed systems experience, fluency in TypeScript / Go / Rust (pick two), and comfort with Kubernetes, event streaming (Kafka / NATS), and time-series data. Any exposure to edge compute, industrial protocols (OPC-UA, Modbus), or real-time scheduling is a plus. Hybrid from Bangalore, with periodic on-site time at our factories. Send your resume to Humans@nemi-ai.com.",
   },
 ];
 
 const Careers = () => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [showApplyForm, setShowApplyForm] = useState(false);
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  const closeModal = () => {
+    setSelectedJob(null);
+    setShowApplyForm(false);
+    setSubmitState("idle");
+  };
+
+  const handleApplySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!selectedJob) return;
+    setSubmitState("submitting");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const resumeFile = data.get("resume") as File | null;
+
+    try {
+      if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
+
+      const safeName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const filePath = `${Date.now()}_${safeName}`;
+
+      const { error: uploadErr } = await supabase.storage
+        .from("resumes")
+        .upload(filePath, resumeFile, {
+          contentType: resumeFile.type,
+          upsert: false,
+        });
+      if (uploadErr) throw uploadErr;
+
+      const { error: insertErr } = await supabase.from("applications").insert({
+        role: selectedJob.title,
+        department: selectedJob.dept,
+        full_name: data.get("fullName") as string,
+        email: data.get("email") as string,
+        phone: data.get("phone") as string,
+        location: (data.get("location") as string) || null,
+        experience: data.get("experience") as string,
+        linkedin: (data.get("linkedin") as string) || null,
+        portfolio: (data.get("portfolio") as string) || null,
+        cover_letter: data.get("coverLetter") as string,
+        resume_path: filePath,
+      });
+      if (insertErr) throw insertErr;
+
+      setSubmitState("success");
+      form.reset();
+    } catch (err) {
+      console.error("Application submit error:", err);
+      setSubmitState("error");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
@@ -82,7 +136,7 @@ const Careers = () => {
 
       <Navbar scrollProgress={1} />
 
-      {/* HERO — Full screen (matches About page style) */}
+      {/* HERO, Full screen (matches About page style) */}
       <section className="min-h-screen flex items-center justify-center relative z-[1] overflow-hidden pt-32 pb-16 px-6 md:px-12 lg:px-16">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -94,12 +148,6 @@ const Careers = () => {
           }}
         />
         <div className="text-center relative z-[3] max-w-4xl mx-auto">
-          <p
-            className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary/80 mb-6 font-bold"
-            style={{ animation: "hero-label-in 0.8s ease-out 0.2s both" }}
-          >
-            Careers
-          </p>
           <h1
             className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
             style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
@@ -132,7 +180,7 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* OUR TEAM + VALUES — Team image background with purple shade & values overlay */}
+      {/* OUR TEAM + VALUES, Team image background with purple shade & values overlay */}
       <section className="relative z-[1] w-full">
         <div className="relative min-h-[70vh] overflow-hidden flex flex-col">
           {/* Team background image */}
@@ -145,7 +193,7 @@ const Careers = () => {
           {/* Tinted black overlay */}
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.82) 100%)" }} />
 
-          {/* Content — centered vertically */}
+          {/* Content, centered vertically */}
           <div className="relative z-10 flex flex-col flex-1 min-h-[70vh] items-center justify-center px-6 md:px-12 lg:px-16 text-center">
             {/* Section heading */}
             <ScrollReveal>
@@ -207,7 +255,7 @@ const Careers = () => {
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
           style={{ background: "hsl(230 25% 4% / 0.85)", backdropFilter: "blur(12px)" }}
-          onClick={() => setSelectedJob(null)}
+          onClick={closeModal}
         >
           <div
             className="relative w-full max-w-2xl rounded-2xl p-6 md:p-10 overflow-y-auto max-h-[85vh] animate-in fade-in zoom-in-95 duration-200"
@@ -219,7 +267,7 @@ const Careers = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={() => setSelectedJob(null)}
+              onClick={closeModal}
               className="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
               style={{ background: "hsl(275 80% 55% / 0.1)" }}
               aria-label="Close"
@@ -238,20 +286,119 @@ const Careers = () => {
 
             <div className="h-px bg-border/40 mb-6" />
 
-            <p className="text-sm text-muted-foreground leading-[1.8] mb-8 whitespace-pre-line">
-              {selectedJob.jd}
-            </p>
+            {!showApplyForm && (
+              <>
+                <p className="text-sm text-muted-foreground leading-[1.8] mb-8 whitespace-pre-line">
+                  {selectedJob.jd}
+                </p>
 
-            <a
-              href={`mailto:Humans@nemi-ai.com?subject=Application%20%E2%80%94%20${encodeURIComponent(selectedJob.title)}`}
-              className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 text-primary-foreground"
-              style={{
-                background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-              }}
-            >
-              Apply for this Role
-            </a>
+                <button
+                  type="button"
+                  onClick={() => setShowApplyForm(true)}
+                  className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 text-primary-foreground"
+                  style={{
+                    background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
+                    boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
+                  }}
+                >
+                  Apply for this Role
+                </button>
+              </>
+            )}
+
+            {showApplyForm && submitState !== "success" && (
+              <form
+                onSubmit={handleApplySubmit}
+                className="space-y-4"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Full Name *</label>
+                    <input required name="fullName" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  </div>
+                  <div>
+                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Email *</label>
+                    <input required name="email" type="email" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  </div>
+                  <div>
+                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Phone *</label>
+                    <input required name="phone" type="tel" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  </div>
+                  <div>
+                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Location</label>
+                    <input name="location" type="text" placeholder="City, Country" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  </div>
+                  <div>
+                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Years of Experience *</label>
+                    <input required name="experience" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  </div>
+                  <div>
+                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">LinkedIn</label>
+                    <input name="linkedin" type="url" placeholder="https://linkedin.com/in/..." className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Portfolio (optional)</label>
+                  <input name="portfolio" type="url" placeholder="https://" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                </div>
+
+                <div>
+                  <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Resume * (PDF or DOC, max 5MB)</label>
+                  <input
+                    required
+                    name="resume"
+                    type="file"
+                    accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-wider file:bg-primary/20 file:text-primary hover:file:bg-primary/30 file:cursor-pointer"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Why this role? *</label>
+                  <textarea required name="coverLetter" rows={4} className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 resize-none" />
+                </div>
+
+                {submitState === "error" && (
+                  <p className="text-xs text-red-400">Something went wrong. Please email Humans@nemi-ai.com directly.</p>
+                )}
+
+                <div className="flex gap-3 pt-2">
+                  <button
+                    type="submit"
+                    disabled={submitState === "submitting"}
+                    className="flex-1 font-bold text-xs tracking-[0.2em] uppercase px-6 py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] text-primary-foreground disabled:opacity-60 disabled:cursor-not-allowed"
+                    style={{
+                      background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
+                      boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
+                    }}
+                  >
+                    {submitState === "submitting" ? "Submitting…" : "Submit Application"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowApplyForm(false)}
+                    className="px-6 py-3.5 rounded-lg font-bold text-xs tracking-[0.2em] uppercase text-muted-foreground border border-border/40 hover:text-foreground hover:border-border/70 transition-colors"
+                  >
+                    Back
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {submitState === "success" && (
+              <div className="text-center py-8">
+                <h4 className="text-lg font-bold text-foreground mb-2">Application received.</h4>
+                <p className="text-sm text-muted-foreground mb-6">We&apos;ll review and get back to you at the email you provided.</p>
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-lg border border-border/40 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

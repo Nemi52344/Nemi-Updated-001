@@ -17,19 +17,19 @@ const approachItems: ApproachItem[] = [
   {
     title: "In-house EV Test Bed",
     description:
-      "Our dedicated electric vehicle test bed serves as a living laboratory — validating AI-driven manufacturing processes in real-world conditions at full production scale.",
+      "Our dedicated electric vehicle test bed serves as a living laboratory, validating AI-driven manufacturing processes in real-world conditions at full production scale.",
     colorHsl: "275 80% 60%",
   },
   {
     title: "Services for Various Industries",
     description:
-      "From aerospace to consumer electronics, our Physical AI platform adapts to diverse manufacturing verticals — delivering precision, speed, and intelligence across sectors.",
+      "From aerospace to consumer electronics, our Physical AI platform adapts to diverse manufacturing verticals, delivering precision, speed, and intelligence across sectors.",
     colorHsl: "220 85% 60%",
   },
   {
     title: "Product",
     description:
-      "Our flagship manufacturing intelligence suite — a turnkey solution that transforms traditional production lines into autonomous, self-optimizing smart factories.",
+      "Our flagship manufacturing intelligence suite, a turnkey solution that transforms traditional production lines into autonomous, self-optimizing smart factories.",
     colorHsl: "145 75% 50%",
   },
 ];

@@ -32,7 +32,7 @@ const SamTab = () => {
           </ScrollReveal>
           <ScrollReveal delay={300}>
             <p className="text-muted-foreground text-sm md:text-lg leading-[1.8] max-w-[480px] tracking-wide">
-              Deploy, monitor, and improve — every unit, every mile.
+              Deploy, monitor, and improve, every unit, every mile.
             </p>
           </ScrollReveal>
         </div>
@@ -68,7 +68,7 @@ const SamTab = () => {
             <div className="font-bold text-5xl md:text-6xl lg:text-7xl uppercase tracking-wider mb-2" style={{ color: sam }}>SAM</div>
             <div className="font-semibold text-muted-foreground text-base md:text-xl uppercase tracking-wider mb-6">Deployment & Lifecycle Intelligence</div>
             <p className="text-muted-foreground text-sm md:text-base leading-[1.8] mb-8 max-w-[500px] tracking-wide">
-              Your product leaving the factory is just the beginning. SAM gets it to your customers, tracks every unit in the field, and feeds real performance data back into your next design — so each generation is better than the last.
+              Your product leaving the factory is just the beginning. SAM gets it to your customers, tracks every unit in the field, and feeds real performance data back into your next design, so each generation is better than the last.
             </p>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem", marginBottom: "2rem", padding: 0 }}>
               {["Deliver products to end users", "Support leasing & financing", "Monitor real-world product performance", "Improve products using operational data"].map((b) => (

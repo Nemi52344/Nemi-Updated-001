@@ -32,7 +32,7 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
       className="fixed inset-0 flex flex-col pointer-events-auto"
       style={{ zIndex: 45, opacity: enterP, background: "hsl(230 25% 4%)" }}
     >
-      {/* CTA — centered */}
+      {/* CTA, centered */}
       <div className="flex-1 flex items-center justify-center relative px-6">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -87,7 +87,7 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
       <footer className="border-t border-border/30 px-6 md:px-16" aria-labelledby="home-footer-heading">
         <h2 id="home-footer-heading" className="sr-only">Site footer</h2>
         <div className="max-w-6xl mx-auto py-6 flex flex-col gap-4">
-          {/* Top row — branding + contact */}
+          {/* Top row, branding + contact */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <img
@@ -112,7 +112,7 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
               © 2026 NEMI AI. All rights reserved.
             </p>
           </div>
-          {/* Nav links — help crawlers reach every page */}
+          {/* Nav links, help crawlers reach every page */}
           <nav aria-label="Footer navigation" className="border-t border-border/20 pt-3">
             <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 list-none p-0">
               {FOOTER_LINKS.map((item) => (

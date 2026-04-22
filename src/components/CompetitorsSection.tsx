@@ -61,7 +61,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           </h3>
         </div>
 
-        {/* Factory photo cards — 4x2 grid */}
+        {/* Factory photo cards, 4x2 grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-8">
         {factoryImages.map((src, i) => {
             const cardDelay = i * 0.08;

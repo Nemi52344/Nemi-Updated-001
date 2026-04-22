@@ -70,7 +70,7 @@ const Index = () => {
       {/* Navbar */}
       <Navbar scrollProgress={scrollProgress} />
 
-      {/* Scroll-synced video background — hands zoom toward viewer */}
+      {/* Scroll-synced video background, hands zoom toward viewer */}
       <video
         ref={videoRef}
         muted
@@ -88,7 +88,7 @@ const Index = () => {
         <source src="/videos/HQ_updated_2.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark overlay — lighter so hands are prominent */}
+      {/* Dark overlay, lighter so hands are prominent */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
@@ -170,26 +170,10 @@ const Index = () => {
           The AI Operating System for Manufacturing
         </p>
 
-        {/* Certifications badge strip */}
-        <div className="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-2 md:gap-3 px-4 max-w-3xl">
-          {["AS9100D", "ISO 9001:2015", "DRDO Cleared", "ISRO Cleared"].map((cert) => (
-            <span
-              key={cert}
-              className="inline-block text-[0.6rem] md:text-[0.7rem] tracking-[0.15em] uppercase font-semibold px-3.5 py-1.5 rounded-full whitespace-nowrap"
-              style={{
-                background: "hsl(275 80% 55% / 0.08)",
-                border: "1px solid hsl(275 80% 55% / 0.25)",
-                color: "hsl(var(--muted-foreground))",
-              }}
-            >
-              {cert}
-            </span>
-          ))}
-        </div>
       </div>
 
       {/*
-        Crawlable navigation footer — always rendered in SSR HTML so search
+        Crawlable navigation footer, always rendered in SSR HTML so search
         engines and AI crawlers can discover every page from the homepage.
         Visually hidden; the scroll-driven CTASection provides the visible CTA.
       */}
@@ -199,7 +183,7 @@ const Index = () => {
             <li><a href="/">Home</a></li>
             <li><a href="/services">Services (AKIO, HENRY, SAM)</a></li>
             <li><a href="/technology">Technology (Large Manufacturing Model)</a></li>
-            <li><a href="/proof">Proof — traction and case studies</a></li>
+            <li><a href="/proof">Proof, traction and case studies</a></li>
             <li><a href="/about">About NEMI AI</a></li>
             <li><a href="/careers">Careers</a></li>
             <li><a href="/investors">Investor relations</a></li>
@@ -209,8 +193,8 @@ const Index = () => {
           </ul>
         </nav>
         <p>
-          NEMI AI — The AI Operating System for Manufacturing. Certifications:
-          AS9100D, ISO 9001:2015, DRDO Cleared, ISRO Cleared.
+          NEMI AI, The AI Operating System for Manufacturing. Certifications:
+          AS9100D, ISO 9001:2015.
         </p>
       </footer>
 

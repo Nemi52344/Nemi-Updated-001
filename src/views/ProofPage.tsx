@@ -6,7 +6,7 @@ import ScrollReveal from "@/hooks/ScrollReveal";
 import PageCTAFooter from "@/components/PageCTAFooter";
 
 /* ── Data ── */
-// Flagship cases — public-safe comparison claims only.
+// Flagship cases, public-safe comparison claims only.
 // No specific customer revenue, contract values, or named testimonials.
 const flagshipCases = [
   {
@@ -22,7 +22,7 @@ const flagshipCases = [
   },
   {
     tag: "Defence Subsystem",
-    title: "Drone subsystem \u2014 motor, battery and control unit.",
+    title: "Drone subsystem \, motor, battery and control unit.",
     desc: "Design and prototype for drone powertrain collapsed into one engineering and manufacturing loop.",
     metrics: [
       { label: "Faster", value: "4\u00d7" },
@@ -57,15 +57,14 @@ const whyRepeats = [
   },
 ];
 
-// Compounding moat — stages customers move through.
+// Compounding moat, stages customers move through.
 const compoundingStages = [
   { stage: "01", title: "Cost, quality, speed", desc: "A clear advantage over the alternate supplier set." },
   { stage: "02", title: "High switching risk", desc: "Critical parts carry heavy re-qualification cost to switch away." },
   { stage: "03", title: "Data compounds the moat", desc: "Historical process and field data deepen yield, lower cost, and raise switching cost further." },
-  { stage: "04", title: "Strategic partner", desc: "No longer a supplier \u2014 essential to operations. Impossible to replace." },
+  { stage: "04", title: "Strategic partner", desc: "No longer a supplier \, essential to operations. Impossible to replace." },
 ];
 
-const certifications = ["AS9100D", "ISO 9001:2015", "DRDO Cleared", "ISRO Cleared"];
 
 const ProofPage = () => {
   return (
@@ -73,7 +72,7 @@ const ProofPage = () => {
       <ConstellationCanvas />
       <Navbar />
 
-      {/* ── Hero — full-screen, matches About page style ── */}
+      {/* ── Hero, full-screen, matches About page style ── */}
       <section className="min-h-screen flex items-center justify-center relative z-[1] overflow-hidden pt-32 pb-16 px-6 md:px-12 lg:px-16">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -85,12 +84,6 @@ const ProofPage = () => {
           }}
         />
         <div className="text-center relative z-[3] max-w-4xl mx-auto">
-          <p
-            className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary/80 mb-6 font-bold"
-            style={{ animation: "hero-label-in 0.8s ease-out 0.2s both" }}
-          >
-            The Proof
-          </p>
           <h1
             className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
             style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
@@ -258,36 +251,6 @@ const ProofPage = () => {
                   </h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Institutional Trust ── */}
-      <section className="relative z-[1] py-16 px-6 md:px-12">
-        <div className="max-w-3xl mx-auto text-center">
-          <ScrollReveal>
-            <h2
-              className="text-xl md:text-2xl font-extrabold tracking-tight uppercase mb-8"
-              style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4)" }}
-            >
-              Institutional trust
-            </h2>
-          </ScrollReveal>
-          <div className="flex flex-wrap justify-center gap-3">
-            {certifications.map((cert, i) => (
-              <ScrollReveal key={cert} delay={i * 80}>
-                <span
-                  className="inline-block text-[0.65rem] tracking-[0.1em] uppercase font-semibold px-5 py-2.5 rounded-full"
-                  style={{
-                    background: "hsl(275 80% 55% / 0.08)",
-                    border: "1px solid hsl(275 80% 55% / 0.2)",
-                    color: "hsl(var(--muted-foreground))",
-                  }}
-                >
-                  {cert}
-                </span>
               </ScrollReveal>
             ))}
           </div>

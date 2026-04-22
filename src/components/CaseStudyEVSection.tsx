@@ -31,7 +31,7 @@ const metrics: MetricData[] = [
 
 const insights: InsightData[] = [
   { title: "Time-to-Market", description: "2x faster", colorHsl: "0 75% 55%" },
-  { title: "Workforce Volume", description: "30% of required Manpower — zero loss in performance", colorHsl: "220 85% 55%" },
+  { title: "Workforce Volume", description: "30% of required Manpower, zero loss in performance", colorHsl: "220 85% 55%" },
   { title: "Unit Economics", description: "14% COGS reduction", colorHsl: "145 75% 50%" },
   { title: "Capital Efficiency", description: "10x lower development spend", colorHsl: "275 80% 60%" },
 ];

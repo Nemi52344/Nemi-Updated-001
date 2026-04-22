@@ -16,7 +16,7 @@ const services: { title: string; desc: string; img: string }[] = [
   { title: "Motor Manufacturing", desc: "Design and manufacturing of BLDC, Axial Flux and other motors", img: "/Images/Motor.webp" },
   { title: "Electronics Production", desc: "PCB assemblies, box builds / system integration, and testing", img: "/Images/Electronics%20production.webp" },
   { title: "Speedshop", desc: "Rapid response production for fast turnaround", img: "/Images/speedshop.webp" },
-  { title: "Complex Assemblies", desc: "Combining multiple different types of parts into complex assemblies — e.g., EVs, drones, industrial robotics", img: "/Images/Titanium-Alloys-for-Drone-Frames.webp" },
+  { title: "Complex Assemblies", desc: "Combining multiple different types of parts into complex assemblies, e.g., EVs, drones, industrial robotics", img: "/Images/Titanium-Alloys-for-Drone-Frames.webp" },
 ];
 
 const HenryTab = () => {
@@ -42,7 +42,7 @@ const HenryTab = () => {
           </ScrollReveal>
           <ScrollReveal delay={300}>
             <p className="text-muted-foreground text-sm md:text-lg leading-[1.8] max-w-[480px] tracking-wide">
-              Your design, manufactured at scale — faster, cheaper, smarter.
+              Your design, manufactured at scale, faster, cheaper, smarter.
             </p>
           </ScrollReveal>
         </div>
@@ -78,7 +78,7 @@ const HenryTab = () => {
             <div className="font-bold text-5xl md:text-6xl lg:text-7xl uppercase tracking-wider mb-2" style={{ color: henry }}>HENRY</div>
             <div className="font-semibold text-muted-foreground text-base md:text-xl uppercase tracking-wider mb-6">AI-Driven Manufacturing</div>
             <p className="text-muted-foreground text-sm md:text-base leading-[1.8] mb-8 max-w-[500px] tracking-wide">
-              You've designed it. Now it needs to be built — at the right quality, the right cost, on time. HENRY is your one-stop AI-powered manufacturing partner: from raw tooling to finished assemblies, no supply chain juggling required.
+              You've designed it. Now it needs to be built, at the right quality, the right cost, on time. HENRY is your one-stop AI-powered manufacturing partner: from raw tooling to finished assemblies, no supply chain juggling required.
             </p>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem", marginBottom: "2rem", padding: 0 }}>
               {["Integrated with AKIO design workflows", "AI assisted supply chain development", "AI assisted Tooling & Capex design", "Full-stack manufacturing capabilities"].map((b) => (
@@ -131,7 +131,7 @@ const HenryTab = () => {
       {/* CASE STUDIES */}
       <ScrollReveal className="pt-10 pb-8">
         <div style={{ display: "inline-block" }}>
-          <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Studies — Henry</p>
+          <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Studies, Henry</p>
           <div style={{ height: 2, background: henry, width: "100%" }} />
         </div>
       </ScrollReveal>
@@ -140,8 +140,8 @@ const HenryTab = () => {
     <ScrollReveal>
       <CaseStudy
         title="Composites & Aluminium Tooling"
-        context="A high-end sports car manufacturer required tooling, bonding & trimming jigs, FRP machining, and sheet metal tooling and part production — demanding precision across every surface and tight dimensional tolerance."
-        outcome="Complete tooling suite — composites moulds, aluminium jigs, FRP machined parts, and sheet metal components — all within spec and integrated with the customer's production workflow."
+        context="A high-end sports car manufacturer required tooling, bonding & trimming jigs, FRP machining, and sheet metal tooling and part production, demanding precision across every surface and tight dimensional tolerance."
+        outcome="Complete tooling suite, composites moulds, aluminium jigs, FRP machined parts, and sheet metal components, all within spec and integrated with the customer's production workflow."
         color={henry}
         imageSrc="/Images/aluminium.webp"
         imageAlt="Composites & Aluminium Tooling"

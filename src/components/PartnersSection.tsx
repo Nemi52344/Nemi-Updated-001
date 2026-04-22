@@ -47,7 +47,7 @@ const PartnersSection = ({ scrollProgress }: PartnersSectionProps) => {
 
         {/* Rolling banner - two rows */}
         <div className="overflow-hidden">
-          {/* Row 1 — scrolls left */}
+          {/* Row 1, scrolls left */}
           <div className="flex mb-6" style={{ animation: "partner-scroll-left 30s linear infinite" }}>
             {[...partners, ...partners].map((name, i) => (
               <div
@@ -66,7 +66,7 @@ const PartnersSection = ({ scrollProgress }: PartnersSectionProps) => {
             ))}
           </div>
 
-          {/* Row 2 — scrolls right */}
+          {/* Row 2, scrolls right */}
           <div className="flex" style={{ animation: "partner-scroll-right 35s linear infinite" }}>
             {[...partners.slice().reverse(), ...partners.slice().reverse()].map((name, i) => (
               <div

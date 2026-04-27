@@ -30,11 +30,11 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 type PartKey = "complex_parts" | "battery" | "motor" | "mechanical" | "electronics";
 
 const parts: { key: PartKey; label: string }[] = [
-  { key: "complex_parts", label: "Complex Assemblies" },
   { key: "battery", label: "Battery" },
   { key: "motor", label: "Motor" },
   { key: "mechanical", label: "Mechanical Parts" },
   { key: "electronics", label: "Electrical & Electronics" },
+  { key: "complex_parts", label: "Complex Assemblies" },
 ];
 
 // Map each vehicle to its images per part. null = use full image as fallback
@@ -115,44 +115,59 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
             transform: `translateY(${(1 - enterP) * 25}px)`,
           }}
         >
-          Design and development capabilities from components to complex assemblies
+          Design capabilities
+          <br />
+          from components to complex assemblies
         </h3>
 
-        {/* Parts pills - horizontal row */}
+        {/* Parts pills - equation: Battery + Motor + Mech + EE = Complex Assemblies */}
         <div
-          className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-10 px-2"
+          className="flex flex-wrap justify-center items-center gap-2 md:gap-3 mb-6 md:mb-10 px-2"
           style={{ opacity: enterP }}
         >
-          {parts.map((part) => {
+          {parts.map((part, idx) => {
             const isActive = selectedPart === part.key;
+            const isLast = idx === parts.length - 1;
+            const connector = isLast ? null : idx === parts.length - 2 ? "=" : "+";
             return (
-              <button
-                key={part.key}
-                className="px-3 py-1.5 md:px-5 md:py-2.5 rounded-lg border transition-all duration-300 cursor-pointer"
-                onClick={() => setSelectedPart(part.key)}
-                style={{
-                  borderColor: isActive
-                    ? "hsl(0 65% 55% / 0.7)"
-                    : "hsl(230 15% 25% / 0.5)",
-                  background: isActive
-                    ? "hsl(0 65% 55% / 0.1)"
-                    : "transparent",
-                  boxShadow: isActive
-                    ? "0 0 15px hsl(0 65% 55% / 0.12)"
-                    : "none",
-                }}
-              >
-                <span
-                  className="text-[9px] md:text-sm tracking-wider font-medium transition-colors duration-300"
+              <div key={part.key} className="flex items-center gap-2 md:gap-3">
+                <button
+                  className="px-3 py-1.5 md:px-5 md:py-2.5 rounded-lg border transition-all duration-300 cursor-pointer"
+                  onMouseEnter={() => setSelectedPart(part.key)}
+                  onFocus={() => setSelectedPart(part.key)}
                   style={{
-                    color: isActive
-                      ? "hsl(0 65% 70%)"
-                      : "hsl(var(--muted-foreground))",
+                    borderColor: isActive
+                      ? "hsl(0 65% 55% / 0.7)"
+                      : "hsl(230 15% 25% / 0.5)",
+                    background: isActive
+                      ? "hsl(0 65% 55% / 0.1)"
+                      : "transparent",
+                    boxShadow: isActive
+                      ? "0 0 15px hsl(0 65% 55% / 0.12)"
+                      : "none",
                   }}
                 >
-                  {part.label}
-                </span>
-              </button>
+                  <span
+                    className="text-[9px] md:text-sm tracking-wider font-medium transition-colors duration-300"
+                    style={{
+                      color: isActive
+                        ? "hsl(0 65% 70%)"
+                        : "hsl(var(--muted-foreground))",
+                    }}
+                  >
+                    {part.label}
+                  </span>
+                </button>
+                {connector && (
+                  <span
+                    aria-hidden
+                    className="text-base md:text-xl font-light select-none"
+                    style={{ color: "hsl(0 65% 60% / 0.7)" }}
+                  >
+                    {connector}
+                  </span>
+                )}
+              </div>
             );
           })}
         </div>

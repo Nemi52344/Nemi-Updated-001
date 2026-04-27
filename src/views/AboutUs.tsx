@@ -211,16 +211,16 @@ const AboutUs = () => {
 
             <div className="flex flex-col gap-0">
               {[
-                { color: "hsl(0, 72%, 52%)", label: "AKIO", subtitle: "Design Intelligence",
+                { color: "hsl(0, 72%, 52%)", label: "AKIO", subtitle: "Design Studio", tab: "akio",
                   body: "AI-powered CAD generation, simulation, prototyping. Concept to production-ready design in weeks." },
-                { color: "hsl(217, 91%, 60%)", label: "HENRY", subtitle: "Manufacturing Engine",
+                { color: "hsl(217, 91%, 60%)", label: "HENRY", subtitle: "Development Engine", tab: "henry",
                   body: "Full-stack production, metal parts, electronics, batteries, motors. Sensor-driven quality at every stage." },
-                { color: "hsl(142, 71%, 45%)", label: "SAM", subtitle: "Deployment & Lifecycle",
+                { color: "hsl(142, 71%, 45%)", label: "SAM", subtitle: "Deployment Planner", tab: "sam",
                   body: "Fleet deployment, last-mile logistics, leasing, financing, field monitoring. Real-world data feeds back into AKIO designs." },
               ].map((pillar, i) => (
                 <ScrollReveal key={pillar.label} delay={i * 150}>
                   <div
-                    className="group flex gap-6 md:gap-8 items-start py-8 cursor-default transition-all duration-300"
+                    className="group flex gap-6 md:gap-8 items-start py-8 transition-all duration-300"
                     style={{ borderBottom: "1px solid hsl(var(--border) / 0.3)" }}
                   >
                     {/* Number + accent */}
@@ -234,11 +234,13 @@ const AboutUs = () => {
                     {/* Content */}
                     <div className="flex-1">
                       <div className="flex items-baseline gap-3 mb-1">
-                        <h3 className="text-xl md:text-2xl font-extrabold tracking-wider uppercase group-hover:text-foreground transition-colors"
+                        <Link
+                          href={`/services?tab=${pillar.tab}`}
+                          className="text-xl md:text-2xl font-extrabold tracking-wider uppercase transition-[text-shadow] duration-300 hover:[text-shadow:0_0_24px_currentColor]"
                           style={{ color: pillar.color }}
                         >
                           {pillar.label}
-                        </h3>
+                        </Link>
                         <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase text-muted-foreground/50">
                           {pillar.subtitle}
                         </span>
@@ -453,24 +455,24 @@ const AboutUs = () => {
         </ScrollReveal>
         <ScrollReveal delay={100}>
           <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-16 max-w-[500px]">
-            Six structural advantages. Not features, moats.
+            Six structural advantages.
           </p>
         </ScrollReveal>
 
         <div className="flex flex-col">
           {[
             { num: "01", color: "275 85% 65%", tag: "RESILIENCE-AS-A-SERVICE", title: "Sovereign Manufacturing",
-              desc: "Edge AI within national borders. No cloud dependency. Full data sovereignty." },
+              desc: "Edge AI within national borders: full data sovereignty; no cloud dependency." },
             { num: "02", color: "272 78% 58%", tag: "WORLD-CLASS ENGINEERING · LOCALIZED COSTS", title: "Extreme Capital Efficiency",
-              desc: "Coimbatore ops at 1/5th US cost. Same engineering quality." },
+              desc: "Coimbatore operations: US-level engineering quality at 20% US-level cost." },
             { num: "03", color: "269 70% 52%", tag: "PROPRIETARY AI", title: "The LMM Advantage",
-              desc: "Proprietary AI trained on real production data. Smarter every job." },
+              desc: "Proprietary AI stack: trains on real production data; gets smarter with each job." },
             { num: "04", color: "266 62% 46%", tag: "ONE PARTNER · FULL STACK", title: "End-to-End Integration",
-              desc: "Design to delivery. One partner. No integration gaps." },
+              desc: "One partner from design to deployment, with full integration." },
             { num: "05", color: "263 55% 40%", tag: "RETROFIT · NOT REPLACE", title: "AI Retrofit for Legacy",
-              desc: "Upgrade existing factories. No greenfield capital needed." },
+              desc: "Upgrade existing factories with our AI stack — no need for greenfield capital." },
             { num: "06", color: "260 48% 35%", tag: "ACCESSIBLE PHYSICAL AI", title: "Mid-Market Focus",
-              desc: "Physical AI for companies enterprise vendors ignore." },
+              desc: "Physical AI for the markets that enterprise vendors ignore." },
           ].map((moat, i) => (
             <ScrollReveal key={moat.num} delay={i * 80}>
               <div className="group grid grid-cols-[3rem_1fr] md:grid-cols-[5rem_1fr_1fr] lg:grid-cols-[6rem_1fr_1.2fr] gap-6 md:gap-10 items-start py-8 border-t border-border/20 transition-all duration-300 hover:border-border/50">

@@ -283,12 +283,16 @@ const InvestorPage = () => {
               }}
             >
               <p className="text-sm md:text-base text-muted-foreground leading-[1.8]">
-                Manufacturing is capital-intensive. Defence programmes are regulated.
-                Customer concentration is an early-stage reality. NEMI&apos;s structure
-               , AS9100D-certified operations, a diversified programme mix across
-                four industries, retrofit-first capital deployment, and board-level
-                operating experience, is designed to address each. Full discussion
-                available in diligence.
+                Yes, manufacturing is capital-intensive. Yes, defence programs are
+                regulated. Yes, customer concentration is an early-stage reality.
+              </p>
+              <p className="text-sm md:text-base text-muted-foreground leading-[1.8] mt-5">
+                NEMI is structured to address each of these risks: AS9100D-certified
+                operations, a diversified program mix across four industries,
+                retrofit-first capital deployment, and board-level operating experience.
+              </p>
+              <p className="text-xs md:text-sm text-muted-foreground/70 italic leading-[1.8] mt-5">
+                Full discussion available in diligence.
               </p>
             </div>
           </ScrollReveal>

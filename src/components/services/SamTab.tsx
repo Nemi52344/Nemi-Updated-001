@@ -1,6 +1,7 @@
 const sam = "hsl(142, 71%, 45%)";
 
 import { ScrollReveal } from "@/hooks/ScrollReveal";
+import PromoFooter from "./PromoFooter";
 import { useVideoAutoplay } from "@/hooks/useVideoAutoplay";
 
 const services = [
@@ -66,7 +67,7 @@ const SamTab = () => {
         <section className="services-tab-hero-grid grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-stretch pt-16 pb-8">
           <div className="flex flex-col justify-center">
             <div className="font-bold text-5xl md:text-6xl lg:text-7xl uppercase tracking-wider mb-2" style={{ color: sam }}>SAM</div>
-            <div className="font-semibold text-muted-foreground text-base md:text-xl uppercase tracking-wider mb-6">Deployment & Lifecycle Intelligence</div>
+            <div className="font-semibold text-muted-foreground text-base md:text-xl uppercase tracking-wider mb-6">Deployment Planner</div>
             <p className="text-muted-foreground text-sm md:text-base leading-[1.8] mb-8 max-w-[500px] tracking-wide">
               Your product leaving the factory is just the beginning. SAM gets it to your customers, tracks every unit in the field, and feeds real performance data back into your next design, so each generation is better than the last.
             </p>
@@ -118,6 +119,11 @@ const SamTab = () => {
         </div>
       </div>
     </div>
+
+    {/* TRANSITION BANNER */}
+    <ScrollReveal>
+      <PromoFooter />
+    </ScrollReveal>
   </div>
   );
 };

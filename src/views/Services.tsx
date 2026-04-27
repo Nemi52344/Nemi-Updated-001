@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ScrollReveal from "@/hooks/ScrollReveal";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
@@ -28,15 +29,33 @@ const tabs = [
 
 type TabKey = typeof tabs[number]["key"];
 
+const isTabKey = (v: string | null): v is TabKey =>
+  v === "akio" || v === "henry" || v === "sam";
+
 const Services = () => {
-  const [activeTab, setActiveTab] = useState<TabKey>("akio");
+  const searchParams = useSearchParams();
+  const initial = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState<TabKey>(isTabKey(initial) ? initial : "akio");
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Sync state when the URL changes (e.g. user clicks an in-page link to ?tab=henry).
+  useEffect(() => {
+    const next = searchParams.get("tab");
+    if (isTabKey(next) && next !== activeTab) {
+      setActiveTab(next);
+      window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    }
+  }, [searchParams, activeTab]);
+
   const handleTabChange = (key: TabKey) => {
     setActiveTab(key);
+    // Update the URL without a full navigation so deep-links and analytics work.
+    const url = new URL(window.location.href);
+    url.searchParams.set("tab", key);
+    window.history.replaceState({}, "", url);
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   };
 

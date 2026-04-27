@@ -4,6 +4,7 @@ const sam = "hsl(142, 71%, 45%)";
 
 import { CaseStudy } from "./CaseStudy";
 import { ScrollReveal } from "@/hooks/ScrollReveal";
+import PromoFooter from "./PromoFooter";
 import factoryImg2 from "@/assets/factory-2.webp";
 import { useVideoAutoplay } from "@/hooks/useVideoAutoplay";
 
@@ -76,7 +77,7 @@ const HenryTab = () => {
         <section className="services-tab-hero-grid grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-stretch pt-16 pb-8">
           <div className="flex flex-col justify-center">
             <div className="font-bold text-5xl md:text-6xl lg:text-7xl uppercase tracking-wider mb-2" style={{ color: henry }}>HENRY</div>
-            <div className="font-semibold text-muted-foreground text-base md:text-xl uppercase tracking-wider mb-6">AI-Driven Manufacturing</div>
+            <div className="font-semibold text-muted-foreground text-base md:text-xl uppercase tracking-wider mb-6">Development Engine</div>
             <p className="text-muted-foreground text-sm md:text-base leading-[1.8] mb-8 max-w-[500px] tracking-wide">
               You've designed it. Now it needs to be built, at the right quality, the right cost, on time. HENRY is your one-stop AI-powered manufacturing partner: from raw tooling to finished assemblies, no supply chain juggling required.
             </p>
@@ -185,11 +186,7 @@ const HenryTab = () => {
 
     {/* TRANSITION BANNER */}
     <ScrollReveal>
-      <div className="bg-card border-t border-b border-border" style={{ padding: "3rem", textAlign: "center" }}>
-        <p className="text-foreground/40 font-bold tracking-wider uppercase leading-relaxed" style={{ fontSize: "clamp(1.2rem, 2.2vw, 2.2rem)" }}>
-          Design with <span style={{ color: akio }}>AKIO</span>. &nbsp; Build with <span style={{ color: henry }}>HENRY</span>. &nbsp; Deploy with <span style={{ color: sam }}>SAM</span>.
-        </p>
-      </div>
+      <PromoFooter />
     </ScrollReveal>
   </div>
   );

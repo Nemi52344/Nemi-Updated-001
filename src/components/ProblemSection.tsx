@@ -101,7 +101,7 @@ const StepCard = ({
       <div
         className="relative w-full"
         style={{
-          aspectRatio: "4/3",
+          aspectRatio: "3/2",
           transformStyle: "preserve-3d",
           transform: hovered ? "rotateY(180deg) scale(1.08)" : "rotateY(0deg) scale(1)",
           transition: "transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)",
@@ -175,22 +175,47 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
         className="relative max-w-5xl w-full mx-auto pointer-events-auto"
         style={{ opacity: cardsP, transform: `translateY(${(1 - cardsP) * 50}px)` }}
       >
+        {/* Heading: top-left, with a red downward arrow column-aligned to the inter-row arrows */}
         <h2
-          className="text-xl md:text-3xl lg:text-4xl font-extrabold text-foreground mb-3 tracking-tight"
+          className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground tracking-wide text-left leading-tight mb-2 md:mb-3"
           style={{
-            textShadow:
-              "0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.15)",
+            textShadow: "0 0 40px hsl(var(--primary) / 0.25)",
           }}
         >
           Hardware is hard.
         </h2>
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-5 px-2 mb-2 md:mb-2.5">
+          <div className="col-span-3 md:col-span-1 flex justify-center">
+            <svg
+              width="20"
+              height="22"
+              viewBox="0 0 20 22"
+              aria-hidden
+              style={{
+                color: "hsl(0 75% 55%)",
+                filter:
+                  "drop-shadow(0 0 6px hsl(0 80% 55% / 0.7)) drop-shadow(0 0 14px hsl(0 80% 55% / 0.35))",
+              }}
+            >
+              <path d="M10 2 V15" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+              <path
+                d="M3 12 L10 19 L17 12"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+            </svg>
+          </div>
+        </div>
 
-        {/* Three category rows */}
-        <div className="flex flex-col gap-4 md:gap-5">
+        {/* Three category rows with arrows sitting on the seam between boxes */}
+        <div className="flex flex-col gap-2 md:gap-3">
           {rows.map((row, rowIdx) => (
+            <div key={row.category} className="contents">
             <div
-              key={row.category}
-              className="rounded-xl border p-2 md:p-3"
+              className="rounded-xl border p-2"
               style={{
                 borderColor: `hsl(${row.colorHsl} / 0.3)`,
                 background: `linear-gradient(135deg, hsl(${row.colorHsl} / 0.04), hsl(${row.colorHsl} / 0.02))`,
@@ -200,11 +225,11 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
                 transition: "transform 0.1s linear",
               }}
             >
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 items-center">
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-5 items-center">
                 {/* Category label */}
                 <div className="flex items-center justify-center col-span-3 md:col-span-1">
                   <span
-                    className="text-sm md:text-base lg:text-lg font-extrabold tracking-[0.2em] uppercase"
+                    className="text-sm md:text-base lg:text-lg font-extrabold tracking-[0.18em] uppercase whitespace-nowrap"
                     style={{
                       color: `hsl(${row.colorHsl})`,
                       textShadow: `0 0 20px hsl(${row.glowHsl} / 0.5), 0 0 40px hsl(${row.glowHsl} / 0.2)`,
@@ -214,28 +239,113 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
                   </span>
                 </div>
 
-                {/* 5 step cards */}
-                {row.steps.map((s) => (
-                  <StepCard
-                    key={s.label}
-                    step={s.label}
-                    image={s.image}
-                    colorHsl={row.colorHsl}
-                  />
+                {/* 5 step cards with chevrons between them */}
+                {row.steps.map((s, sIdx) => (
+                  <div key={s.label} className="relative">
+                    <StepCard
+                      step={s.label}
+                      image={s.image}
+                      colorHsl={row.colorHsl}
+                    />
+                    {sIdx < row.steps.length - 1 && (
+                      <div
+                        aria-hidden
+                        className="hidden md:flex absolute top-1/2 -right-[calc(0.625rem+7px)] -translate-y-1/2 z-10 items-center justify-center pointer-events-none"
+                        style={{
+                          color: `hsl(${row.colorHsl})`,
+                          filter: `drop-shadow(0 0 6px hsl(${row.glowHsl} / 0.6))`,
+                        }}
+                      >
+                        <svg width="14" height="18" viewBox="0 0 14 18">
+                          <path
+                            d="M3 2 L11 9 L3 16"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            fill="none"
+                          />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
+            </div>
+            {rowIdx < rows.length - 1 && (
+              <div className="relative h-0 z-20 pointer-events-none">
+                <div className="absolute left-0 right-0 top-0 -translate-y-1/2 grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-5 px-2">
+                  <div className="col-span-3 md:col-span-1 flex justify-center">
+                    <svg
+                      width="22"
+                      height="14"
+                      viewBox="0 0 22 14"
+                      aria-hidden
+                      style={{
+                        color: `hsl(${row.colorHsl})`,
+                        filter: `drop-shadow(0 0 6px hsl(${row.glowHsl} / 0.7)) drop-shadow(0 0 14px hsl(${row.glowHsl} / 0.35))`,
+                      }}
+                    >
+                      <path
+                        d="M3 3 L11 11 L19 3"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        fill="none"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            )}
             </div>
           ))}
         </div>
 
+        {/* Footer: green arrow centered above the word "Nemi" */}
         <p
-          className="text-base md:text-xl lg:text-2xl font-bold text-foreground mt-6 text-right tracking-wider"
+          className="text-xl md:text-2xl lg:text-3xl font-light text-foreground/85 tracking-wide text-right leading-tight mt-8 md:mt-10"
           style={{
-            textShadow:
-              "0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.15)",
+            textShadow: "0 0 40px hsl(var(--primary) / 0.25)",
           }}
         >
-          NEMI collapses all three into one stack.
+          All three phases are integrated into one stack at{" "}
+          <span className="relative inline-block">
+            <svg
+              width="20"
+              height="22"
+              viewBox="0 0 20 22"
+              aria-hidden
+              className="absolute left-1/2 -translate-x-1/2 -top-7 md:-top-8"
+              style={{
+                color: "hsl(160 70% 50%)",
+                filter:
+                  "drop-shadow(0 0 6px hsl(160 75% 50% / 0.7)) drop-shadow(0 0 14px hsl(160 75% 50% / 0.35))",
+              }}
+            >
+              <path d="M10 2 V15" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+              <path
+                d="M3 12 L10 19 L17 12"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+            </svg>
+            <span
+              className="font-extrabold bg-clip-text text-transparent tracking-wider"
+              style={{
+                backgroundImage:
+                  "linear-gradient(135deg, hsl(275 90% 75%), hsl(275 80% 55%), hsl(285 90% 65%))",
+                filter: "drop-shadow(0 0 18px hsl(275 80% 60% / 0.55))",
+              }}
+            >
+              NEMI
+            </span>
+          </span>
+          .
         </p>
       </div>
     </div>

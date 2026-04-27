@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import akioImg from "@/assets/akio.webp";
 import henryImg from "@/assets/henry.webp";
 import samImg from "@/assets/sam.webp";
@@ -14,6 +15,7 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 interface TechLeader {
   name: string;
+  fullName: string;
   role: string;
   color: string;
   colorHsl: string;
@@ -24,7 +26,8 @@ interface TechLeader {
 
 const techLeaders: TechLeader[] = [
   {
-    name: "Akio",
+    name: "AKIO",
+    fullName: "Akio Morita",
     role: "Design",
     color: "from-red-500/20 to-red-900/10",
     colorHsl: "0 85% 55%",
@@ -33,7 +36,8 @@ const techLeaders: TechLeader[] = [
     photo: akioImg,
   },
   {
-    name: "Henry",
+    name: "HENRY",
+    fullName: "Henry Ford",
     role: "Develop",
     color: "from-blue-500/20 to-blue-900/10",
     colorHsl: "220 85% 55%",
@@ -42,7 +46,8 @@ const techLeaders: TechLeader[] = [
     photo: henryImg,
   },
   {
-    name: "Sam",
+    name: "SAM",
+    fullName: "Sam Walton",
     role: "Distribute",
     color: "from-green-500/20 to-green-900/10",
     colorHsl: "145 75% 45%",
@@ -71,7 +76,7 @@ const FlipCard = ({ leader, compact }: { leader: TechLeader; compact?: boolean }
       >
         {/* Front: photo + name + role */}
         <div
-          className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-2 md:p-6 lg:p-8 transition-shadow duration-500"
+          className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-4 md:p-8 lg:p-10 transition-shadow duration-500"
           style={{
             backfaceVisibility: "hidden",
             borderColor: `hsl(${leader.colorHsl} / 0.3)`,
@@ -83,18 +88,18 @@ const FlipCard = ({ leader, compact }: { leader: TechLeader; compact?: boolean }
             <>
               {/* Outer glow ring */}
               <div
-                className="rounded-full mb-2 md:mb-4 relative z-10 flex items-center justify-center"
+                className="rounded-full mb-3 md:mb-5 relative z-10 flex items-center justify-center"
                 style={{
-                  width: "8rem",
-                  height: "8rem",
+                  width: "9.5rem",
+                  height: "9.5rem",
                   background: `radial-gradient(circle, hsl(${leader.colorHsl} / 0.2) 50%, hsl(${leader.colorHsl} / 0.05) 65%, transparent 72%)`,
                 }}
               >
                 <div
                   className="rounded-full overflow-hidden"
                   style={{
-                    width: "6.5rem",
-                    height: "6.5rem",
+                    width: "8rem",
+                    height: "8rem",
                     border: `1.5px solid hsl(${leader.colorHsl} / 0.45)`,
                     boxShadow: `0 0 10px hsl(${leader.colorHsl} / 0.2), inset 0 0 8px hsl(${leader.colorHsl} / 0.08)`,
                   }}
@@ -116,6 +121,7 @@ const FlipCard = ({ leader, compact }: { leader: TechLeader; compact?: boolean }
             style={{ textShadow: `0 0 12px hsl(${leader.colorHsl} / 0.4)` }}
           >
             {leader.name}
+            <sup className="text-[0.5em] ml-0.5 align-super opacity-80">™</sup>
           </h3>
           <p
             className={`${compact ? 'text-[8px]' : 'text-[10px]'} md:text-sm tracking-[0.15em] md:tracking-[0.3em] uppercase font-medium`}
@@ -127,7 +133,7 @@ const FlipCard = ({ leader, compact }: { leader: TechLeader; compact?: boolean }
 
         {/* Back: bio text */}
         <div
-          className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-2 md:p-6 lg:p-8 transition-shadow duration-500"
+          className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-4 md:p-8 lg:p-10 transition-shadow duration-500"
           style={{
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
@@ -137,11 +143,17 @@ const FlipCard = ({ leader, compact }: { leader: TechLeader; compact?: boolean }
           }}
         >
           <p
-            className={`${compact ? 'text-[8px] mb-1' : 'text-[10px] mb-2'} md:text-sm md:mb-4 tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium`}
+            className={`${compact ? 'text-[8px] mb-1' : 'text-[10px] mb-1'} md:text-sm md:mb-2 tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium`}
             style={{ color: `hsl(${leader.colorHsl})` }}
           >
             {leader.role}
           </p>
+          <h4
+            className={`${compact ? 'text-[10px] mb-1' : 'text-xs mb-2'} md:text-base md:mb-3 font-semibold text-foreground text-center tracking-wide`}
+            style={{ textShadow: `0 0 12px hsl(${leader.colorHsl} / 0.4)` }}
+          >
+            {leader.fullName}
+          </h4>
           <p className={`${compact ? 'hidden' : 'text-[10px] leading-relaxed'} md:block md:text-sm text-muted-foreground text-center`}>
             {leader.bio}
           </p>
@@ -257,13 +269,42 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
                     style={{
                       opacity,
                       transform: `translateY(${translateY}px)`,
-                      height: "clamp(180px, 22vh, 380px)",
+                      height: "clamp(240px, 30vh, 440px)",
                     }}
                   >
                     <FlipCard leader={leader} />
                   </div>
                 );
               })}
+            </div>
+
+            {/* Catchphrase row — each phrase sits under its respective AI card and links to that tab */}
+            <div
+              className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5 lg:gap-8 w-full px-6 md:px-4 lg:px-0 max-w-sm md:max-w-5xl mx-auto mt-4 md:mt-6"
+              style={{ opacity: bottomOpacity }}
+            >
+              {([
+                { tab: "akio", verb: "Design with", name: "AKIO" },
+                { tab: "henry", verb: "Build with", name: "HENRY" },
+                { tab: "sam", verb: "Deploy with", name: "SAM" },
+              ] as const).map((p, idx) => (
+                <Link
+                  key={p.tab}
+                  href={`/services?tab=${p.tab}`}
+                  className="text-center text-xs md:text-base font-bold tracking-[0.18em] uppercase text-foreground/60 hover:text-foreground transition-colors py-2 group"
+                >
+                  {p.verb}{" "}
+                  <span
+                    className="transition-[text-shadow] duration-200"
+                    style={{
+                      color: `hsl(${techLeaders[idx].colorHsl})`,
+                    }}
+                  >
+                    {p.name}
+                  </span>
+                  .
+                </Link>
+              ))}
             </div>
           </div>
         </div>

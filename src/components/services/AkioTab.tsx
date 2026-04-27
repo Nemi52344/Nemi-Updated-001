@@ -2,6 +2,7 @@ const akio = "hsl(0, 72%, 52%)";
 
 import { CaseStudy } from "./CaseStudy";
 import { ScrollReveal } from "@/hooks/ScrollReveal";
+import PromoFooter from "./PromoFooter";
 import droneFull from "@/assets/drone-full.webp";
 import { useVideoAutoplay } from "@/hooks/useVideoAutoplay";
 
@@ -68,7 +69,7 @@ const AkioTab = () => {
         <section className="services-tab-hero-grid grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-stretch pt-16 pb-8">
           <div className="flex flex-col justify-center">
             <div className="font-bold text-5xl md:text-6xl lg:text-7xl uppercase tracking-wider mb-2" style={{ color: akio }}>AKIO</div>
-            <div className="font-semibold text-muted-foreground text-base md:text-xl uppercase tracking-wider mb-6">Design Intelligence Suite</div>
+            <div className="font-semibold text-muted-foreground text-base md:text-xl uppercase tracking-wider mb-6">Design Studio</div>
             <p className="text-muted-foreground text-sm md:text-base leading-[1.8] mb-8 max-w-[500px] tracking-wide">
               Tell us what you need built. AKIO's AI-driven design engine handles the engineering, CAD, simulation, prototyping, so you get a validated, production-ready design without the 6-month wait or the $200k bill.
             </p>
@@ -181,11 +182,7 @@ const AkioTab = () => {
 
     {/* TRANSITION BANNER */}
     <ScrollReveal>
-      <div className="bg-card border-t border-b border-border" style={{ padding: "3rem", textAlign: "center" }}>
-        <p className="text-foreground/40 font-bold tracking-wider uppercase leading-relaxed" style={{ fontSize: "clamp(1.2rem, 2.2vw, 2.2rem)" }}>
-          Design with <span style={{ color: akio }}>AKIO</span>. &nbsp; Scale manufacturing with <span style={{ color: "hsl(217, 91%, 60%)" }}>HENRY</span>.
-        </p>
-      </div>
+      <PromoFooter />
     </ScrollReveal>
   </div>
   );

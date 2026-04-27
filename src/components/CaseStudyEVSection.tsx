@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 interface CaseStudyEVSectionProps {
   scrollProgress: number;
 }
@@ -37,11 +39,39 @@ const insights: InsightData[] = [
 ];
 
 const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
-  const sectionVisible = scrollProgress > 0.835 && scrollProgress < 0.895;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.85, 0.88));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.875, 0.895));
-  const barsP = easeOut(rangeProgress(scrollProgress, 0.87, 0.89));
+  // Widen the dwell range so the section stays on screen long enough to read.
+  // Bars are driven by an internal timer so the animation always plays in full,
+  // independent of how fast the user scrolls.
+  const sectionVisible = scrollProgress > 0.835 && scrollProgress < 0.92;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.84, 0.86));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.905, 0.92));
   const opacity = Math.min(enterP, 1 - exitP);
+
+  // Internal bar-fill animation: ramps 0 → 1 over ~1.6s once section is visible,
+  // resets to 0 when it leaves so it replays on scroll-back.
+  const [barsP, setBarsP] = useState(0);
+  const startedAtRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!sectionVisible) {
+      startedAtRef.current = null;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      setBarsP(0);
+      return;
+    }
+    const DURATION = 1600;
+    const tick = (t: number) => {
+      if (startedAtRef.current === null) startedAtRef.current = t;
+      const p = Math.min((t - startedAtRef.current) / DURATION, 1);
+      setBarsP(p);
+      if (p < 1) rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [sectionVisible]);
 
   if (!sectionVisible) return null;
 

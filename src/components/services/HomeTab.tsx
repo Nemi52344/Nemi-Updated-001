@@ -9,21 +9,21 @@ const HomeTab = ({ onTabChange }: HomeTabProps) => {
   const previewCards = [
     {
       name: "AKIO",
-      sub: "Design & Engineering",
+      sub: "Design Studio",
       desc: "AI-assisted design stack for faster concept visualization, rapid iterations, and cost-efficient engineering from idea to production-ready design.",
       colorHsl: "0 72% 52%",
       tab: "akio",
     },
     {
       name: "HENRY",
-      sub: "Manufacturing & Production",
+      sub: "Development Engine",
       desc: "AI-driven manufacturing ecosystem enabling faster production ramp-up, reduced supply chain complexity, and lower costs tightly connected with design.",
       colorHsl: "217 91% 60%",
       tab: "henry",
     },
     {
       name: "SAM",
-      sub: "Deployment & Lifecycle",
+      sub: "Deployment Planner",
       desc: "Product deployment, fleet operations, and real-world performance monitoring, creating a continuous feedback loop that improves future designs.",
       colorHsl: "142 71% 45%",
       tab: "sam",

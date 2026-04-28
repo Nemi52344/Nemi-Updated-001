@@ -73,7 +73,7 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
               }}
             >
               {member.photo ? (
-                <img src={member.photo} alt={member.name} className="w-full h-full object-cover" decoding="async" />
+                <img src={member.photo} alt={member.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
               ) : (
                 <span className="font-black text-xl tracking-widest" style={{ color: `hsl(${member.colorHsl})` }}>
                   {member.initials}
@@ -612,7 +612,7 @@ const AboutUs = () => {
                     style={{ background: `hsl(${member.color} / 0.12)`, border: `1px solid hsl(${member.color} / 0.3)` }}
                   >
                     {member.photo ? (
-                      <img src={member.photo} alt={member.name} className="w-full h-full object-cover" decoding="async" />
+                      <img src={member.photo} alt={member.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                     ) : (
                       <span className="font-black text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
                     )}
@@ -661,7 +661,7 @@ const AboutUs = () => {
                     style={{ background: `hsl(${advisor.color} / 0.15)`, border: `1.5px solid hsl(${advisor.color} / 0.4)` }}
                   >
                     {advisor.photo ? (
-                      <img src={advisor.photo} alt={advisor.name} className="w-full h-full object-cover" decoding="async" />
+                      <img src={advisor.photo} alt={advisor.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                     ) : (
                       <span className="font-black text-sm" style={{ color: `hsl(${advisor.color})` }}>{advisor.initials}</span>
                     )}
@@ -727,7 +727,7 @@ const AboutUs = () => {
                     style={{ width: "160px", height: "80px" }}
                   >
                     <img src={logo.src} alt={logo.label} title={logo.label}
-                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} decoding="async" />
+                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} loading="lazy" decoding="async" />
                   </div>
                 ))}
               </div>
@@ -758,7 +758,7 @@ const AboutUs = () => {
                     style={{ width: "160px", height: "80px" }}
                   >
                     <img src={logo.src} alt={logo.label} title={logo.label}
-                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} decoding="async" />
+                      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }} loading="lazy" decoding="async" />
                   </div>
                 ))}
               </div>

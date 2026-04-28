@@ -104,7 +104,7 @@ const FlipCard = ({ leader, compact }: { leader: TechLeader; compact?: boolean }
                     boxShadow: `0 0 10px hsl(${leader.colorHsl} / 0.2), inset 0 0 8px hsl(${leader.colorHsl} / 0.08)`,
                   }}
                 >
-                  <img src={leader.photo} alt={leader.name} className="w-full h-full object-cover" decoding="async" />
+                  <img src={leader.photo} alt={leader.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 </div>
               </div>
               <div

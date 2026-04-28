@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import ScrollReveal from "@/hooks/ScrollReveal";
 import PageCTAFooter from "@/components/PageCTAFooter";
+import SiteFooter from "@/components/SiteFooter";
 
 interface LeaderMember {
   name: string;
@@ -46,9 +47,10 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
           transform: hovered ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
-        {/* FRONT */}
+        {/* FRONT — uniform layout: photo top-anchored, name and role in fixed slots
+            so cards line up regardless of name/role length. */}
         <div
-          className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-2 md:p-6 lg:p-8 transition-shadow duration-500"
+          className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center pt-6 md:pt-8 pb-5 md:pb-6 px-3 md:px-4 transition-shadow duration-500"
           style={{
             backfaceVisibility: "hidden",
             borderColor: `hsl(${member.colorHsl} / 0.3)`,
@@ -57,7 +59,7 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
           }}
         >
           <div
-            className="rounded-full mb-2 md:mb-4 relative z-10 flex items-center justify-center"
+            className="rounded-full mb-4 md:mb-5 relative z-10 flex items-center justify-center shrink-0"
             style={{
               width: "8rem", height: "8rem",
               background: `radial-gradient(circle, hsl(${member.colorHsl} / 0.2) 50%, hsl(${member.colorHsl} / 0.05) 65%, transparent 72%)`,
@@ -82,16 +84,38 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
             </div>
           </div>
           <div
-            className="absolute w-20 h-20 md:w-44 md:h-44 rounded-full blur-2xl opacity-20"
+            className="absolute w-20 h-20 md:w-44 md:h-44 rounded-full blur-2xl opacity-20 pointer-events-none"
             style={{ background: `radial-gradient(circle, hsl(${member.colorHsl} / 0.4), transparent)`, top: "10%" }}
           />
-          <h3 className="text-xs md:text-xl font-semibold text-foreground tracking-wider mb-0 md:mb-1"
-            style={{ textShadow: `0 0 12px hsl(${member.colorHsl} / 0.4)`, animation: "text-glow-pulse 3s ease-in-out infinite" }}
-          >
-            {member.name}
-          </h3>
-          <p className="text-[10px] md:text-sm tracking-[0.15em] md:tracking-[0.3em] uppercase font-medium"
-            style={{ color: `hsl(${member.colorHsl})` }}
+          {/* Name slot — every name renders on exactly 2 lines (everything before
+              last space on top, last word below) so cards always line up. */}
+          {(() => {
+            const parts = member.name.trim().split(/\s+/);
+            const last = parts.pop() || "";
+            const first = parts.join(" ");
+            return (
+              <h3
+                className="text-xs md:text-base lg:text-lg font-semibold text-foreground tracking-wider text-center flex flex-col items-center justify-center w-full px-1"
+                style={{
+                  textShadow: `0 0 12px hsl(${member.colorHsl} / 0.4)`,
+                  animation: "text-glow-pulse 3s ease-in-out infinite",
+                  minHeight: "3em",
+                  lineHeight: "1.2",
+                }}
+              >
+                <span className="block">{first || last}</span>
+                <span className="block">{first ? last : ""}</span>
+              </h3>
+            );
+          })()}
+          {/* Role slot — reserves room for up to 3 lines */}
+          <p
+            className="text-[10px] md:text-xs tracking-[0.15em] md:tracking-[0.25em] uppercase font-medium text-center flex items-start justify-center w-full px-1"
+            style={{
+              color: `hsl(${member.colorHsl})`,
+              minHeight: "3em",
+              lineHeight: "1.45",
+            }}
           >
             {member.role}
           </p>
@@ -294,7 +318,7 @@ const AboutUs = () => {
                 >
                   {/* Circle 1 - Sovereign Manufacturing (TOP) */}
                   <div
-                    className="venn-circle absolute rounded-full flex items-center justify-center text-center px-6"
+                    className="venn-circle absolute rounded-full overflow-hidden flex items-center justify-center text-center px-6"
                     style={{
                       width: "230px",
                       height: "230px",
@@ -302,8 +326,8 @@ const AboutUs = () => {
                       left: "50%",
                       marginLeft: "-115px",
                       background:
-                        "radial-gradient(circle, hsl(275 80% 55% / 0.32) 0%, hsl(275 80% 55% / 0.10) 70%)",
-                      border: "1px solid hsl(275 80% 55% / 0.3)",
+                        "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
+                      border: "1px solid hsl(275 80% 65% / 0.35)",
                     }}
                   >
                     <div className="relative z-[2]">
@@ -318,15 +342,15 @@ const AboutUs = () => {
 
                   {/* Circle 2 - Physical AI (BOTTOM-LEFT) */}
                   <div
-                    className="venn-circle venn-circle-2 absolute rounded-full flex items-center justify-center text-center px-6"
+                    className="venn-circle venn-circle-2 absolute rounded-full overflow-hidden flex items-center justify-center text-center px-6"
                     style={{
                       width: "230px",
                       height: "230px",
                       bottom: "0",
                       left: "0",
                       background:
-                        "radial-gradient(circle, hsl(265 75% 50% / 0.28) 0%, hsl(265 75% 50% / 0.08) 70%)",
-                      border: "1px solid hsl(265 75% 50% / 0.25)",
+                        "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
+                      border: "1px solid hsl(275 80% 65% / 0.35)",
                     }}
                   >
                     <div className="relative z-[2]">
@@ -341,15 +365,15 @@ const AboutUs = () => {
 
                   {/* Circle 3 - High ROI Automation (BOTTOM-RIGHT) */}
                   <div
-                    className="venn-circle venn-circle-3 absolute rounded-full flex items-center justify-center text-center px-6"
+                    className="venn-circle venn-circle-3 absolute rounded-full overflow-hidden flex items-center justify-center text-center px-6"
                     style={{
                       width: "230px",
                       height: "230px",
                       bottom: "0",
                       right: "0",
                       background:
-                        "radial-gradient(circle, hsl(285 80% 60% / 0.28) 0%, hsl(285 80% 60% / 0.08) 70%)",
-                      border: "1px solid hsl(285 80% 60% / 0.25)",
+                        "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
+                      border: "1px solid hsl(275 80% 65% / 0.35)",
                     }}
                   >
                     <div className="relative z-[2]">
@@ -566,10 +590,10 @@ const AboutUs = () => {
             {[
               { name: "Subramanian R", photo: "/Images/team/Subramanian%20R.webp", role: "CFO, India",
                 desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods.", colorHsl: "275 55% 52%" },
-              { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "President, AKIO Suite (Mechanical)",
+              { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "President, AKIO Suite",
                 desc: "30+ years in manufacturing leadership, automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%" },
-              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President, AKIO Suite (Electrical)",
-                desc: "20 years in electronics product development across telematics, defence, aerospace, and factory automation.", colorHsl: "272 48% 50%" },
+              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President, AKIO Suite",
+                desc: "20 years in electronics product development across telematics, defense, aerospace, and factory automation.", colorHsl: "272 48% 50%" },
               { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.webp", role: "President, SAM",
                 desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Built and led 100+ person sales teams.", colorHsl: "278 53% 49%" },
             ].map((member, i) => (
@@ -930,6 +954,7 @@ const AboutUs = () => {
         buttonText="Get Started"
         buttonHref="/services"
       />
+      <SiteFooter />
     </div>
   );
 };

@@ -192,8 +192,7 @@ export default function HomePage() {
             <h2>Book a Walkthrough</h2>
             <p>
               Ready to build your next physical product with NEMI AI?
-              General: <a href="mailto:Humans@nemi-ai.com">Humans@nemi-ai.com</a>.
-              Investors: <a href="mailto:investors@nemi-ai.com">investors@nemi-ai.com</a>.
+              Email <a href="mailto:info@nemi-ai.com">info@nemi-ai.com</a>.
             </p>
           </section>
         </main>

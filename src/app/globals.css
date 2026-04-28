@@ -229,6 +229,8 @@
 .venn-circle {
   animation: venn-glow-pulse 4s ease-in-out infinite, venn-float 6s ease-in-out infinite;
   will-change: transform, box-shadow;
+  cursor: pointer;
+  transition: filter 0.4s ease;
 }
 
 .venn-circle-2 {
@@ -239,6 +241,43 @@
   animation-delay: -3s, -4s;
 }
 
+/* Diagonal sheen that sweeps across the circle on hover */
+.venn-circle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    hsl(275 100% 95% / 0.18) 45%,
+    hsl(280 100% 96% / 0.32) 50%,
+    hsl(275 100% 95% / 0.18) 55%,
+    transparent 70%
+  );
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.2s ease;
+}
+
+@keyframes venn-shine-sweep {
+  0%   { transform: translateX(-110%); }
+  100% { transform: translateX(110%); }
+}
+
+.venn-circle:hover::before {
+  opacity: 1;
+  animation: venn-shine-sweep 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venn-circle,
+  .venn-circle:hover::before {
+    animation: none;
+  }
+}
+
 @keyframes why-now-arrow {
   0%, 100% { transform: translateX(0); opacity: 0.6; }
   50% { transform: translateX(-8px); opacity: 1; }
@@ -246,4 +285,11 @@
 
 .why-now-arrow {
   animation: why-now-arrow 2.5s ease-in-out infinite;
+}
+
+/* When a step card is hovered (and zooms), fade the chevrons sitting either
+   side of it so they don't fight the enlarged image. */
+.problem-step-wrapper:hover .problem-step-chevron,
+.problem-step-wrapper:has(+ .problem-step-wrapper:hover) .problem-step-chevron {
+  opacity: 0.18;
 }

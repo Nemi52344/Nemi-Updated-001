@@ -56,14 +56,14 @@ Sources: McKinsey, MGI 2025
 ## Public Proof Points
 - 300K+ sq ft of owned manufacturing footprint across India
 - 2,500+ EV units deployed across India and Africa
-- Programmes shipped with 2x–10x improvements in speed and cost vs. benchmarks
+- Programs shipped with 2x–10x improvements in speed and cost vs. benchmarks
 
 ## Flagship Public Cases
 - EV Platform: Full EV platform delivered in 9 months. 2x faster than benchmark,
   10x more cost efficient. Over 2,500 units deployed.
-- Defence Subsystem: Drone subsystem (motor, battery, control unit) — 4x faster,
+- Defense Subsystem: Drone subsystem (motor, battery, control unit) — 4x faster,
   5x lower cost.
-- Precision Tooling: Tooling and fixturing programme for supercar OEM — 2.5x faster,
+- Precision Tooling: Tooling and fixturing program for supercar OEM — 2.5x faster,
   2x lower cost.
 
 ## Why outcomes repeat

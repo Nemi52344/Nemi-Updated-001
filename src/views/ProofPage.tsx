@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import ScrollReveal from "@/hooks/ScrollReveal";
 import PageCTAFooter from "@/components/PageCTAFooter";
+import SiteFooter from "@/components/SiteFooter";
 
 /* ── Data ── */
 // Flagship cases, public-safe comparison claims only.
@@ -22,7 +23,7 @@ const flagshipCases = [
     color: "hsl(0, 72%, 52%)",
   },
   {
-    tag: "Defence Subsystem",
+    tag: "Defense Subsystem",
     title: "Drone subsystem \, motor, battery and control unit.",
     desc: "Design and prototype for drone powertrain collapsed into one engineering and manufacturing loop.",
     metrics: [
@@ -58,34 +59,40 @@ const whyRepeats = [
   },
 ];
 
-// Ever-deepening moat — each stage deepens the relationship with the customer
-// (and the moat against alternate suppliers).
+// Ever-deepening moat — each stage deepens the relationship with the customer.
+// Stage cards are styled as a stepped staircase: heights and depths increase
+// as you move right, mirroring the slide deck.
 const moatStages: {
   stage: string;
   title: string;
   desc: string;
   link?: { href: string; label: string };
+  customers: string;
 }[] = [
   {
-    stage: "01",
+    stage: "1",
     title: "Cost, quality, speed",
     desc: "Customers approach us due to our three clear advantages over alternate suppliers.",
+    customers: "16 customers",
   },
   {
-    stage: "02",
+    stage: "2",
     title: "High switching risk",
     desc: "Customers stick with us since their critical parts have high re-qualification and switching costs.",
+    customers: "10 customers",
   },
   {
-    stage: "03",
+    stage: "3",
     title: "Data deepens the moat",
     desc: "Customers expand their reach with us due to constantly improving performance from our LMM flywheel.",
     link: { href: "/technology#flywheel", label: "LMM flywheel" },
+    customers: "7 customers",
   },
   {
-    stage: "04",
+    stage: "4",
     title: "Strategic partner",
     desc: "No longer a supplier — essential to operations. Impossible to replace.",
+    customers: "3 customers",
   },
 ];
 
@@ -148,7 +155,7 @@ const ProofPage = () => {
               className="text-2xl md:text-3xl font-extrabold tracking-tight uppercase mb-4 text-center"
               style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4)" }}
             >
-              Flagship Programmes
+              Flagship Programs
             </h2>
             <p className="text-xs md:text-sm text-muted-foreground text-center mb-12 max-w-lg mx-auto">
               Proof that speed and cost can move together.
@@ -240,90 +247,211 @@ const ProofPage = () => {
         </div>
       </section>
 
-      {/* ── Ever-deepening Moat ── */}
+      {/* ── Ever-deepening Moat — staircase ── */}
       <section className="relative z-[1] py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <h2
-              className="text-2xl md:text-3xl font-extrabold tracking-tight uppercase mb-4 text-center"
+              className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight mb-6 max-w-3xl"
               style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4)" }}
             >
-              A Deeper and Wider Moat
-              <br className="hidden md:block" />
-              <span className="md:inline"> with Every Customer</span>
+              Once customers adopt LMM, they cannot go back.
             </h2>
-            <p className="text-xs md:text-sm text-muted-foreground text-center mb-12 max-w-2xl mx-auto leading-relaxed">
-              As customers deepen their relationship with us, every stage deepens our moat.
-            </p>
+            <div className="border-t border-primary/40 mb-8 max-w-3xl" />
           </ScrollReveal>
-          <div className="flex flex-col lg:flex-row items-stretch gap-3 lg:gap-2">
-            {moatStages.map((s, i) => {
-              // Gradient: lighter at stage 1, darker / more saturated at stage 4 to
-              // visually convey the moat deepening as customers move through stages.
-              const intensity = (i + 1) / moatStages.length; // 0.25 → 1.0
-              const bgAlpha = 0.06 + intensity * 0.18;        // 0.105 → 0.24
-              const borderAlpha = 0.18 + intensity * 0.42;    // 0.285 → 0.6
-              const accent = `hsl(275 80% 60% / ${borderAlpha.toFixed(3)})`;
-              return (
-                <ScrollReveal key={s.stage} delay={i * 90} className="flex-1">
-                  <div className="flex items-stretch gap-2 lg:gap-1 h-full">
-                    <div
-                      className="p-5 rounded-2xl h-full flex flex-col flex-1 transition-transform duration-300 hover:-translate-y-0.5"
+
+          {/* Why this cannot be replicated — bullets */}
+          <ScrollReveal delay={100}>
+            <div className="mb-12 max-w-3xl">
+              <p className="text-sm md:text-base font-bold text-foreground mb-3">
+                Why this cannot be replicated:
+              </p>
+              <ul className="space-y-1.5 text-xs md:text-sm text-muted-foreground/90">
+                {[
+                  "Requires full-stack factories + AI (rare)",
+                  "Requires closed-loop data (time-dependent)",
+                  "Requires deployment at scale (hard)",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span
+                      className="mt-2 inline-block w-1.5 h-1.5 rounded-full shrink-0"
                       style={{
-                        background: `hsl(275 80% 30% / ${bgAlpha.toFixed(3)})`,
-                        border: `1px solid ${accent}`,
-                        boxShadow: `0 0 ${(intensity * 30).toFixed(0)}px hsl(275 80% 60% / ${(intensity * 0.18).toFixed(3)})`,
+                        background: "hsl(275 80% 65%)",
+                        boxShadow: "0 0 8px hsl(275 80% 60% / 0.6)",
                       }}
-                    >
-                      <span
-                        className="text-[0.6rem] tracking-[0.3em] uppercase font-bold mb-3"
-                        style={{ color: `hsl(275 80% ${65 + intensity * 8}%)` }}
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs md:text-sm text-foreground/85 mt-5 italic">
+                This advantage compounds faster than competitors can build it.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          {/* Funnel: 4 stages span the full row width (proportional widths grow
+              left → right), vertically centred so the funnel reads as a
+              horizontal horn opening up and down. */}
+          <ScrollReveal delay={200}>
+            <div className="grid grid-cols-2 lg:grid-cols-[1fr_1.2fr_1.4fr_1.6fr] gap-3 md:gap-4 items-center">
+              {moatStages.map((s, i) => {
+                const intensity = (i + 1) / moatStages.length; // 0.25 → 1.0
+                // Heights step up to keep the funnel growing visually. Sizes
+                // sized so the 3-line paragraph + header + customer count all
+                // breathe inside the smallest stage, then scale up evenly.
+                const lgHeights = [
+                  "lg:h-[280px]",
+                  "lg:h-[340px]",
+                  "lg:h-[400px]",
+                  "lg:h-[460px]",
+                ];
+                const bgFromLight = 80 - intensity * 40; // 70 → 40
+                const bgAlpha = 0.18 + intensity * 0.5; // 0.30 → 0.68
+                const borderAlpha = 0.3 + intensity * 0.4;
+                return (
+                  <div
+                    key={s.stage}
+                    className={`group relative rounded-xl md:rounded-2xl overflow-hidden p-4 md:p-5 lg:p-6 flex flex-col h-[260px] w-full ${lgHeights[i]} backdrop-blur-sm transition-all duration-500 hover:-translate-y-1`}
+                    style={{
+                      background: `linear-gradient(155deg,
+                        hsl(275 80% ${bgFromLight + 8}% / ${(bgAlpha * 0.95).toFixed(3)}) 0%,
+                        hsl(275 75% ${bgFromLight}% / ${(bgAlpha * 0.85).toFixed(3)}) 35%,
+                        hsl(280 80% ${bgFromLight - 14}% / ${bgAlpha.toFixed(3)}) 100%)`,
+                      border: `1px solid hsl(275 85% 75% / ${borderAlpha.toFixed(3)})`,
+                      boxShadow: `0 12px 48px -12px hsl(275 80% ${20 + intensity * 25}% / ${(0.3 + intensity * 0.3).toFixed(3)}),
+                                  0 0 ${(intensity * 50).toFixed(0)}px hsl(275 80% 60% / ${(intensity * 0.25).toFixed(3)}),
+                                  inset 0 1px 0 hsl(275 90% 92% / ${(0.18 + intensity * 0.15).toFixed(3)}),
+                                  inset 0 -1px 0 hsl(275 80% 18% / ${(0.4 + intensity * 0.2).toFixed(3)})`,
+                    }}
+                  >
+                    {/* Specular highlight — soft white sheen in upper-left */}
+                    <div
+                      aria-hidden
+                      className="absolute -top-1/4 -left-1/4 w-2/3 h-2/3 pointer-events-none opacity-60 group-hover:opacity-90 transition-opacity duration-500"
+                      style={{
+                        background: `radial-gradient(ellipse at 30% 30%,
+                          hsl(275 95% 92% / ${(0.16 + intensity * 0.12).toFixed(3)}) 0%,
+                          hsl(275 95% 80% / ${(0.06 + intensity * 0.05).toFixed(3)}) 35%,
+                          transparent 65%)`,
+                        filter: "blur(8px)",
+                      }}
+                    />
+                    {/* Top sheen — thin glossy reflection along the top edge */}
+                    <div
+                      aria-hidden
+                      className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+                      style={{
+                        background: `linear-gradient(90deg,
+                          transparent,
+                          hsl(275 95% 90% / ${(0.4 + intensity * 0.4).toFixed(3)}) 50%,
+                          transparent)`,
+                      }}
+                    />
+                    {/* Subtle diagonal shine ribbon — moves on hover */}
+                    <div
+                      aria-hidden
+                      className="absolute -top-full -right-full w-[150%] h-[200%] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                      style={{
+                        background: `linear-gradient(115deg,
+                          transparent 35%,
+                          hsl(275 100% 95% / 0.07) 47%,
+                          hsl(280 100% 92% / 0.12) 50%,
+                          hsl(275 100% 95% / 0.07) 53%,
+                          transparent 65%)`,
+                        transform: "translateX(0%)",
+                      }}
+                    />
+
+                    {/* Card layout: stage label at top, heading + paragraph
+                        vertically centred in the middle (`my-auto`), customer
+                        count pinned at the bottom. */}
+                    <div className="relative z-10 flex flex-col h-full">
+                      {/* Stage label, top */}
+                      <p
+                        className="text-[0.6rem] md:text-[0.65rem] font-bold tracking-[0.2em] uppercase"
+                        style={{
+                          color: `hsl(275 80% ${82 + intensity * 6}%)`,
+                          textShadow: `0 0 12px hsl(275 90% 70% / ${(0.3 + intensity * 0.3).toFixed(3)})`,
+                        }}
                       >
                         Stage {s.stage}
-                      </span>
-                      <h3 className="text-sm md:text-base font-bold text-foreground mb-2 leading-tight">
-                        {s.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        {s.link ? (
-                          <>
-                            {s.desc.split(s.link.label)[0]}
-                            <Link
-                              href={s.link.href}
-                              className="text-primary hover:underline"
-                            >
-                              {s.link.label}
-                            </Link>
-                            {s.desc.split(s.link.label)[1]}
-                          </>
-                        ) : (
-                          s.desc
-                        )}
                       </p>
-                    </div>
-                    {/* Chevron between stages — desktop only */}
-                    {i < moatStages.length - 1 && (
-                      <div
-                        aria-hidden
-                        className="hidden lg:flex items-center"
-                        style={{ color: `hsl(275 80% ${55 + intensity * 12}% / 0.7)` }}
-                      >
-                        <svg width="18" height="22" viewBox="0 0 18 22" fill="none">
-                          <path
-                            d="M3 3 L13 11 L3 19"
-                            stroke="currentColor"
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+
+                      {/* Centred block: title + paragraph */}
+                      <div className="my-auto flex flex-col text-center">
+                        <h3
+                          className="text-xs md:text-sm font-bold text-foreground leading-tight whitespace-nowrap mb-3"
+                          style={{
+                            textShadow: `0 1px 2px hsl(275 80% 10% / 0.5), 0 0 16px hsl(275 90% 70% / ${(intensity * 0.25).toFixed(3)})`,
+                          }}
+                        >
+                          {s.title}
+                        </h3>
+                        <p
+                          className="text-[0.7rem] md:text-xs text-foreground/80 leading-relaxed text-center"
+                          style={{
+                            minHeight: "calc(3 * 1.625em)",
+                            maxHeight: "calc(4 * 1.625em)",
+                            display: "-webkit-box",
+                            WebkitLineClamp: 4,
+                            WebkitBoxOrient: "vertical" as const,
+                            overflow: "hidden",
+                          }}
+                        >
+                          {s.link ? (
+                            <>
+                              {s.desc.split(s.link.label)[0]}
+                              <Link
+                                href={s.link.href}
+                                className="text-foreground underline decoration-primary/60 underline-offset-2 hover:decoration-primary"
+                              >
+                                {s.link.label}
+                              </Link>
+                              {s.desc.split(s.link.label)[1]}
+                            </>
+                          ) : (
+                            s.desc
+                          )}
+                        </p>
                       </div>
-                    )}
+
+                      {/* Customer count, bottom */}
+                      <div className="pt-3 relative text-center">
+                        <span
+                          className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+                          style={{
+                            background: `linear-gradient(90deg,
+                              transparent,
+                              hsl(275 80% 70% / ${(0.4 + intensity * 0.3).toFixed(3)}) 30%,
+                              hsl(275 80% 70% / ${(0.4 + intensity * 0.3).toFixed(3)}) 70%,
+                              transparent)`,
+                          }}
+                        />
+                        <p className="text-[0.65rem] md:text-xs font-bold tracking-wider text-foreground/85">
+                          {s.customers}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </ScrollReveal>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+
+            {/* Bottom strap */}
+            <div
+              className="mt-3 md:mt-4 rounded-xl md:rounded-2xl p-4 md:p-5 backdrop-blur-sm"
+              style={{
+                background: "linear-gradient(180deg, hsl(275 70% 30% / 0.45), hsl(275 75% 22% / 0.5))",
+                border: "1px solid hsl(275 80% 60% / 0.5)",
+                boxShadow: "0 0 28px hsl(275 80% 50% / 0.18), inset 0 1px 0 hsl(275 80% 70% / 0.18)",
+              }}
+            >
+              <p className="text-sm md:text-base font-bold text-foreground tracking-wide">
+                Switching away means losing your own advantage.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -335,6 +463,7 @@ const ProofPage = () => {
         secondaryButtonText="Investor Materials"
         secondaryButtonHref="/investors"
       />
+      <SiteFooter />
     </div>
   );
 };

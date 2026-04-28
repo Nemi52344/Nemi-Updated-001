@@ -9,62 +9,42 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
-type Sector = "aerospace" | "defence" | "automotive" | "industrial";
+type Sector = "aerospace" | "defense" | "automotive" | "industrial";
 
 interface LogoEntry {
   src: string;
   label: string;
+  sectorLabel: string; // primary sector for the title attribute
   sectors: Sector[];
 }
 
-interface LogoGroup {
-  sector: Sector;
-  label: string;
-  logos: LogoEntry[];
-}
-
-// Logos grouped by primary sector. Matches the headline order:
-// aerospace · defence · automotive · industrial.
-const LOGO_GROUPS: LogoGroup[] = [
-  {
-    sector: "aerospace",
-    label: "Aerospace",
-    logos: [
-      { src: "/Images/logos/boeing.webp", label: "Boeing", sectors: ["aerospace", "defence"] },
-      { src: "/Images/logos/isro.webp", label: "ISRO", sectors: ["aerospace"] },
-    ],
-  },
-  {
-    sector: "defence",
-    label: "Defence",
-    logos: [
-      { src: "/Images/logos/drdo.webp", label: "DRDO", sectors: ["defence"] },
-      { src: "/Images/logos/brahmos.webp", label: "BrahMos", sectors: ["defence"] },
-    ],
-  },
-  {
-    sector: "automotive",
-    label: "Automotive",
-    logos: [
-      { src: "/Images/logos/tata.webp", label: "Tata", sectors: ["automotive", "industrial"] },
-      { src: "/Images/logos/mahindra.webp", label: "Mahindra", sectors: ["automotive", "industrial"] },
-      { src: "/Images/logos/lamborghini.webp", label: "Lamborghini", sectors: ["automotive"] },
-      { src: "/Images/logos/ducati.webp", label: "Ducati", sectors: ["automotive"] },
-      { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield", sectors: ["automotive"] },
-      { src: "/Images/logos/nissan.webp", label: "Nissan", sectors: ["automotive"] },
-      { src: "/Images/logos/airbus.webp", label: "Airbus", sectors: ["automotive"] },
-    ],
-  },
-  {
-    sector: "industrial",
-    label: "Industrial",
-    logos: [
-      { src: "/Images/logos/samsung.webp", label: "Samsung", sectors: ["industrial"] },
-      { src: "/Images/logos/caterpillar.webp", label: "Caterpillar", sectors: ["industrial"] },
-      { src: "/Images/logos/abb.webp", label: "ABB", sectors: ["industrial"] },
-      { src: "/Images/logos/whirlpool.webp", label: "Whirlpool", sectors: ["industrial"] },
-    ],
-  },
+// Single flat list, ordered by sector so the grid reads aerospace → defense →
+// automotive → industrial, but rendered in a uniform grid for clean alignment.
+const LOGOS: LogoEntry[] = [
+  // Aerospace
+  { src: "/Images/logos/boeing.webp", label: "Boeing", sectorLabel: "Aerospace", sectors: ["aerospace", "defense"] },
+  { src: "/Images/logos/isro.webp", label: "ISRO", sectorLabel: "Aerospace", sectors: ["aerospace"] },
+  // Defense
+  { src: "/Images/logos/drdo.webp", label: "DRDO", sectorLabel: "Defense", sectors: ["defense"] },
+  { src: "/Images/logos/brahmos.webp", label: "BrahMos", sectorLabel: "Defense", sectors: ["defense"] },
+  { src: "/Images/logos/bharat-dynamics.webp", label: "Bharat Dynamics", sectorLabel: "Defense", sectors: ["defense"] },
+  // Automotive
+  { src: "/Images/logos/tata.webp", label: "Tata", sectorLabel: "Automotive", sectors: ["automotive", "industrial"] },
+  { src: "/Images/logos/mahindra.webp", label: "Mahindra", sectorLabel: "Automotive", sectors: ["automotive", "industrial"] },
+  { src: "/Images/logos/ashok-leyland.webp", label: "Ashok Leyland", sectorLabel: "Automotive", sectors: ["automotive"] },
+  { src: "/Images/logos/lamborghini.webp", label: "Lamborghini", sectorLabel: "Automotive", sectors: ["automotive"] },
+  { src: "/Images/logos/ducati.webp", label: "Ducati", sectorLabel: "Automotive", sectors: ["automotive"] },
+  { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield", sectorLabel: "Automotive", sectors: ["automotive"] },
+  { src: "/Images/logos/nissan.webp", label: "Nissan", sectorLabel: "Automotive", sectors: ["automotive"] },
+  { src: "/Images/logos/musashi.webp", label: "Musashi", sectorLabel: "Automotive", sectors: ["automotive"] },
+  { src: "/Images/logos/tvs-mobility.webp", label: "TVS Mobility", sectorLabel: "Automotive", sectors: ["automotive"] },
+  { src: "/Images/logos/airbus.webp", label: "Airbus", sectorLabel: "Automotive", sectors: ["automotive"] },
+  // Industrial
+  { src: "/Images/logos/samsung.webp", label: "Samsung", sectorLabel: "Industrial", sectors: ["industrial"] },
+  { src: "/Images/logos/caterpillar.webp", label: "Caterpillar", sectorLabel: "Industrial", sectors: ["industrial"] },
+  { src: "/Images/logos/abb.webp", label: "ABB", sectorLabel: "Industrial", sectors: ["industrial"] },
+  { src: "/Images/logos/whirlpool.webp", label: "Whirlpool", sectorLabel: "Industrial", sectors: ["industrial"] },
+  { src: "/Images/logos/exide.webp", label: "Exide", sectorLabel: "Industrial", sectors: ["industrial"] },
 ];
 
 const SectorWord = ({
@@ -152,18 +132,18 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
           }}
         >
           Trusted across {sw("aerospace", "aerospace")},{" "}
-          {sw("defence", "defence")},
+          {sw("defense", "defense")},
           <br className="hidden md:block" />
           {" "}
           {sw("automotive", "automotive")}, and {sw("industrial", "industrial")}.
         </h2>
 
-        {/* Logo wall — single bordered box, logos clustered by sector with subtle
-            dividers between groups. Hovering a sector word brightens just that
-            cluster while the others dim. */}
+        {/* Logo wall — uniform grid so every logo sits in an equal-width cell of
+            equal height. Hovering a sector word in the headline lights up the
+            logos that belong to that sector and dims the rest. */}
         <div style={{ opacity: enterP }} className="max-w-5xl mx-auto">
           <div
-            className="rounded-2xl border transition-all duration-300 px-5 md:px-8 py-5 md:py-7 flex items-center justify-center flex-wrap gap-x-8 md:gap-x-10 gap-y-4 md:gap-y-5"
+            className="rounded-2xl border transition-all duration-300 px-5 md:px-8 py-5 md:py-7"
             style={{
               borderColor:
                 hoveredSector !== null
@@ -176,50 +156,39 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
                   : "0 1px 0 hsl(0 0% 100% / 0.03)",
             }}
           >
-            {LOGO_GROUPS.map((g, gIdx) => {
-              const isActive = hoveredSector === g.sector;
-              const isDimmed = hoveredSector !== null && !isActive;
-              return (
-                <div key={g.sector} className="flex items-center">
-                  {/* Cluster of logos for this sector */}
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-4 md:gap-x-6 gap-y-5 md:gap-y-6 items-center justify-items-center">
+              {LOGOS.map((logo) => {
+                const isActive =
+                  hoveredSector !== null && logo.sectors.includes(hoveredSector);
+                const isDimmed = hoveredSector !== null && !isActive;
+                return (
                   <div
-                    className="flex items-center flex-wrap gap-x-6 md:gap-x-8 gap-y-3 transition-opacity duration-300"
+                    key={logo.label}
+                    className="h-10 md:h-12 w-full flex items-center justify-center transition-opacity duration-300"
                     style={{ opacity: isDimmed ? 0.25 : 1 }}
                   >
-                    {g.logos.map((logo) => (
-                      <img
-                        key={logo.label}
-                        src={logo.src}
-                        alt={logo.label}
-                        title={`${logo.label} — ${g.label}`}
-                        decoding="async"
-                        loading="lazy"
-                        style={{
-                          maxHeight: "32px",
-                          maxWidth: "120px",
-                          width: "auto",
-                          objectFit: "contain",
-                          filter: isActive
-                            ? "grayscale(0) brightness(1) drop-shadow(0 0 12px hsl(275 80% 60% / 0.45))"
-                            : "grayscale(1) brightness(1.3)",
-                          opacity: isActive ? 1 : 0.75,
-                          transition: "filter 0.3s, opacity 0.3s",
-                        }}
-                        className="md:!max-h-10"
-                      />
-                    ))}
-                  </div>
-                  {/* Divider between clusters (not after the last one) */}
-                  {gIdx < LOGO_GROUPS.length - 1 && (
-                    <div
-                      aria-hidden
-                      className="mx-4 md:mx-5 h-8 md:h-10 w-px"
-                      style={{ background: "hsl(275 30% 50% / 0.18)" }}
+                    <img
+                      src={logo.src}
+                      alt={logo.label}
+                      title={`${logo.label} — ${logo.sectorLabel}`}
+                      decoding="async"
+                      loading="lazy"
+                      style={{
+                        maxHeight: "100%",
+                        maxWidth: "120px",
+                        width: "auto",
+                        objectFit: "contain",
+                        filter: isActive
+                          ? "grayscale(0) brightness(1) drop-shadow(0 0 12px hsl(275 80% 60% / 0.45))"
+                          : "grayscale(1) brightness(1.3)",
+                        opacity: isActive ? 1 : 0.75,
+                        transition: "filter 0.3s, opacity 0.3s",
+                      }}
                     />
-                  )}
-                </div>
-              );
-            })}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

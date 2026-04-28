@@ -188,8 +188,7 @@ const Index = () => {
             <li><a href="/careers">Careers</a></li>
             <li><a href="/investors">Investor relations</a></li>
             <li><a href="/sitemap.xml">Sitemap</a></li>
-            <li><a href="mailto:Humans@nemi-ai.com">Humans@nemi-ai.com</a></li>
-            <li><a href="mailto:investors@nemi-ai.com">investors@nemi-ai.com</a></li>
+            <li><a href="mailto:info@nemi-ai.com">info@nemi-ai.com</a></li>
           </ul>
         </nav>
         <p>

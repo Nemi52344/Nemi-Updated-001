@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import ScrollReveal from "@/hooks/ScrollReveal";
 import PageCTAFooter from "@/components/PageCTAFooter";
+import SiteFooter from "@/components/SiteFooter";
 import MOSAccordion from "@/components/MOSAccordion";
 
 const accent = "hsl(var(--accent))";
@@ -721,6 +722,7 @@ const Technology = () => {
         buttonText="Request a Demo"
         buttonHref="/#contact"
       />
+      <SiteFooter />
     </div>
   );
 };

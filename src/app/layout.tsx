@@ -62,7 +62,7 @@ export default function RootLayout({
     foundingLocation: { "@type": "Place", name: "Bangalore, India" },
     contactPoint: {
       "@type": "ContactPoint",
-      email: "Humans@nemi-ai.com",
+      email: "info@nemi-ai.com",
       contactType: "customer support",
     },
     sameAs: ["https://www.linkedin.com/company/nemi-ai"],
@@ -178,9 +178,7 @@ export default function RootLayout({
             <p style={{ margin: "1.5rem 0 0", opacity: 0.8 }}>
               Certifications: AS9100D &middot; ISO 9001.
               <br />
-              Contact: <a href="mailto:Humans@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>Humans@nemi-ai.com</a>
-              {" "}&middot;{" "}
-              <a href="mailto:investors@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>investors@nemi-ai.com</a>
+              Contact: <a href="mailto:info@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>info@nemi-ai.com</a>
             </p>
             <p style={{ margin: "1rem 0 0", fontSize: "0.85rem", opacity: 0.6 }}>
               This page uses JavaScript for its interactive scroll experience.

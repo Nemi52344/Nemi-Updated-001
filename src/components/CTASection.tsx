@@ -54,7 +54,7 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
             See what Physical AI can do for your products.
           </p>
           <a
-            href="mailto:Humans@nemi-ai.com?subject=Book%20a%20Walkthrough"
+            href="mailto:info@nemi-ai.com?subject=Book%20a%20Walkthrough"
             className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-4 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground mb-6"
             style={{
               background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
@@ -65,19 +65,10 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
           </a>
           <div className="flex flex-wrap items-center justify-center gap-x-6 md:gap-x-8 gap-y-2 mt-2">
             <a
-              href="mailto:Humans@nemi-ai.com"
+              href="mailto:info@nemi-ai.com"
               className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors"
             >
-              <span className="text-[0.6rem] uppercase tracking-[0.2em] text-primary/70 mr-2">General</span>
-              Humans@nemi-ai.com
-            </a>
-            <span className="text-primary/30 hidden md:inline">&middot;</span>
-            <a
-              href="mailto:investors@nemi-ai.com"
-              className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <span className="text-[0.6rem] uppercase tracking-[0.2em] text-primary/70 mr-2">Investors</span>
-              investors@nemi-ai.com
+              info@nemi-ai.com
             </a>
           </div>
         </div>
@@ -102,11 +93,11 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
               </span>
             </div>
             <a
-              href="mailto:Humans@nemi-ai.com"
+              href="mailto:info@nemi-ai.com"
               className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               <Mail className="w-3.5 h-3.5 text-primary" />
-              Humans@nemi-ai.com
+              info@nemi-ai.com
             </a>
             <p className="text-[10px] md:text-xs text-muted-foreground/60">
               © 2026 NEMI AI. All rights reserved.

@@ -241,7 +241,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
 
                 {/* 5 step cards with chevrons between them */}
                 {row.steps.map((s, sIdx) => (
-                  <div key={s.label} className="relative">
+                  <div key={s.label} className="relative problem-step-wrapper">
                     <StepCard
                       step={s.label}
                       image={s.image}
@@ -250,7 +250,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
                     {sIdx < row.steps.length - 1 && (
                       <div
                         aria-hidden
-                        className="hidden md:flex absolute top-1/2 -right-[calc(0.625rem+7px)] -translate-y-1/2 z-10 items-center justify-center pointer-events-none"
+                        className="problem-step-chevron hidden md:flex absolute top-1/2 -right-[calc(0.625rem+7px)] -translate-y-1/2 z-10 items-center justify-center pointer-events-none transition-opacity duration-300"
                         style={{
                           color: `hsl(${row.colorHsl})`,
                           filter: `drop-shadow(0 0 6px hsl(${row.glowHsl} / 0.6))`,

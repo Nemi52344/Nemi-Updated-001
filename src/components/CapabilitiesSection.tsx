@@ -186,7 +186,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
                     src={data.full}
                     alt={v.label}
                     className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
-                    loading="eager"
+                    loading="lazy"
                     style={{
                       opacity: showOverlay ? 0.15 : 1,
                     }} decoding="async"

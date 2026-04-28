@@ -193,7 +193,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
                         alt={logo.label}
                         title={`${logo.label} — ${g.label}`}
                         decoding="async"
-                        loading="eager"
+                        loading="lazy"
                         style={{
                           maxHeight: "32px",
                           maxWidth: "120px",

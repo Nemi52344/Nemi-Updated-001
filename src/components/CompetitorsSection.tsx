@@ -99,7 +99,7 @@ const FactoryFlipCard = ({
             src={item.src}
             alt={item.title}
             className="w-full h-full object-cover"
-            loading="eager"
+            loading="lazy"
             decoding="async"
           />
         </div>

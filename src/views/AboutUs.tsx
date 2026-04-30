@@ -36,15 +36,16 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
   return (
     <div
       className="w-full cursor-pointer"
-      style={{ perspective: "1000px", height: "300px" }}
+      style={{ perspective: "1000px", height: "300px", contain: "paint" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <div
-        className="relative w-full h-full transition-all duration-700"
+        className="relative w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
         style={{
           transformStyle: "preserve-3d",
           transform: hovered ? "rotateY(180deg)" : "rotateY(0deg)",
+          willChange: hovered ? "transform" : "auto",
         }}
       >
         {/* FRONT — uniform layout: photo top-anchored, name and role in fixed slots
@@ -98,7 +99,6 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
                 className="text-xs md:text-base lg:text-lg font-semibold text-foreground tracking-wider text-center flex flex-col items-center justify-center w-full px-1"
                 style={{
                   textShadow: `0 0 12px hsl(${member.colorHsl} / 0.4)`,
-                  animation: "text-glow-pulse 3s ease-in-out infinite",
                   minHeight: "3em",
                   lineHeight: "1.2",
                 }}
@@ -217,7 +217,7 @@ const AboutUs = () => {
 
       {/* ── WHAT WE DO ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 relative z-[1]">
-        <div className="max-w-6xl mx-auto">
+        <div>
           <ScrollReveal>
             <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-4 font-bold">What We Do</p>
           </ScrollReveal>
@@ -286,11 +286,8 @@ const AboutUs = () => {
         aria-labelledby="why-now-heading"
         className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]"
       >
-        <div className="max-w-7xl mx-auto">
+        <div>
           <ScrollReveal>
-            <p className="text-xs tracking-[0.25em] uppercase text-primary mb-4 font-semibold">
-              Market Timing
-            </p>
             <h2
               id="why-now-heading"
               className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
@@ -574,7 +571,7 @@ const AboutUs = () => {
                 colorHsl: "272 80% 58%",
               },
             ].map((member, i) => (
-              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
+              <ScrollReveal key={member.name} delay={i * 80}>
                 <LeaderFlipCard member={member} />
               </ScrollReveal>
             ))}
@@ -588,16 +585,16 @@ const AboutUs = () => {
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "Subramanian R", photo: "/Images/team/Subramanian%20R.webp", role: "CFO, India",
+              { name: "Subramanian Rangaswamy", photo: "/Images/team/Subramanian%20R.webp", role: "CFO, India",
                 desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods.", colorHsl: "275 55% 52%" },
               { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "President, AKIO Suite",
                 desc: "30+ years in manufacturing leadership, automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%" },
-              { name: "Sadasivam B", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President, AKIO Suite",
+              { name: "Sadasivam Balasubramaniam", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President, AKIO Suite",
                 desc: "20 years in electronics product development across telematics, defense, aerospace, and factory automation.", colorHsl: "272 48% 50%" },
               { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.webp", role: "President, SAM",
                 desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Built and led 100+ person sales teams.", colorHsl: "278 53% 49%" },
             ].map((member, i) => (
-              <ScrollReveal key={member.name} variant="scale" delay={i * 100}>
+              <ScrollReveal key={member.name} delay={i * 80}>
                 <LeaderFlipCard member={member} />
               </ScrollReveal>
             ))}
@@ -797,15 +794,10 @@ const AboutUs = () => {
         {/* Top: Centered text + stats */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <ScrollReveal>
-            <p className="text-xs tracking-[0.4em] uppercase text-primary mb-4 font-bold"
-              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-            >
-              Our Vision
-            </p>
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-6"
               style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.15)" }}
             >
-              Where We're Going
+              Where We&rsquo;re Going
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={100}>
@@ -866,86 +858,6 @@ const AboutUs = () => {
             </div>
           </div>
         </ScrollReveal>
-      </section>
-
-      {/* ── Quality Certifications ── */}
-      <section className="py-20 md:py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
-        <div className="max-w-5xl mx-auto">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <p className="text-[0.65rem] md:text-xs tracking-[0.4em] uppercase text-muted-foreground mb-3 font-bold">
-                Certified Excellence
-              </p>
-              <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight leading-[1.1]">
-                Quality{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
-                  }}
-                >
-                  Certifications
-                </span>
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
-            {[
-              {
-                img: "/Images/certifications/iso-9001.webp",
-                alt: "ISO 9001:2015 Certificate of Registration",
-                title: "ISO 9001:2015",
-                subtitle: "Quality Management System",
-                id: "25EQOJ38",
-                validity: "Valid through 19/03/2028",
-              },
-              {
-                img: "/Images/certifications/icat-type-approval.webp",
-                alt: "ICAT Type Approval Certificate",
-                title: "ICAT Type Approval",
-                subtitle: "AIS-037 Compliance",
-                id: "CR6816",
-                validity: "Issued: 02/09/2024",
-              },
-            ].map((cert, i) => (
-              <ScrollReveal key={cert.title} delay={i * 120}>
-                <div
-                  className="group rounded-xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1"
-                  style={{
-                    background:
-                      "linear-gradient(145deg, hsl(230 20% 10%), hsl(230 25% 6%))",
-                    border: "1px solid hsl(275 80% 55% / 0.2)",
-                    boxShadow: "0 4px 24px hsl(230 25% 4% / 0.4)",
-                  }}
-                >
-                  <div className="bg-white overflow-hidden h-[220px] md:h-[260px]">
-                    <img
-                      src={cert.img}
-                      alt={cert.alt}
-                      className="w-full h-full object-cover object-top"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-5 md:p-6 border-t border-border/30">
-                    <h3 className="text-base md:text-lg font-bold text-foreground mb-1">
-                      {cert.title}
-                    </h3>
-                    <p className="text-[0.65rem] font-semibold tracking-[0.15em] uppercase text-muted-foreground mb-3">
-                      {cert.subtitle}
-                    </p>
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.7rem] text-muted-foreground/80">
-                      <span className="font-mono">{cert.id}</span>
-                      <span className="opacity-40">·</span>
-                      <span>{cert.validity}</span>
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
       </section>
 
       <PageCTAFooter

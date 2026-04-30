@@ -12,43 +12,43 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 const factoryImages: { src: string; title: string; description: string }[] = [
   {
     src: "/Images/Injection%20modling%20.webp",
-    title: "Injection Molding",
-    description: "Multi-cavity dies producing precision plastic parts at scale.",
-  },
-  {
-    src: "/Images/Nemi%20battery%20manufacturing%2001.webp",
-    title: "Battery Pack Assembly",
-    description: "End-to-end Li-ion cell ageing and pack assembly in-house.",
-  },
-  {
-    src: "/Images/Electronics%20production.webp",
-    title: "Electronics Assembly",
-    description: "ESD-controlled PCB assembly and inline functional testing.",
-  },
-  {
-    src: "/Images/Nemi%20Testing%20components.webp",
-    title: "Endurance Test Rigs",
-    description: "Every component cycled through load and lifetime testing.",
+    title: "Press and Molds",
+    description: "Injection moulding, compression moulding and high-tonnage press operations across plastics and metals.",
   },
   {
     src: "/Images/Pipe%20bending.webp",
-    title: "CNC Pipe Bending",
-    description: "Programmable bends for chassis and structural tubing.",
+    title: "Fabrication",
+    description: "Cutting, bending, forming, welding, machining, casting and forging of sheet metal and structural components.",
+  },
+  {
+    src: "/Images/Nemi%20battery%20manufacturing%2001.webp",
+    title: "Battery Manufacturing",
+    description: "End-to-end Li-ion cell ageing and pack assembly, from portable chargers to EVs and industrial energy storage.",
   },
   {
     src: "/Images/Tooling%20and%20fixturing.webp",
-    title: "Tooling & Die Build",
-    description: "Production dies, jigs and fixtures designed and built in-house.",
+    title: "Tools, Dies, and Fixtures",
+    description: "Injection moulding tools, die-casting tools, press tools, welding fixtures and assembly jigs designed and built in-house.",
+  },
+  {
+    src: "/Images/Electronics%20production.webp",
+    title: "Electronic Manufacturing",
+    description: "PCB assemblies, box builds, system integration and end-of-line functional testing.",
   },
   {
     src: "/Images/Nemi%20stores.webp",
-    title: "Parts Warehouse",
-    description: "Kitted inventory delivered line-side, no stockouts.",
+    title: "Inventory and Warehouse",
+    description: "On-site stores, kitting and line-side replenishment with connected inventory management for every program.",
+  },
+  {
+    src: "/Images/Nemi%20Testing%20components.webp",
+    title: "Testing and Validation",
+    description: "Component, sub-system and full-system testing across mechanical, electrical and environmental regimes.",
   },
   {
     src: "/Images/Nemi%20parking.webp",
-    title: "NEMI Campus",
-    description: "Engineering, tooling and assembly under one roof.",
+    title: "NEMI Facilities",
+    description: "300,000+ sq ft of owned manufacturing footprint across India — engineering, tooling and assembly under one roof.",
   },
 ];
 

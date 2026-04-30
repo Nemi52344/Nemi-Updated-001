@@ -182,26 +182,25 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
             textShadow: "0 0 40px hsl(var(--primary) / 0.25)",
           }}
         >
-          Hardware is hard.
+          Hardware is hard, but it doesn&rsquo;t have to be.
         </h2>
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-5 px-2 mb-2 md:mb-2.5">
           <div className="col-span-3 md:col-span-1 flex justify-center">
             <svg
-              width="20"
-              height="22"
-              viewBox="0 0 20 22"
+              width="22"
+              height="14"
+              viewBox="0 0 22 14"
               aria-hidden
               style={{
-                color: "hsl(0 75% 55%)",
+                color: "hsl(275 80% 65%)",
                 filter:
-                  "drop-shadow(0 0 6px hsl(0 80% 55% / 0.7)) drop-shadow(0 0 14px hsl(0 80% 55% / 0.35))",
+                  "drop-shadow(0 0 6px hsl(275 80% 60% / 0.7)) drop-shadow(0 0 14px hsl(275 80% 60% / 0.35))",
               }}
             >
-              <path d="M10 2 V15" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               <path
-                d="M3 12 L10 19 L17 12"
+                d="M3 3 L11 11 L19 3"
                 stroke="currentColor"
-                strokeWidth="3"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 fill="none"
@@ -313,22 +312,21 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
           All three phases are integrated into one stack at{" "}
           <span className="relative inline-block">
             <svg
-              width="20"
-              height="22"
-              viewBox="0 0 20 22"
+              width="22"
+              height="14"
+              viewBox="0 0 22 14"
               aria-hidden
-              className="absolute left-1/2 -translate-x-1/2 -top-7 md:-top-8"
+              className="absolute left-1/2 -translate-x-1/2 -top-5 md:-top-6"
               style={{
-                color: "hsl(160 70% 50%)",
+                color: "hsl(275 80% 65%)",
                 filter:
-                  "drop-shadow(0 0 6px hsl(160 75% 50% / 0.7)) drop-shadow(0 0 14px hsl(160 75% 50% / 0.35))",
+                  "drop-shadow(0 0 6px hsl(275 80% 60% / 0.7)) drop-shadow(0 0 14px hsl(275 80% 60% / 0.35))",
               }}
             >
-              <path d="M10 2 V15" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               <path
-                d="M3 12 L10 19 L17 12"
+                d="M3 3 L11 11 L19 3"
                 stroke="currentColor"
-                strokeWidth="3"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 fill="none"

@@ -62,7 +62,7 @@ export default function HomePage() {
           </p>
 
           <section aria-label="Hardware challenges">
-            <h2>Hardware is hard.</h2>
+            <h2>Hardware is hard, but it doesn&rsquo;t have to be.</h2>
             <p>
               Building physical products requires mastering design, manufacturing, and
               distribution simultaneously, three domains most companies navigate in

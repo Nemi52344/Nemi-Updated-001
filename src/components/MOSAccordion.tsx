@@ -41,7 +41,7 @@ const ApplicationsDesc = () => (
     >
       SAM
     </Link>
-    , the user-facing systems that run on top of the OS.
+    {" — the user-facing systems that run on top of the OS"}
   </span>
 );
 
@@ -150,10 +150,10 @@ const rows: LayerRow[] = [
   },
   {
     key: "lmm",
-    label: "Large Manufacturing Model (LMM) Layer",
+    label: "Large Manufacturing Model (LMM)",
     description: (
       <span>
-        Six agents — Taskmaster, Far-seer, Sommelier, Craftsman, Dispatcher, Trainer — orchestrate every task across the stack.
+        AI inference engine — process intelligence, quality prediction, supply chain optimization
       </span>
     ),
     body: <LMMBody />,
@@ -161,10 +161,10 @@ const rows: LayerRow[] = [
   },
   {
     key: "data",
-    label: "Data Infrastructure Layer",
+    label: "Data Infrastructure",
     description: (
       <span>
-        Sensor networks · Machine telemetry · CAD ingestion · Quality data pipelines.
+        Sensor networks, machine telemetry, CAD ingestion, quality data pipelines
       </span>
     ),
     body: (
@@ -180,7 +180,7 @@ const rows: LayerRow[] = [
     label: "Physical Layer",
     description: (
       <span>
-        CNC machines · Injection molders · Robotic arms · Assembly lines · Inspection systems.
+        CNC machines · Injection molders · Robotic arms · Assembly lines · Inspection systems
       </span>
     ),
     body: (
@@ -258,8 +258,32 @@ const MOSAccordion = () => {
 
       {rows.map((row, i) => {
         const isOpen = openKey === row.key;
-        const labelLight = 78 - row.depth * 16; // 78% → 62%
-        const labelOpacity = (1 - row.depth * 0.2).toFixed(3);
+        // Per-layer label color: top is purple, then white, then grey, then dark grey.
+        const labelStyle: React.CSSProperties = (() => {
+          switch (row.key) {
+            case "applications":
+              return {
+                color: "hsl(275 80% 70%)",
+                textShadow: "0 0 16px hsl(275 80% 60% / 0.55)",
+              };
+            case "lmm":
+              return {
+                color: "hsl(0 0% 96%)",
+                textShadow: "0 0 14px hsl(0 0% 100% / 0.35)",
+              };
+            case "data":
+              return {
+                color: "hsl(0 0% 70%)",
+                textShadow: "0 0 12px hsl(0 0% 80% / 0.2)",
+              };
+            case "physical":
+            default:
+              return {
+                color: "hsl(0 0% 50%)",
+                textShadow: "0 0 10px hsl(0 0% 60% / 0.15)",
+              };
+          }
+        })();
         return (
           <div
             key={row.key}
@@ -275,10 +299,7 @@ const MOSAccordion = () => {
               <div className="flex items-center justify-center gap-3">
                 <p
                   className="font-bold text-[0.65rem] md:text-xs tracking-[0.3em] uppercase"
-                  style={{
-                    color: `hsl(275 80% ${labelLight}% / ${labelOpacity})`,
-                    textShadow: `0 0 16px hsl(275 80% 60% / ${(0.45 - row.depth * 0.32).toFixed(3)})`,
-                  }}
+                  style={labelStyle}
                 >
                   {row.label}
                 </p>

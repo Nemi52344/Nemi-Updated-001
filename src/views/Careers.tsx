@@ -23,51 +23,8 @@ interface Job {
   jd: string;
 }
 
-// 150-word job descriptions. Send applications to info@nemi-ai.com.
-const jobs: Job[] = [
-  {
-    dept: "Engineering, AI/ML",
-    title: "LMM Research Engineer",
-    meta: "Bangalore · Full-time · Hybrid",
-    jd:
-      "We are building the Large Manufacturing Model, a foundation model trained on real CAD geometries, sensor streams, quality outcomes, and process parameters. As an LMM Research Engineer, you will design training objectives, curate multi-modal industrial datasets, and evaluate the model against field outcomes on our production floors. You will publish internally, iterate quickly, and ship your work into live programs across aerospace, defense, EV, and precision tooling. You should have strong intuition for deep learning, comfort with distributed training, and a bias towards reality over benchmarks. Prior exposure to any subset of computer vision, graph neural networks, reinforcement learning, or physics-informed ML is a plus. You will work alongside mechanical, electrical, and manufacturing engineers, so the ability to explain tradeoffs to non-ML colleagues matters. Send your resume to info@nemi-ai.com.",
-  },
-  {
-    dept: "Engineering, Manufacturing",
-    title: "Mechanical Design Engineer (AKIO)",
-    meta: "Bangalore · Full-time · On-site",
-    jd:
-      "AKIO compresses concept-to-production design cycles from months to weeks. As a Mechanical Design Engineer on the AKIO suite, you will own the CAD, DFM, and simulation loop for real hardware programs, drones, EV subsystems, precision tooling, consumer electronics. You will work alongside AI engineers who augment your workflow with generative design, simulation automation, and PLM integration. You should bring 3–7 years of production design experience, fluency in SolidWorks / NX / CATIA (one is fine), and a portfolio of parts that actually shipped. Familiarity with structural FEA, thermal analysis, or tolerance stack-up is a strong plus. You will iterate with a tight manufacturing team on the floor, so on-site presence matters. This is a shipping role, not a research role. Send your resume to info@nemi-ai.com.",
-  },
-  {
-    dept: "Engineering, Manufacturing",
-    title: "Process Engineer (HENRY)",
-    meta: "Bangalore · Full-time · On-site",
-    jd:
-      "HENRY is NEMI's full-stack manufacturing layer, tooling, CNC, injection moulding, electronics, batteries, motors, complex assemblies. As a Process Engineer, you will own the translation from design intent to running production, including tooling specification, cycle-time optimisation, yield improvement, and quality sign-off. You will work with sensor-instrumented lines that feed data back into the LMM, so you will be closer to the model than most process engineers ever get. Bring 4–8 years of process engineering experience, hands-on comfort across at least two of CNC / injection moulding / battery assembly / PCBA, and a track record of driving measurable yield or cost improvements. AS9100 or ISO 9001 familiarity is helpful. This is an on-site role because real production demands real presence. Send your resume to info@nemi-ai.com.",
-  },
-  {
-    dept: "Operations",
-    title: "Fleet Operations Manager (SAM)",
-    meta: "Africa / Remote · Full-time",
-    jd:
-      "SAM is where NEMI's hardware meets the real world, thousands of units operating across India and Africa. As Fleet Operations Manager, you will own uptime, last-mile logistics, maintenance cadence, and the feedback loop from field telemetry back to AKIO and HENRY. You will scale playbooks for deployment, training local operators, financing tie-ups, and after-sales service. Bring 5+ years in fleet ops, logistics, or deployed-hardware support (EV, drones, heavy equipment, or similar). You should be comfortable travelling across Africa and India, building teams on the ground, and running operations against tight margins. Data fluency matters, you will work with live telemetry dashboards every day. Send your resume to info@nemi-ai.com.",
-  },
-  {
-    dept: "Business Development",
-    title: "Strategic Partnerships Lead",
-    meta: "Bangalore / London · Full-time",
-    jd:
-      "We land with design compression, expand into full-stack manufacturing, and dominate inside each account with deployed fleet data. The Strategic Partnerships Lead runs the expand-and-dominate motion with enterprise customers across aerospace, defense, automotive, and industrial. You will map accounts, structure multi-year program deals, and work closely with the founders on institutional wins. You should bring 7+ years in complex B2B sales or strategic partnerships, fluency in hardware / manufacturing / aerospace buying cycles, and a track record of program-sized deals ($5M+). Comfort with NDA-heavy sales cycles, defense procurement, and institutional diligence is required. You will split time between Bangalore and London, with customer travel across EU and India. Send your resume to info@nemi-ai.com.",
-  },
-  {
-    dept: "Engineering, Software",
-    title: "Manufacturing OS Platform Engineer",
-    meta: "Bangalore · Full-time · Hybrid",
-    jd:
-      "NEMI M-OS is the operating system for our factories, scheduling, inference routing, telemetry, quality prediction, and the feedback loop back into the LMM. As a Platform Engineer, you will design and ship the backbone services that every application (AKIO, HENRY, SAM) runs on. You will own latency, reliability, observability, and developer experience for our internal engineering teams. Bring 5+ years of distributed systems experience, fluency in TypeScript / Go / Rust (pick two), and comfort with Kubernetes, event streaming (Kafka / NATS), and time-series data. Any exposure to edge compute, industrial protocols (OPC-UA, Modbus), or real-time scheduling is a plus. Hybrid from Bangalore, with periodic on-site time at our factories. Send your resume to info@nemi-ai.com.",
-  },
-];
+// No open positions at the moment. The empty list renders the empty state below.
+const jobs: Job[] = [];
 
 const Careers = () => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -176,7 +133,7 @@ const Careers = () => {
             className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[600px] mx-auto"
             style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
           >
-            The next decade of products runs on Physical AI. Help build the stack.
+            The next era of manufacturing runs on Physical AI. Join to be part of it.
           </p>
         </div>
       </section>
@@ -203,16 +160,27 @@ const Careers = () => {
               </h2>
             </ScrollReveal>
 
-            {/* Values grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 w-full max-w-6xl">
+            {/* Values grid — wider columns + tighter padding so each body fits in 3 lines */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-7xl items-start">
               {values.map((val, i) => (
                 <ScrollReveal key={val.title} delay={i * 100}>
-                  <div className="p-5 md:p-7 group flex flex-col items-center">
+                  <div className="p-3 md:p-4 group flex flex-col items-center text-center">
                     <div className="w-10 h-[2px] mb-5 transition-all duration-300 group-hover:w-16" style={{ background: "linear-gradient(to right, hsl(275 80% 75%), hsl(275 80% 75% / 0.3))" }} />
-                    <h3 className="font-bold text-xs md:text-sm tracking-[0.18em] uppercase text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">
+                    <h3 className="font-bold text-xs md:text-sm tracking-[0.12em] md:tracking-[0.15em] uppercase text-white mb-3 group-hover:text-purple-300 transition-colors duration-300 whitespace-nowrap">
                       {val.title}
                     </h3>
-                    <p className="text-xs md:text-sm text-white/60 leading-[1.9] max-w-[250px]">{val.body}</p>
+                    <p
+                      className="text-xs md:text-sm text-white/60 leading-[1.7] w-full"
+                      style={{
+                        display: "-webkit-box",
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: "vertical" as const,
+                        overflow: "hidden",
+                        minHeight: "calc(3 * 1.7em)",
+                      }}
+                    >
+                      {val.body}
+                    </p>
                   </div>
                 </ScrollReveal>
               ))}
@@ -231,24 +199,58 @@ const Careers = () => {
             Join the Team
           </h2>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/30">
-          {jobs.map((job, i) => (
-            <ScrollReveal key={job.title} delay={i * 80}>
-              <button
-                type="button"
-                onClick={() => setSelectedJob(job)}
-                className="bg-background p-6 md:p-8 w-full text-left cursor-pointer transition-colors duration-200 hover:bg-card/80 group"
+        {jobs.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/30">
+            {jobs.map((job, i) => (
+              <ScrollReveal key={job.title} delay={i * 80}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedJob(job)}
+                  className="bg-background p-6 md:p-8 w-full text-left cursor-pointer transition-colors duration-200 hover:bg-card/80 group"
+                >
+                  <p className="font-bold text-[0.58rem] tracking-[0.15em] uppercase text-primary mb-2">{job.dept}</p>
+                  <h3 className="font-bold text-sm md:text-base tracking-[0.05em] uppercase text-foreground mb-2">{job.title}</h3>
+                  <p className="text-xs text-muted-foreground mb-4">{job.meta}</p>
+                  <span className="inline-flex items-center gap-1 text-[0.65rem] font-bold tracking-[0.18em] uppercase text-primary group-hover:gap-2 transition-all">
+                    View Role <span aria-hidden="true">&rarr;</span>
+                  </span>
+                </button>
+              </ScrollReveal>
+            ))}
+          </div>
+        ) : (
+          <ScrollReveal>
+            <div
+              className="rounded-2xl border px-8 py-14 md:py-16 text-center"
+              style={{
+                borderColor: "hsl(275 80% 60% / 0.25)",
+                background:
+                  "linear-gradient(135deg, hsl(275 80% 22% / 0.18), hsl(230 25% 6% / 0.6))",
+                boxShadow: "0 0 40px hsl(275 80% 50% / 0.08)",
+              }}
+            >
+              <p className="text-[0.65rem] md:text-xs tracking-[0.35em] uppercase text-primary/80 font-bold mb-3">
+                No Open Positions
+              </p>
+              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-wide text-foreground mb-4">
+                We&rsquo;re not actively hiring right now.
+              </h3>
+              <p className="text-sm md:text-base text-muted-foreground leading-[1.8] max-w-[520px] mx-auto mb-6">
+                We still want to hear from exceptional engineers, designers and operators who believe Physical AI is the next era of manufacturing. Send your resume and we&rsquo;ll keep you in mind when roles open.
+              </p>
+              <a
+                href="mailto:info@nemi-ai.com?subject=Future%20opportunities%20at%20NEMI"
+                className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-lg transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 text-primary-foreground"
+                style={{
+                  background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
+                  boxShadow: "0 4px 20px hsl(var(--primary) / 0.3)",
+                }}
               >
-                <p className="font-bold text-[0.58rem] tracking-[0.15em] uppercase text-primary mb-2">{job.dept}</p>
-                <h3 className="font-bold text-sm md:text-base tracking-[0.05em] uppercase text-foreground mb-2">{job.title}</h3>
-                <p className="text-xs text-muted-foreground mb-4">{job.meta}</p>
-                <span className="inline-flex items-center gap-1 text-[0.65rem] font-bold tracking-[0.18em] uppercase text-primary group-hover:gap-2 transition-all">
-                  View Role <span aria-hidden="true">&rarr;</span>
-                </span>
-              </button>
-            </ScrollReveal>
-          ))}
-        </div>
+                Stay in Touch
+              </a>
+            </div>
+          </ScrollReveal>
+        )}
       </section>
 
       {/* ── JD MODAL ── */}

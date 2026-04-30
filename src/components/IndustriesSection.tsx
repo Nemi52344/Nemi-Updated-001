@@ -32,21 +32,21 @@ const industries: Industry[] = [
     image: industryAutomotive,
     colorHsl: "0 75% 55%",
     description:
-      "Full vehicle programs: chassis, battery packs, motors and electronics — design to delivery on a single line.",
+      "Electronics and battery enclosures: PCBAs, sensor modules, EV battery enclosures and trim assemblies for automotive OEMs.",
   },
   {
-    name: "Consumer Electronics",
+    name: "Appliance & Consumer Hardware",
     image: industryElectronics,
     colorHsl: "45 90% 50%",
     description:
-      "Appliance and connected-device manufacturing — PCBs, plastics, sheet metal and final assembly under one roof.",
+      "Connected appliances and consumer hardware: PCBs, plastics, sheet metal and final assembly under one roof.",
   },
   {
     name: "Robotics & AI",
     image: industryRobotics,
     colorHsl: "275 80% 60%",
     description:
-      "Humanoid and industrial robot platforms: precision actuators, vision modules and integrated battery systems.",
+      "Industrial robot platforms: precision actuators, vision modules and motion control sub-systems.",
   },
 ];
 

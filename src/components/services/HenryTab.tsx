@@ -111,7 +111,7 @@ const HenryTab = () => {
       {/* SERVICES GRID */}
       <div className="services-grid-wrapper pb-10 pt-4">
         <ScrollReveal>
-          <p className="font-bold text-xl md:text-2xl tracking-wider uppercase mb-10" style={{ color: henry }}>Henry Capabilities</p>
+          <p className="font-bold text-xl md:text-2xl tracking-wider uppercase mb-10" style={{ color: henry }}>Henry Services</p>
         </ScrollReveal>
         <div className="services-card-grid border border-border" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: "hsl(var(--border))" }}>
           {services.map((s, i) => (

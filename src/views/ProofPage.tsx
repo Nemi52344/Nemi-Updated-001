@@ -312,7 +312,7 @@ const ProofPage = () => {
                 return (
                   <div
                     key={s.stage}
-                    className={`group relative rounded-xl md:rounded-2xl overflow-hidden p-4 md:p-5 lg:p-6 flex flex-col h-[260px] w-full ${lgHeights[i]} backdrop-blur-sm transition-all duration-500 hover:-translate-y-1`}
+                    className={`group relative rounded-xl md:rounded-2xl overflow-hidden p-4 md:p-5 lg:p-6 flex flex-col h-[260px] w-full ${lgHeights[i]} transition-transform duration-500 ease-out hover:-translate-y-1`}
                     style={{
                       background: `linear-gradient(155deg,
                         hsl(275 80% ${bgFromLight + 8}% / ${(bgAlpha * 0.95).toFixed(3)}) 0%,
@@ -323,6 +323,8 @@ const ProofPage = () => {
                                   0 0 ${(intensity * 50).toFixed(0)}px hsl(275 80% 60% / ${(intensity * 0.25).toFixed(3)}),
                                   inset 0 1px 0 hsl(275 90% 92% / ${(0.18 + intensity * 0.15).toFixed(3)}),
                                   inset 0 -1px 0 hsl(275 80% 18% / ${(0.4 + intensity * 0.2).toFixed(3)})`,
+                      willChange: "transform",
+                      transform: "translateZ(0)",
                     }}
                   >
                     {/* Specular highlight — soft white sheen in upper-left */}
@@ -416,22 +418,6 @@ const ProofPage = () => {
                         </p>
                       </div>
 
-                      {/* Customer count, bottom */}
-                      <div className="pt-3 relative text-center">
-                        <span
-                          className="absolute top-0 left-0 right-0 h-px pointer-events-none"
-                          style={{
-                            background: `linear-gradient(90deg,
-                              transparent,
-                              hsl(275 80% 70% / ${(0.4 + intensity * 0.3).toFixed(3)}) 30%,
-                              hsl(275 80% 70% / ${(0.4 + intensity * 0.3).toFixed(3)}) 70%,
-                              transparent)`,
-                          }}
-                        />
-                        <p className="text-[0.65rem] md:text-xs font-bold tracking-wider text-foreground/85">
-                          {s.customers}
-                        </p>
-                      </div>
                     </div>
                   </div>
                 );

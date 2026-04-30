@@ -80,8 +80,8 @@ const flywheelVertices = [
 
 const strategySteps = [
   { num: "01", code: "ACQ", title: "Acquire", body: "Buy proven factories. Real machines. Real data. Real customers." },
-  { num: "02", code: "RFT", title: "Retrofit", body: "Overlay the LMM stack. Sensors, AI scheduling, quality prediction." },
-  { num: "03", code: "STR", title: "Strengthen", body: "Every job feeds the model. Each factory makes the whole network smarter." },
+  { num: "02", code: "AUG", title: "Augment", body: "Layer the LMM stack on top — sensors, AI scheduling, quality prediction. Production runs get smarter overnight." },
+  { num: "03", code: "ACC", title: "Accelerate", body: "Every job feeds the model. Each factory compounds the learning, making the whole network faster, cheaper and more reliable." },
 ];
 
 
@@ -199,7 +199,7 @@ const Technology = () => {
         </ScrollReveal>
       </section>
 
-      {/* ── CORE TECHNOLOGY, 6 AI LAYERS ── */}
+      {/* ── 1 INTELLIGENCE → 3 VERTICALS → 6 AGENTS → 9 PLATFORMS ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
         <ScrollReveal>
           <p className="text-xs tracking-[0.4em] uppercase text-primary mb-4 font-bold"
@@ -211,436 +211,367 @@ const Technology = () => {
             className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
             style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
           >
-            Six Layers. One Intelligence.
+            Inside the LMM Stack
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={100}>
-          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14 max-w-[550px]">
-            Each layer is a specialized AI. Together, they form a unified manufacturing brain that orchestrates everything from design to deployment.
+          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14 max-w-[640px]">
+            One Large Manufacturing Model at the core. It runs three product verticals, powered by six specialised agents and nine production platforms.
           </p>
         </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {lmmLayers.map((layer, i) => (
-            <ScrollReveal key={layer.name} delay={i * 90}>
-              <div className="group transition-transform duration-500 hover:-translate-y-1">
-                {/* Service tabs above the card — name on top, colored bar below.
-                    Tabs split the card width evenly: 1 service = 100%, 2 = 50/50, 3 = thirds. */}
-                <div className="flex gap-1.5 mb-2 pl-1 pr-1">
-                  {layer.serves.map((svc) => (
-                    <div
-                      key={svc}
-                      className="flex-1 flex flex-col items-center gap-1.5"
-                      title={`Touches ${svc}`}
-                    >
-                      <span
-                        className="text-[0.6rem] md:text-[0.65rem] font-bold tracking-[0.3em]"
-                        style={{ color: aiColor[svc] }}
-                      >
-                        {svc}
-                      </span>
-                      <div
-                        className="h-[3px] w-full rounded-full transition-all duration-500 group-hover:h-[5px]"
-                        style={{
-                          background: aiColor[svc],
-                          boxShadow: `0 0 10px ${aiColor[svc].replace(")", " / 0.55)")}, 0 0 20px ${aiColor[svc].replace(")", " / 0.25)")}`,
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
 
-                {/* Card */}
-                <div className="relative rounded-2xl overflow-hidden cursor-default h-[320px] md:h-[360px] transition-shadow duration-500 group-hover:shadow-[0_20px_60px_-15px_hsl(275_80%_50%_/_0.3)]">
-                  <img
-                    src={layer.img}
-                    alt={layer.name}
-                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.06]"
-                    decoding="async"
-                  />
-                  {/* Gradient for text readability */}
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.92) 30%, hsl(var(--background) / 0.55) 55%, hsl(var(--background) / 0.15) 75%, transparent 100%)",
-                    }}
-                  />
-                  <div className="absolute inset-0 border border-border/20 rounded-2xl pointer-events-none transition-colors duration-300 group-hover:border-primary/30" />
+        {/* TIER 1 — One Intelligence at the hub, with three vertices on the rim */}
+        <ScrollReveal>
+          <div className="flex flex-col items-center mb-12 md:mb-16">
+            <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.35em] uppercase text-muted-foreground/70 font-bold mb-2">
+              One Intelligence
+            </p>
+            <div className="flex items-center justify-center w-full">
+              {(() => {
+                const cx = 280;
+                const cy = 280;
+                const rim = 220;
+                const nodeR = 60;
+                const hubR = 70;
+                const toRad = (d: number) => (d * Math.PI) / 180;
+                const point = (angle: number, r: number) => ({
+                  x: cx + Math.cos(toRad(angle)) * r,
+                  y: cy + Math.sin(toRad(angle)) * r,
+                });
+                return (
+                  <svg
+                    viewBox="0 0 560 560"
+                    className="w-full max-w-[465px] h-auto"
+                    role="img"
+                    aria-label="LMM at the hub. AKIO, HENRY and SAM at three vertices feed it."
+                  >
+                    <defs>
+                      <radialGradient id="hier-flywheel-hub" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="hsl(275 80% 25%)" stopOpacity="0.9" />
+                        <stop offset="70%" stopColor="hsl(275 80% 12%)" stopOpacity="0.85" />
+                        <stop offset="100%" stopColor="hsl(230 25% 8%)" stopOpacity="0.95" />
+                      </radialGradient>
+                      {(() => {
+                        const arcs = [
+                          { id: "hier-rim-1", from: point(-90, rim), to: point(30, rim), c1: akio, c2: henry },
+                          { id: "hier-rim-2", from: point(30, rim), to: point(150, rim), c1: henry, c2: sam },
+                          { id: "hier-rim-3", from: point(150, rim), to: point(270, rim), c1: sam, c2: akio },
+                        ];
+                        return arcs.map((a) => (
+                          <linearGradient
+                            key={a.id}
+                            id={a.id}
+                            gradientUnits="userSpaceOnUse"
+                            x1={a.from.x}
+                            y1={a.from.y}
+                            x2={a.to.x}
+                            y2={a.to.y}
+                          >
+                            <stop offset="0%" stopColor={a.c1} />
+                            <stop offset="100%" stopColor={a.c2} />
+                          </linearGradient>
+                        ));
+                      })()}
+                    </defs>
 
-                  {/* Step number watermark */}
-                  <span className="absolute top-5 right-6 font-black text-5xl md:text-6xl text-white/[0.07] select-none leading-none tracking-tighter">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                    {(() => {
+                      const arcs = [
+                        { id: "hier-rim-1", from: point(-90, rim), to: point(30, rim) },
+                        { id: "hier-rim-2", from: point(30, rim), to: point(150, rim) },
+                        { id: "hier-rim-3", from: point(150, rim), to: point(270, rim) },
+                      ];
+                      return arcs.map((a) => (
+                        <path
+                          key={a.id}
+                          d={`M ${a.from.x},${a.from.y} A ${rim},${rim} 0 0 1 ${a.to.x},${a.to.y}`}
+                          fill="none"
+                          stroke={`url(#${a.id})`}
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 60% / 0.25))" }}
+                        />
+                      ));
+                    })()}
 
-                  {/* Bottom content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-7">
-                    <div
-                      className="w-10 h-px mb-3 transition-all duration-500 group-hover:w-16"
-                      style={{ background: "hsl(275 80% 60% / 0.6)" }}
+                    {flywheelVertices.map((v, i) => {
+                      const p = point(v.angleDeg, rim);
+                      const inner = point(v.angleDeg, hubR);
+                      return (
+                        <g key={`hier-spoke-${v.label}`}>
+                          <line x1={inner.x} y1={inner.y} x2={p.x} y2={p.y} stroke={v.color} strokeOpacity="0.18" strokeWidth="1.5" />
+                          <line
+                            x1={p.x}
+                            y1={p.y}
+                            x2={inner.x}
+                            y2={inner.y}
+                            stroke={v.color}
+                            strokeOpacity="0.85"
+                            strokeWidth="1.5"
+                            strokeDasharray="4 14"
+                            className="lmm-spoke-flow"
+                            style={{ animationDelay: `${i * 0.5}s` }}
+                          />
+                        </g>
+                      );
+                    })}
+
+                    {flywheelVertices.map((v) => {
+                      const p = point(v.angleDeg, rim);
+                      return (
+                        <g key={`hier-node-${v.label}`}>
+                          <circle
+                            cx={p.x}
+                            cy={p.y}
+                            r={nodeR}
+                            fill="hsl(230 25% 8%)"
+                            stroke={v.color}
+                            strokeOpacity="0.7"
+                            strokeWidth="1.5"
+                            style={{ filter: `drop-shadow(0 0 16px ${v.color.replace(")", " / 0.45)")})` }}
+                          />
+                          <text x={p.x} y={p.y - 6} textAnchor="middle" fill={v.color} fontSize="14" fontWeight="900" letterSpacing="2">
+                            {v.label}
+                          </text>
+                          <text x={p.x} y={p.y + 14} textAnchor="middle" fill="hsl(0 0% 70%)" fontSize="9" letterSpacing="0.6" style={{ textTransform: "uppercase" }}>
+                            <tspan x={p.x} dy="0">{v.sub.split(" ").slice(0, 2).join(" ")}</tspan>
+                            <tspan x={p.x} dy="11">{v.sub.split(" ").slice(2).join(" ")}</tspan>
+                          </text>
+                        </g>
+                      );
+                    })}
+
+                    <circle
+                      cx={cx}
+                      cy={cy}
+                      r={hubR}
+                      fill="url(#hier-flywheel-hub)"
+                      stroke="hsl(275 80% 60% / 0.7)"
+                      strokeWidth="1.5"
+                      className="lmm-hub-pulse"
                     />
-                    <p
-                      className="text-[0.65rem] md:text-[0.7rem] font-bold tracking-[0.3em] uppercase mb-1.5"
-                      style={{ color: "hsl(275 80% 70% / 0.85)" }}
-                    >
-                      {layer.agent}
-                    </p>
-                    <h3 className="text-base md:text-lg lg:text-xl font-bold tracking-[0.05em] text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
-                      {layer.name}
-                    </h3>
-                    <p className="text-xs md:text-sm text-muted-foreground/85 leading-[1.7]">
-                      {layer.desc}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ── THE FLYWHEEL EFFECT ── */}
-      <section id="flywheel" className="py-24 px-6 md:px-12 lg:px-16 relative z-[1] scroll-mt-20">
-        <ScrollReveal>
-          <p className="text-xs tracking-[0.4em] uppercase text-primary mb-4 font-bold"
-            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-          >
-            How It Works
-          </p>
-          <h2
-            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
-            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-          >
-            Full LMM Stack <span className="text-primary/80">—</span> The Flywheel Effect
-          </h2>
-        </ScrollReveal>
-        <ScrollReveal delay={100}>
-          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14 max-w-[720px]">
-            Nine softwares. Three pillars. One stack. Specialized agents for design, develop and deploy — all feeding a single Large Manufacturing Model that makes the next run better than the last.
-          </p>
-        </ScrollReveal>
-
-        {/* Flywheel — actually round. DESIGN/DEVELOP/DEPLOY at equilateral vertices,
-            LMM at the hub, IMPROVE curved along the rim. */}
-        <ScrollReveal>
-          <div
-            className="relative rounded-xl border border-border/40 p-6 md:p-10 grid grid-cols-1 lg:grid-cols-[minmax(220px,1fr)_minmax(420px,1.6fr)_minmax(220px,1fr)] gap-6 lg:gap-8 items-center"
-            style={{ background: "hsl(var(--card) / 0.7)" }}
-            data-stack
-          >
-            {/* AKIO software stack — boxes above the wheel */}
-            <div className="order-1 lg:col-span-3 flex flex-col items-center mb-2">
-              <p
-                className="text-[0.65rem] md:text-xs font-black tracking-[0.35em] uppercase mb-3"
-                style={{ color: akio, textShadow: `0 0 16px ${akio.replace(")", " / 0.5)")}` }}
-              >
-                AKIO <span className="text-foreground/40 font-bold">// Design</span>
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-3xl">
-                {[
-                  { name: "Lumos", desc: "Ideation partner" },
-                  { name: "Manvil", desc: "Mechanical generative CAD + Simulation" },
-                  { name: "Envil", desc: "Electronics generative CAD + Simulation" },
-                ].map((p) => (
-                  <div key={p.name} className="relative flex flex-col items-center">
-                    <div
-                      className="w-full rounded-lg border px-3 py-2.5 text-center"
-                      style={{
-                        borderColor: akio.replace(")", " / 0.55)"),
-                        background: akio.replace(")", " / 0.08)"),
-                        boxShadow: `inset 0 0 16px ${akio.replace(")", " / 0.08)")}, 0 0 14px ${akio.replace(")", " / 0.12)")}`,
-                      }}
-                    >
-                      <p className="font-bold text-xs md:text-sm tracking-wide" style={{ color: akio }}>
-                        {p.name}
-                      </p>
-                      <p className="text-[0.65rem] md:text-[0.7rem] text-muted-foreground/85 leading-snug mt-0.5">
-                        {p.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    <text x={cx} y={cy - 4} textAnchor="middle" fill="hsl(275 80% 80%)" fontSize="22" fontWeight="900" letterSpacing="4">
+                      LMM
+                    </text>
+                    <text x={cx} y={cy + 16} textAnchor="middle" fill="hsl(0 0% 70%)" fontSize="9" letterSpacing="2" style={{ textTransform: "uppercase" }}>
+                      <tspan x={cx} dy="0">Learns from</tspan>
+                      <tspan x={cx} dy="11">all three</tspan>
+                    </text>
+                  </svg>
+                );
+              })()}
             </div>
+            <div aria-hidden className="w-px h-8 mt-4" style={{ background: "linear-gradient(180deg, hsl(275 80% 60% / 0.7), transparent)" }} />
+          </div>
+        </ScrollReveal>
 
-            {/* SAM software stack — boxes left of wheel, arrows point right toward DEPLOY */}
-            <div className="order-3 lg:order-2 flex flex-col gap-3">
-              <p
-                className="text-[0.65rem] md:text-xs font-black tracking-[0.35em] uppercase"
-                style={{ color: sam, textShadow: `0 0 16px ${sam.replace(")", " / 0.5)")}` }}
-              >
-                SAM <span className="text-foreground/40 font-bold">// Distribute</span>
-              </p>
+        {/* TIER 2 — Three Verticals */}
+        <ScrollReveal delay={100}>
+          <div className="flex flex-col items-center mb-12 md:mb-16">
+            <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.35em] uppercase text-muted-foreground/70 font-bold mb-4">
+              Three Verticals
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 w-full max-w-3xl">
               {[
-                { name: "Quartermaster", desc: "Warehouse management system (in development)" },
-                { name: "Atom", desc: "Post-sales data tracking" },
-                { name: "Exchequer", desc: "Leasing and financing" },
-              ].map((p) => (
-                <div key={p.name} className="relative">
-                  <div
-                    className="rounded-lg border px-3 py-2"
+                { name: "AKIO", role: "Design", color: akio, tab: "akio" },
+                { name: "HENRY", role: "Develop", color: henry, tab: "henry" },
+                { name: "SAM", role: "Deploy", color: sam, tab: "sam" },
+              ].map((v) => (
+                <Link
+                  key={v.name}
+                  href={`/services?tab=${v.tab}`}
+                  className="rounded-xl border px-4 py-4 md:py-5 text-center transition-all duration-300 hover:-translate-y-0.5"
+                  style={{
+                    borderColor: v.color.replace(")", " / 0.55)"),
+                    background: v.color.replace(")", " / 0.08)"),
+                    boxShadow: `inset 0 0 18px ${v.color.replace(")", " / 0.1)")}, 0 4px 18px ${v.color.replace(")", " / 0.12)")}`,
+                  }}
+                >
+                  <p
+                    className="font-black text-base md:text-xl tracking-[0.2em]"
                     style={{
-                      borderColor: sam.replace(")", " / 0.55)"),
-                      background: sam.replace(")", " / 0.08)"),
-                      boxShadow: `inset 0 0 16px ${sam.replace(")", " / 0.08)")}, 0 0 14px ${sam.replace(")", " / 0.12)")}`,
+                      color: v.color,
+                      textShadow: `0 0 16px ${v.color.replace(")", " / 0.5)")}`,
                     }}
                   >
-                    <p className="text-xs md:text-sm font-bold tracking-wide" style={{ color: sam }}>
-                      {p.name}
-                    </p>
-                    <p className="text-[0.65rem] md:text-[0.7rem] text-muted-foreground/85 leading-snug mt-0.5">
-                      {p.desc}
-                    </p>
+                    {v.name}
+                  </p>
+                  <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.25em] uppercase text-muted-foreground/80 mt-1">
+                    {v.role}
+                  </p>
+                </Link>
+              ))}
+            </div>
+            <div aria-hidden className="w-px h-8 mt-4" style={{ background: "linear-gradient(180deg, hsl(275 80% 60% / 0.7), transparent)" }} />
+          </div>
+        </ScrollReveal>
+
+        {/* TIER 3 — Six Agents (rich photo cards) */}
+        <ScrollReveal delay={150}>
+          <div className="flex flex-col items-center mb-12 md:mb-16">
+            <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.35em] uppercase text-muted-foreground/70 font-bold mb-6">
+              Six Agents
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 w-full">
+              {lmmLayers.map((layer, i) => (
+                <div key={layer.name} className="group transition-transform duration-500 hover:-translate-y-1">
+                  {/* Service tabs above the card */}
+                  <div className="flex gap-1.5 mb-2 pl-1 pr-1">
+                    {layer.serves.map((svc) => (
+                      <div key={svc} className="flex-1 flex flex-col items-center gap-1.5" title={`Touches ${svc}`}>
+                        <span
+                          className="text-[0.6rem] md:text-[0.65rem] font-bold tracking-[0.3em]"
+                          style={{ color: aiColor[svc] }}
+                        >
+                          {svc}
+                        </span>
+                        <div
+                          className="h-[3px] w-full rounded-full transition-all duration-500 group-hover:h-[5px]"
+                          style={{
+                            background: aiColor[svc],
+                            boxShadow: `0 0 10px ${aiColor[svc].replace(")", " / 0.55)")}, 0 0 20px ${aiColor[svc].replace(")", " / 0.25)")}`,
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="relative rounded-2xl overflow-hidden cursor-default h-[320px] md:h-[360px] transition-shadow duration-500 group-hover:shadow-[0_20px_60px_-15px_hsl(275_80%_50%_/_0.3)]">
+                    <img
+                      src={layer.img}
+                      alt={layer.name}
+                      className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.06]"
+                      decoding="async"
+                      loading="lazy"
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.92) 30%, hsl(var(--background) / 0.55) 55%, hsl(var(--background) / 0.15) 75%, transparent 100%)",
+                      }}
+                    />
+                    <div className="absolute inset-0 border border-border/20 rounded-2xl pointer-events-none transition-colors duration-300 group-hover:border-primary/30" />
+
+                    <span className="absolute top-5 right-6 font-black text-5xl md:text-6xl text-white/[0.07] select-none leading-none tracking-tighter">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+
+                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-7">
+                      <div className="w-10 h-px mb-3 transition-all duration-500 group-hover:w-16" style={{ background: "hsl(275 80% 60% / 0.6)" }} />
+                      <p className="text-[0.65rem] md:text-[0.7rem] font-bold tracking-[0.3em] uppercase mb-1.5" style={{ color: "hsl(275 80% 70% / 0.85)" }}>
+                        {layer.agent}
+                      </p>
+                      <h3 className="text-base md:text-lg lg:text-xl font-bold tracking-[0.05em] text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+                        {layer.name}
+                      </h3>
+                      <p className="text-xs md:text-sm text-muted-foreground/85 leading-[1.7]">
+                        {layer.desc}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
+            <div aria-hidden className="w-px h-8 mt-8" style={{ background: "linear-gradient(180deg, hsl(275 80% 60% / 0.7), transparent)" }} />
+          </div>
+        </ScrollReveal>
 
-            {/* CENTER — the wheel */}
-            <div className="order-2 lg:order-3 flex items-center justify-center">
-            {(() => {
-              const cx = 280;
-              const cy = 280;
-              const rim = 220; // outer rim radius
-              const nodeR = 60; // half-size of vertex pill
-              const hubR = 70; // LMM hub radius
-              const toRad = (d: number) => (d * Math.PI) / 180;
-              const point = (angle: number, r: number) => ({
-                x: cx + Math.cos(toRad(angle)) * r,
-                y: cy + Math.sin(toRad(angle)) * r,
-              });
-              return (
-                <svg
-                  viewBox="0 0 560 560"
-                  className="w-full max-w-[465px] h-auto"
-                  role="img"
-                  aria-label="The Flywheel Effect: DESIGN, DEVELOP, DEPLOY feed the LMM hub which improves outputs continuously"
-                >
-                  <defs>
-                    <radialGradient id="flywheel-hub" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stopColor="hsl(275 80% 25%)" stopOpacity="0.9" />
-                      <stop offset="70%" stopColor="hsl(275 80% 12%)" stopOpacity="0.85" />
-                      <stop offset="100%" stopColor="hsl(230 25% 8%)" stopOpacity="0.95" />
-                    </radialGradient>
-                    {(() => {
-                      // Three rim arcs, each colored with a gradient between adjacent vertex colors
-                      const arcs = [
-                        { id: "rim-design-develop", from: point(-90, rim), to: point(30, rim), c1: akio, c2: henry },
-                        { id: "rim-develop-deploy", from: point(30, rim), to: point(150, rim), c1: henry, c2: sam },
-                        { id: "rim-deploy-design", from: point(150, rim), to: point(270, rim), c1: sam, c2: akio },
-                      ];
-                      return arcs.map((a) => (
-                        <linearGradient
-                          key={a.id}
-                          id={a.id}
-                          gradientUnits="userSpaceOnUse"
-                          x1={a.from.x}
-                          y1={a.from.y}
-                          x2={a.to.x}
-                          y2={a.to.y}
-                        >
-                          <stop offset="0%" stopColor={a.c1} />
-                          <stop offset="100%" stopColor={a.c2} />
-                        </linearGradient>
-                      ));
-                    })()}
-                  </defs>
-
-                  {/* Rim — three colored arcs forming the wheel */}
-                  {(() => {
-                    const arcs = [
-                      { id: "rim-design-develop", from: point(-90, rim), to: point(30, rim) },
-                      { id: "rim-develop-deploy", from: point(30, rim), to: point(150, rim) },
-                      { id: "rim-deploy-design", from: point(150, rim), to: point(270, rim) },
-                    ];
-                    return arcs.map((a) => (
-                      <path
-                        key={a.id}
-                        d={`M ${a.from.x},${a.from.y} A ${rim},${rim} 0 0 1 ${a.to.x},${a.to.y}`}
-                        fill="none"
-                        stroke={`url(#${a.id})`}
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 60% / 0.25))" }}
-                      />
-                    ));
-                  })()}
-
-                  {/* Spokes from each vertex to the hub — animated dashes flow inward */}
-                  {flywheelVertices.map((v, i) => {
-                    const p = point(v.angleDeg, rim);
-                    const inner = point(v.angleDeg, hubR);
-                    return (
-                      <g key={`spoke-${v.label}`}>
-                        {/* Static base track */}
-                        <line
-                          x1={inner.x}
-                          y1={inner.y}
-                          x2={p.x}
-                          y2={p.y}
-                          stroke={v.color}
-                          strokeOpacity="0.18"
-                          strokeWidth="1.5"
-                        />
-                        {/* Flowing data dashes */}
-                        <line
-                          x1={p.x}
-                          y1={p.y}
-                          x2={inner.x}
-                          y2={inner.y}
-                          stroke={v.color}
-                          strokeOpacity="0.85"
-                          strokeWidth="1.5"
-                          strokeDasharray="4 14"
-                          className="lmm-spoke-flow"
-                          style={{ animationDelay: `${i * 0.5}s` }}
-                        />
-                      </g>
-                    );
-                  })}
-
-                  {/* Vertex nodes */}
-                  {flywheelVertices.map((v) => {
-                    const p = point(v.angleDeg, rim);
-                    return (
-                      <g key={`node-${v.label}`}>
-                        <circle
-                          cx={p.x}
-                          cy={p.y}
-                          r={nodeR}
-                          fill="hsl(230 25% 8%)"
-                          stroke={v.color}
-                          strokeOpacity="0.7"
-                          strokeWidth="1.5"
-                          style={{
-                            filter: `drop-shadow(0 0 16px ${v.color.replace(")", " / 0.45)")})`,
-                          }}
-                        />
-                        <text
-                          x={p.x}
-                          y={p.y - 6}
-                          textAnchor="middle"
-                          fill={v.color}
-                          fontSize="14"
-                          fontWeight="900"
-                          letterSpacing="2"
-                        >
-                          {v.label}
-                        </text>
-                        <text
-                          x={p.x}
-                          y={p.y + 14}
-                          textAnchor="middle"
-                          fill="hsl(0 0% 70%)"
-                          fontSize="9"
-                          letterSpacing="0.6"
-                          style={{ textTransform: "uppercase" }}
-                        >
-                          <tspan x={p.x} dy="0">
-                            {v.sub.split(" ").slice(0, 2).join(" ")}
-                          </tspan>
-                          <tspan x={p.x} dy="11">
-                            {v.sub.split(" ").slice(2).join(" ")}
-                          </tspan>
-                        </text>
-                      </g>
-                    );
-                  })}
-
-                  {/* LMM hub at center — gentle "powered" pulse */}
-                  <circle
-                    cx={cx}
-                    cy={cy}
-                    r={hubR}
-                    fill="url(#flywheel-hub)"
-                    stroke="hsl(275 80% 60% / 0.7)"
-                    strokeWidth="1.5"
-                    className="lmm-hub-pulse"
-                  />
-                  <style>{`
-                    @keyframes lmm-spoke-flow {
-                      from { stroke-dashoffset: 0; }
-                      to { stroke-dashoffset: -180; }
-                    }
-                    .lmm-spoke-flow {
-                      animation: lmm-spoke-flow 3.2s linear infinite;
-                    }
-                    @keyframes lmm-hub-pulse {
-                      0%, 100% { filter: drop-shadow(0 0 14px hsl(275 80% 60% / 0.45)); }
-                      50%      { filter: drop-shadow(0 0 26px hsl(275 80% 60% / 0.75)); }
-                    }
-                    .lmm-hub-pulse {
-                      animation: lmm-hub-pulse 3.2s ease-in-out infinite;
-                    }
-                    @media (prefers-reduced-motion: reduce) {
-                      .lmm-spoke-flow, .lmm-hub-pulse { animation: none; }
-                    }
-                  `}</style>
-                  <text
-                    x={cx}
-                    y={cy - 4}
-                    textAnchor="middle"
-                    fill="hsl(275 80% 80%)"
-                    fontSize="22"
-                    fontWeight="900"
-                    letterSpacing="4"
-                  >
-                    LMM
-                  </text>
-                  <text
-                    x={cx}
-                    y={cy + 16}
-                    textAnchor="middle"
-                    fill="hsl(0 0% 70%)"
-                    fontSize="9"
-                    letterSpacing="2"
-                    style={{ textTransform: "uppercase" }}
-                  >
-                    <tspan x={cx} dy="0">Learns from</tspan>
-                    <tspan x={cx} dy="11">all three</tspan>
-                  </text>
-                </svg>
-              );
-            })()}
-            </div>
-
-            {/* HENRY software stack — boxes right of wheel, arrows point left toward DEVELOP */}
-            <div className="order-4 flex flex-col gap-3">
-              <p
-                className="text-[0.65rem] md:text-xs font-black tracking-[0.35em] uppercase lg:text-right"
-                style={{ color: henry, textShadow: `0 0 16px ${henry.replace(")", " / 0.5)")}` }}
-              >
-                HENRY <span className="text-foreground/40 font-bold">// Develop</span>
-              </p>
+        {/* TIER 4 — Nine Platforms (3 per vertical) */}
+        <ScrollReveal delay={280}>
+          <div className="flex flex-col items-center">
+            <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.35em] uppercase text-muted-foreground/70 font-bold mb-4">
+              Nine Platforms
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 w-full">
               {[
-                { name: "Nemi OS", desc: "Digital twin + Orchestrator" },
-                { name: "Legion", desc: "Suite of industrial robots (in development)" },
-                { name: "Hawkeye", desc: "Suite of factory data acquisition devices (in development)" },
-              ].map((p) => (
-                <div key={p.name} className="relative">
-                  <div
-                    className="rounded-lg border px-3 py-2 lg:text-right"
+                {
+                  vertical: "AKIO",
+                  color: akio,
+                  platforms: [
+                    { name: "Lumos", desc: "Ideation partner" },
+                    { name: "Manvil", desc: "Mechanical generative CAD + simulation" },
+                    { name: "Envil", desc: "Electronics generative CAD + simulation" },
+                  ],
+                },
+                {
+                  vertical: "HENRY",
+                  color: henry,
+                  platforms: [
+                    { name: "Nemi OS", desc: "Digital twin + orchestrator" },
+                    { name: "Legion", desc: "Industrial robotics suite" },
+                    { name: "Hawkeye", desc: "Factory data acquisition" },
+                  ],
+                },
+                {
+                  vertical: "SAM",
+                  color: sam,
+                  platforms: [
+                    { name: "Quartermaster", desc: "Warehouse management" },
+                    { name: "Atom", desc: "Post-sales data tracking" },
+                    { name: "Exchequer", desc: "Leasing and financing" },
+                  ],
+                },
+              ].map((group) => (
+                <div
+                  key={group.vertical}
+                  className="rounded-xl border p-4 md:p-5"
+                  style={{
+                    borderColor: group.color.replace(")", " / 0.3)"),
+                    background: group.color.replace(")", " / 0.04)"),
+                  }}
+                >
+                  <p
+                    className="text-[0.6rem] md:text-[0.65rem] font-black tracking-[0.3em] uppercase mb-3 text-center"
                     style={{
-                      borderColor: henry.replace(")", " / 0.55)"),
-                      background: henry.replace(")", " / 0.08)"),
-                      boxShadow: `inset 0 0 16px ${henry.replace(")", " / 0.08)")}, 0 0 14px ${henry.replace(")", " / 0.12)")}`,
+                      color: group.color,
+                      textShadow: `0 0 12px ${group.color.replace(")", " / 0.4)")}`,
                     }}
                   >
-                    <p className="text-xs md:text-sm font-bold tracking-wide" style={{ color: henry }}>
-                      {p.name}
-                    </p>
-                    <p className="text-[0.65rem] md:text-[0.7rem] text-muted-foreground/85 leading-snug mt-0.5">
-                      {p.desc}
-                    </p>
+                    {group.vertical}
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    {group.platforms.map((p) => (
+                      <div
+                        key={p.name}
+                        className="rounded-md border px-3 py-2"
+                        style={{
+                          borderColor: group.color.replace(")", " / 0.4)"),
+                          background: group.color.replace(")", " / 0.06)"),
+                        }}
+                      >
+                        <p className="text-xs md:text-sm font-bold tracking-wide" style={{ color: group.color }}>
+                          {p.name}
+                        </p>
+                        <p className="text-[0.6rem] md:text-[0.65rem] text-muted-foreground/85 leading-snug mt-0.5">
+                          {p.desc}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </ScrollReveal>
+      </section>
 
-        {/* Strategy Steps */}
+      {/* ── OUR PLAYBOOK — THE 3A METHOD ── */}
+      <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
         <ScrollReveal>
-          <p className="text-xs tracking-[0.3em] uppercase text-primary mt-16 mb-6 font-bold">Our Playbook</p>
+          <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-bold">Our Playbook</p>
+        </ScrollReveal>
+        <ScrollReveal delay={80}>
+          <h2
+            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+          >
+            The 3A Method
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal delay={150}>
+          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-12 max-w-[600px]">
+            Acquire. Augment. Accelerate. A repeatable playbook for turning legacy factories into Physical-AI-native operations.
+          </p>
         </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/30">
           {strategySteps.map((step, i) => (

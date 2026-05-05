@@ -54,7 +54,8 @@ const factoryImages: { src: string; title: string; description: string }[] = [
 
 const stats = [
   { value: "300K", unit: "sq ft", label: "Facility" },
-  { value: "AIS", unit: "9100D", label: "Certified" },
+  { value: "AS", unit: "9100D", label: "Certified" },
+  { value: "ISO", unit: "9001", label: "Certified" },
   { value: "40+", unit: "", label: "Patents" },
 ];
 
@@ -162,13 +163,24 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
             className="text-sm md:text-base tracking-[0.4em] uppercase text-muted-foreground mb-3"
             style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
           >
-            Execution
+            Fortress Factories
           </h2>
           <h3
             className="text-2xl md:text-4xl font-bold text-foreground tracking-wider"
             style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}
           >
-            Competitors simulate. <span className="text-foreground">We execute.</span>
+            NEMI&rsquo;s{" "}
+            <span
+              style={{
+                backgroundImage:
+                  "linear-gradient(135deg, hsl(275 70% 78%), hsl(275 80% 60%))",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              Fortress Factory
+            </span>
           </h3>
         </div>
 

@@ -6,10 +6,8 @@ const FOOTER_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Technology", href: "/technology" },
-  { label: "Proof", href: "/proof" },
   { label: "About", href: "/about" },
   { label: "Careers", href: "/careers" },
-  { label: "Investors", href: "/investors" },
 ];
 
 interface CTASectionProps {
@@ -22,8 +20,8 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const CTASection = ({ scrollProgress }: CTASectionProps) => {
-  const sectionVisible = scrollProgress > 0.92;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.93, 0.96));
+  const sectionVisible = scrollProgress > 0.855;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.86, 0.92));
 
   if (!sectionVisible) return null;
 

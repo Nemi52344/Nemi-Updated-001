@@ -75,12 +75,14 @@ const SectorWord = ({
 );
 
 const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
-  const sectionVisible = scrollProgress > 0.875 && scrollProgress < 0.955;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.88, 0.905));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.935, 0.955));
+  // Section: 0.74–0.85 (moved up to fill the gap left by hidden Industries +
+  // CaseStudy sections, sits right after Competitors and before CTA).
+  const sectionVisible = scrollProgress > 0.735 && scrollProgress < 0.86;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.745, 0.78));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.84, 0.86));
   const opacity = Math.min(enterP, 1 - exitP);
 
-  const logosEnterP = easeOut(rangeProgress(scrollProgress, 0.895, 0.92));
+  const logosEnterP = easeOut(rangeProgress(scrollProgress, 0.76, 0.79));
 
   const [hoveredSector, setHoveredSector] = useState<Sector | null>(null);
 
@@ -118,7 +120,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
           }}
         >
           <p className="text-[0.65rem] md:text-xs tracking-[0.3em] uppercase text-primary font-semibold mb-4 md:mb-6">
-            Industry partners
+            Industrial Partners
           </p>
         </div>
 
@@ -131,11 +133,12 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
             textShadow: "0 0 30px hsl(275 80% 60% / 0.4), 0 0 60px hsl(270 70% 50% / 0.2)",
           }}
         >
-          Trusted across {sw("aerospace", "aerospace")},{" "}
-          {sw("defense", "defense")},
+          Trusted by leading industrial companies
           <br className="hidden md:block" />
           {" "}
-          {sw("automotive", "automotive")}, and {sw("industrial", "industrial")}.
+          &mdash; across {sw("aerospace", "aerospace")},{" "}
+          {sw("defense", "defense")}, {sw("automotive", "automotive")} and{" "}
+          {sw("industrial", "industrial")}.
         </h2>
 
         {/* Logo wall — uniform grid so every logo sits in an equal-width cell of

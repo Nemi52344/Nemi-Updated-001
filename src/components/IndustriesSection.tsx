@@ -51,9 +51,9 @@ const industries: Industry[] = [
 ];
 
 const IndustriesSection = ({ scrollProgress }: IndustriesSectionProps) => {
-  const sectionVisible = scrollProgress > 0.73 && scrollProgress < 0.85;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.75, 0.80));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.81, 0.84));
+  const sectionVisible = scrollProgress > 0.73 && scrollProgress < 0.835;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.745, 0.79));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.81, 0.835));
 
   if (!sectionVisible) return null;
 

@@ -26,13 +26,6 @@
   </url>
 
   <url>
-    <loc>https://nemi-ai.com/proof</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
-
-  <url>
     <loc>https://nemi-ai.com/about</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -46,11 +39,5 @@
     <priority>0.8</priority>
   </url>
 
-  <url>
-    <loc>https://nemi-ai.com/investors</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
 
 </urlset>

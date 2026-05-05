@@ -13,6 +13,7 @@ import useScrollProgress from "@/hooks/useScrollProgress";
 // page content is present in the static HTML for crawlers & AI bots.
 // It still code-splits the JS bundles for fast client load.
 const TrustSignalSection = dynamic(() => import("@/components/TrustSignalSection"));
+const IntentSection = dynamic(() => import("@/components/IntentSection"));
 const ProblemSection = dynamic(() => import("@/components/ProblemSection"));
 const CoreTechSection = dynamic(() => import("@/components/CoreTechSection"));
 const CapabilitiesSection = dynamic(() => import("@/components/CapabilitiesSection"));
@@ -47,7 +48,7 @@ const Index = () => {
   }, [scrollProgress]);
 
   // Hero logo+text: fades out and moves up (extended for smoother feel)
-  const heroP = rangeProgress(scrollProgress, 0.008, 0.035);
+  const heroP = rangeProgress(scrollProgress, 0.03, 0.05);
   const heroOpacity = 1 - heroP;
   const heroTranslateY = -heroP * 120;
 
@@ -100,22 +101,24 @@ const Index = () => {
 
       <ConstellationCanvas />
       <TrustSignalSection scrollProgress={scrollProgress} />
+      <IntentSection scrollProgress={scrollProgress} />
       <ProblemSection scrollProgress={scrollProgress} />
       <CoreTechSection scrollProgress={scrollProgress} />
       <CapabilitiesSection scrollProgress={scrollProgress} />
       <CompetitorsSection scrollProgress={scrollProgress} />
-      <IndustriesSection scrollProgress={scrollProgress} />
-      <CaseStudyEVSection scrollProgress={scrollProgress} />
+      {/* Hidden for now — re-enable when needed */}
+      {/* <IndustriesSection scrollProgress={scrollProgress} /> */}
+      {/* <CaseStudyEVSection scrollProgress={scrollProgress} /> */}
       <CTASection scrollProgress={scrollProgress} />
 
-      {/* Transition dividers between sections */}
+      {/* Transition dividers between sections — aligned to new scroll layout */}
       <ScrollTransition scrollProgress={scrollProgress} at={0.05} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.25} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.15} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.32} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.45} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.62} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.60} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.74} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.84} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.93} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.85} />
 
       {/* Purple nebula glow behind logo */}
       <div
@@ -164,10 +167,12 @@ const Index = () => {
           NEMI AI
         </h1>
         <p
-          className="mt-6 text-sm md:text-base lg:text-lg font-light text-center text-muted-foreground tracking-[0.25em] uppercase mx-4"
+          className="mt-6 text-sm md:text-base lg:text-lg font-light text-center text-muted-foreground tracking-[0.25em] uppercase mx-4 leading-[1.6]"
           style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}
         >
-          The AI Operating System for Manufacturing
+          Full-stack, end-to-end manufacturing automation
+          <br />
+          with Physical AI
         </p>
 
       </div>
@@ -183,17 +188,15 @@ const Index = () => {
             <li><a href="/">Home</a></li>
             <li><a href="/services">Services (AKIO, HENRY, SAM)</a></li>
             <li><a href="/technology">Technology (Large Manufacturing Model)</a></li>
-            <li><a href="/proof">Proof, traction and case studies</a></li>
             <li><a href="/about">About NEMI AI</a></li>
             <li><a href="/careers">Careers</a></li>
-            <li><a href="/investors">Investor relations</a></li>
             <li><a href="/sitemap.xml">Sitemap</a></li>
             <li><a href="mailto:info@nemi-ai.com">info@nemi-ai.com</a></li>
           </ul>
         </nav>
         <p>
-          NEMI AI, The AI Operating System for Manufacturing. Certifications:
-          AS9100D, ISO 9001:2015.
+          NEMI AI &mdash; full-stack, end-to-end manufacturing automation with
+          Physical AI. Certifications: AS9100D, ISO 9001:2015.
         </p>
       </footer>
 

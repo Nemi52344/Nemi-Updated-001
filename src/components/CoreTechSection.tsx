@@ -208,7 +208,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
               className="text-xs md:text-base tracking-[0.3em] md:tracking-[0.4em] uppercase text-muted-foreground text-center"
               style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
             >
-              Introducing
+              Powered by
             </h2>
           </div>
 
@@ -250,7 +250,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
                 animation: bottomP >= 1 ? "text-glow-pulse 3s ease-in-out infinite" : "none",
               }}
             >
-              The most powerful foundation for Physical AI
+              The Large Manufacturing Model orchestrates AKIO, HENRY and SAM.
             </p>
           </div>
 

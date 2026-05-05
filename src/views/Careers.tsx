@@ -408,7 +408,7 @@ const Careers = () => {
 
       <PageCTAFooter
         headline="Shape the Future."
-        tagline="Join the team building the operating system for manufacturing."
+        tagline="Join the team building full-stack, end-to-end manufacturing automation with Physical AI."
         buttonText="Get in Touch"
         buttonHref="mailto:info@nemi-ai.com"
       />

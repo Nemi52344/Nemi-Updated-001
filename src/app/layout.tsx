@@ -151,7 +151,7 @@ export default function RootLayout({
           }}>
             <h1 style={{ fontSize: "2rem", margin: "0 0 0.5rem" }}>NEMI AI</h1>
             <p style={{ fontSize: "1.25rem", fontWeight: 600, margin: "0 0 1rem" }}>
-              The AI Operating System for Manufacturing.
+              Full-stack, end-to-end manufacturing automation with Physical AI.
             </p>
             <p style={{ margin: "0 0 1rem", opacity: 0.85 }}>
               Design, manufacture, and deploy physical products, 10&times; faster,
@@ -170,10 +170,8 @@ export default function RootLayout({
             <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
               <li><a href="/services" style={{ color: "hsl(275 80% 65%)" }}>Services (AKIO, HENRY, SAM)</a></li>
               <li><a href="/technology" style={{ color: "hsl(275 80% 65%)" }}>Technology (Large Manufacturing Model)</a></li>
-              <li><a href="/proof" style={{ color: "hsl(275 80% 65%)" }}>Proof (case studies, traction)</a></li>
               <li><a href="/about" style={{ color: "hsl(275 80% 65%)" }}>About NEMI AI</a></li>
               <li><a href="/careers" style={{ color: "hsl(275 80% 65%)" }}>Careers</a></li>
-              <li><a href="/investors" style={{ color: "hsl(275 80% 65%)" }}>Investor Relations</a></li>
             </ul>
             <p style={{ margin: "1.5rem 0 0", opacity: 0.8 }}>
               Certifications: AS9100D &middot; ISO 9001.

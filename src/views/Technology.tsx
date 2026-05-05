@@ -223,138 +223,256 @@ const Technology = () => {
         {/* TIER 1 — One Intelligence at the hub, with three vertices on the rim */}
         <ScrollReveal>
           <div className="flex flex-col items-center mb-12 md:mb-16">
-            <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.35em] uppercase text-muted-foreground/70 font-bold mb-2">
+            <h3 className="text-xl md:text-3xl font-extrabold tracking-wider uppercase text-foreground mb-6 md:mb-8 text-center"
+              style={{ textShadow: "0 0 16px hsl(275 80% 60% / 0.4)" }}
+            >
               One Intelligence
-            </p>
+            </h3>
             <div className="flex items-center justify-center w-full">
               {(() => {
-                const cx = 280;
-                const cy = 280;
-                const rim = 220;
-                const nodeR = 60;
+                const SIZE = 800;
+                const cx = SIZE / 2;
+                const cy = SIZE / 2;
                 const hubR = 70;
+                const gap = 6;          // dark space between rings
+                const r1Inner = hubR + gap;            // 76
+                const r1Outer = r1Inner + 70;          // 146
+                const r2Inner = r1Outer + gap;         // 152
+                const r2Outer = r2Inner + 78;          // 230
+                const r3Inner = r2Outer + gap;         // 236
+                const r3Outer = r3Inner + 106;         // 342
+
                 const toRad = (d: number) => (d * Math.PI) / 180;
-                const point = (angle: number, r: number) => ({
+                const arcPoint = (angle: number, r: number) => ({
                   x: cx + Math.cos(toRad(angle)) * r,
                   y: cy + Math.sin(toRad(angle)) * r,
                 });
+                const sectorPath = (a1: number, a2: number, rIn: number, rOut: number) => {
+                  const p1Out = arcPoint(a1, rOut);
+                  const p2Out = arcPoint(a2, rOut);
+                  const p1In = arcPoint(a1, rIn);
+                  const p2In = arcPoint(a2, rIn);
+                  const large = a2 - a1 > 180 ? 1 : 0;
+                  return [
+                    `M ${p1Out.x} ${p1Out.y}`,
+                    `A ${rOut} ${rOut} 0 ${large} 1 ${p2Out.x} ${p2Out.y}`,
+                    `L ${p2In.x} ${p2In.y}`,
+                    `A ${rIn} ${rIn} 0 ${large} 0 ${p1In.x} ${p1In.y}`,
+                    `Z`,
+                  ].join(" ");
+                };
+
+                // Build a label arc path. For sectors in the bottom half of the
+                // screen (sin(midAngle) > 0), reverse the path so text reads
+                // upright instead of upside-down.
+                const labelArc = (a1: number, a2: number, r: number) => {
+                  const mid = (a1 + a2) / 2;
+                  const isBottom = Math.sin(toRad(mid)) > 0;
+                  if (isBottom) {
+                    // Counter-clockwise from a2 → a1
+                    const start = arcPoint(a2, r);
+                    const end = arcPoint(a1, r);
+                    return `M ${start.x} ${start.y} A ${r} ${r} 0 0 0 ${end.x} ${end.y}`;
+                  }
+                  const start = arcPoint(a1, r);
+                  const end = arcPoint(a2, r);
+                  return `M ${start.x} ${start.y} A ${r} ${r} 0 0 1 ${end.x} ${end.y}`;
+                };
+
+                // 3 verticals (120° each), starting -150° at top-left
+                const verticals = [
+                  { name: "AKIO",  color: akio,  a1: -150, a2: -30  },
+                  { name: "HENRY", color: henry, a1: -30,  a2: 90   },
+                  { name: "SAM",   color: sam,   a1: 90,   a2: 210  },
+                ];
+                // 6 agents (60° each)
+                const agents = [
+                  { name: "FAR-SEER",   color: akio,  a1: -150, a2: -90  },
+                  { name: "CRAFTSMAN",  color: akio,  a1: -90,  a2: -30  },
+                  { name: "SOMMELIER",  color: henry, a1: -30,  a2: 30   },
+                  { name: "DISPATCHER", color: henry, a1: 30,   a2: 90   },
+                  { name: "TASKMASTER", color: sam,   a1: 90,   a2: 150  },
+                  { name: "TRAINER",    color: sam,   a1: 150,  a2: 210  },
+                ];
+                // 9 platforms (40° each)
+                const platforms = [
+                  { name: "LUMOS",         color: akio,  a1: -150, a2: -110 },
+                  { name: "MANVIL",        color: akio,  a1: -110, a2: -70  },
+                  { name: "ENVIL",         color: akio,  a1: -70,  a2: -30  },
+                  { name: "NEMI OS",       color: henry, a1: -30,  a2: 10   },
+                  { name: "LEGION",        color: henry, a1: 10,   a2: 50   },
+                  { name: "HAWKEYE",       color: henry, a1: 50,   a2: 90   },
+                  { name: "QUARTERMASTER", color: sam,   a1: 90,   a2: 130  },
+                  { name: "ATOM",          color: sam,   a1: 130,  a2: 170  },
+                  { name: "EXCHEQUER",     color: sam,   a1: 170,  a2: 210  },
+                ];
+
+                // Vertical color → muted purple-tinted base for sector backgrounds.
+                // Each ring deepens slightly so the eye reads the hierarchy.
+                const r1Mid = (r1Inner + r1Outer) / 2;
+                const r2Mid = (r2Inner + r2Outer) / 2;
+                const r3Mid = (r3Inner + r3Outer) / 2;
+
                 return (
                   <svg
-                    viewBox="0 0 560 560"
-                    className="w-full max-w-[465px] h-auto"
+                    viewBox={`0 0 ${SIZE} ${SIZE}`}
+                    className="w-full max-w-[720px] h-auto"
                     role="img"
-                    aria-label="LMM at the hub. AKIO, HENRY and SAM at three vertices feed it."
+                    aria-label="LMM concentric architecture: hub, 3 verticals (AKIO HENRY SAM), 6 agents, 9 platforms"
                   >
                     <defs>
-                      <radialGradient id="hier-flywheel-hub" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="hsl(275 80% 25%)" stopOpacity="0.9" />
-                        <stop offset="70%" stopColor="hsl(275 80% 12%)" stopOpacity="0.85" />
-                        <stop offset="100%" stopColor="hsl(230 25% 8%)" stopOpacity="0.95" />
+                      <radialGradient id="lmm-hub-grad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"  stopColor="hsl(280 95% 75%)" />
+                        <stop offset="55%" stopColor="hsl(275 85% 50%)" />
+                        <stop offset="100%" stopColor="hsl(275 75% 30%)" />
                       </radialGradient>
-                      {(() => {
-                        const arcs = [
-                          { id: "hier-rim-1", from: point(-90, rim), to: point(30, rim), c1: akio, c2: henry },
-                          { id: "hier-rim-2", from: point(30, rim), to: point(150, rim), c1: henry, c2: sam },
-                          { id: "hier-rim-3", from: point(150, rim), to: point(270, rim), c1: sam, c2: akio },
-                        ];
-                        return arcs.map((a) => (
-                          <linearGradient
-                            key={a.id}
-                            id={a.id}
-                            gradientUnits="userSpaceOnUse"
-                            x1={a.from.x}
-                            y1={a.from.y}
-                            x2={a.to.x}
-                            y2={a.to.y}
-                          >
-                            <stop offset="0%" stopColor={a.c1} />
-                            <stop offset="100%" stopColor={a.c2} />
-                          </linearGradient>
-                        ));
-                      })()}
+
+                      {/* Label arc paths — one per sector per ring, baseline-mid radius */}
+                      {verticals.map((v) => (
+                        <path key={`vp-${v.name}`} id={`v-arc-${v.name}`}
+                          d={labelArc(v.a1, v.a2, r1Mid)} fill="none" />
+                      ))}
+                      {agents.map((a) => (
+                        <path key={`ap-${a.name}`} id={`a-arc-${a.name}`}
+                          d={labelArc(a.a1, a.a2, r2Mid - 3)} fill="none" />
+                      ))}
+                      {platforms.map((p) => (
+                        <path key={`pp-${p.name}`} id={`p-arc-${p.name.replace(/\s+/g, "-")}`}
+                          d={labelArc(p.a1, p.a2, r3Mid - 4)} fill="none" />
+                      ))}
                     </defs>
 
-                    {(() => {
-                      const arcs = [
-                        { id: "hier-rim-1", from: point(-90, rim), to: point(30, rim) },
-                        { id: "hier-rim-2", from: point(30, rim), to: point(150, rim) },
-                        { id: "hier-rim-3", from: point(150, rim), to: point(270, rim) },
-                      ];
-                      return arcs.map((a) => (
+                    {/* RING 3 — 9 platforms (outermost) — vertical-color tinted */}
+                    {platforms.map((p) => (
+                      <g key={`pl-${p.name}`}>
                         <path
-                          key={a.id}
-                          d={`M ${a.from.x},${a.from.y} A ${rim},${rim} 0 0 1 ${a.to.x},${a.to.y}`}
-                          fill="none"
-                          stroke={`url(#${a.id})`}
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 60% / 0.25))" }}
+                          d={sectorPath(p.a1, p.a2, r3Inner, r3Outer)}
+                          fill={p.color.replace(")", " / 0.16)")}
+                          stroke={p.color.replace(")", " / 0.55)")}
+                          strokeWidth="1.5"
                         />
-                      ));
-                    })()}
+                        <text
+                          fill="hsl(0 0% 100%)"
+                          fontSize="11"
+                          fontWeight="700"
+                          letterSpacing="2"
+                          style={{ filter: `drop-shadow(0 0 6px ${p.color.replace(")", " / 0.6)")})` }}
+                        >
+                          <textPath
+                            href={`#p-arc-${p.name.replace(/\s+/g, "-")}`}
+                            startOffset="50%"
+                            textAnchor="middle"
+                          >
+                            {p.name}
+                          </textPath>
+                        </text>
+                      </g>
+                    ))}
 
-                    {flywheelVertices.map((v, i) => {
-                      const p = point(v.angleDeg, rim);
-                      const inner = point(v.angleDeg, hubR);
+                    {/* RING 2 — 6 agents — slightly stronger vertical-color tint */}
+                    {agents.map((a) => (
+                      <g key={`ag-${a.name}`}>
+                        <path
+                          d={sectorPath(a.a1, a.a2, r2Inner, r2Outer)}
+                          fill={a.color.replace(")", " / 0.24)")}
+                          stroke={a.color.replace(")", " / 0.7)")}
+                          strokeWidth="1.5"
+                        />
+                        <text
+                          fill="hsl(0 0% 100%)"
+                          fontSize="13"
+                          fontWeight="700"
+                          letterSpacing="2.5"
+                          style={{ filter: `drop-shadow(0 0 6px ${a.color.replace(")", " / 0.65)")})` }}
+                        >
+                          <textPath
+                            href={`#a-arc-${a.name}`}
+                            startOffset="50%"
+                            textAnchor="middle"
+                          >
+                            {a.name}
+                          </textPath>
+                        </text>
+                      </g>
+                    ))}
+
+                    {/* RING 1 — 3 verticals — strongest vertical-color block */}
+                    {verticals.map((v) => (
+                      <g key={`v-${v.name}`}>
+                        <path
+                          d={sectorPath(v.a1, v.a2, r1Inner, r1Outer)}
+                          fill={v.color.replace(")", " / 0.38)")}
+                          stroke={v.color.replace(")", " / 0.95)")}
+                          strokeWidth="2"
+                          style={{ filter: `drop-shadow(0 0 14px ${v.color.replace(")", " / 0.55)")})` }}
+                        />
+                        <text
+                          fill="hsl(0 0% 100%)"
+                          fontSize="24"
+                          fontWeight="900"
+                          letterSpacing="5"
+                          style={{ filter: `drop-shadow(0 0 14px ${v.color.replace(")", " / 0.85)")})` }}
+                        >
+                          <textPath
+                            href={`#v-arc-${v.name}`}
+                            startOffset="50%"
+                            textAnchor="middle"
+                          >
+                            {v.name}
+                          </textPath>
+                        </text>
+                      </g>
+                    ))}
+
+                    {/* Radial dividers — separate the three pie-slices visually */}
+                    {[-150, -30, 90, 210].map((angle) => {
+                      const inner = arcPoint(angle, r1Inner);
+                      const outer = arcPoint(angle, r3Outer);
                       return (
-                        <g key={`hier-spoke-${v.label}`}>
-                          <line x1={inner.x} y1={inner.y} x2={p.x} y2={p.y} stroke={v.color} strokeOpacity="0.18" strokeWidth="1.5" />
-                          <line
-                            x1={p.x}
-                            y1={p.y}
-                            x2={inner.x}
-                            y2={inner.y}
-                            stroke={v.color}
-                            strokeOpacity="0.85"
-                            strokeWidth="1.5"
-                            strokeDasharray="4 14"
-                            className="lmm-spoke-flow"
-                            style={{ animationDelay: `${i * 0.5}s` }}
-                          />
-                        </g>
+                        <line
+                          key={`div-${angle}`}
+                          x1={inner.x}
+                          y1={inner.y}
+                          x2={outer.x}
+                          y2={outer.y}
+                          stroke="hsl(230 25% 4%)"
+                          strokeWidth="2.5"
+                          opacity="0.85"
+                        />
                       );
                     })}
 
-                    {flywheelVertices.map((v) => {
-                      const p = point(v.angleDeg, rim);
-                      return (
-                        <g key={`hier-node-${v.label}`}>
-                          <circle
-                            cx={p.x}
-                            cy={p.y}
-                            r={nodeR}
-                            fill="hsl(230 25% 8%)"
-                            stroke={v.color}
-                            strokeOpacity="0.7"
-                            strokeWidth="1.5"
-                            style={{ filter: `drop-shadow(0 0 16px ${v.color.replace(")", " / 0.45)")})` }}
-                          />
-                          <text x={p.x} y={p.y - 6} textAnchor="middle" fill={v.color} fontSize="14" fontWeight="900" letterSpacing="2">
-                            {v.label}
-                          </text>
-                          <text x={p.x} y={p.y + 14} textAnchor="middle" fill="hsl(0 0% 70%)" fontSize="9" letterSpacing="0.6" style={{ textTransform: "uppercase" }}>
-                            <tspan x={p.x} dy="0">{v.sub.split(" ").slice(0, 2).join(" ")}</tspan>
-                            <tspan x={p.x} dy="11">{v.sub.split(" ").slice(2).join(" ")}</tspan>
-                          </text>
-                        </g>
-                      );
-                    })}
-
+                    {/* Hub glow ring + LMM */}
+                    <circle
+                      cx={cx}
+                      cy={cy}
+                      r={hubR + 12}
+                      fill="none"
+                      stroke="hsl(275 80% 60% / 0.25)"
+                      strokeWidth="1"
+                    />
                     <circle
                       cx={cx}
                       cy={cy}
                       r={hubR}
-                      fill="url(#hier-flywheel-hub)"
-                      stroke="hsl(275 80% 60% / 0.7)"
-                      strokeWidth="1.5"
+                      fill="url(#lmm-hub-grad)"
+                      stroke="hsl(275 90% 80% / 0.9)"
+                      strokeWidth="2.5"
                       className="lmm-hub-pulse"
+                      style={{ filter: "drop-shadow(0 0 35px hsl(275 80% 60% / 0.85))" }}
                     />
-                    <text x={cx} y={cy - 4} textAnchor="middle" fill="hsl(275 80% 80%)" fontSize="22" fontWeight="900" letterSpacing="4">
+                    <text
+                      x={cx}
+                      y={cy}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fill="hsl(0 0% 100%)"
+                      fontSize="32"
+                      fontWeight="900"
+                      letterSpacing="5"
+                      style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 80% / 0.8))" }}
+                    >
                       LMM
-                    </text>
-                    <text x={cx} y={cy + 16} textAnchor="middle" fill="hsl(0 0% 70%)" fontSize="9" letterSpacing="2" style={{ textTransform: "uppercase" }}>
-                      <tspan x={cx} dy="0">Learns from</tspan>
-                      <tspan x={cx} dy="11">all three</tspan>
                     </text>
                   </svg>
                 );
@@ -367,37 +485,66 @@ const Technology = () => {
         {/* TIER 2 — Three Verticals */}
         <ScrollReveal delay={100}>
           <div className="flex flex-col items-center mb-12 md:mb-16">
-            <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.35em] uppercase text-muted-foreground/70 font-bold mb-4">
+            <h3 className="text-xl md:text-3xl font-extrabold tracking-wider uppercase text-foreground mb-6 md:mb-8 text-center"
+              style={{ textShadow: "0 0 16px hsl(275 80% 60% / 0.4)" }}
+            >
               Three Verticals
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 w-full max-w-3xl">
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 w-full max-w-4xl">
               {[
-                { name: "AKIO", role: "Design", color: akio, tab: "akio" },
-                { name: "HENRY", role: "Develop", color: henry, tab: "henry" },
-                { name: "SAM", role: "Deploy", color: sam, tab: "sam" },
+                { name: "AKIO",  role: "Design",  color: akio,  tab: "akio",  img: "/Images/AKIO.webp"  },
+                { name: "HENRY", role: "Develop", color: henry, tab: "henry", img: "/Images/Henry.webp" },
+                { name: "SAM",   role: "Deploy",  color: sam,   tab: "sam",   img: "/Images/SAM.webp"   },
               ].map((v) => (
                 <Link
                   key={v.name}
                   href={`/services?tab=${v.tab}`}
-                  className="rounded-xl border px-4 py-4 md:py-5 text-center transition-all duration-300 hover:-translate-y-0.5"
+                  className="group rounded-xl border overflow-hidden transition-all duration-300 hover:-translate-y-1"
                   style={{
                     borderColor: v.color.replace(")", " / 0.55)"),
-                    background: v.color.replace(")", " / 0.08)"),
-                    boxShadow: `inset 0 0 18px ${v.color.replace(")", " / 0.1)")}, 0 4px 18px ${v.color.replace(")", " / 0.12)")}`,
+                    background: "hsl(230 25% 6% / 0.6)",
+                    boxShadow: `inset 0 0 18px ${v.color.replace(")", " / 0.08)")}, 0 4px 24px ${v.color.replace(")", " / 0.15)")}`,
                   }}
                 >
-                  <p
-                    className="font-black text-base md:text-xl tracking-[0.2em]"
-                    style={{
-                      color: v.color,
-                      textShadow: `0 0 16px ${v.color.replace(")", " / 0.5)")}`,
-                    }}
+                  <div
+                    className="relative h-40 md:h-44 overflow-hidden"
+                    style={{ borderBottom: `2px solid ${v.color}` }}
                   >
-                    {v.name}
-                  </p>
-                  <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.25em] uppercase text-muted-foreground/80 mt-1">
-                    {v.role}
-                  </p>
+                    <img
+                      src={v.img}
+                      alt={`${v.name} ${v.role}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                      loading="lazy"
+                      decoding="async"
+                      style={{ opacity: 0.85 }}
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: `linear-gradient(to top, hsl(230 25% 6% / 0.85) 0%, hsl(230 25% 6% / 0.15) 55%, transparent 100%)`,
+                      }}
+                    />
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background: `radial-gradient(ellipse at center, ${v.color.replace(")", " / 0.10)")} 0%, transparent 60%)`,
+                      }}
+                    />
+                  </div>
+                  <div className="px-4 py-4 md:py-5 text-center">
+                    <p
+                      className="font-black text-base md:text-xl tracking-[0.25em]"
+                      style={{
+                        color: v.color,
+                        textShadow: `0 0 16px ${v.color.replace(")", " / 0.55)")}`,
+                      }}
+                    >
+                      {v.name}
+                    </p>
+                    <p className="text-[0.6rem] md:text-[0.7rem] tracking-[0.3em] uppercase text-muted-foreground/80 mt-1.5">
+                      {v.role}
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -408,9 +555,11 @@ const Technology = () => {
         {/* TIER 3 — Six Agents (rich photo cards) */}
         <ScrollReveal delay={150}>
           <div className="flex flex-col items-center mb-12 md:mb-16">
-            <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.35em] uppercase text-muted-foreground/70 font-bold mb-6">
+            <h3 className="text-xl md:text-3xl font-extrabold tracking-wider uppercase text-foreground mb-6 md:mb-8 text-center"
+              style={{ textShadow: "0 0 16px hsl(275 80% 60% / 0.4)" }}
+            >
               Six Agents
-            </p>
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 w-full">
               {lmmLayers.map((layer, i) => (
                 <div key={layer.name} className="group transition-transform duration-500 hover:-translate-y-1">
@@ -476,77 +625,73 @@ const Technology = () => {
           </div>
         </ScrollReveal>
 
-        {/* TIER 4 — Nine Platforms (3 per vertical) */}
+        {/* TIER 4 — Nine Platforms — image cards, one per platform */}
         <ScrollReveal delay={280}>
           <div className="flex flex-col items-center">
-            <p className="text-[0.6rem] md:text-[0.65rem] tracking-[0.35em] uppercase text-muted-foreground/70 font-bold mb-4">
+            <h3 className="text-xl md:text-3xl font-extrabold tracking-wider uppercase text-foreground mb-6 md:mb-8 text-center"
+              style={{ textShadow: "0 0 16px hsl(275 80% 60% / 0.4)" }}
+            >
               Nine Platforms
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 w-full">
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 w-full">
               {[
-                {
-                  vertical: "AKIO",
-                  color: akio,
-                  platforms: [
-                    { name: "Lumos", desc: "Ideation partner" },
-                    { name: "Manvil", desc: "Mechanical generative CAD + simulation" },
-                    { name: "Envil", desc: "Electronics generative CAD + simulation" },
-                  ],
-                },
-                {
-                  vertical: "HENRY",
-                  color: henry,
-                  platforms: [
-                    { name: "Nemi OS", desc: "Digital twin + orchestrator" },
-                    { name: "Legion", desc: "Industrial robotics suite" },
-                    { name: "Hawkeye", desc: "Factory data acquisition" },
-                  ],
-                },
-                {
-                  vertical: "SAM",
-                  color: sam,
-                  platforms: [
-                    { name: "Quartermaster", desc: "Warehouse management" },
-                    { name: "Atom", desc: "Post-sales data tracking" },
-                    { name: "Exchequer", desc: "Leasing and financing" },
-                  ],
-                },
-              ].map((group) => (
+                { name: "Lumos",         vertical: "AKIO",  color: akio,  desc: "Ideation partner",                       img: "/Images/Design%20and%20Development.webp" },
+                { name: "Manvil",        vertical: "AKIO",  color: akio,  desc: "Mechanical generative CAD + simulation", img: "/Images/Parts%20Manufacturing.webp" },
+                { name: "Envil",         vertical: "AKIO",  color: akio,  desc: "Electronics generative CAD + simulation", img: "/Images/Validation.webp" },
+                { name: "Nemi OS",       vertical: "HENRY", color: henry, desc: "Digital twin + orchestrator",            img: "/Images/Nemi%20parking.webp" },
+                { name: "Legion",        vertical: "HENRY", color: henry, desc: "Industrial robotics suite",              img: "/Images/SPMS.webp" },
+                { name: "Hawkeye",       vertical: "HENRY", color: henry, desc: "Factory data acquisition",               img: "/Images/Nemi%20Testing%20components.webp" },
+                { name: "Quartermaster", vertical: "SAM",   color: sam,   desc: "Warehouse management",                   img: "/Images/Nemi%20stores.webp" },
+                { name: "Atom",          vertical: "SAM",   color: sam,   desc: "Post-sales data tracking",               img: "/Images/Usage%20tracking.webp" },
+                { name: "Exchequer",     vertical: "SAM",   color: sam,   desc: "Leasing and financing",                  img: "/Images/Predictive%20Maintenance.webp" },
+              ].map((p) => (
                 <div
-                  key={group.vertical}
-                  className="rounded-xl border p-4 md:p-5"
+                  key={p.name}
+                  className="group rounded-xl border overflow-hidden cursor-default transition-transform duration-500 hover:-translate-y-1"
                   style={{
-                    borderColor: group.color.replace(")", " / 0.3)"),
-                    background: group.color.replace(")", " / 0.04)"),
+                    borderColor: p.color.replace(")", " / 0.4)"),
+                    background: "hsl(230 25% 6% / 0.6)",
+                    boxShadow: `0 4px 24px ${p.color.replace(")", " / 0.08)")}`,
                   }}
                 >
-                  <p
-                    className="text-[0.6rem] md:text-[0.65rem] font-black tracking-[0.3em] uppercase mb-3 text-center"
-                    style={{
-                      color: group.color,
-                      textShadow: `0 0 12px ${group.color.replace(")", " / 0.4)")}`,
-                    }}
-                  >
-                    {group.vertical}
-                  </p>
-                  <div className="flex flex-col gap-2">
-                    {group.platforms.map((p) => (
-                      <div
-                        key={p.name}
-                        className="rounded-md border px-3 py-2"
-                        style={{
-                          borderColor: group.color.replace(")", " / 0.4)"),
-                          background: group.color.replace(")", " / 0.06)"),
-                        }}
-                      >
-                        <p className="text-xs md:text-sm font-bold tracking-wide" style={{ color: group.color }}>
-                          {p.name}
-                        </p>
-                        <p className="text-[0.6rem] md:text-[0.65rem] text-muted-foreground/85 leading-snug mt-0.5">
-                          {p.desc}
-                        </p>
-                      </div>
-                    ))}
+                  <div className="relative h-40 md:h-44 overflow-hidden" style={{ borderBottom: `2px solid ${p.color}` }}>
+                    <img
+                      src={p.img}
+                      alt={p.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                      loading="lazy"
+                      decoding="async"
+                      style={{ opacity: 0.85 }}
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: `linear-gradient(to top, hsl(230 25% 6% / 0.85) 0%, hsl(230 25% 6% / 0.1) 60%, transparent 100%)`,
+                      }}
+                    />
+                    <span
+                      className="absolute top-3 left-3 px-2 py-0.5 rounded text-[0.55rem] md:text-[0.6rem] font-black tracking-[0.25em] uppercase"
+                      style={{
+                        color: p.color,
+                        background: p.color.replace(")", " / 0.12)"),
+                        border: `1px solid ${p.color.replace(")", " / 0.4)")}`,
+                        textShadow: `0 0 10px ${p.color.replace(")", " / 0.5)")}`,
+                      }}
+                    >
+                      {p.vertical}
+                    </span>
+                  </div>
+                  <div className="p-4 md:p-5">
+                    <h4
+                      className="font-bold text-base md:text-lg tracking-wide mb-1.5 transition-colors duration-300 group-hover:text-foreground"
+                      style={{ color: p.color, textShadow: `0 0 12px ${p.color.replace(")", " / 0.35)")}` }}
+                    >
+                      {p.name}
+                    </h4>
+                    <p className="text-xs md:text-sm text-muted-foreground/85 leading-relaxed">
+                      {p.desc}
+                    </p>
                   </div>
                 </div>
               ))}

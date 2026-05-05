@@ -42,9 +42,11 @@ const CaseStudyEVSection = ({ scrollProgress }: CaseStudyEVSectionProps) => {
   // Widen the dwell range so the section stays on screen long enough to read.
   // Bars are driven by an internal timer so the animation always plays in full,
   // independent of how fast the user scrolls.
-  const sectionVisible = scrollProgress > 0.835 && scrollProgress < 0.92;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.84, 0.86));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.905, 0.92));
+  // Section: 0.825–0.93 (extended dwell so the bar animation has time to play
+  // and the user can read the metrics before the next section takes over).
+  const sectionVisible = scrollProgress > 0.825 && scrollProgress < 0.93;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.835, 0.86));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.91, 0.93));
   const opacity = Math.min(enterP, 1 - exitP);
 
   // Internal bar-fill animation: ramps 0 → 1 over ~1.6s once section is visible,

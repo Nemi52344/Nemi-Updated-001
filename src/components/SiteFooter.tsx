@@ -18,8 +18,7 @@ const SiteFooter = () => {
           NEMI AI
         </p>
         <p className="text-xs md:text-sm text-muted-foreground max-w-2xl leading-relaxed">
-          The AI Operating System for Manufacturing. Design, manufacture, and
-          deploy physical products under one Large Manufacturing Model.
+          Full-stack, end-to-end manufacturing automation with Physical AI.
         </p>
       </div>
 
@@ -35,7 +34,6 @@ const SiteFooter = () => {
               { label: "Home", href: "/" },
               { label: "Services", href: "/services" },
               { label: "Technology", href: "/technology" },
-              { label: "Proof", href: "/proof" },
             ].map((item) => (
               <li key={item.href}>
                 <Link
@@ -58,7 +56,6 @@ const SiteFooter = () => {
             {[
               { label: "About", href: "/about" },
               { label: "Careers", href: "/careers" },
-              { label: "Investors", href: "/investors" },
               { label: "Sitemap", href: "/sitemap.xml" },
             ].map((item) => (
               <li key={item.href}>

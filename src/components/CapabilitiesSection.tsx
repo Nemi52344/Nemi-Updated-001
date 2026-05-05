@@ -80,10 +80,10 @@ const vehicles = [
 const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
   const [selectedPart, setSelectedPart] = useState<PartKey>("complex_parts");
 
-  // Section: 0.45–0.62
-  const sectionVisible = scrollProgress > 0.44 && scrollProgress < 0.63;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.46, 0.50));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.58, 0.62));
+  // Section: 0.16–0.32 (Full-stack MaaS, slot 3 in scroll narrative)
+  const sectionVisible = scrollProgress > 0.155 && scrollProgress < 0.325;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.16, 0.19));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.30, 0.32));
 
   if (!sectionVisible) return null;
 
@@ -104,7 +104,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
             transform: `translateY(${(1 - enterP) * 30}px)`,
           }}
         >
-          Hardware Anatomy
+          Full-stack MaaS
         </h2>
 
         {/* Heading */}
@@ -115,9 +115,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
             transform: `translateY(${(1 - enterP) * 25}px)`,
           }}
         >
-          Design capabilities
-          <br />
-          from components to complex assemblies
+          Every component, manufactured end-to-end as a service.
         </h3>
 
         {/* Parts pills - equation: Battery + Motor + Mech + EE = Complex Assemblies */}

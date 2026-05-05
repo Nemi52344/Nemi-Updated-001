@@ -152,14 +152,15 @@ const StepCard = ({
 };
 
 const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
-  const enter = rangeProgress(scrollProgress, 0.05, 0.08);
-  const exit = rangeProgress(scrollProgress, 0.17, 0.20);
+  // Section: 0.45–0.60 (End-to-end automation, slot 5 in scroll narrative)
+  const enter = rangeProgress(scrollProgress, 0.45, 0.48);
+  const exit = rangeProgress(scrollProgress, 0.57, 0.60);
 
   if (enter <= 0 && exit <= 0) return null;
 
   const opacity = Math.min(easeOut(enter), 1 - easeOut(exit));
   const translateY = (1 - easeOut(enter)) * 60;
-  const cardsP = easeOut(rangeProgress(scrollProgress, 0.06, 0.11));
+  const cardsP = easeOut(rangeProgress(scrollProgress, 0.46, 0.51));
 
   return (
     <div
@@ -175,6 +176,13 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
         className="relative max-w-5xl w-full mx-auto pointer-events-auto"
         style={{ opacity: cardsP, transform: `translateY(${(1 - cardsP) * 50}px)` }}
       >
+        {/* Kicker */}
+        <p
+          className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-primary font-semibold mb-2 md:mb-3"
+          style={{ textShadow: "0 0 12px hsl(275 80% 60% / 0.35)" }}
+        >
+          End-to-end automation
+        </p>
         {/* Heading: top-left, with a red downward arrow column-aligned to the inter-row arrows */}
         <h2
           className="text-xl md:text-2xl lg:text-3xl font-semibold text-foreground tracking-wide text-left leading-tight mb-2 md:mb-3"

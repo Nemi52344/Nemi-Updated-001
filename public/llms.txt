@@ -5,7 +5,7 @@
 ## Identity
 Name: NEMI AI
 URL: https://nemi-ai.com
-Tagline: The AI Operating System for Manufacturing
+Tagline: Full-stack, end-to-end manufacturing automation with Physical AI
 Founded: Bangalore, India
 Entity: Texas C-Corporation
 
@@ -109,10 +109,8 @@ Aerospace & Defense, Automotive & EV, Industrial Electronics, Robotics & Mobilit
 - Home: https://nemi-ai.com/
 - Services (AKIO, HENRY, SAM): https://nemi-ai.com/services
 - Technology (LMM): https://nemi-ai.com/technology
-- Proof (case studies, traction): https://nemi-ai.com/proof
 - About Us (team, board, why we win, why now): https://nemi-ai.com/about
 - Careers: https://nemi-ai.com/careers
-- Investors: https://nemi-ai.com/investors
 
 ## Contact
 General: Humans@nemi-ai.com

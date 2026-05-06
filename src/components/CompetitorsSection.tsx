@@ -52,10 +52,18 @@ const factoryImages: { src: string; title: string; description: string }[] = [
   },
 ];
 
-const stats = [
+interface StatTile {
+  label: string;
+  value?: string;
+  unit?: string;
+  image?: string; // when present, render the cert badge image instead of text
+  imageAlt?: string;
+}
+
+const stats: StatTile[] = [
   { value: "300K", unit: "sq ft", label: "Facility" },
-  { value: "AS", unit: "9100D", label: "Certified" },
-  { value: "ISO", unit: "9001", label: "Certified" },
+  { image: "/Images/certifications/as9100-certification.png", imageAlt: "AS9100 Certified", label: "Aerospace" },
+  { image: "/Images/certifications/iso-9001.png",             imageAlt: "ISO 9001:2015 Certified",   label: "Quality" },
   { value: "40+", unit: "", label: "Patents" },
 ];
 
@@ -214,31 +222,52 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           }}
         >
           {stats.map((stat) => (
-            <div key={stat.label} className="text-center px-4 md:px-6">
-              <div className="flex items-baseline justify-center gap-1">
-                <span
-                  className="text-xl md:text-3xl font-bold leading-none"
-                  style={{
-                    color: "hsl(275 80% 65%)",
-                    textShadow:
-                      "0 0 18px hsl(275 80% 60% / 0.5), 0 0 36px hsl(275 80% 60% / 0.18)",
-                  }}
-                >
-                  {stat.value}
-                </span>
-                {stat.unit && (
-                  <span
-                    className="text-xs md:text-sm font-semibold leading-none"
+            <div
+              key={stat.label}
+              className="text-center px-5 md:px-8 flex flex-col items-center justify-center"
+              style={{ minHeight: "130px" }}
+            >
+              {stat.image ? (
+                <div className="flex items-center justify-center h-16 md:h-24 w-full">
+                  <img
+                    src={stat.image}
+                    alt={stat.imageAlt || stat.label}
+                    className="h-full w-auto"
                     style={{
-                      color: "hsl(275 60% 80%)",
-                      textShadow: "0 0 12px hsl(275 80% 60% / 0.3)",
+                      maxWidth: "190px",
+                      objectFit: "contain",
+                      filter: "drop-shadow(0 0 16px hsl(275 80% 60% / 0.45))",
+                    }}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ) : (
+                <div className="flex items-baseline justify-center gap-1 h-16 md:h-24">
+                  <span
+                    className="text-3xl md:text-5xl lg:text-6xl font-bold leading-none self-center"
+                    style={{
+                      color: "hsl(275 80% 65%)",
+                      textShadow:
+                        "0 0 18px hsl(275 80% 60% / 0.5), 0 0 36px hsl(275 80% 60% / 0.18)",
                     }}
                   >
-                    {stat.unit}
+                    {stat.value}
                   </span>
-                )}
-              </div>
-              <span className="text-[9px] md:text-[10px] tracking-[0.25em] uppercase text-muted-foreground mt-1.5 block font-medium">
+                  {stat.unit && (
+                    <span
+                      className="text-sm md:text-base font-semibold leading-none self-center"
+                      style={{
+                        color: "hsl(275 60% 80%)",
+                        textShadow: "0 0 12px hsl(275 80% 60% / 0.3)",
+                      }}
+                    >
+                      {stat.unit}
+                    </span>
+                  )}
+                </div>
+              )}
+              <span className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-muted-foreground mt-3 block font-medium">
                 {stat.label}
               </span>
             </div>

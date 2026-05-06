@@ -58,14 +58,12 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
           />
         </div>
 
-        {/* Heading — bold with subtle accent on key terms */}
+        {/* Heading — manufacturing reimagined with AI, NEMI is leading */}
         <h2
-          className="text-3xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight leading-[1.18] md:leading-[1.12] text-foreground/95"
+          className="text-2xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.25] md:leading-[1.2] text-foreground/95"
           style={{ textShadow: "0 0 24px hsl(275 60% 50% / 0.18)" }}
         >
-          Manufacturing is going to get
-          <br />
-          reimagined{" "}
+          Manufacturing is being reimagined{" "}
           <span
             className="relative inline-block font-extrabold"
             style={{ color: "hsl(275 55% 78%)" }}
@@ -80,7 +78,6 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
               }}
             />
           </span>
-          <span className="text-foreground/95">,</span>
           <br />
           and{" "}
           <span

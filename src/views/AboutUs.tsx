@@ -735,8 +735,6 @@ const AboutUs = () => {
                   { src: "/Images/logos/whirlpool.webp", label: "Whirlpool" },
                   { src: "/Images/logos/abb.webp", label: "ABB" },
                   { src: "/Images/logos/caterpillar.webp", label: "Caterpillar" },
-                  { src: "/Images/logos/isro.webp", label: "ISRO" },
-                  { src: "/Images/logos/drdo.webp", label: "DRDO" },
                   { src: "/Images/logos/boeing.webp", label: "Boeing" },
                   { src: "/Images/logos/ashok-leyland.webp", label: "Ashok Leyland" },
                 ].map((logo) => (
@@ -761,8 +759,6 @@ const AboutUs = () => {
               <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
                 {[
                   { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield" },
-                  { src: "/Images/logos/brahmos.webp", label: "BrahMos" },
-                  { src: "/Images/logos/bharat-dynamics.webp", label: "Bharat Dynamics" },
                   { src: "/Images/logos/exide.webp", label: "Exide" },
                   { src: "/Images/logos/flipkart.webp", label: "Flipkart" },
                   { src: "/Images/logos/zomato.webp", label: "Zomato" },

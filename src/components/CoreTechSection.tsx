@@ -243,14 +243,21 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
             }}
           >
             <p
-              className="text-sm md:text-xl lg:text-2xl font-light text-foreground tracking-wide md:tracking-widest text-center max-w-2xl mx-auto leading-snug"
+              className="text-sm md:text-lg lg:text-xl font-light text-foreground tracking-wide text-center max-w-3xl mx-auto leading-relaxed"
               style={{
                 textShadow:
                   "0 0 20px hsl(275 80% 60% / 0.5), 0 0 40px hsl(270 70% 50% / 0.25)",
                 animation: bottomP >= 1 ? "text-glow-pulse 3s ease-in-out infinite" : "none",
               }}
             >
-              The Large Manufacturing Model orchestrates AKIO, HENRY and SAM.
+              NEMI&rsquo;s proprietary{" "}
+              <span className="font-semibold text-foreground">Large Manufacturing Model</span>{" "}
+              automates manufacturing end-to-end with three verticals:{" "}
+              <span className="font-bold" style={{ color: "hsl(0, 72%, 62%)" }}>AKIO</span>
+              <span className="text-muted-foreground">, </span>
+              <span className="font-bold" style={{ color: "hsl(217, 91%, 65%)" }}>HENRY</span>
+              <span className="text-muted-foreground">, </span>
+              <span className="font-bold" style={{ color: "hsl(142, 71%, 50%)" }}>SAM</span>.
             </p>
           </div>
 

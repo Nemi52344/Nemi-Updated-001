@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="NEMI AI" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph — site-wide constants (title/desc/url overridden per-page via Helmet) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NEMI AI" />
+    <meta property="og:image" content="https://nemi-ai.com/Images/nemi%2001.png" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card — site-wide constants -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@NEMIai" />
+    <meta name="twitter:image" content="https://nemi-ai.com/Images/nemi%2001.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
+    <!-- JSON-LD: Organization (site-wide) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "NEMI AI",
+      "url": "https://nemi-ai.com",
+      "logo": "https://nemi-ai.com/Images/nemi%2001.png",
+      "description": "NEMI AI is an end-to-end Physical AI platform powered by the Large Manufacturing Model (LMM). Design with AKIO, manufacture with HENRY, deploy with SAM.",
+      "foundingLocation": { "@type": "Place", "name": "Bangalore, India" },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "NEMI Platform Services",
+        "itemListElement": [
+          { "@type": "Offer", "name": "AKIO — Design Intelligence Suite", "description": "AI-powered product and component design. From idea to production-ready design in weeks, not months." },
+          { "@type": "Offer", "name": "HENRY — AI-Driven Manufacturing", "description": "Full-stack manufacturing: tooling, metal parts, battery, motor, electronics, and complex assemblies." },
+          { "@type": "Offer", "name": "SAM — Deployment & Lifecycle", "description": "Deploy, monitor, and improve every unit. Real-world performance data feeds back into design." }
+        ]
+      }
+    }
+    </script>
+
+    <!-- JSON-LD: WebSite (site-wide) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "NEMI AI",
+      "url": "https://nemi-ai.com"
+    }
+    </script>
+
+    <!-- Per-page: title, description, canonical, og:title/desc/url, twitter:title/desc
+         injected here by Helmet (SSR) or react-helmet-async (CSR) -->
+    <!--app-head-->
+  </head>
+
+  <body>
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 25% 4%;
+    --foreground: 0 0% 95%;
+
+    --card: 230 20% 8%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 230 20% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 270 60% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 230 20% 12%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 230 15% 15%;
+    --muted-foreground: 230 10% 55%;
+
+    --accent: 275 70% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 230 15% 18%;
+    --input: 230 15% 18%;
+    --ring: 270 60% 55%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 230 25% 6%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 270 60% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 20% 12%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 230 15% 18%;
+    --sidebar-ring: 270 60% 55%;
+
+    --nemi-glow: 275 80% 60%;
+    --nemi-nebula: 260 70% 30%;
+  }
+
+  .dark {
+    --background: 230 25% 4%;
+    --foreground: 0 0% 95%;
+    --card: 230 20% 8%;
+    --card-foreground: 0 0% 95%;
+    --popover: 230 20% 8%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 270 60% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 20% 12%;
+    --secondary-foreground: 0 0% 90%;
+    --muted: 230 15% 15%;
+    --muted-foreground: 230 10% 55%;
+    --accent: 275 70% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 230 15% 18%;
+    --input: 230 15% 18%;
+    --ring: 270 60% 55%;
+    --sidebar-background: 230 25% 6%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 270 60% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 20% 12%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 230 15% 18%;
+    --sidebar-ring: 270 60% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    scrollbar-width: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* NEMI Logo 3D Rotation */
+@keyframes logo-rotate-y {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Glass shine sweep at ~75 degree angle */
+@keyframes glass-shine-sweep {
+  0% {
+    transform: translateX(-150%) rotate(-75deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(350%) rotate(-75deg);
+    opacity: 0;
+  }
+}
+
+/* Constellation particle float */
+@keyframes particle-float {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(var(--dx, 10px), var(--dy, -15px));
+    opacity: 0.8;
+  }
+}
+
+/* Text glow pulse */
+@keyframes text-glow-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 20px hsl(275 80% 60% / 0.6),
+      0 0 40px hsl(270 70% 50% / 0.3),
+      0 0 80px hsl(280 80% 45% / 0.15);
+  }
+  50% {
+    text-shadow:
+      0 0 30px hsl(275 80% 60% / 0.8),
+      0 0 60px hsl(270 70% 50% / 0.5),
+      0 0 120px hsl(280 80% 45% / 0.25);
+  }
+}
+
+/* Nebula breathing glow */
+@keyframes nebula-breathe {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+/* Partner logo rolling banners */
+@keyframes partner-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes partner-scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes avatar-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--pulse-color), 0 0 16px var(--pulse-color-dim); }
+  50% { box-shadow: 0 0 14px var(--pulse-color), 0 0 28px var(--pulse-color-dim); }
+}

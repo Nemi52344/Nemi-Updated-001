@@ -1,0 +1,11 @@
+/* Reset */
+html {
+  scroll-behavior: smooth;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  text-align: initial;
+  max-width: none;
+}

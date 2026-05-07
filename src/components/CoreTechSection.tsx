@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Link from "next/link";
 import akioImg from "@/assets/akio.webp";
 import henryImg from "@/assets/henry.webp";
 import samImg from "@/assets/sam.webp";
@@ -285,34 +284,6 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
               })}
             </div>
 
-            {/* Catchphrase row — each phrase sits under its respective AI card and links to that tab */}
-            <div
-              className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5 lg:gap-8 w-full px-6 md:px-4 lg:px-0 max-w-sm md:max-w-5xl mx-auto mt-4 md:mt-6"
-              style={{ opacity: bottomOpacity }}
-            >
-              {([
-                { tab: "akio", verb: "Design with", name: "AKIO" },
-                { tab: "henry", verb: "Build with", name: "HENRY" },
-                { tab: "sam", verb: "Deploy with", name: "SAM" },
-              ] as const).map((p, idx) => (
-                <Link
-                  key={p.tab}
-                  href={`/services?tab=${p.tab}`}
-                  className="text-center text-xs md:text-base font-bold tracking-[0.18em] uppercase text-foreground/60 hover:text-foreground transition-colors py-2 group"
-                >
-                  {p.verb}{" "}
-                  <span
-                    className="transition-[text-shadow] duration-200"
-                    style={{
-                      color: `hsl(${techLeaders[idx].colorHsl})`,
-                    }}
-                  >
-                    {p.name}
-                  </span>
-                  .
-                </Link>
-              ))}
-            </div>
           </div>
         </div>
       </div>

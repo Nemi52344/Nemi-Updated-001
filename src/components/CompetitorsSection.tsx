@@ -228,13 +228,13 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
               style={{ minHeight: "130px" }}
             >
               {stat.image ? (
-                <div className="flex items-center justify-center h-16 md:h-24 w-full">
+                <div className="flex items-center justify-center h-20 md:h-28 w-full">
                   <img
                     src={stat.image}
                     alt={stat.imageAlt || stat.label}
                     className="h-full w-auto"
                     style={{
-                      maxWidth: "190px",
+                      maxWidth: "200px",
                       objectFit: "contain",
                       filter: "drop-shadow(0 0 16px hsl(275 80% 60% / 0.45))",
                     }}
@@ -243,7 +243,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   />
                 </div>
               ) : (
-                <div className="flex items-baseline justify-center gap-1 h-16 md:h-24">
+                <div className="flex items-baseline justify-center gap-1 h-20 md:h-28">
                   <span
                     className="text-3xl md:text-5xl lg:text-6xl font-bold leading-none self-center"
                     style={{

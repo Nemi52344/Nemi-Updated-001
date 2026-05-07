@@ -44,28 +44,46 @@ const SlideImage = ({ src, alt }: { src: string; alt: string }) => (
   </div>
 );
 
+// Chunky block-style right/left arrow matching the PPT `rightArrow` primitive:
+// rectangular body on one side, triangular head on the other.
 const ArrowSvg = ({ direction }: { direction: "right" | "left" }) => (
   <svg
-    width="60"
-    height="12"
-    viewBox="0 0 60 12"
+    width="64"
+    height="22"
+    viewBox="0 0 64 22"
     preserveAspectRatio="none"
     aria-hidden
-    className="w-full max-w-[100px]"
+    className="w-full max-w-[110px]"
   >
     {direction === "right" ? (
-      <>
-        <line x1="0" y1="6" x2="50" y2="6" stroke={PURPLE_FILL} strokeWidth="6" />
-        <path d="M 46 0 L 60 6 L 46 12 Z" fill={PURPLE_FILL} />
-      </>
+      <path
+        d="M 0 6 L 44 6 L 44 0 L 64 11 L 44 22 L 44 16 L 0 16 Z"
+        fill={PURPLE_FILL}
+      />
     ) : (
-      <>
-        <line x1="60" y1="6" x2="10" y2="6" stroke={PURPLE_FILL} strokeWidth="6" />
-        <path d="M 14 0 L 0 6 L 14 12 Z" fill={PURPLE_FILL} />
-      </>
+      <path
+        d="M 64 6 L 20 6 L 20 0 L 0 11 L 20 22 L 20 16 L 64 16 Z"
+        fill={PURPLE_FILL}
+      />
     )}
   </svg>
 );
+
+const DownArrowSvg = () => (
+  <svg
+    width="20"
+    height="26"
+    viewBox="0 0 20 26"
+    preserveAspectRatio="none"
+    aria-hidden
+  >
+    <path
+      d="M 6 0 L 14 0 L 14 16 L 20 16 L 10 26 L 0 16 L 6 16 Z"
+      fill={PURPLE_FILL}
+    />
+  </svg>
+);
+
 
 const StageColumn = ({
   label,
@@ -78,7 +96,7 @@ const StageColumn = ({
   lmm?: string;
   direction?: "right" | "left";
 }) => (
-  <div className="flex flex-col justify-center items-center w-[100px] md:w-[130px] lg:w-[160px] shrink-0 px-1">
+  <div className="flex flex-col justify-center items-center w-[100px] md:w-[130px] lg:w-[160px] lg:min-h-[130px] shrink-0 px-1">
     <p
       className="text-[0.55rem] md:text-[0.7rem] lg:text-[0.8rem] font-bold text-center leading-[1.2] max-w-[160px] mb-2"
       style={{ color: PURPLE_LABEL }}
@@ -90,12 +108,12 @@ const StageColumn = ({
       <div className="flex flex-col items-center gap-0 mt-2">
         {typical && (
           <p className="text-[0.55rem] md:text-[0.65rem] lg:text-[0.75rem]" style={{ color: TEXT_LIGHT }}>
-            Typical*: <span className="font-semibold">{typical}</span>
+            Benchmark*: <span className="font-semibold">{typical}</span>
           </p>
         )}
         {lmm && (
           <p className="text-[0.55rem] md:text-[0.65rem] lg:text-[0.75rem]" style={{ color: TEXT_LIGHT }}>
-            LMM: <span className="font-semibold">{lmm}</span>
+            Improvement: <span className="font-semibold">{lmm}</span>
           </p>
         )}
       </div>
@@ -156,7 +174,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center pointer-events-none px-3 md:px-6 lg:px-10 overflow-y-auto"
+      className="fixed inset-0 flex items-center justify-center pointer-events-none px-3 md:px-6 lg:px-10 pt-[65px] overflow-y-auto"
       style={{
         zIndex: 15,
         opacity,
@@ -172,12 +190,9 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
         {/* TITLE BAR */}
         <div className="flex items-start justify-between gap-4 mb-2">
           <div>
-            <h2 className="text-base md:text-xl lg:text-[1.6rem] font-bold leading-tight" style={{ color: "white" }}>
-              What does a product that moves through LMM look like?
+            <h2 className="text-base md:text-xl lg:text-[1.6rem] font-bold leading-tight whitespace-nowrap" style={{ color: "white" }}>
+              A product through LMM: 3x faster, 3x leaner, improving every iteration
             </h2>
-            <p className="text-sm md:text-base lg:text-lg font-bold leading-tight mt-0.5" style={{ color: "white" }}>
-              3x faster, 3x leaner, improves with every iteration
-            </p>
           </div>
           <div className="hidden md:flex items-center gap-2 shrink-0 mt-1">
             <span className="text-foreground font-bold tracking-[0.18em] text-sm">NEMI</span>
@@ -195,48 +210,87 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
         />
 
         {/* SNAKE FLOW WRAPPER — relative for outer connector positioning.
-            Side padding leaves room for the outer L-arrows. */}
-        <div className="relative lg:px-10">
-          {/* OUTER LEFT FEEDBACK LOOP — placed FIRST in DOM so it renders
-              behind all rows. Body spans the entire LEFT side; horizontal arm
-              at TOP ends in arrowhead pointing RIGHT into Sketch; horizontal
-              arm at BOTTOM extends right under row 3 (matches slide Shape 18). */}
+            Side padding leaves room for the outer L-arrows. Bottom padding
+            keeps the wrap-around bracket's bottom rail clear of the row 3
+            summary panels. */}
+        <div className="relative lg:px-10 lg:pb-6">
+          {/* OUTER WRAP-AROUND BRACKET — 4 pieces forming a U-shape that wraps
+              the entire snake-flow:
+                1. Top-left arm SVG with arrowhead → INTO Sketch
+                2. Left vertical bar (down)
+                3. Bottom rail (right) under all rows
+                4. Right vertical bar (up)
+              All anchored to the snake-flow wrapper's padding box, so the
+              shape resizes naturally with viewport width. */}
           {(() => {
-            const totalH = IMG_H * 3 + ROW_GAP * 2;        // full snake-flow height
             const svgTop = IMG_H / 2 - 12;                  // align arrowhead tip with Sketch mid
-            const svgHeight = totalH - svgTop + 14;         // extend past bottom of row 3 for bottom arm
-            const bottomArmWidth = 580;                     // bottom arm extends right under row 3
+            const innerBarTop = svgTop + 6;                  // top edge of vertical bar interior
+            const railThickness = 14;
             return (
-              <svg
-                aria-hidden
-                className="hidden lg:block absolute"
-                width={bottomArmWidth}
-                height={svgHeight}
-                viewBox={`0 0 ${bottomArmWidth} ${svgHeight}`}
-                preserveAspectRatio="none"
-                style={{
-                  left: "-2px",
-                  top: `${svgTop}px`,
-                  zIndex: 0,
-                  pointerEvents: "none",
-                }}
-              >
-                <path
-                  d={`M 0 6
-                      L 42 6
-                      L 42 0
-                      L 60 12
-                      L 42 24
-                      L 42 18
-                      L 14 18
-                      L 14 ${svgHeight - 14}
-                      L ${bottomArmWidth} ${svgHeight - 14}
-                      L ${bottomArmWidth} ${svgHeight}
-                      L 0 ${svgHeight}
-                      Z`}
-                  fill={PURPLE_FILL}
+              <>
+                {/* Top-left arm with rightward arrowhead. SVG width matches the
+                    distance from the bracket's left edge to Sketch's left edge
+                    (snake-flow padding 40 + bracket left:-2 offset = 42px), so
+                    the arrowhead tip lands exactly ON Sketch's left edge —
+                    fully visible and touching the image. */}
+                <svg
+                  aria-hidden
+                  className="hidden lg:block absolute"
+                  width={42}
+                  height={24}
+                  viewBox="0 0 42 24"
+                  preserveAspectRatio="none"
+                  style={{
+                    left: "-2px",
+                    top: `${svgTop}px`,
+                    zIndex: 0,
+                    pointerEvents: "none",
+                  }}
+                >
+                  <path d="M 0 6 L 24 6 L 24 0 L 42 12 L 24 24 L 24 18 L 0 18 Z" fill={PURPLE_FILL} />
+                </svg>
+                {/* Left vertical bar */}
+                <div
+                  aria-hidden
+                  className="hidden lg:block absolute"
+                  style={{
+                    left: "-2px",
+                    top: `${innerBarTop}px`,
+                    bottom: `${railThickness}px`,
+                    width: "14px",
+                    background: PURPLE_FILL,
+                    zIndex: 0,
+                    pointerEvents: "none",
+                  }}
                 />
-              </svg>
+                {/* Bottom rail — runs from the LEFT vertical bar (left:-2)
+                    to UNDER the Dashboard → rail connector's RIGHT edge so
+                    the corner is fully overlapped (no sub-pixel gap). The
+                    right offset is computed from the row 3 grid template:
+                      col 3 center (in padding-box) = 216 + 1.5·col1_w
+                      col1_w = (padding-box_w − 264) / 3.45
+                      ⇒ dashboard_center = 0.4348·padding-box_w + 101.21
+                      ⇒ right offset for rail end at center + 7
+                        = padding-box_w − dashboard_center − 7
+                        = 0.5652·padding-box_w − 108.21
+                        ≈ calc(56.52% − 108px) */}
+                <div
+                  aria-hidden
+                  className="hidden lg:block absolute"
+                  style={{
+                    left: "-2px",
+                    right: "calc(56.52% - 108px)",
+                    bottom: 0,
+                    height: `${railThickness}px`,
+                    background: PURPLE_FILL,
+                    zIndex: 0,
+                    pointerEvents: "none",
+                  }}
+                />
+                {/* Right vertical bar — removed per design feedback (the
+                    feedback loop now closes via Dashboard → down → left under
+                    the panels → up the LEFT side, not via a right vertical). */}
+              </>
             );
           })()}
 
@@ -286,7 +340,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
           {/* ROW 2 — Tooling | BOM | Simulation (flow ←) */}
           <div
             className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr] gap-2 items-center"
-            style={{ marginBottom: `${ROW_GAP}px`, zIndex: 1 }}
+            style={{ marginBottom: 0, zIndex: 1 }}
           >
             <SlideImage src={IMG.tooling} alt="Tooling / mold" />
             <StageColumn label="BOM to Tooling + Production" typical="9-12 mo" lmm="12 wks" direction="left" />
@@ -295,13 +349,47 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
             <SlideImage src={IMG.simulation} alt="CAD simulation / FEA" />
           </div>
 
+          {/* ROW 2 → ROW 3 connector: small DOWN arrow in left column (matches
+              slide DownArrow210 — Tooling → Production line). Mirror row 3's
+              grid template + auto-col width so col 1 lines up with the cards. */}
+          <div
+            className="hidden lg:grid grid-cols-[1fr_auto_1fr_1.45fr] gap-2 items-center"
+            style={{ height: `${ROW_GAP}px`, zIndex: 2, position: "relative" }}
+          >
+            <div className="flex justify-center">
+              <DownArrowSvg />
+            </div>
+            <div className="w-[100px] md:w-[130px] lg:w-[160px] shrink-0" />
+            <div />
+            <div />
+          </div>
+
           {/* ROW 3 — Production → Dashboard | Comparison panels.
               items-center keeps the row 3 images at their natural 130px height
               so the (taller) comparison panels don't stretch the rest of the row. */}
-          <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_1.45fr] gap-2 items-center" style={{ zIndex: 1 }}>
+          <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_1.45fr] gap-2 lg:items-start items-center" style={{ zIndex: 1 }}>
             <SlideImage src={IMG.production} alt="Production line" />
             <StageColumn label="Production to post sales tracking" direction="right" />
-            <SlideImage src={IMG.dashboard} alt="Post-sales tracking dashboard" />
+            <div className="relative">
+              <SlideImage src={IMG.dashboard} alt="Post-sales tracking dashboard" />
+              {/* Vertical connector — drops straight DOWN from Dashboard's
+                  bottom edge through the bracket's bottom rail (height 88 =
+                  60 to rail top + 14 rail thickness, so it fully overlaps the
+                  rail at the corner with no sub-pixel gap). */}
+              <div
+                aria-hidden
+                className="hidden lg:block absolute pointer-events-none"
+                style={{
+                  left: "50%",
+                  top: "100%",
+                  transform: "translateX(-50%)",
+                  width: "14px",
+                  height: "88px",
+                  background: PURPLE_FILL,
+                  zIndex: 0,
+                }}
+              />
+            </div>
             <div className="flex flex-col gap-1.5 lg:pl-3 self-center">
               <ComparisonPanel
                 heading="What foundation models did:"

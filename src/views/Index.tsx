@@ -15,7 +15,6 @@ import useScrollProgress from "@/hooks/useScrollProgress";
 const TrustSignalSection = dynamic(() => import("@/components/TrustSignalSection"));
 const IntentSection = dynamic(() => import("@/components/IntentSection"));
 const ProblemSection = dynamic(() => import("@/components/ProblemSection"));
-const CoreTechSection = dynamic(() => import("@/components/CoreTechSection"));
 const CapabilitiesSection = dynamic(() => import("@/components/CapabilitiesSection"));
 const CompetitorsSection = dynamic(() => import("@/components/CompetitorsSection"));
 const WhyNowSection = dynamic(() => import("@/components/WhyNowSection"));
@@ -104,7 +103,6 @@ const Index = () => {
       <ConstellationCanvas />
       <IntentSection scrollProgress={scrollProgress} />
       <ProblemSection scrollProgress={scrollProgress} />
-      <CoreTechSection scrollProgress={scrollProgress} />
       <CapabilitiesSection scrollProgress={scrollProgress} />
       <CompetitorsSection scrollProgress={scrollProgress} />
       <WhyNowSection scrollProgress={scrollProgress} />
@@ -120,7 +118,6 @@ const Index = () => {
       <ScrollTransition scrollProgress={scrollProgress} at={0.15} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.32} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.45} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.60} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.74} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.815} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.89} />

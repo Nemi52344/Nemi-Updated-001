@@ -26,8 +26,8 @@ const IMG = {
 };
 
 // Image height in the snake-flow rows
-const IMG_H = 130;
-const ROW_GAP = 26;
+const IMG_H = 155;
+const ROW_GAP = 14;
 
 const SlideImage = ({ src, alt }: { src: string; alt: string }) => (
   <div
@@ -72,13 +72,14 @@ const ArrowSvg = ({ direction }: { direction: "right" | "left" }) => (
 const DownArrowSvg = () => (
   <svg
     width="20"
-    height="26"
-    viewBox="0 0 20 26"
+    height="36"
+    viewBox="0 0 20 36"
     preserveAspectRatio="none"
     aria-hidden
+    style={{ display: "block", marginTop: "-18px" }}
   >
     <path
-      d="M 6 0 L 14 0 L 14 16 L 20 16 L 10 26 L 0 16 L 6 16 Z"
+      d="M 6 0 L 14 0 L 14 26 L 20 26 L 10 36 L 0 26 L 6 26 Z"
       fill={PURPLE_FILL}
     />
   </svg>
@@ -96,7 +97,7 @@ const StageColumn = ({
   lmm?: string;
   direction?: "right" | "left";
 }) => (
-  <div className="flex flex-col justify-center items-center w-[100px] md:w-[130px] lg:w-[160px] lg:min-h-[130px] shrink-0 px-1">
+  <div className="flex flex-col justify-center items-center w-[100px] md:w-[130px] lg:w-[160px] shrink-0 px-1" style={{ height: `${IMG_H}px` }}>
     <p
       className="text-[0.55rem] md:text-[0.7rem] lg:text-[0.8rem] font-bold text-center leading-[1.2] max-w-[160px] mb-2"
       style={{ color: PURPLE_LABEL }}
@@ -194,14 +195,6 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
               A product through LMM: 3x faster, 3x leaner, improving every iteration
             </h2>
           </div>
-          <div className="hidden md:flex items-center gap-2 shrink-0 mt-1">
-            <span className="text-foreground font-bold tracking-[0.18em] text-sm">NEMI</span>
-            <span className="flex items-center gap-1">
-              <span className="block w-2 h-2 rounded-full" style={{ background: "hsl(0, 72%, 52%)" }} />
-              <span className="block w-2 h-2 rounded-full" style={{ background: "hsl(217, 91%, 60%)" }} />
-              <span className="block w-2 h-2 rounded-full" style={{ background: "hsl(142, 71%, 45%)" }} />
-            </span>
-          </div>
         </div>
 
         <div
@@ -256,40 +249,42 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
                   style={{
                     left: "-2px",
                     top: `${innerBarTop}px`,
-                    bottom: `${railThickness}px`,
+                    bottom: `${railThickness + 18}px`,
                     width: "14px",
                     background: PURPLE_FILL,
                     zIndex: 0,
                     pointerEvents: "none",
                   }}
                 />
-                {/* Bottom rail — runs from the LEFT vertical bar (left:-2)
-                    to UNDER the Dashboard → rail connector's RIGHT edge so
-                    the corner is fully overlapped (no sub-pixel gap). The
-                    right offset is computed from the row 3 grid template:
-                      col 3 center (in padding-box) = 216 + 1.5·col1_w
-                      col1_w = (padding-box_w − 264) / 3.45
-                      ⇒ dashboard_center = 0.4348·padding-box_w + 101.21
-                      ⇒ right offset for rail end at center + 7
-                        = padding-box_w − dashboard_center − 7
-                        = 0.5652·padding-box_w − 108.21
-                        ≈ calc(56.52% − 108px) */}
                 <div
                   aria-hidden
                   className="hidden lg:block absolute"
                   style={{
                     left: "-2px",
-                    right: "calc(56.52% - 108px)",
-                    bottom: 0,
+                    right: "calc(59.01% - 108px)",
+                    bottom: "18px",
                     height: `${railThickness}px`,
                     background: PURPLE_FILL,
                     zIndex: 0,
                     pointerEvents: "none",
                   }}
                 />
-                {/* Right vertical bar — removed per design feedback (the
-                    feedback loop now closes via Dashboard → down → left under
-                    the panels → up the LEFT side, not via a right vertical). */}
+                {/* Drop connector — runs from dashboard bottom down to the bottom rail top.
+                    top = row1 + gap + row2 + connector + IMG_H (dashboard bottom).
+                    bottom matches rail exactly so it never overshoots. */}
+                <div
+                  aria-hidden
+                  className="hidden lg:block absolute pointer-events-none"
+                  style={{
+                    left: "calc(40.99% + 94px)",
+                    top: `${IMG_H * 3 + ROW_GAP * 2}px`,
+                    bottom: `${railThickness + 18}px`,
+                    width: "14px",
+                    background: PURPLE_FILL,
+                    zIndex: 0,
+                  }}
+                />
+                {/* Right vertical bar — removed per design feedback */}
               </>
             );
           })()}
@@ -349,14 +344,12 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
             <SlideImage src={IMG.simulation} alt="CAD simulation / FEA" />
           </div>
 
-          {/* ROW 2 → ROW 3 connector: small DOWN arrow in left column (matches
-              slide DownArrow210 — Tooling → Production line). Mirror row 3's
-              grid template + auto-col width so col 1 lines up with the cards. */}
+          {/* ROW 2 → ROW 3 connector: down arrow in col 1, aligned to production image */}
           <div
-            className="hidden lg:grid grid-cols-[1fr_auto_1fr_1.45fr] gap-2 items-center"
-            style={{ height: `${ROW_GAP}px`, zIndex: 2, position: "relative" }}
+            className="hidden lg:grid grid-cols-[1fr_auto_1.05fr_1.67fr] gap-2 items-center"
+            style={{ height: `${ROW_GAP}px`, zIndex: 2, position: "relative", overflow: "visible" }}
           >
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center" style={{ position: "relative", height: 0 }}>
               <DownArrowSvg />
             </div>
             <div className="w-[100px] md:w-[130px] lg:w-[160px] shrink-0" />
@@ -364,33 +357,20 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
             <div />
           </div>
 
-          {/* ROW 3 — Production → Dashboard | Comparison panels.
-              items-center keeps the row 3 images at their natural 130px height
-              so the (taller) comparison panels don't stretch the rest of the row. */}
-          <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_1.45fr] gap-2 lg:items-start items-center" style={{ zIndex: 1 }}>
-            <SlideImage src={IMG.production} alt="Production line" />
+          {/* ROW 3 — Production → Dashboard | Comparison panels. items-center matches rows 1 & 2 */}
+          <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1.05fr_1.67fr] gap-2 lg:items-start items-center" style={{ zIndex: 1 }}>
+            {/* Constrain production image to the same width as col 1 in rows 1/2.
+                Rows 1/2 grid: [1fr auto 1fr auto 1fr] with auto=160px, gap=8px.
+                col1_w = (container_w − 2·160 − 4·8) / 3 = (container_w − 352) / 3
+                container_w at lg = min(viewport, 1280) − 80 outer − 80 inner = min(vw,1280) − 160 */}
+            <div style={{ maxWidth: "calc((min(100vw, 1280px) - 160px - 352px) / 3)" }}>
+              <SlideImage src={IMG.production} alt="Production line" />
+            </div>
             <StageColumn label="Production to post sales tracking" direction="right" />
             <div className="relative">
               <SlideImage src={IMG.dashboard} alt="Post-sales tracking dashboard" />
-              {/* Vertical connector — drops straight DOWN from Dashboard's
-                  bottom edge through the bracket's bottom rail (height 88 =
-                  60 to rail top + 14 rail thickness, so it fully overlaps the
-                  rail at the corner with no sub-pixel gap). */}
-              <div
-                aria-hidden
-                className="hidden lg:block absolute pointer-events-none"
-                style={{
-                  left: "50%",
-                  top: "100%",
-                  transform: "translateX(-50%)",
-                  width: "14px",
-                  height: "88px",
-                  background: PURPLE_FILL,
-                  zIndex: 0,
-                }}
-              />
             </div>
-            <div className="flex flex-col gap-1.5 lg:pl-3 self-center">
+            <div className="flex flex-col gap-1.5 lg:pl-3 self-start">
               <ComparisonPanel
                 heading="What foundation models did:"
                 highlight={false}

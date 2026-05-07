@@ -79,8 +79,8 @@ const flywheelVertices = [
 ] as const;
 
 const strategySteps = [
-  { num: "01", code: "ACQ", title: "Acquire", body: "Buy proven factories. Real machines. Real data. Real customers." },
-  { num: "02", code: "AUG", title: "Augment", body: "Layer the LMM stack on top — sensors, AI scheduling, quality prediction. Production runs get smarter overnight." },
+  { num: "01", code: "ASS", title: "Assimilate", body: "Embed into existing factories. Ingest real machines, real data, real customers, without disrupting production." },
+  { num: "02", code: "AUG", title: "Augment", body: "Layer the LMM stack on top: sensors, AI scheduling, quality prediction. Production runs get smarter overnight." },
   { num: "03", code: "ACC", title: "Accelerate", body: "Every job feeds the model. Each factory compounds the learning, making the whole network faster, cheaper and more reliable." },
 ];
 
@@ -128,7 +128,7 @@ const Technology = () => {
             </span>
             <br />
             <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both" }}>
-              Has a New{" "}
+              Has a New
             </span>
             <span
               className="bg-clip-text text-transparent inline-block"
@@ -136,6 +136,7 @@ const Technology = () => {
                 backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary) / 0.8))",
                 backgroundSize: "200% 200%",
                 animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both, hero-gradient-shift 6s ease-in-out infinite 1.6s",
+                marginLeft: "0.2em",
               }}
             >
               Brain.
@@ -190,7 +191,7 @@ const Technology = () => {
         </ScrollReveal>
         <ScrollReveal delay={100}>
           <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-14 max-w-[640px]">
-            The operating system for the physical world. Four layers working as one — applications on top, agents in the middle, data and machines underneath.
+            The operating system for the physical world. Four layers working as one: applications on top, agents in the middle, data and machines underneath.
           </p>
         </ScrollReveal>
 
@@ -220,259 +221,187 @@ const Technology = () => {
           </p>
         </ScrollReveal>
 
-        {/* TIER 1 — One Intelligence at the hub, with three vertices on the rim */}
+        {/* TIER 1 — One Intelligence flywheel */}
         <ScrollReveal>
           <div className="flex flex-col items-center mb-12 md:mb-16">
-            <h3 className="text-xl md:text-3xl font-extrabold tracking-wider uppercase text-foreground mb-6 md:mb-8 text-center"
-              style={{ textShadow: "0 0 16px hsl(275 80% 60% / 0.4)" }}
-            >
-              One Intelligence
-            </h3>
+            <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-8 font-bold text-center">One Intelligence</p>
             <div className="flex items-center justify-center w-full">
               {(() => {
-                const SIZE = 800;
+                const SIZE = 560;
                 const cx = SIZE / 2;
                 const cy = SIZE / 2;
-                const hubR = 70;
-                const gap = 6;          // dark space between rings
-                const r1Inner = hubR + gap;            // 76
-                const r1Outer = r1Inner + 70;          // 146
-                const r2Inner = r1Outer + gap;         // 152
-                const r2Outer = r2Inner + 78;          // 230
-                const r3Inner = r2Outer + gap;         // 236
-                const r3Outer = r3Inner + 106;         // 342
-
+                const R = 200;
+                const nodeR = 54;
+                const hubR = 62;
                 const toRad = (d: number) => (d * Math.PI) / 180;
-                const arcPoint = (angle: number, r: number) => ({
-                  x: cx + Math.cos(toRad(angle)) * r,
-                  y: cy + Math.sin(toRad(angle)) * r,
-                });
-                const sectorPath = (a1: number, a2: number, rIn: number, rOut: number) => {
-                  const p1Out = arcPoint(a1, rOut);
-                  const p2Out = arcPoint(a2, rOut);
-                  const p1In = arcPoint(a1, rIn);
-                  const p2In = arcPoint(a2, rIn);
-                  const large = a2 - a1 > 180 ? 1 : 0;
-                  return [
-                    `M ${p1Out.x} ${p1Out.y}`,
-                    `A ${rOut} ${rOut} 0 ${large} 1 ${p2Out.x} ${p2Out.y}`,
-                    `L ${p2In.x} ${p2In.y}`,
-                    `A ${rIn} ${rIn} 0 ${large} 0 ${p1In.x} ${p1In.y}`,
-                    `Z`,
-                  ].join(" ");
+
+                const nodes = flywheelVertices.map((v) => ({
+                  ...v,
+                  x: cx + Math.cos(toRad(v.angleDeg)) * R,
+                  y: cy + Math.sin(toRad(v.angleDeg)) * R,
+                }));
+
+                const arcPath = (a1: number, a2: number, r: number) => {
+                  const x1 = cx + Math.cos(toRad(a1)) * r;
+                  const y1 = cy + Math.sin(toRad(a1)) * r;
+                  const x2 = cx + Math.cos(toRad(a2)) * r;
+                  const y2 = cy + Math.sin(toRad(a2)) * r;
+                  return `M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`;
                 };
 
-                // Build a label arc path. For sectors in the bottom half of the
-                // screen (sin(midAngle) > 0), reverse the path so text reads
-                // upright instead of upside-down.
-                const labelArc = (a1: number, a2: number, r: number) => {
-                  const mid = (a1 + a2) / 2;
-                  const isBottom = Math.sin(toRad(mid)) > 0;
-                  if (isBottom) {
-                    // Counter-clockwise from a2 → a1
-                    const start = arcPoint(a2, r);
-                    const end = arcPoint(a1, r);
-                    return `M ${start.x} ${start.y} A ${r} ${r} 0 0 0 ${end.x} ${end.y}`;
-                  }
-                  const start = arcPoint(a1, r);
-                  const end = arcPoint(a2, r);
-                  return `M ${start.x} ${start.y} A ${r} ${r} 0 0 1 ${end.x} ${end.y}`;
-                };
-
-                // 3 verticals (120° each), starting -150° at top-left
-                const verticals = [
-                  { name: "AKIO",  color: akio,  a1: -150, a2: -30  },
-                  { name: "HENRY", color: henry, a1: -30,  a2: 90   },
-                  { name: "SAM",   color: sam,   a1: 90,   a2: 210  },
+                const arcSegments = [
+                  { a1: -90, a2: 30,  c1: akio,  c2: henry, id: "arc-ah" },
+                  { a1: 30,  a2: 150, c1: henry, c2: sam,   id: "arc-hs" },
+                  { a1: 150, a2: 270, c1: sam,   c2: akio,  id: "arc-sa" },
                 ];
-                // 6 agents (60° each)
-                const agents = [
-                  { name: "FAR-SEER",   color: akio,  a1: -150, a2: -90  },
-                  { name: "CRAFTSMAN",  color: akio,  a1: -90,  a2: -30  },
-                  { name: "SOMMELIER",  color: henry, a1: -30,  a2: 30   },
-                  { name: "DISPATCHER", color: henry, a1: 30,   a2: 90   },
-                  { name: "TASKMASTER", color: sam,   a1: 90,   a2: 150  },
-                  { name: "TRAINER",    color: sam,   a1: 150,  a2: 210  },
-                ];
-                // 9 platforms (40° each)
-                const platforms = [
-                  { name: "LUMOS",         color: akio,  a1: -150, a2: -110 },
-                  { name: "MANVIL",        color: akio,  a1: -110, a2: -70  },
-                  { name: "ENVIL",         color: akio,  a1: -70,  a2: -30  },
-                  { name: "NEMI OS",       color: henry, a1: -30,  a2: 10   },
-                  { name: "LEGION",        color: henry, a1: 10,   a2: 50   },
-                  { name: "HAWKEYE",       color: henry, a1: 50,   a2: 90   },
-                  { name: "QUARTERMASTER", color: sam,   a1: 90,   a2: 130  },
-                  { name: "ATOM",          color: sam,   a1: 130,  a2: 170  },
-                  { name: "EXCHEQUER",     color: sam,   a1: 170,  a2: 210  },
-                ];
-
-                // Vertical color → muted purple-tinted base for sector backgrounds.
-                // Each ring deepens slightly so the eye reads the hierarchy.
-                const r1Mid = (r1Inner + r1Outer) / 2;
-                const r2Mid = (r2Inner + r2Outer) / 2;
-                const r3Mid = (r3Inner + r3Outer) / 2;
 
                 return (
                   <svg
                     viewBox={`0 0 ${SIZE} ${SIZE}`}
-                    className="w-full max-w-[720px] h-auto"
+                    className="w-full max-w-[480px] h-auto"
                     role="img"
-                    aria-label="LMM concentric architecture: hub, 3 verticals (AKIO HENRY SAM), 6 agents, 9 platforms"
+                    aria-label="LMM flywheel: Design, Develop, Deploy feed the central LMM"
                   >
                     <defs>
-                      <radialGradient id="lmm-hub-grad" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%"  stopColor="hsl(280 95% 75%)" />
+                      {arcSegments.map((seg) => {
+                        const x1 = cx + Math.cos(toRad(seg.a1)) * R;
+                        const y1 = cy + Math.sin(toRad(seg.a1)) * R;
+                        const x2 = cx + Math.cos(toRad(seg.a2)) * R;
+                        const y2 = cy + Math.sin(toRad(seg.a2)) * R;
+                        return (
+                          <linearGradient
+                            key={seg.id}
+                            id={seg.id}
+                            x1={`${(x1 / SIZE) * 100}%`}
+                            y1={`${(y1 / SIZE) * 100}%`}
+                            x2={`${(x2 / SIZE) * 100}%`}
+                            y2={`${(y2 / SIZE) * 100}%`}
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop offset="0%" stopColor={seg.c1} />
+                            <stop offset="100%" stopColor={seg.c2} />
+                          </linearGradient>
+                        );
+                      })}
+                      <radialGradient id="fw-hub-grad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="hsl(280 95% 75%)" />
                         <stop offset="55%" stopColor="hsl(275 85% 50%)" />
                         <stop offset="100%" stopColor="hsl(275 75% 30%)" />
                       </radialGradient>
-
-                      {/* Label arc paths — one per sector per ring, baseline-mid radius */}
-                      {verticals.map((v) => (
-                        <path key={`vp-${v.name}`} id={`v-arc-${v.name}`}
-                          d={labelArc(v.a1, v.a2, r1Mid)} fill="none" />
-                      ))}
-                      {agents.map((a) => (
-                        <path key={`ap-${a.name}`} id={`a-arc-${a.name}`}
-                          d={labelArc(a.a1, a.a2, r2Mid - 3)} fill="none" />
-                      ))}
-                      {platforms.map((p) => (
-                        <path key={`pp-${p.name}`} id={`p-arc-${p.name.replace(/\s+/g, "-")}`}
-                          d={labelArc(p.a1, p.a2, r3Mid - 4)} fill="none" />
-                      ))}
                     </defs>
 
-                    {/* RING 3 — 9 platforms (outermost) — vertical-color tinted */}
-                    {platforms.map((p) => (
-                      <g key={`pl-${p.name}`}>
-                        <path
-                          d={sectorPath(p.a1, p.a2, r3Inner, r3Outer)}
-                          fill={p.color.replace(")", " / 0.16)")}
-                          stroke={p.color.replace(")", " / 0.55)")}
-                          strokeWidth="1.5"
-                        />
-                        <text
-                          fill="hsl(0 0% 100%)"
-                          fontSize="11"
-                          fontWeight="700"
-                          letterSpacing="2"
-                          style={{ filter: `drop-shadow(0 0 6px ${p.color.replace(")", " / 0.6)")})` }}
-                        >
-                          <textPath
-                            href={`#p-arc-${p.name.replace(/\s+/g, "-")}`}
-                            startOffset="50%"
-                            textAnchor="middle"
-                          >
-                            {p.name}
-                          </textPath>
-                        </text>
-                      </g>
+                    {/* Coloured arc rim */}
+                    {arcSegments.map((seg) => (
+                      <path
+                        key={seg.id}
+                        d={arcPath(seg.a1, seg.a2, R)}
+                        fill="none"
+                        stroke={`url(#${seg.id})`}
+                        strokeWidth="2.5"
+                        opacity="0.9"
+                      />
                     ))}
 
-                    {/* RING 2 — 6 agents — slightly stronger vertical-color tint */}
-                    {agents.map((a) => (
-                      <g key={`ag-${a.name}`}>
-                        <path
-                          d={sectorPath(a.a1, a.a2, r2Inner, r2Outer)}
-                          fill={a.color.replace(")", " / 0.24)")}
-                          stroke={a.color.replace(")", " / 0.7)")}
-                          strokeWidth="1.5"
-                        />
-                        <text
-                          fill="hsl(0 0% 100%)"
-                          fontSize="13"
-                          fontWeight="700"
-                          letterSpacing="2.5"
-                          style={{ filter: `drop-shadow(0 0 6px ${a.color.replace(")", " / 0.65)")})` }}
-                        >
-                          <textPath
-                            href={`#a-arc-${a.name}`}
-                            startOffset="50%"
-                            textAnchor="middle"
-                          >
-                            {a.name}
-                          </textPath>
-                        </text>
-                      </g>
-                    ))}
-
-                    {/* RING 1 — 3 verticals — strongest vertical-color block */}
-                    {verticals.map((v) => (
-                      <g key={`v-${v.name}`}>
-                        <path
-                          d={sectorPath(v.a1, v.a2, r1Inner, r1Outer)}
-                          fill={v.color.replace(")", " / 0.38)")}
-                          stroke={v.color.replace(")", " / 0.95)")}
-                          strokeWidth="2"
-                          style={{ filter: `drop-shadow(0 0 14px ${v.color.replace(")", " / 0.55)")})` }}
-                        />
-                        <text
-                          fill="hsl(0 0% 100%)"
-                          fontSize="24"
-                          fontWeight="900"
-                          letterSpacing="5"
-                          style={{ filter: `drop-shadow(0 0 14px ${v.color.replace(")", " / 0.85)")})` }}
-                        >
-                          <textPath
-                            href={`#v-arc-${v.name}`}
-                            startOffset="50%"
-                            textAnchor="middle"
-                          >
-                            {v.name}
-                          </textPath>
-                        </text>
-                      </g>
-                    ))}
-
-                    {/* Radial dividers — separate the three pie-slices visually */}
-                    {[-150, -30, 90, 210].map((angle) => {
-                      const inner = arcPoint(angle, r1Inner);
-                      const outer = arcPoint(angle, r3Outer);
+                    {/* Dashed spokes from hub to each node */}
+                    {nodes.map((node) => {
+                      const dx = node.x - cx;
+                      const dy = node.y - cy;
+                      const dist = Math.sqrt(dx * dx + dy * dy);
+                      const ux = dx / dist;
+                      const uy = dy / dist;
                       return (
                         <line
-                          key={`div-${angle}`}
-                          x1={inner.x}
-                          y1={inner.y}
-                          x2={outer.x}
-                          y2={outer.y}
-                          stroke="hsl(230 25% 4%)"
-                          strokeWidth="2.5"
-                          opacity="0.85"
+                          key={node.label}
+                          x1={cx + ux * hubR}
+                          y1={cy + uy * hubR}
+                          x2={node.x - ux * nodeR}
+                          y2={node.y - uy * nodeR}
+                          stroke={node.color}
+                          strokeWidth="1.5"
+                          strokeDasharray="5,5"
+                          opacity="0.55"
                         />
                       );
                     })}
 
-                    {/* Hub glow ring + LMM */}
+                    {/* Node circles */}
+                    {nodes.map((node) => {
+                      const lines = node.sub.split(" ");
+                      const mid = Math.ceil(lines.length / 2);
+                      const line1 = lines.slice(0, mid).join(" ");
+                      const line2 = lines.slice(mid).join(" ");
+                      return (
+                        <g key={node.label}>
+                          <circle
+                            cx={node.x}
+                            cy={node.y}
+                            r={nodeR}
+                            fill="hsl(230 25% 7%)"
+                            stroke={node.color}
+                            strokeWidth="2.5"
+                            style={{ filter: `drop-shadow(0 0 18px ${node.color.replace(")", " / 0.55)")})` }}
+                          />
+                          <text
+                            x={node.x}
+                            y={node.y - 10}
+                            textAnchor="middle"
+                            fill={node.color}
+                            fontSize="12"
+                            fontWeight="900"
+                            letterSpacing="2"
+                            style={{ filter: `drop-shadow(0 0 8px ${node.color.replace(")", " / 0.8)")})` }}
+                          >
+                            {node.label}
+                          </text>
+                          {line1 && (
+                            <text x={node.x} y={node.y + 6} textAnchor="middle" fill="hsl(0 0% 80%)" fontSize="7.5" letterSpacing="0.5">
+                              {line1}
+                            </text>
+                          )}
+                          {line2 && (
+                            <text x={node.x} y={node.y + 17} textAnchor="middle" fill="hsl(0 0% 80%)" fontSize="7.5" letterSpacing="0.5">
+                              {line2}
+                            </text>
+                          )}
+                        </g>
+                      );
+                    })}
+
+                    {/* LMM hub */}
                     <circle
                       cx={cx}
                       cy={cy}
-                      r={hubR + 12}
+                      r={hubR + 10}
                       fill="none"
-                      stroke="hsl(275 80% 60% / 0.25)"
+                      stroke="hsl(275 80% 60% / 0.2)"
                       strokeWidth="1"
                     />
                     <circle
                       cx={cx}
                       cy={cy}
                       r={hubR}
-                      fill="url(#lmm-hub-grad)"
+                      fill="url(#fw-hub-grad)"
                       stroke="hsl(275 90% 80% / 0.9)"
                       strokeWidth="2.5"
-                      className="lmm-hub-pulse"
                       style={{ filter: "drop-shadow(0 0 35px hsl(275 80% 60% / 0.85))" }}
                     />
                     <text
                       x={cx}
-                      y={cy}
+                      y={cy - 10}
                       textAnchor="middle"
-                      dominantBaseline="central"
                       fill="hsl(0 0% 100%)"
-                      fontSize="32"
+                      fontSize="22"
                       fontWeight="900"
                       letterSpacing="5"
                       style={{ filter: "drop-shadow(0 0 8px hsl(275 80% 80% / 0.8))" }}
                     >
                       LMM
+                    </text>
+                    <text x={cx} y={cy + 8} textAnchor="middle" fill="hsl(275 60% 80%)" fontSize="7" letterSpacing="1.5" fontWeight="600">
+                      LEARNS FROM
+                    </text>
+                    <text x={cx} y={cy + 19} textAnchor="middle" fill="hsl(275 60% 80%)" fontSize="7" letterSpacing="1.5" fontWeight="600">
+                      ALL THREE
                     </text>
                   </svg>
                 );
@@ -710,12 +639,12 @@ const Technology = () => {
             className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
             style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
           >
-            The 3A Method
+            The 3A Model
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={150}>
           <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-12 max-w-[600px]">
-            Acquire. Augment. Accelerate. A repeatable playbook for turning legacy factories into Physical-AI-native operations.
+            Assimilate. Augment. Accelerate. A repeatable playbook for turning legacy factories into Physical-AI-native operations.
           </p>
         </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/30">
@@ -762,26 +691,26 @@ const Technology = () => {
         <ScrollReveal variant="scale">
           <div className="rounded-xl border border-border/40 overflow-hidden" style={{ background: "hsl(var(--card) / 0.7)" }}>
             {/* Header Row */}
-            <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-card p-5 border-b border-border/30">
-              <span className="text-[0.6rem] font-bold tracking-[0.25em] uppercase text-muted-foreground"></span>
-              <span className="text-[0.6rem] font-bold tracking-[0.25em] uppercase text-foreground/80">Traditional MES / PLM Vendors</span>
-              <span className="text-[0.6rem] font-bold tracking-[0.25em] uppercase text-primary">NEMI</span>
+            <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-card px-6 py-4 border-b border-border/40">
+              <span />
+              <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-foreground/70">Traditional MES / PLM Vendors</span>
+              <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase pl-5" style={{ color: "hsl(275 80% 72%)", textShadow: "0 0 12px hsl(275 80% 60% / 0.4)" }}>NEMI</span>
             </div>
             {/* Data Rows */}
             {comparisonRows.map((row, i) => (
               <div
                 key={row.dimension}
-                className={`grid grid-cols-[1.2fr_1fr_1fr] p-5 ${i < comparisonRows.length - 1 ? "border-b border-border/15" : ""} hover:bg-card/50 transition-colors group`}
+                className={`grid grid-cols-[1.2fr_1fr_1fr] px-6 py-5 ${i < comparisonRows.length - 1 ? "border-b border-border/20" : ""} hover:bg-card/60 transition-colors group`}
               >
-                <span className="text-xs md:text-sm font-bold tracking-[0.12em] uppercase text-foreground/85 group-hover:text-foreground transition-colors">{row.dimension}</span>
-                <span className="flex items-center gap-2.5 text-xs md:text-sm text-foreground/85">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="hsl(0 72% 60%)" strokeWidth="2.5" strokeLinecap="round" className="shrink-0">
+                <span className="text-sm md:text-base font-bold tracking-[0.1em] uppercase text-foreground group-hover:text-primary transition-colors">{row.dimension}</span>
+                <span className="flex items-center gap-3 text-sm md:text-base text-foreground/70">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="hsl(0 72% 58%)" strokeWidth="2.5" strokeLinecap="round" className="shrink-0">
                     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
                   <span>{row.legacy}</span>
                 </span>
-                <span className="flex items-center gap-2.5 text-xs md:text-sm text-primary font-semibold pl-4" style={{ borderLeft: "2px solid hsl(var(--primary) / 0.4)" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="hsl(142 71% 45%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                <span className="flex items-center gap-3 text-sm md:text-base font-semibold pl-5" style={{ borderLeft: "2px solid hsl(275 80% 60% / 0.35)", color: "hsl(275 80% 78%)" }}>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="hsl(142 71% 50%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                   {row.nemi}

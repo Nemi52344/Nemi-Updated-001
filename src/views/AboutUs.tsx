@@ -215,321 +215,15 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* ── WHAT WE DO ── */}
-      <section className="py-24 px-6 md:px-12 lg:px-16 relative z-[1]">
-        <div>
-          <ScrollReveal>
-            <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-4 font-bold">What We Do</p>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20 items-start">
-            <ScrollReveal delay={100}>
-              <div>
-                <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-6">
-                  One platform.<br />Three systems.
-                </h2>
-                <p className="text-sm md:text-base text-muted-foreground leading-[1.8] max-w-[400px]">
-                  From first sketch to final delivery, NEMI covers the entire product lifecycle with AI at every step.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <div className="flex flex-col gap-0">
-              {[
-                { color: "hsl(0, 72%, 52%)", label: "AKIO", subtitle: "Design Studio", tab: "akio",
-                  body: "AI-powered CAD generation, simulation, prototyping. Concept to production-ready design in weeks." },
-                { color: "hsl(217, 91%, 60%)", label: "HENRY", subtitle: "Development Engine", tab: "henry",
-                  body: "Full-stack production, metal parts, electronics, batteries, motors. Sensor-driven quality at every stage." },
-                { color: "hsl(142, 71%, 45%)", label: "SAM", subtitle: "Deployment Planner", tab: "sam",
-                  body: "Fleet deployment, last-mile logistics, leasing, financing, field monitoring. Real-world data feeds back into AKIO designs." },
-              ].map((pillar, i) => (
-                <ScrollReveal key={pillar.label} delay={i * 150}>
-                  <div
-                    className="group flex gap-6 md:gap-8 items-start py-8 transition-all duration-300"
-                    style={{ borderBottom: "1px solid hsl(var(--border) / 0.3)" }}
-                  >
-                    {/* Number + accent */}
-                    <div className="flex flex-col items-center gap-2 pt-1">
-                      <div className="w-3 h-3 rounded-full transition-transform duration-300 group-hover:scale-125"
-                        style={{ background: pillar.color, boxShadow: `0 0 12px ${pillar.color}40` }}
-                      />
-                      <div className="w-px h-full min-h-[40px] opacity-20" style={{ background: pillar.color }} />
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1">
-                      <div className="flex items-baseline gap-3 mb-1">
-                        <Link
-                          href={`/services?tab=${pillar.tab}`}
-                          className="text-xl md:text-2xl font-extrabold tracking-wider uppercase transition-[text-shadow] duration-300 hover:[text-shadow:0_0_24px_currentColor]"
-                          style={{ color: pillar.color }}
-                        >
-                          {pillar.label}
-                        </Link>
-                        <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase text-muted-foreground/50">
-                          {pillar.subtitle}
-                        </span>
-                      </div>
-                      <p className="text-xs md:text-sm text-muted-foreground leading-[1.9] max-w-[500px]">
-                        {pillar.body}
-                      </p>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHY NOW ── */}
-      <section
-        aria-labelledby="why-now-heading"
-        className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]"
-      >
-        <div>
-          <ScrollReveal>
-            <h2
-              id="why-now-heading"
-              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
-              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-            >
-              Why Now
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={100}>
-            <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-16 max-w-[600px]">
-              A once in a 30-year shift is underway in manufacturing.
-            </p>
-          </ScrollReveal>
-
-          {/* Two-column layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
-            {/* Left: Venn diagram of converging forces */}
-            <ScrollReveal variant="scale">
-              <div className="flex justify-center items-center min-h-[420px] py-4">
-                <div
-                  className="relative"
-                  style={{ width: "100%", maxWidth: "420px", height: "380px" }}
-                  role="img"
-                  aria-label="Three converging forces: Sovereign Manufacturing, Physical AI, and High ROI Automation"
-                >
-                  {/* Circle 1 - Sovereign Manufacturing (TOP) */}
-                  <div
-                    className="venn-circle absolute rounded-full overflow-hidden flex items-center justify-center text-center px-6"
-                    style={{
-                      width: "230px",
-                      height: "230px",
-                      top: "0",
-                      left: "50%",
-                      marginLeft: "-115px",
-                      background:
-                        "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
-                      border: "1px solid hsl(275 80% 65% / 0.35)",
-                    }}
-                  >
-                    <div className="relative z-[2]">
-                      <span className="text-sm font-bold text-foreground block mb-1.5">
-                        Sovereign Manufacturing
-                      </span>
-                      <span className="text-[0.65rem] text-muted-foreground leading-snug">
-                        $3T of global trade at risk due to reshoring push
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Circle 2 - Physical AI (BOTTOM-LEFT) */}
-                  <div
-                    className="venn-circle venn-circle-2 absolute rounded-full overflow-hidden flex items-center justify-center text-center px-6"
-                    style={{
-                      width: "230px",
-                      height: "230px",
-                      bottom: "0",
-                      left: "0",
-                      background:
-                        "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
-                      border: "1px solid hsl(275 80% 65% / 0.35)",
-                    }}
-                  >
-                    <div className="relative z-[2]">
-                      <span className="text-sm font-bold text-foreground block mb-1.5">
-                        Physical AI
-                      </span>
-                      <span className="text-[0.65rem] text-muted-foreground leading-snug">
-                        Starting to transform manufacturing
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Circle 3 - High ROI Automation (BOTTOM-RIGHT) */}
-                  <div
-                    className="venn-circle venn-circle-3 absolute rounded-full overflow-hidden flex items-center justify-center text-center px-6"
-                    style={{
-                      width: "230px",
-                      height: "230px",
-                      bottom: "0",
-                      right: "0",
-                      background:
-                        "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
-                      border: "1px solid hsl(275 80% 65% / 0.35)",
-                    }}
-                  >
-                    <div className="relative z-[2]">
-                      <span className="text-sm font-bold text-foreground block mb-1.5">
-                        High ROI Automation
-                      </span>
-                      <span className="text-[0.65rem] text-muted-foreground leading-snug">
-                        Driving immediate value from M&amp;A
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Right: Key points */}
-            <div className="flex flex-col gap-6">
-              <ScrollReveal>
-                <div>
-                  <h3 className="text-base md:text-lg font-bold text-foreground mb-3 flex items-baseline gap-2">
-                    <span className="text-primary text-xl md:text-2xl">24-48 mo</span>
-                    <span>window</span>
-                  </h3>
-                  <ul className="text-xs md:text-sm text-muted-foreground space-y-2 list-none pl-0">
-                    <li className="flex gap-3 items-start">
-                      <span className="text-primary mt-1.5 shrink-0">•</span>
-                      <span>Physical AI reaches massive commercial deployment</span>
-                    </li>
-                    <li className="flex gap-3 items-start">
-                      <span className="text-primary mt-1.5 shrink-0">•</span>
-                      <span>Reshoring driven by geopolitics reframes manufacturing</span>
-                    </li>
-                  </ul>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal delay={120}>
-                <div
-                  className="rounded-xl px-5 py-4"
-                  style={{
-                    background: "hsl(230 20% 8% / 0.5)",
-                    borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
-                  }}
-                >
-                  <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
-                    This type of shift happens once every ~30 years
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    e.g., previously the rise of IT, TPS
-                  </p>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal delay={220}>
-                <div
-                  className="rounded-xl px-5 py-4"
-                  style={{
-                    background: "hsl(230 20% 8% / 0.5)",
-                    borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
-                  }}
-                >
-                  <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
-                    Early leaders capture data, market share, and permanence
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    They become the default.
-                  </p>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal delay={320}>
-                <div
-                  className="rounded-xl px-6 py-5 mt-2"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, hsl(275 80% 40% / 0.18), hsl(260 70% 30% / 0.12))",
-                    border: "1px solid hsl(275 80% 55% / 0.3)",
-                    boxShadow: "0 0 30px hsl(275 80% 55% / 0.15)",
-                  }}
-                >
-                  <p className="text-sm md:text-base font-bold text-foreground">
-                    NEMI is building the infrastructure to win this shift.
-                  </p>
-                </div>
-              </ScrollReveal>
-
-              <p className="text-[0.6rem] text-muted-foreground/50 italic mt-2">
-                Source: McKinsey Global Institute, 2025.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHY WE WIN ── */}
+      {/* ── WHO WE ARE — TEAM ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
-        <ScrollReveal>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
-            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-          >
-            Why We Win
-          </h2>
-        </ScrollReveal>
-        <ScrollReveal delay={100}>
-          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-16 max-w-[500px]">
-            Six structural advantages.
-          </p>
-        </ScrollReveal>
-
-        <div className="flex flex-col">
-          {[
-            { num: "01", color: "275 85% 65%", tag: "RESILIENCE-AS-A-SERVICE", title: "Sovereign Manufacturing",
-              desc: "Edge AI within national borders: full data sovereignty; no cloud dependency." },
-            { num: "02", color: "272 78% 58%", tag: "WORLD-CLASS ENGINEERING · LOCALIZED COSTS", title: "Extreme Capital Efficiency",
-              desc: "Coimbatore operations: US-level engineering quality at 20% US-level cost." },
-            { num: "03", color: "269 70% 52%", tag: "PROPRIETARY AI", title: "The LMM Advantage",
-              desc: "Proprietary AI stack: trains on real production data; gets smarter with each job." },
-            { num: "04", color: "266 62% 46%", tag: "ONE PARTNER · FULL STACK", title: "End-to-End Integration",
-              desc: "One partner from design to deployment, with full integration." },
-            { num: "05", color: "263 55% 40%", tag: "RETROFIT · NOT REPLACE", title: "AI Retrofit for Legacy",
-              desc: "Upgrade existing factories with our AI stack — no need for greenfield capital." },
-            { num: "06", color: "260 48% 35%", tag: "ACCESSIBLE PHYSICAL AI", title: "Mid-Market Focus",
-              desc: "Physical AI for the markets that enterprise vendors ignore." },
-          ].map((moat, i) => (
-            <ScrollReveal key={moat.num} delay={i * 80}>
-              <div className="group grid grid-cols-[3rem_1fr] md:grid-cols-[5rem_1fr_1fr] lg:grid-cols-[6rem_1fr_1.2fr] gap-6 md:gap-10 items-start py-8 border-t border-border/20 transition-all duration-300 hover:border-border/50">
-                <div className="font-black text-2xl md:text-4xl lg:text-5xl leading-none tabular-nums transition-all duration-300 group-hover:scale-110 origin-left"
-                  style={{ color: `hsl(${moat.color} / 0.25)`, fontVariantNumeric: "tabular-nums" }}
-                >
-                  {moat.num}
-                </div>
-                <div className="flex flex-col gap-3">
-                  <h3 className="text-lg md:text-2xl lg:text-3xl font-bold tracking-tight leading-[1.15] text-foreground group-hover:text-primary transition-colors duration-300">
-                    {moat.title}
-                  </h3>
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: `hsl(${moat.color})` }} />
-                    <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase" style={{ color: `hsl(${moat.color})` }}>
-                      {moat.tag}
-                    </span>
-                  </div>
-                </div>
-                <p className="col-span-2 md:col-span-1 text-sm md:text-base leading-[1.75] text-muted-foreground tracking-wide pl-[3.5rem] md:pl-0">
-                  {moat.desc}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-        <div className="border-t border-border/20 mt-0" />
-      </section>
-      {/* ── THE TEAM ── */}
-      <section className="py-24 px-6 md:px-12 lg:px-16 relative z-[1]">
         <div className="text-center max-w-6xl mx-auto">
           <ScrollReveal>
+            <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-4 font-bold">Who We Are</p>
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-4"
               style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
             >
-              The Team
+              Team
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={100}>
@@ -605,6 +299,7 @@ const AboutUs = () => {
       {/* ── BOARD & ADVISORS ── */}
       <section className="py-20 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
         <ScrollReveal>
+          <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-4 font-bold">Who We Are</p>
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
             style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
           >
@@ -715,6 +410,226 @@ const AboutUs = () => {
         </div>
       </section>
 
+      {/* ── FACTORY ── */}
+      <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-b border-border/30 relative z-[1]">
+        {/* Top: Centered text + stats */}
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+          <ScrollReveal>
+            <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-4 font-bold">Who We Are</p>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-6"
+              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.15)" }}
+            >
+              Factory
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <p className="text-base md:text-lg text-muted-foreground tracking-wide mb-3">
+              300,000 sq ft of AI-powered manufacturing, and growing.
+            </p>
+            <p className="text-sm text-muted-foreground/70 leading-[1.9] max-w-xl mx-auto">
+              Our factories combine advanced machinery with real-time AI intelligence. Every square foot is built for precision, speed, and scale, from prototyping to full production.
+            </p>
+          </ScrollReveal>
+        </div>
+
+        {/* Bottom: Bento image grid */}
+        <ScrollReveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[180px] md:auto-rows-[200px]">
+            {/* Large image, spans 2 cols & 2 rows */}
+            <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/Nemi%2002.webp"
+                alt="NEMI Headquarters"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy" decoding="async"
+              />
+            </div>
+            {/* Top right */}
+            <div className="rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/nemi%2001.webp"
+                alt="NEMI Campus"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy" decoding="async"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/Nemi%20parking.webp"
+                alt="NEMI Facility"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy" decoding="async"
+              />
+            </div>
+            {/* Bottom right */}
+            <div className="rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/Electronics%20production.webp"
+                alt="Electronics Production"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy" decoding="async"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden group">
+              <img
+                src="/Images/Nemi%20stores.webp"
+                alt="NEMI Stores"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy" decoding="async"
+              />
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      {/* ── WHY NOW ── */}
+      <section
+        aria-labelledby="why-now-heading"
+        className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]"
+      >
+        <div>
+          <ScrollReveal>
+            <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-4 font-bold">Timing</p>
+            <h2
+              id="why-now-heading"
+              className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+            >
+              Why We Are Doing It Now
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-16 max-w-[600px]">
+              A once in a 30-year shift is underway in manufacturing.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
+            <ScrollReveal variant="scale">
+              <div className="flex justify-center items-center min-h-[420px] py-4">
+                <div
+                  className="relative"
+                  style={{ width: "100%", maxWidth: "420px", height: "380px" }}
+                  role="img"
+                  aria-label="Three converging forces: Sovereign Manufacturing, Physical AI, and High ROI Automation"
+                >
+                  <div className="venn-circle absolute rounded-full overflow-hidden flex items-center justify-center text-center px-6"
+                    style={{ width: "230px", height: "230px", top: "0", left: "50%", marginLeft: "-115px",
+                      background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
+                      border: "1px solid hsl(275 80% 65% / 0.35)" }}
+                  >
+                    <div className="relative z-[2]">
+                      <span className="text-sm font-bold text-foreground block mb-1.5">Sovereign Manufacturing</span>
+                      <span className="text-[0.65rem] text-muted-foreground leading-snug">$3T of global trade at risk due to reshoring push</span>
+                    </div>
+                  </div>
+                  <div className="venn-circle venn-circle-2 absolute rounded-full overflow-hidden flex items-center justify-center text-center px-6"
+                    style={{ width: "230px", height: "230px", bottom: "0", left: "0",
+                      background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
+                      border: "1px solid hsl(275 80% 65% / 0.35)" }}
+                  >
+                    <div className="relative z-[2]">
+                      <span className="text-sm font-bold text-foreground block mb-1.5">Physical AI</span>
+                      <span className="text-[0.65rem] text-muted-foreground leading-snug">Starting to transform manufacturing</span>
+                    </div>
+                  </div>
+                  <div className="venn-circle venn-circle-3 absolute rounded-full overflow-hidden flex items-center justify-center text-center px-6"
+                    style={{ width: "230px", height: "230px", bottom: "0", right: "0",
+                      background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
+                      border: "1px solid hsl(275 80% 65% / 0.35)" }}
+                  >
+                    <div className="relative z-[2]">
+                      <span className="text-sm font-bold text-foreground block mb-1.5">High ROI Automation</span>
+                      <span className="text-[0.65rem] text-muted-foreground leading-snug">Driving immediate value from M&amp;A</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <div className="flex flex-col gap-6">
+              <ScrollReveal>
+                <div>
+                  <h3 className="text-base md:text-lg font-bold text-foreground mb-3 flex items-baseline gap-2">
+                    <span className="text-primary text-xl md:text-2xl">24-48 mo</span>
+                    <span>window</span>
+                  </h3>
+                  <ul className="text-xs md:text-sm text-muted-foreground space-y-2 list-none pl-0">
+                    <li className="flex gap-3 items-start"><span className="text-primary mt-1.5 shrink-0">•</span><span>Physical AI reaches massive commercial deployment</span></li>
+                    <li className="flex gap-3 items-start"><span className="text-primary mt-1.5 shrink-0">•</span><span>Reshoring driven by geopolitics reframes manufacturing</span></li>
+                  </ul>
+                </div>
+              </ScrollReveal>
+              <ScrollReveal delay={120}>
+                <div className="rounded-xl px-5 py-4" style={{ background: "hsl(230 20% 8% / 0.5)", borderLeft: "3px solid hsl(275 80% 55% / 0.5)" }}>
+                  <p className="text-sm md:text-base font-semibold text-foreground leading-snug">This type of shift happens once every ~30 years</p>
+                  <p className="text-xs text-muted-foreground mt-1">e.g., previously the rise of IT, TPS</p>
+                </div>
+              </ScrollReveal>
+              <ScrollReveal delay={220}>
+                <div className="rounded-xl px-5 py-4" style={{ background: "hsl(230 20% 8% / 0.5)", borderLeft: "3px solid hsl(275 80% 55% / 0.5)" }}>
+                  <p className="text-sm md:text-base font-semibold text-foreground leading-snug">Early leaders capture data, market share, and permanence</p>
+                  <p className="text-xs text-muted-foreground mt-1">They become the default.</p>
+                </div>
+              </ScrollReveal>
+              <ScrollReveal delay={320}>
+                <div className="rounded-xl px-6 py-5 mt-2"
+                  style={{ background: "linear-gradient(135deg, hsl(275 80% 40% / 0.18), hsl(260 70% 30% / 0.12))", border: "1px solid hsl(275 80% 55% / 0.3)", boxShadow: "0 0 30px hsl(275 80% 55% / 0.15)" }}
+                >
+                  <p className="text-sm md:text-base font-bold text-foreground">NEMI is building the infrastructure to win this shift.</p>
+                </div>
+              </ScrollReveal>
+              <p className="text-[0.6rem] text-muted-foreground/50 italic mt-2">Source: McKinsey Global Institute, 2025.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY WE WILL WIN ── */}
+      <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
+        <ScrollReveal>
+          <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-4 font-bold">Competitive Advantage</p>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-3"
+            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
+          >
+            Why We Will Win
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal delay={100}>
+          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-16 max-w-[500px]">
+            Six structural advantages.
+          </p>
+        </ScrollReveal>
+        <div className="flex flex-col">
+          {[
+            { num: "01", color: "275 85% 65%", tag: "RESILIENCE-AS-A-SERVICE", title: "Sovereign Manufacturing", desc: "Edge AI within national borders: full data sovereignty; no cloud dependency." },
+            { num: "02", color: "272 78% 58%", tag: "WORLD-CLASS ENGINEERING · LOCALIZED COSTS", title: "Extreme Capital Efficiency", desc: "Coimbatore operations: US-level engineering quality at 20% US-level cost." },
+            { num: "03", color: "269 70% 52%", tag: "PROPRIETARY AI", title: "The LMM Advantage", desc: "Proprietary AI stack: trains on real production data; gets smarter with each job." },
+            { num: "04", color: "266 62% 46%", tag: "ONE PARTNER · FULL STACK", title: "End-to-End Integration", desc: "One partner from design to deployment, with full integration." },
+            { num: "05", color: "263 55% 40%", tag: "RETROFIT · NOT REPLACE", title: "AI Retrofit for Legacy", desc: "Upgrade existing factories with our AI stack, no need for greenfield capital." },
+            { num: "06", color: "260 48% 35%", tag: "ACCESSIBLE PHYSICAL AI", title: "Mid-Market Focus", desc: "Physical AI for the markets that enterprise vendors ignore." },
+          ].map((moat, i) => (
+            <ScrollReveal key={moat.num} delay={i * 80}>
+              <div className="group grid grid-cols-[3rem_1fr] md:grid-cols-[5rem_1fr_1fr] lg:grid-cols-[6rem_1fr_1.2fr] gap-6 md:gap-10 items-start py-8 border-t border-border/20 transition-all duration-300 hover:border-border/50">
+                <div className="font-black text-2xl md:text-4xl lg:text-5xl leading-none tabular-nums transition-all duration-300 group-hover:scale-110 origin-left"
+                  style={{ color: `hsl(${moat.color} / 0.25)`, fontVariantNumeric: "tabular-nums" }}>
+                  {moat.num}
+                </div>
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-lg md:text-2xl lg:text-3xl font-bold tracking-tight leading-[1.15] text-foreground group-hover:text-primary transition-colors duration-300">{moat.title}</h3>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: `hsl(${moat.color})` }} />
+                    <span className="text-[0.6rem] font-bold tracking-[0.2em] uppercase" style={{ color: `hsl(${moat.color})` }}>{moat.tag}</span>
+                  </div>
+                </div>
+                <p className="col-span-2 md:col-span-1 text-sm md:text-base leading-[1.75] text-muted-foreground tracking-wide pl-[3.5rem] md:pl-0">{moat.desc}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+        <div className="border-t border-border/20 mt-0" />
+      </section>
+
       {/* ── PARTNER LOGOS ── */}
       <section className="py-16 md:py-20 border-t border-border/20 relative z-[1] overflow-hidden">
         <ScrollReveal>
@@ -780,78 +695,6 @@ const AboutUs = () => {
             ))}
           </div>
         </div>
-      </section>
-
-
-      {/* ── WHERE WE'RE GOING ── */}
-      <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-b border-border/30 relative z-[1]">
-        {/* Top: Centered text + stats */}
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <ScrollReveal>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] mb-6"
-              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.15)" }}
-            >
-              Where We&rsquo;re Going
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={100}>
-            <p className="text-base md:text-lg text-muted-foreground tracking-wide mb-3">
-              300,000 sq ft of AI-powered manufacturing, and growing.
-            </p>
-            <p className="text-sm text-muted-foreground/70 leading-[1.9] max-w-xl mx-auto">
-              Our factories combine advanced machinery with real-time AI intelligence. Every square foot is built for precision, speed, and scale, from prototyping to full production.
-            </p>
-          </ScrollReveal>
-        </div>
-
-        {/* Bottom: Bento image grid */}
-        <ScrollReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[180px] md:auto-rows-[200px]">
-            {/* Large image, spans 2 cols & 2 rows */}
-            <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden group">
-              <img
-                src="/Images/Nemi%2002.webp"
-                alt="NEMI Headquarters"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy" decoding="async"
-              />
-            </div>
-            {/* Top right */}
-            <div className="rounded-2xl overflow-hidden group">
-              <img
-                src="/Images/nemi%2001.webp"
-                alt="NEMI Campus"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy" decoding="async"
-              />
-            </div>
-            <div className="rounded-2xl overflow-hidden group">
-              <img
-                src="/Images/Nemi%20parking.webp"
-                alt="NEMI Facility"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy" decoding="async"
-              />
-            </div>
-            {/* Bottom right */}
-            <div className="rounded-2xl overflow-hidden group">
-              <img
-                src="/Images/Electronics%20production.webp"
-                alt="Electronics Production"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy" decoding="async"
-              />
-            </div>
-            <div className="rounded-2xl overflow-hidden group">
-              <img
-                src="/Images/Nemi%20stores.webp"
-                alt="NEMI Stores"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy" decoding="async"
-              />
-            </div>
-          </div>
-        </ScrollReveal>
       </section>
 
       <PageCTAFooter

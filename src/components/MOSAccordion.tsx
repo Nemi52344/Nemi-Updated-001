@@ -41,7 +41,7 @@ const ApplicationsDesc = () => (
     >
       SAM
     </Link>
-    {" — the user-facing systems that run on top of the OS"}
+    {", the user-facing systems that run on top of the OS"}
   </span>
 );
 
@@ -153,7 +153,7 @@ const rows: LayerRow[] = [
     label: "Large Manufacturing Model (LMM)",
     description: (
       <span>
-        AI inference engine — process intelligence, quality prediction, supply chain optimization
+        AI inference engine: process intelligence, quality prediction, supply chain optimization
       </span>
     ),
     body: <LMMBody />,

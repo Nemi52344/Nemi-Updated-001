@@ -48,7 +48,7 @@ const factoryImages: { src: string; title: string; description: string }[] = [
   {
     src: "/Images/Nemi%20parking.webp",
     title: "NEMI Facilities",
-    description: "300,000+ sq ft of owned manufacturing footprint across India — engineering, tooling and assembly under one roof.",
+    description: "300,000+ sq ft of owned manufacturing footprint across India, engineering, tooling and assembly under one roof.",
   },
 ];
 
@@ -58,12 +58,14 @@ interface StatTile {
   unit?: string;
   image?: string; // when present, render the cert badge image instead of text
   imageAlt?: string;
+  imageHeight?: number; // override rendered height for visual balance
+  imageScale?: number;  // CSS scale transform to zoom into logo content when image has padding
 }
 
 const stats: StatTile[] = [
   { value: "300K", unit: "sq ft", label: "Facility" },
-  { image: "/Images/certifications/as9100-certification.png", imageAlt: "AS9100 Certified", label: "Aerospace" },
-  { image: "/Images/certifications/iso-9001.png",             imageAlt: "ISO 9001:2015 Certified",   label: "Quality" },
+  { image: "/Images/certifications/as9100-certification.png", imageAlt: "AS9100 Certified", label: "Aerospace", imageHeight: 70 },
+  { image: "/Images/certifications/iso-9001.png",             imageAlt: "ISO 9001:2015 Certified",   label: "Quality",   imageHeight: 44 },
   { value: "40+", unit: "", label: "Patents" },
 ];
 
@@ -162,36 +164,16 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
       style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
     >
       <div className="max-w-6xl w-full mx-6 pointer-events-auto">
-        {/* Heading */}
-        <div
-          className="text-center mb-10"
-          style={{ opacity: enterP, transform: `translateY(${(1 - enterP) * 40}px)` }}
+        <h2
+          className="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center"
+          style={{
+            color: "hsl(275 80% 75%)",
+            textShadow: "0 0 24px hsl(275 80% 60% / 0.4)",
+            opacity: enterP,
+          }}
         >
-          <h2
-            className="text-sm md:text-base tracking-[0.4em] uppercase text-muted-foreground mb-3"
-            style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-          >
-            Fortress Factories
-          </h2>
-          <h3
-            className="text-2xl md:text-4xl font-bold text-foreground tracking-wider"
-            style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}
-          >
-            NEMI&rsquo;s{" "}
-            <span
-              style={{
-                backgroundImage:
-                  "linear-gradient(135deg, hsl(275 70% 78%), hsl(275 80% 60%))",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              Fortress Factory
-            </span>
-          </h3>
-        </div>
-
+          Nemi's Fortress Factory
+        </h2>
         {/* Factory photo cards, 4x2 grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-8">
         {factoryImages.map((item, i) => {
@@ -214,7 +196,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
 
         {/* Stats bar */}
         <div
-          className="flex items-center justify-center divide-x divide-purple-500/20 rounded-xl border border-purple-500/15 bg-purple-500/[0.03] backdrop-blur-sm px-1 md:px-2 py-2 md:py-2.5 mx-auto w-fit"
+          className="flex items-center justify-center divide-x divide-purple-500/20 rounded-xl border border-purple-500/15 bg-purple-500/[0.03] backdrop-blur-sm px-1 md:px-2 py-1.5 mx-auto w-fit"
           style={{
             opacity: statsP,
             transform: `translateY(${(1 - statsP) * 25}px)`,
@@ -224,18 +206,18 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="text-center px-5 md:px-8 flex flex-col items-center justify-center"
-              style={{ minHeight: "130px" }}
+              className="text-center px-4 md:px-6 flex flex-col items-center justify-center"
+              style={{ minHeight: "90px" }}
             >
               {stat.image ? (
-                <div className="flex items-center justify-center h-20 md:h-28 w-full">
+                <div className="flex items-center justify-center" style={{ height: "70px" }}>
                   <img
                     src={stat.image}
                     alt={stat.imageAlt || stat.label}
-                    className="h-full w-auto"
                     style={{
-                      maxWidth: "200px",
-                      objectFit: "contain",
+                      height: `${stat.imageHeight ?? 44}px`,
+                      width: "auto",
+                      display: "block",
                       filter: "drop-shadow(0 0 16px hsl(275 80% 60% / 0.45))",
                     }}
                     loading="lazy"
@@ -243,9 +225,9 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   />
                 </div>
               ) : (
-                <div className="flex items-baseline justify-center gap-1 h-20 md:h-28">
+                <div className="flex items-baseline justify-center gap-1" style={{ height: "70px" }}>
                   <span
-                    className="text-3xl md:text-5xl lg:text-6xl font-bold leading-none self-center"
+                    className="text-2xl md:text-3xl lg:text-4xl font-bold leading-none self-center"
                     style={{
                       color: "hsl(275 80% 65%)",
                       textShadow:
@@ -256,7 +238,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   </span>
                   {stat.unit && (
                     <span
-                      className="text-sm md:text-base font-semibold leading-none self-center"
+                      className="text-xs md:text-sm font-semibold leading-none self-center"
                       style={{
                         color: "hsl(275 60% 80%)",
                         textShadow: "0 0 12px hsl(275 80% 60% / 0.3)",
@@ -267,7 +249,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   )}
                 </div>
               )}
-              <span className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-muted-foreground mt-3 block font-medium">
+              <span className="text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1.5 block font-medium">
                 {stat.label}
               </span>
             </div>

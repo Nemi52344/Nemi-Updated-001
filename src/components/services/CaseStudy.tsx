@@ -9,18 +9,36 @@ interface MetricBarProps {
 }
 
 const MetricBar = ({ label, before, after, barPercent, color }: MetricBarProps) => (
-  <div>
-    <div style={{
-      display: "grid", gridTemplateColumns: "1fr 90px 80px",
-      alignItems: "center", marginBottom: "0.35rem",
-    }}>
-      <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.7rem", color: "rgba(244,242,237,0.55)" }}>{label}</span>
-      <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.7rem", color: "rgba(244,242,237,0.35)" }}>{before}</span>
-      <span style={{ fontFamily: "'Montserrat',sans-serif", fontWeight: 700, fontSize: "0.7rem", color }}>{after}</span>
+  <div style={{ marginBottom: "0.1rem" }}>
+    {/* Metric label */}
+    <p style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.72rem", fontWeight: 600, color: "rgba(244,242,237,0.7)", marginBottom: "0.55rem", letterSpacing: "0.04em" }}>
+      {label}
+    </p>
+
+    {/* Actual (before) row */}
+    <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.35rem" }}>
+      <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.58rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(244,242,237,0.3)", width: "3.2rem", flexShrink: 0 }}>
+        Actual
+      </span>
+      <div style={{ flex: 1, position: "relative", height: 5, background: "rgba(255,255,255,0.07)", borderRadius: 2 }}>
+        <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: "100%", background: "rgba(244,242,237,0.18)", borderRadius: 2 }} />
+      </div>
+      <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.68rem", color: "rgba(244,242,237,0.38)", width: "5rem", textAlign: "right", flexShrink: 0 }}>
+        {before}
+      </span>
     </div>
-    <div style={{ position: "relative", height: 5, background: "rgba(255,255,255,0.08)" }}>
-      <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: "100%", background: `${color}26` }} />
-      <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: `${barPercent}%`, background: color }} />
+
+    {/* AKIO (after) row */}
+    <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+      <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color, width: "3.2rem", flexShrink: 0 }}>
+        AKIO
+      </span>
+      <div style={{ flex: 1, position: "relative", height: 5, background: "rgba(255,255,255,0.07)", borderRadius: 2 }}>
+        <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: `${barPercent}%`, background: color, borderRadius: 2, boxShadow: `0 0 8px ${color}80` }} />
+      </div>
+      <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.68rem", fontWeight: 700, color, width: "5rem", textAlign: "right", flexShrink: 0 }}>
+        {after}
+      </span>
     </div>
   </div>
 );
@@ -37,22 +55,6 @@ interface CaseStudyProps {
 }
 
 const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt, imageFirst = true }: CaseStudyProps) => {
-  const metricHeader = (
-    <div style={{
-      display: "grid", gridTemplateColumns: "1fr 90px 80px", gap: 0,
-      marginBottom: "0.5rem", alignItems: "center",
-    }}>
-      <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.58rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "rgba(244,242,237,0.2)" }}>Metric</span>
-      <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-        <div style={{ width: 10, height: 3, background: `${color}4D` }} />
-        <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.58rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "rgba(244,242,237,0.3)" }}>Before</span>
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-        <div style={{ width: 10, height: 3, background: color }} />
-        <span style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "0.58rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" as const, color }}>{" "}After</span>
-      </div>
-    </div>
-  );
 
   const contentBlock = (
     <div style={{ padding: "3rem", borderLeft: imageFirst ? "1px solid rgba(255,255,255,0.06)" : undefined, borderRight: !imageFirst ? "1px solid rgba(255,255,255,0.06)" : undefined, display: "flex", flexDirection: "column" as const, justifyContent: "center" }}>
@@ -67,8 +69,7 @@ const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt
       </div>
       <div>
         <p className="font-bold text-xs tracking-[0.2em] uppercase mb-3" style={{ color }}>Key Metrics</p>
-        {metricHeader}
-        <div style={{ display: "flex", flexDirection: "column" as const, gap: "0.9rem" }}>
+        <div style={{ display: "flex", flexDirection: "column" as const, gap: "1.1rem" }}>
           {metrics.map((m) => <MetricBar key={m.label} {...m} />)}
         </div>
         <p className="text-[0.65rem] text-muted-foreground/50 italic mt-5 leading-relaxed">

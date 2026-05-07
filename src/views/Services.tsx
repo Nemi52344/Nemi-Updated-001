@@ -296,10 +296,75 @@ const Services = () => {
           </div>
         </section>
 
-        {/* AKIO → HENRY → SAM verticals */}
-        {verticals.map((v) => (
-          <VerticalSection key={v.id} v={v} />
-        ))}
+        {/* 9 Henry services grid */}
+        <section className="px-6 md:px-12 lg:px-16 pt-8 pb-8">
+          <ScrollReveal>
+            <div style={{ marginBottom: "2.5rem" }}>
+              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">
+                Services
+              </p>
+              <div style={{ height: 2, background: henry, width: "3rem" }} />
+            </div>
+          </ScrollReveal>
+          <div
+            className="services-card-grid border border-border"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "1px",
+              background: "hsl(var(--border))",
+            }}
+          >
+            {henryServices.map((s, i) => (
+              <ScrollReveal key={s.title} delay={i * 80}>
+                <div
+                  className="bg-background hover:bg-card transition-colors duration-300 cursor-default h-full"
+                  style={{ padding: "2rem" }}
+                >
+                  <div
+                    className="bg-card"
+                    style={{
+                      height: 140,
+                      marginBottom: "1.5rem",
+                      overflow: "hidden",
+                      borderLeft: `2px solid ${henry}`,
+                      padding: 0,
+                    }}
+                  >
+                    <img
+                      src={s.img}
+                      alt={s.title}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        opacity: 0.65,
+                        transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)",
+                      }}
+                      className="hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div
+                    style={{
+                      width: "3rem",
+                      height: 2,
+                      background: henry,
+                      marginBottom: "1.2rem",
+                    }}
+                  />
+                  <h3 className="text-foreground font-bold text-base md:text-lg tracking-wider uppercase mb-3">
+                    {s.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-[1.7] tracking-wide">
+                    {s.desc}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
 
         {/* CASE STUDIES — 3 best */}
         <div className="px-6 md:px-12 lg:px-16 pt-16 md:pt-20 pb-10">
@@ -315,15 +380,15 @@ const Services = () => {
 
         <ScrollReveal>
           <CaseStudy
-            title="Composites & Aluminium Tooling"
-            context="A high-end sports car manufacturer required tooling, bonding & trimming jigs, FRP machining, and sheet metal tooling and part production, demanding precision across every surface and tight dimensional tolerance."
-            outcome="Complete tooling suite, composites moulds, aluminium jigs, FRP machined parts, and sheet metal components, all within spec and integrated with the customer's production workflow."
-            color={henry}
-            imageSrc="/Images/aluminium.webp"
-            imageAlt="Composites & Aluminium Tooling"
+            title="Electric Motorcycle for Africa"
+            context="Ruggedised electric motorcycle design required for African road conditions and bike taxi use cases."
+            outcome="PRD to production-ready in 6 months, delivering full CAD and component designs. Tooling and fixture designs, and supplier base all delivered in additional 3 months."
+            color={akio}
+            imageSrc="/Images/Messenger.webp"
+            imageAlt="Electric Motorcycle for Africa"
             metrics={[
-              { label: "Lead time", before: "18 weeks", after: "7 weeks", barPercent: 39, color: henry },
-              { label: "Tooling cost", before: "Baseline", after: "–34%", barPercent: 66, color: henry },
+              { label: "Design time", before: "24 months", after: "9 months", barPercent: 37, color: akio },
+              { label: "Development cost", before: "Baseline", after: "1/10th", barPercent: 10, color: akio },
             ]}
           />
         </ScrollReveal>

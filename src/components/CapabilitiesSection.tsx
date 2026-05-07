@@ -12,11 +12,11 @@ import vehicleElectronics from "@/assets/vehicle-electronics.webp";
 import vehicleMechanical from "@/assets/vehicle-mechanical.webp";
 import vehicleMotor from "@/assets/vehicle-motor.webp";
 
-import humanoidFull from "@/assets/humanoid-full.webp";
-import humanoidBattery from "@/assets/humanoid-battery.webp";
-import humanoidElectronics from "@/assets/humanoid-electronics.webp";
-import humanoidMechanical from "@/assets/humanoid-mechanical.webp";
-import humanoidMotor from "@/assets/humanoid-motor.webp";
+const roboticFull = "/Images/for%20robotic%20arm/complex%20assembly%20.png";
+const roboticBattery = "/Images/for%20robotic%20arm/battery%20(1).png";
+const roboticElectronics = "/Images/for%20robotic%20arm/eletrical%20parts%20.png";
+const roboticMechanical = "/Images/for%20robotic%20arm/mechanical%20parts%20%20(1).png";
+const roboticMotor = "/Images/for%20robotic%20arm/motor%20.png";
 
 interface CapabilitiesSectionProps {
   scrollProgress: number;
@@ -60,13 +60,13 @@ const vehicleImages: Record<string, { full: string; parts: Record<PartKey, strin
     },
   },
   humanoid: {
-    full: humanoidFull,
+    full: roboticFull,
     parts: {
-      complex_parts: humanoidFull,
-      battery: humanoidBattery,
-      motor: humanoidMotor,
-      mechanical: humanoidMechanical,
-      electronics: humanoidElectronics,
+      complex_parts: roboticFull,
+      battery: roboticBattery,
+      motor: roboticMotor,
+      mechanical: roboticMechanical,
+      electronics: roboticElectronics,
     },
   },
 };
@@ -74,7 +74,7 @@ const vehicleImages: Record<string, { full: string; parts: Record<PartKey, strin
 const vehicles = [
   { key: "drone", label: "Drone" },
   { key: "vehicle", label: "Vehicle" },
-  { key: "humanoid", label: "Humanoid" },
+  { key: "humanoid", label: "Robotic Arm" },
 ];
 
 const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
@@ -177,9 +177,13 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
             const highlightImg = data.parts[selectedPart];
             const showOverlay = selectedPart !== "complex_parts" && highlightImg;
 
+            const isRobotic = v.key === "humanoid";
             return (
               <div key={v.key} className="flex flex-col items-center gap-2 md:gap-4">
-                <div className="relative w-[7.5rem] h-[8.5rem] md:w-48 md:h-52 lg:w-60 lg:h-60 flex items-center justify-center">
+                <div
+                  className="relative w-[7.5rem] h-[8.5rem] md:w-48 md:h-52 lg:w-60 lg:h-60 flex items-center justify-center"
+                  style={isRobotic ? { position: "relative", top: "12px" } : {}}
+                >
                   <img
                     src={data.full}
                     alt={v.label}

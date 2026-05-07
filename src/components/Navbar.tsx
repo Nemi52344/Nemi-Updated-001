@@ -11,10 +11,6 @@ interface NavbarProps {
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/technology", label: "Technology" },
-  { href: "/about", label: "About" },
-  { href: "/careers", label: "Careers" },
 ];
 
 const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {

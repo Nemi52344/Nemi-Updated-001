@@ -60,10 +60,10 @@ const LogoCell = ({ logo }: { logo: LogoEntry }) => (
 );
 
 const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
-  // Section: 0.74–0.86
-  const sectionVisible = scrollProgress > 0.735 && scrollProgress < 0.86;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.745, 0.78));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.84, 0.86));
+  // Section: 0.895–0.965
+  const sectionVisible = scrollProgress > 0.89 && scrollProgress < 0.97;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.895, 0.928));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.952, 0.97));
   const opacity = Math.min(enterP, 1 - exitP);
 
   if (!sectionVisible) return null;

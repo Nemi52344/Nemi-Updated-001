@@ -18,6 +18,8 @@ const ProblemSection = dynamic(() => import("@/components/ProblemSection"));
 const CoreTechSection = dynamic(() => import("@/components/CoreTechSection"));
 const CapabilitiesSection = dynamic(() => import("@/components/CapabilitiesSection"));
 const CompetitorsSection = dynamic(() => import("@/components/CompetitorsSection"));
+const WhyNowSection = dynamic(() => import("@/components/WhyNowSection"));
+const LeadershipSection = dynamic(() => import("@/components/LeadershipSection"));
 const IndustriesSection = dynamic(() => import("@/components/IndustriesSection"));
 const CaseStudyEVSection = dynamic(() => import("@/components/CaseStudyEVSection"));
 const CTASection = dynamic(() => import("@/components/CTASection"));
@@ -67,7 +69,7 @@ const Index = () => {
     : 0.10;
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: "1200vh" }}>
+    <div ref={containerRef} className="relative" style={{ height: "1500vh" }}>
       {/* Navbar */}
       <Navbar scrollProgress={scrollProgress} />
 
@@ -100,25 +102,29 @@ const Index = () => {
 
 
       <ConstellationCanvas />
-      <TrustSignalSection scrollProgress={scrollProgress} />
       <IntentSection scrollProgress={scrollProgress} />
       <ProblemSection scrollProgress={scrollProgress} />
       <CoreTechSection scrollProgress={scrollProgress} />
       <CapabilitiesSection scrollProgress={scrollProgress} />
       <CompetitorsSection scrollProgress={scrollProgress} />
+      <WhyNowSection scrollProgress={scrollProgress} />
+      <LeadershipSection scrollProgress={scrollProgress} />
+      <TrustSignalSection scrollProgress={scrollProgress} />
       {/* Hidden for now — re-enable when needed */}
       {/* <IndustriesSection scrollProgress={scrollProgress} /> */}
       {/* <CaseStudyEVSection scrollProgress={scrollProgress} /> */}
       <CTASection scrollProgress={scrollProgress} />
 
-      {/* Transition dividers between sections — aligned to new scroll layout */}
+      {/* Transition dividers between sections */}
       <ScrollTransition scrollProgress={scrollProgress} at={0.05} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.15} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.32} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.45} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.60} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.74} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.85} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.815} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.89} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.963} />
 
       {/* Purple nebula glow behind logo */}
       <div

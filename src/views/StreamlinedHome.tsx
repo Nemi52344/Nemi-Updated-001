@@ -167,7 +167,7 @@ const StreamlinedHome = () => {
             {[
               { label: "Drone",       src: "/Images/Titanium-Alloys-for-Drone-Frames.webp" },
               { label: "Vehicle",     src: "/Images/freepik__remove-the-person-in-left-__22404.webp" },
-              { label: "Robotic Arm", src: "/Images/for%20robotic%20arm/complex%20assembly%20.png" },
+              { label: "Robotic Arm", src: "/Images/for%20robotic%20arm/complex%20assembly%20.webp" },
             ].map((item, i) => (
               <ScrollReveal key={item.label} delay={i * 80}>
                 <div className="flex flex-col items-center gap-4">

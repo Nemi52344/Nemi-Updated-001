@@ -72,7 +72,7 @@ const Index = () => {
     : 0.10;
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: "1500vh" }}>
+    <div ref={containerRef} className="relative" style={{ height: "2000vh" }}>
       {/* Navbar */}
       <Navbar scrollProgress={scrollProgress} />
 

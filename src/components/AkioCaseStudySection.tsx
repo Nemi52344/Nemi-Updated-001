@@ -24,11 +24,11 @@ const metrics: MetricData[] = [
 ];
 
 const AkioCaseStudySection = ({ scrollProgress }: AkioCaseStudySectionProps) => {
-  // Section: 0.43–0.51
-  const sectionVisible = scrollProgress > 0.425 && scrollProgress < 0.515;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.435, 0.45));
-  const barsP = easeOut(rangeProgress(scrollProgress, 0.45, 0.48));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.49, 0.51));
+  // Section: 0.610–0.658 (Case Study 1 of 3)
+  const sectionVisible = scrollProgress > 0.605 && scrollProgress < 0.658;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.612, 0.622));
+  const barsP = easeOut(rangeProgress(scrollProgress, 0.622, 0.640));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.648, 0.658));
 
   if (!sectionVisible) return null;
 

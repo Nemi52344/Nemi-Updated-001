@@ -16,7 +16,11 @@ const TrustSignalSection = dynamic(() => import("@/components/TrustSignalSection
 const IntentSection = dynamic(() => import("@/components/IntentSection"));
 const CoreTechSection = dynamic(() => import("@/components/CoreTechSection"));
 const CapabilitiesSection = dynamic(() => import("@/components/CapabilitiesSection"));
+const LMMIntroSection = dynamic(() => import("@/components/LMMIntroSection"));
+const LMMFlowSection = dynamic(() => import("@/components/LMMFlowSection"));
 const CompetitorsSection = dynamic(() => import("@/components/CompetitorsSection"));
+const CaseStudiesSection = dynamic(() => import("@/components/CaseStudiesSection"));
+const DualRevenueSection = dynamic(() => import("@/components/DualRevenueSection"));
 const WhyNowSection = dynamic(() => import("@/components/WhyNowSection"));
 const LeadershipSection = dynamic(() => import("@/components/LeadershipSection"));
 const IndustriesSection = dynamic(() => import("@/components/IndustriesSection"));
@@ -103,7 +107,15 @@ const Index = () => {
       <ConstellationCanvas />
       <IntentSection scrollProgress={scrollProgress} />
       <CoreTechSection scrollProgress={scrollProgress} />
+      <LMMIntroSection scrollProgress={scrollProgress} />
+      <LMMFlowSection scrollProgress={scrollProgress} />
+      {/* 6th section: Three case studies on a single page */}
+      <CaseStudiesSection scrollProgress={scrollProgress} />
+      {/* 7th section: Full-stack MaaS (Capabilities) */}
       <CapabilitiesSection scrollProgress={scrollProgress} />
+      {/* 8th section: Dual Revenue Model */}
+      <DualRevenueSection scrollProgress={scrollProgress} />
+      {/* 9th section: Why Us (Hardware + Software AI applied) */}
       <CompetitorsSection scrollProgress={scrollProgress} />
       <WhyNowSection scrollProgress={scrollProgress} />
       <LeadershipSection scrollProgress={scrollProgress} />

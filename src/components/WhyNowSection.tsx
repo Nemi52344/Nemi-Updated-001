@@ -10,10 +10,10 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
-  // Section: 0.74–0.815
-  const sectionVisible = scrollProgress > 0.735 && scrollProgress < 0.82;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.745, 0.785));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.80, 0.82));
+  // Section: 0.910–0.945 (after Why Us)
+  const sectionVisible = scrollProgress > 0.905 && scrollProgress < 0.945;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.912, 0.928));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.935, 0.945));
   const opacity = Math.min(enterP, 1 - exitP);
 
   if (!sectionVisible) return null;

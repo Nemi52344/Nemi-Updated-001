@@ -23,11 +23,11 @@ const metrics: MetricData[] = [
 ];
 
 const HenryCaseStudySection = ({ scrollProgress }: HenryCaseStudySectionProps) => {
-  // Section: 0.59–0.67
-  const sectionVisible = scrollProgress > 0.585 && scrollProgress < 0.675;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.595, 0.615));
-  const barsP = easeOut(rangeProgress(scrollProgress, 0.615, 0.645));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.655, 0.67));
+  // Section: 0.658–0.706 (Case Study 2 of 3)
+  const sectionVisible = scrollProgress > 0.653 && scrollProgress < 0.706;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.660, 0.670));
+  const barsP = easeOut(rangeProgress(scrollProgress, 0.670, 0.688));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.696, 0.706));
 
   if (!sectionVisible) return null;
 

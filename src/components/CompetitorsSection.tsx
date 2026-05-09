@@ -62,11 +62,16 @@ interface StatTile {
   imageScale?: number;  // CSS scale transform to zoom into logo content when image has padding
 }
 
-const stats: StatTile[] = [
-  { value: "300K", unit: "sq ft", label: "Facility" },
-  { image: "/Images/certifications/as9100-certification.png", imageAlt: "AS9100 Certified", label: "Aerospace", imageHeight: 70 },
-  { image: "/Images/certifications/iso-9001.png",             imageAlt: "ISO 9001:2015 Certified",   label: "Quality",   imageHeight: 44 },
-  { value: "40+", unit: "", label: "Patents" },
+interface StyledStat extends StatTile {
+  accent: string; // hsl values
+  variant: "value" | "logo";
+}
+
+const stats: StyledStat[] = [
+  { value: "300K", unit: "sq ft", label: "Facility",  accent: "275 80% 65%", variant: "value" },
+  { image: "/Images/certifications/as9100-certification.png", imageAlt: "AS9100 Certified",      label: "Aerospace", imageHeight: 70, accent: "210 85% 65%", variant: "logo" },
+  { image: "/Images/certifications/iso-9001.png",             imageAlt: "ISO 9001:2015 Certified", label: "Quality",  imageHeight: 44, accent: "200 90% 70%", variant: "logo" },
+  { value: "40+", unit: "", label: "Patents", accent: "295 80% 70%", variant: "value" },
 ];
 
 interface FactoryItem {
@@ -148,11 +153,12 @@ const FactoryFlipCard = ({
 };
 
 const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
-  const sectionVisible = scrollProgress > 0.61 && scrollProgress < 0.74;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.62, 0.66));
-  const cardsP = rangeProgress(scrollProgress, 0.64, 0.70);
-  const statsP = easeOut(rangeProgress(scrollProgress, 0.67, 0.70));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.71, 0.74));
+  // Why Us — placed between Dual Revenue and Why Now
+  const sectionVisible = scrollProgress > 0.860 && scrollProgress < 0.910;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.866, 0.880));
+  const cardsP = rangeProgress(scrollProgress, 0.872, 0.895);
+  const statsP = easeOut(rangeProgress(scrollProgress, 0.882, 0.898));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.900, 0.910));
 
   if (!sectionVisible) return null;
 
@@ -164,16 +170,24 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
       style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
     >
       <div className="max-w-6xl w-full mx-6 pointer-events-auto">
-        <h2
-          className="text-xl md:text-2xl lg:text-3xl font-bold mb-6 text-center"
-          style={{
-            color: "hsl(275 80% 75%)",
-            textShadow: "0 0 24px hsl(275 80% 60% / 0.4)",
-            opacity: enterP,
-          }}
-        >
-          Nemi's Fortress Factory
-        </h2>
+        <div className="text-center mb-6" style={{ opacity: enterP }}>
+          <p
+            className="text-[0.6rem] md:text-xs tracking-[0.4em] uppercase font-medium mb-2"
+            style={{ color: "hsl(275 60% 65%)" }}
+          >
+            Why Us
+          </p>
+          <h2
+            className="text-xl md:text-3xl lg:text-4xl font-bold tracking-tight"
+            style={{
+              letterSpacing: "-0.02em",
+              color: "hsl(275 80% 80%)",
+              textShadow: "0 0 24px hsl(275 80% 60% / 0.4)",
+            }}
+          >
+            Hardware + Software AI applied
+          </h2>
+        </div>
         {/* Factory photo cards, 4x2 grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-8">
         {factoryImages.map((item, i) => {
@@ -194,23 +208,38 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           })}
         </div>
 
-        {/* Stats bar */}
+        {/* Stats — individually styled cards */}
         <div
-          className="flex items-center justify-center divide-x divide-purple-500/20 rounded-xl border border-purple-500/15 bg-purple-500/[0.03] backdrop-blur-sm px-1 md:px-2 py-1.5 mx-auto w-fit"
+          className="flex flex-wrap items-stretch justify-center gap-3 md:gap-4 mx-auto w-fit"
           style={{
             opacity: statsP,
             transform: `translateY(${(1 - statsP) * 25}px)`,
-            boxShadow: "0 0 30px hsl(275 80% 40% / 0.1)",
           }}
         >
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="text-center px-4 md:px-6 flex flex-col items-center justify-center"
-              style={{ minHeight: "90px" }}
+              className="relative rounded-2xl px-5 md:px-6 py-3 flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-0.5"
+              style={{
+                minHeight: "110px",
+                minWidth: "140px",
+                border: `1px solid hsl(${stat.accent} / 0.28)`,
+                background: `linear-gradient(135deg, hsl(${stat.accent} / 0.10), hsl(220 25% 6% / 0.7))`,
+                boxShadow: `0 0 24px hsl(${stat.accent} / 0.12), inset 0 0 20px hsl(${stat.accent} / 0.04)`,
+                backdropFilter: "blur(6px)",
+              }}
             >
-              {stat.image ? (
-                <div className="flex items-center justify-center" style={{ height: "70px" }}>
+              {/* Top accent bar */}
+              <div
+                className="absolute top-0 left-1/2 -translate-x-1/2 h-px"
+                style={{
+                  width: "60%",
+                  background: `linear-gradient(to right, transparent, hsl(${stat.accent} / 0.7), transparent)`,
+                }}
+              />
+
+              {stat.variant === "logo" ? (
+                <div className="flex items-center justify-center" style={{ height: "60px" }}>
                   <img
                     src={stat.image}
                     alt={stat.imageAlt || stat.label}
@@ -218,20 +247,19 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                       height: `${stat.imageHeight ?? 44}px`,
                       width: "auto",
                       display: "block",
-                      filter: "drop-shadow(0 0 16px hsl(275 80% 60% / 0.45))",
+                      filter: `drop-shadow(0 0 16px hsl(${stat.accent} / 0.55))`,
                     }}
                     loading="lazy"
                     decoding="async"
                   />
                 </div>
               ) : (
-                <div className="flex items-baseline justify-center gap-1" style={{ height: "70px" }}>
+                <div className="flex items-baseline justify-center gap-1" style={{ height: "60px" }}>
                   <span
-                    className="text-2xl md:text-3xl lg:text-4xl font-bold leading-none self-center"
+                    className="text-3xl md:text-4xl font-bold leading-none self-center"
                     style={{
-                      color: "hsl(275 80% 65%)",
-                      textShadow:
-                        "0 0 18px hsl(275 80% 60% / 0.5), 0 0 36px hsl(275 80% 60% / 0.18)",
+                      color: `hsl(${stat.accent})`,
+                      textShadow: `0 0 18px hsl(${stat.accent} / 0.55), 0 0 36px hsl(${stat.accent} / 0.20)`,
                     }}
                   >
                     {stat.value}
@@ -240,8 +268,8 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                     <span
                       className="text-xs md:text-sm font-semibold leading-none self-center"
                       style={{
-                        color: "hsl(275 60% 80%)",
-                        textShadow: "0 0 12px hsl(275 80% 60% / 0.3)",
+                        color: `hsl(${stat.accent} / 0.85)`,
+                        textShadow: `0 0 12px hsl(${stat.accent} / 0.35)`,
                       }}
                     >
                       {stat.unit}
@@ -249,7 +277,11 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   )}
                 </div>
               )}
-              <span className="text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1.5 block font-medium">
+
+              <span
+                className="text-[10px] md:text-[11px] tracking-[0.25em] uppercase mt-2 block font-semibold"
+                style={{ color: `hsl(${stat.accent} / 0.85)` }}
+              >
                 {stat.label}
               </span>
             </div>

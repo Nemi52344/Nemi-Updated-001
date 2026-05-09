@@ -12,11 +12,11 @@ import vehicleElectronics from "@/assets/vehicle-electronics.webp";
 import vehicleMechanical from "@/assets/vehicle-mechanical.webp";
 import vehicleMotor from "@/assets/vehicle-motor.webp";
 
-const roboticFull = "/Images/for%20robotic%20arm/complex%20assembly%20.png";
-const roboticBattery = "/Images/for%20robotic%20arm/battery%20(1).png";
-const roboticElectronics = "/Images/for%20robotic%20arm/eletrical%20parts%20.png";
-const roboticMechanical = "/Images/for%20robotic%20arm/mechanical%20parts%20%20(1).png";
-const roboticMotor = "/Images/for%20robotic%20arm/motor%20.png";
+const roboticFull = "/Images/For%20robotic%20arm/complex%20assembly%20.webp";
+const roboticBattery = "/Images/For%20robotic%20arm/battery%20(1).webp";
+const roboticElectronics = "/Images/For%20robotic%20arm/eletrical%20parts%20.webp";
+const roboticMechanical = "/Images/For%20robotic%20arm/mechanical%20parts%20%20(1).webp";
+const roboticMotor = "/Images/For%20robotic%20arm/motor%20.webp";
 
 interface CapabilitiesSectionProps {
   scrollProgress: number;
@@ -80,10 +80,10 @@ const vehicles = [
 const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
   const [selectedPart, setSelectedPart] = useState<PartKey>("complex_parts");
 
-  // Section: 0.16–0.32 (Full-stack MaaS, slot 3 in scroll narrative)
-  const sectionVisible = scrollProgress > 0.155 && scrollProgress < 0.325;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.16, 0.19));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.30, 0.32));
+  // Section: 0.755–0.815 (Full-stack MaaS)
+  const sectionVisible = scrollProgress > 0.750 && scrollProgress < 0.815;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.758, 0.775));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.802, 0.815));
 
   if (!sectionVisible) return null;
 

@@ -1,7 +1,8 @@
-import { useState } from "react";
-import akioImg from "@/assets/akio.webp";
-import henryImg from "@/assets/henry.webp";
-import samImg from "@/assets/sam.webp";
+"use client";
+
+import designReleaseImg from "@/assets/design-release.webp";
+import developToolingImg from "@/assets/develop-tooling.webp";
+import distributeWarehousingImg from "@/assets/distribute-warehousing.webp";
 
 interface CoreTechSectionProps {
   scrollProgress: number;
@@ -12,289 +13,179 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
-interface TechLeader {
-  name: string;
-  fullName: string;
-  role: string;
-  color: string;
-  colorHsl: string;
-  bio: string;
-  initials: string;
-  photo?: string;
-}
-
-const techLeaders: TechLeader[] = [
+const PHASES = [
   {
-    name: "AKIO",
-    fullName: "Akio Morita",
-    role: "Design",
-    color: "from-red-500/20 to-red-900/10",
-    colorHsl: "0 85% 55%",
-    bio: "One of the greatest inventors of the 20th century, Akio pioneered the intersection of human-centered design and industrial precision, transforming how we imagine and shape the physical world.",
-    initials: "A",
-    photo: akioImg,
+    num: "01",
+    label: "Design",
+    color: "0 72% 58%",
+    desc: "Siloed tools, manual BOMs, no production feedback.",
+    insightTitle: "High Capital",
+    insightBody: "Every new product demands massive upfront investment in tooling, prototyping, and certification.",
+    image: designReleaseImg,
+    imageAlt: "Motorcycle CAD design release for production",
   },
   {
-    name: "HENRY",
-    fullName: "Henry Ford",
-    role: "Develop",
-    color: "from-blue-500/20 to-blue-900/10",
-    colorHsl: "220 85% 55%",
-    bio: "A visionary engineer who revolutionized mass production and democratized manufacturing, proving that scalable systems could deliver quality to the world at unprecedented speed.",
-    initials: "H",
-    photo: henryImg,
+    num: "02",
+    label: "Develop",
+    color: "215 75% 60%",
+    desc: "Tooling from scratch, knowledge locked in heads.",
+    insightTitle: "More Time-Consuming",
+    insightBody: "Development cycles stretch endlessly — each iteration restarts from scratch with no reusable process.",
+    image: developToolingImg,
+    imageAlt: "Manual tooling and manufacturing process",
   },
   {
-    name: "SAM",
-    fullName: "Sam Walton",
-    role: "Distribute",
-    color: "from-green-500/20 to-green-900/10",
-    colorHsl: "145 75% 45%",
-    bio: "A master of global logistics and distribution networks, Sam redefined how products reach every corner of the earth, building the arteries of modern commerce.",
-    initials: "S",
-    photo: samImg,
+    num: "03",
+    label: "Deliver",
+    color: "152 60% 45%",
+    desc: "Fragmented supply chain, zero visibility.",
+    insightTitle: "Knowledge Doesn't Compound",
+    insightBody: "Expertise stays locked in people's heads — nothing transfers across the value chain.",
+    image: distributeWarehousingImg,
+    imageAlt: "Manual warehousing and delivery process",
   },
 ];
 
-const FlipCard = ({ leader, compact }: { leader: TechLeader; compact?: boolean }) => {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <div
-      className="w-full h-full cursor-pointer"
-      style={{ perspective: "1000px" }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <div
-        className="relative w-full h-full transition-all duration-700"
-        style={{
-          transformStyle: "preserve-3d",
-          transform: hovered ? "rotateY(180deg)" : "rotateY(0deg)",
-        }}
-      >
-        {/* Front: photo + name + role */}
-        <div
-          className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-4 md:p-8 lg:p-10 transition-shadow duration-500"
-          style={{
-            backfaceVisibility: "hidden",
-            borderColor: `hsl(${leader.colorHsl} / 0.3)`,
-            boxShadow: `0 0 20px hsl(${leader.colorHsl} / 0.1), 0 4px 20px hsl(230 25% 4% / 0.4)`,
-            background: `linear-gradient(135deg, hsl(${leader.colorHsl} / 0.08), hsl(var(--card) / 0.7))`,
-          }}
-        >
-          {leader.photo && (
-            <>
-              {/* Outer glow ring */}
-              <div
-                className="rounded-full mb-3 md:mb-5 relative z-10 flex items-center justify-center"
-                style={{
-                  width: "9.5rem",
-                  height: "9.5rem",
-                  background: `radial-gradient(circle, hsl(${leader.colorHsl} / 0.2) 50%, hsl(${leader.colorHsl} / 0.05) 65%, transparent 72%)`,
-                }}
-              >
-                <div
-                  className="rounded-full overflow-hidden"
-                  style={{
-                    width: "8rem",
-                    height: "8rem",
-                    border: `1.5px solid hsl(${leader.colorHsl} / 0.45)`,
-                    boxShadow: `0 0 10px hsl(${leader.colorHsl} / 0.2), inset 0 0 8px hsl(${leader.colorHsl} / 0.08)`,
-                  }}
-                >
-                  <img src={leader.photo} alt={leader.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
-                </div>
-              </div>
-              <div
-                className="absolute w-20 h-20 md:w-44 md:h-44 rounded-full blur-2xl opacity-20"
-                style={{
-                  background: `radial-gradient(circle, hsl(${leader.colorHsl} / 0.4), transparent)`,
-                  top: "10%",
-                }}
-              />
-            </>
-          )}
-          <h3
-            className={`${compact ? 'text-[10px]' : 'text-xs'} md:text-xl font-semibold text-foreground tracking-wider mb-0 md:mb-1`}
-            style={{ textShadow: `0 0 12px hsl(${leader.colorHsl} / 0.4)` }}
-          >
-            {leader.name}
-            <sup className="text-[0.5em] ml-0.5 align-super opacity-80">™</sup>
-          </h3>
-          <p
-            className={`${compact ? 'text-[8px]' : 'text-[10px]'} md:text-sm tracking-[0.15em] md:tracking-[0.3em] uppercase font-medium`}
-            style={{ color: `hsl(${leader.colorHsl})` }}
-          >
-            {leader.role}
-          </p>
-        </div>
-
-        {/* Back: bio text */}
-        <div
-          className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center justify-center p-4 md:p-8 lg:p-10 transition-shadow duration-500"
-          style={{
-            backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-            borderColor: `hsl(${leader.colorHsl} / 0.3)`,
-            boxShadow: `0 0 20px hsl(${leader.colorHsl} / 0.1), 0 4px 20px hsl(230 25% 4% / 0.4)`,
-            background: `linear-gradient(135deg, hsl(${leader.colorHsl} / 0.1), hsl(var(--card) / 0.85))`,
-          }}
-        >
-          <p
-            className={`${compact ? 'text-[8px] mb-1' : 'text-[10px] mb-1'} md:text-sm md:mb-2 tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium`}
-            style={{ color: `hsl(${leader.colorHsl})` }}
-          >
-            {leader.role}
-          </p>
-          <h4
-            className={`${compact ? 'text-[10px] mb-1' : 'text-xs mb-2'} md:text-base md:mb-3 font-semibold text-foreground text-center tracking-wide`}
-            style={{ textShadow: `0 0 12px hsl(${leader.colorHsl} / 0.4)` }}
-          >
-            {leader.fullName}
-          </h4>
-          <p className={`${compact ? 'hidden' : 'text-[10px] leading-relaxed'} md:block md:text-sm text-muted-foreground text-center`}>
-            {leader.bio}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
-  // Section: 0.20–0.44
-  const sectionVisible = scrollProgress > 0.19 && scrollProgress < 0.45;
-  const crossfadeP = rangeProgress(scrollProgress, 0.41, 0.44);
+  const sectionVisible = scrollProgress > 0.145 && scrollProgress < 0.33;
+  const crossfadeP     = rangeProgress(scrollProgress, 0.30, 0.33);
 
-  const titleEnterP = easeOut(rangeProgress(scrollProgress, 0.21, 0.25));
-  const titleExitP = easeOut(rangeProgress(scrollProgress, 0.38, 0.41));
-  const titleOpacity = titleEnterP * (1 - titleExitP);
+  const headEnterP  = easeOut(rangeProgress(scrollProgress, 0.16, 0.20));
+  const headExitP   = easeOut(rangeProgress(scrollProgress, 0.29, 0.32));
+  const headOpacity = headEnterP * (1 - headExitP);
 
-  const subtitleP = easeOut(rangeProgress(scrollProgress, 0.25, 0.29));
-  const subtitleExitP = easeOut(rangeProgress(scrollProgress, 0.38, 0.41));
-  const subtitleOpacity = subtitleP * (1 - subtitleExitP);
+  const bodyP       = easeOut(rangeProgress(scrollProgress, 0.19, 0.23));
+  const bodyExit    = easeOut(rangeProgress(scrollProgress, 0.29, 0.32));
+  const bodyOpacity = bodyP * (1 - bodyExit);
 
-  const panel0P = easeOut(rangeProgress(scrollProgress, 0.27, 0.31));
-  const panel1P = easeOut(rangeProgress(scrollProgress, 0.29, 0.33));
-  const panel2P = easeOut(rangeProgress(scrollProgress, 0.31, 0.35));
-  const panelExitP = easeOut(rangeProgress(scrollProgress, 0.39, 0.43));
-
-  const bottomP = easeOut(rangeProgress(scrollProgress, 0.27, 0.31));
-  const bottomExitP = easeOut(rangeProgress(scrollProgress, 0.39, 0.43));
-  const bottomOpacity = bottomP * (1 - bottomExitP);
+  const panel0P    = easeOut(rangeProgress(scrollProgress, 0.21, 0.25));
+  const panel1P    = easeOut(rangeProgress(scrollProgress, 0.23, 0.27));
+  const panel2P    = easeOut(rangeProgress(scrollProgress, 0.25, 0.29));
+  const panelExitP = easeOut(rangeProgress(scrollProgress, 0.29, 0.33));
 
   if (!sectionVisible) return null;
 
-  const panelProgresses = [panel0P, panel1P, panel2P];
+  const panelPs = [panel0P, panel1P, panel2P];
 
   return (
     <>
-      {/* Grouped centered content */}
       <div
-        className="fixed inset-0 pointer-events-none flex items-center justify-center"
-        style={{ zIndex: 25 }}
+        className="fixed inset-0 pointer-events-none flex flex-col justify-center"
+        style={{ zIndex: 25, padding: "8vh 6vw 3vh" }}
       >
-        <div className="flex flex-col items-center w-full max-w-7xl mx-auto px-4">
-          {/* Heading: Introducing */}
-          <div
-            style={{
-              opacity: titleOpacity,
-              transform: `translateY(${(1 - titleEnterP) * 20}px)`,
-            }}
+
+        {/* ── HEADLINE ── */}
+        <div style={{ opacity: headOpacity, transform: `translateY(${(1 - headEnterP) * 18}px)` }}>
+          <h2
+            className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05] mb-2"
+            style={{ letterSpacing: "-0.02em" }}
           >
-            <h2
-              className="text-xs md:text-base tracking-[0.3em] md:tracking-[0.4em] uppercase text-muted-foreground text-center"
-              style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
-            >
-              Powered by
-            </h2>
-          </div>
-
-          {/* Title: LMM */}
-          <div
-            className="flex flex-col items-center mt-1 md:mt-4"
-            style={{
-              opacity: subtitleOpacity,
-              transform: `translateY(${(1 - subtitleP) * 20}px)`,
-            }}
+            Hardware is Hard.
+          </h2>
+          <p
+            className="text-sm text-muted-foreground leading-relaxed whitespace-nowrap"
+            style={{ opacity: bodyOpacity }}
           >
-            <h3
-              className="text-2xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-wider"
-              style={{
-                textShadow:
-                  "0 0 30px hsl(275 80% 60% / 0.5), 0 0 60px hsl(270 70% 50% / 0.2)",
-              }}
-            >
-              LMM
-            </h3>
-            <p className="mt-1 md:mt-2 text-sm md:text-xl text-muted-foreground tracking-widest">
-              Large Manufacturing Model
-            </p>
-          </div>
+            Manufacturing is deeply fragmented — every product restarts from zero, burning capital and losing knowledge at every handoff.
+          </p>
+        </div>
 
-          {/* Tagline */}
-          <div
-            className="mt-1 md:mt-5"
-            style={{
-              opacity: bottomOpacity,
-              transform: `translateY(${(1 - bottomP) * 15}px)`,
-            }}
-          >
-            <p
-              className="text-sm md:text-lg lg:text-xl font-light text-foreground tracking-wide text-center max-w-3xl mx-auto leading-relaxed"
-              style={{
-                textShadow:
-                  "0 0 20px hsl(275 80% 60% / 0.5), 0 0 40px hsl(270 70% 50% / 0.25)",
-                animation: bottomP >= 1 ? "text-glow-pulse 3s ease-in-out infinite" : "none",
-              }}
-            >
-              NEMI&rsquo;s proprietary{" "}
-              <span className="font-semibold text-foreground">Large Manufacturing Model</span>{" "}
-              automates manufacturing end-to-end with three verticals:{" "}
-              <span className="font-bold" style={{ color: "hsl(0, 72%, 62%)" }}>AKIO</span>
-              <span className="text-muted-foreground">, </span>
-              <span className="font-bold" style={{ color: "hsl(217, 91%, 65%)" }}>HENRY</span>
-              <span className="text-muted-foreground">, </span>
-              <span className="font-bold" style={{ color: "hsl(142, 71%, 50%)" }}>SAM</span>.
-            </p>
-          </div>
+        {/* ── CARDS ── */}
+        <div
+          className="grid grid-cols-3 gap-4 pointer-events-auto"
+          style={{ margin: "2.5vh 0" }}
+        >
+          {PHASES.map((ph, i) => {
+            const p       = panelPs[i];
+            const opacity = p * (1 - panelExitP);
+            const ty      = (1 - p) * 28;
 
-          {/* Cards */}
-          <div className="mt-6 md:mt-6 lg:mt-8 w-full pointer-events-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5 lg:gap-8 w-full px-6 md:px-4 lg:px-0 max-w-sm md:max-w-5xl mx-auto">
-              {techLeaders.map((leader, i) => {
-                const p = panelProgresses[i];
-                const opacity = p * (1 - panelExitP);
-                const translateY = (1 - p) * 60;
-
-                return (
+            return (
+              <div
+                key={ph.label}
+                className="relative rounded-2xl flex flex-col overflow-hidden"
+                style={{
+                  opacity,
+                  transform: `translateY(${ty}px)`,
+                  border: `1px solid hsl(${ph.color} / 0.15)`,
+                  background: "hsl(220 20% 7% / 0.8)",
+                  height: "auto",
+                }}
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden" style={{ height: "180px", background: "hsl(220 20% 6%)" }}>
+                  <img
+                    src={ph.image}
+                    alt={ph.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                    style={{ filter: "brightness(0.7) saturate(0.85)" }}
+                  />
                   <div
-                    key={leader.name}
-                    className="w-full"
+                    className="absolute inset-0"
+                    style={{ background: `linear-gradient(to bottom, transparent 40%, hsl(220 20% 7%) 100%)` }}
+                  />
+                </div>
+
+                {/* Card body */}
+                <div className="flex flex-col px-5 pb-4 pt-3 gap-2">
+                  <span
+                    className="text-base md:text-lg tracking-[0.18em] uppercase font-semibold"
                     style={{
-                      opacity,
-                      transform: `translateY(${translateY}px)`,
-                      height: "clamp(240px, 30vh, 440px)",
+                      color: `hsl(${ph.color})`,
+                      letterSpacing: "0.18em",
+                      lineHeight: 1,
                     }}
                   >
-                    <FlipCard leader={leader} />
-                  </div>
-                );
-              })}
-            </div>
-
-          </div>
+                    {ph.label}
+                  </span>
+                  <div className="h-px" style={{ background: `hsl(${ph.color} / 0.12)` }} />
+                  <p
+                    className="text-lg md:text-xl font-medium leading-snug"
+                    style={{ letterSpacing: "-0.01em", color: "hsl(0 0% 92%)" }}
+                  >
+                    {ph.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
+
+        {/* ── INSIGHTS — three individual violet boxes, titles only ── */}
+        <div className="grid grid-cols-3 gap-4" style={{ opacity: bodyOpacity }}>
+          {PHASES.map((ph) => (
+            <div
+              key={ph.insightTitle}
+              className="rounded-2xl border px-5 py-4 flex items-center justify-center text-center"
+              style={{
+                borderColor: "hsl(275 70% 55% / 0.35)",
+                background: "linear-gradient(135deg, hsl(275 70% 50% / 0.10), hsl(275 20% 8% / 0.6))",
+                boxShadow: "0 0 24px hsl(275 80% 50% / 0.10)",
+              }}
+            >
+              <span
+                className="text-base md:text-lg font-bold tracking-tight"
+                style={{
+                  color: "hsl(275 80% 75%)",
+                  textShadow: "0 0 18px hsl(275 80% 60% / 0.35)",
+                }}
+              >
+                {ph.insightTitle}
+              </span>
+            </div>
+          ))}
+        </div>
+
       </div>
 
-      {/* Crossfade overlay */}
       {crossfadeP > 0 && (
         <div
           className="fixed inset-0 pointer-events-none"
           style={{
             zIndex: 25,
-            background: `hsl(230 25% 4%)`,
+            background: "hsl(230 25% 4%)",
             opacity: crossfadeP * 0.85,
             transition: "opacity 0.05s linear",
           }}

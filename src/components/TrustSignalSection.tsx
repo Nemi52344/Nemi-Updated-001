@@ -12,64 +12,53 @@ interface LogoEntry {
   label: string;
 }
 
-// Curated list — exactly the 17 logos requested
-const LOGOS: LogoEntry[] = [
-  { src: "/Images/logos/abb.webp",             label: "ABB" },
-  { src: "/Images/logos/caterpillar.webp",     label: "Caterpillar" },
-  { src: "/Images/logos/boeing.webp",          label: "Boeing" },
-  { src: "/Images/logos/ashok-leyland.webp",   label: "Ashok Leyland" },
-  { src: "/Images/logos/samsung.webp",         label: "Samsung" },
-  { src: "/Images/logos/tata.webp",            label: "Tata" },
-  { src: "/Images/logos/lamborghini.webp",     label: "Lamborghini" },
-  { src: "/Images/logos/ducati.webp",          label: "Ducati" },
-  { src: "/Images/logos/mahindra.webp",        label: "Mahindra" },
-  { src: "/Images/logos/exide.webp",           label: "Exide" },
-  { src: "/Images/logos/whirlpool.webp",       label: "Whirlpool" },
-  { src: "/Images/logos/funskool.png",         label: "Funskool" },
-  { src: "/Images/logos/royal-enfield.webp",   label: "Royal Enfield" },
+const ROW1: LogoEntry[] = [
+  { src: "/Images/logos/samsung.webp",       label: "Samsung" },
+  { src: "/Images/logos/tata.webp",          label: "Tata" },
+  { src: "/Images/logos/lamborghini.webp",   label: "Lamborghini" },
+  { src: "/Images/logos/whirlpool.webp",     label: "Whirlpool" },
+  { src: "/Images/logos/abb.webp",           label: "ABB" },
+  { src: "/Images/logos/caterpillar.webp",   label: "Caterpillar" },
+  { src: "/Images/logos/boeing.webp",        label: "Boeing" },
+  { src: "/Images/logos/ashok-leyland.webp", label: "Ashok Leyland" },
 ];
 
-const LogoCell = ({ logo }: { logo: LogoEntry }) => (
-  <div className="h-12 md:h-14 flex items-center justify-center px-4 md:px-6 shrink-0">
+const ROW2: LogoEntry[] = [
+  { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield" },
+  { src: "/Images/logos/exide.webp",         label: "Exide" },
+  { src: "/Images/logos/flipkart.webp",      label: "Flipkart" },
+  { src: "/Images/logos/zomato.webp",        label: "Zomato" },
+  { src: "/Images/logos/rapido.webp",        label: "Rapido" },
+  { src: "/Images/logos/tvs-mobility.webp",  label: "TVS Mobility" },
+  { src: "/Images/logos/mahindra.webp",      label: "Mahindra" },
+  { src: "/Images/logos/ducati.webp",        label: "Ducati" },
+];
+
+const LogoCard = ({ logo, set }: { logo: LogoEntry; set: number }) => (
+  <div
+    key={logo.label + set}
+    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm"
+    style={{ width: "160px", height: "80px" }}
+  >
     <img
       src={logo.src}
       alt={logo.label}
       title={logo.label}
-      decoding="async"
       loading="lazy"
-      style={{
-        maxHeight: "100%",
-        maxWidth: "140px",
-        width: "auto",
-        objectFit: "contain",
-        filter: "grayscale(1) brightness(1.3)",
-        opacity: 0.78,
-        transition: "filter 0.3s, opacity 0.3s",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.filter =
-          "grayscale(0) brightness(1) drop-shadow(0 0 12px hsl(275 80% 60% / 0.45))";
-        e.currentTarget.style.opacity = "1";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.filter = "grayscale(1) brightness(1.3)";
-        e.currentTarget.style.opacity = "0.78";
-      }}
+      decoding="async"
+      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }}
     />
   </div>
 );
 
 const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
-  // Section: 0.74–0.86
-  const sectionVisible = scrollProgress > 0.735 && scrollProgress < 0.86;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.745, 0.78));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.84, 0.86));
+  // Section: 0.975–0.992 (compressed)
+  const sectionVisible = scrollProgress > 0.973 && scrollProgress < 0.992;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.976, 0.984));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.988, 0.992));
   const opacity = Math.min(enterP, 1 - exitP);
 
   if (!sectionVisible) return null;
-
-  // Duplicate the list so the marquee can loop seamlessly
-  const marqueeRow = [...LOGOS, ...LOGOS];
 
   return (
     <div
@@ -96,7 +85,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
             transform: `translateY(${(1 - enterP) * 16}px)`,
           }}
         >
-          <p className="text-[0.65rem] md:text-xs tracking-[0.3em] uppercase text-primary font-semibold mb-4 md:mb-6">
+          <p className="text-[0.65rem] md:text-xs tracking-[0.4em] uppercase text-muted-foreground font-semibold mb-4 md:mb-6">
             Industrial Partners
           </p>
         </div>
@@ -117,62 +106,35 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
           &mdash; across aerospace, defense, automotive and industrial.
         </h2>
 
-        {/* Scrolling marquee */}
-        <div style={{ opacity: enterP }} className="w-full">
-          <div
-            className="relative rounded-2xl border overflow-hidden py-5 md:py-7"
-            style={{
-              borderColor: "hsl(275 30% 50% / 0.14)",
-              background: "hsl(230 25% 7% / 0.55)",
-              boxShadow: "0 1px 0 hsl(0 0% 100% / 0.03)",
-            }}
-          >
-            {/* Edge fade-out masks (left + right) so logos slide into/out of frame smoothly */}
-            <div
-              aria-hidden
-              className="absolute inset-y-0 left-0 w-16 md:w-24 z-[2] pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(to right, hsl(230 25% 4%) 0%, transparent 100%)",
-              }}
-            />
-            <div
-              aria-hidden
-              className="absolute inset-y-0 right-0 w-16 md:w-24 z-[2] pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(to left, hsl(230 25% 4%) 0%, transparent 100%)",
-              }}
-            />
+        {/* Two-row counter-scrolling logo cards */}
+        <div style={{ opacity: enterP }} className="w-full space-y-3 md:space-y-4">
+          {/* Row 1 — scrolls left */}
+          <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+            <div className="flex" style={{ animation: "partner-scroll-left 40s linear infinite", willChange: "transform" }}>
+              {[0, 1].map((set) => (
+                <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
+                  {ROW1.map((logo) => (
+                    <LogoCard key={logo.label + set} logo={logo} set={set} />
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
 
-            <div
-              className="trust-marquee-track flex items-center"
-              style={{ width: "max-content" }}
-            >
-              {marqueeRow.map((logo, idx) => (
-                <LogoCell key={`${logo.label}-${idx}`} logo={logo} />
+          {/* Row 2 — scrolls right */}
+          <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+            <div className="flex" style={{ animation: "partner-scroll-right 38s linear infinite", willChange: "transform" }}>
+              {[0, 1].map((set) => (
+                <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
+                  {ROW2.map((logo) => (
+                    <LogoCard key={logo.label + set} logo={logo} set={set} />
+                  ))}
+                </div>
               ))}
             </div>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes trust-marquee-scroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-        .trust-marquee-track {
-          animation: trust-marquee-scroll 45s linear infinite;
-          will-change: transform;
-        }
-        .trust-marquee-track:hover {
-          animation-play-state: paused;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .trust-marquee-track { animation: none; }
-        }
-      `}</style>
     </div>
   );
 };

@@ -76,10 +76,6 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
 
         {/* ── HEADLINE ── */}
         <div style={{ opacity: headOpacity, transform: `translateY(${(1 - headEnterP) * 18}px)` }}>
-          <p className="text-[0.6rem] tracking-[0.5em] uppercase font-medium mb-3"
-            style={{ color: "hsl(275 60% 65%)" }}>
-            The Problem
-          </p>
           <h2
             className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05] mb-2"
             style={{ letterSpacing: "-0.02em" }}
@@ -87,11 +83,10 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
             Hardware is Hard.
           </h2>
           <p
-            className="text-sm text-muted-foreground leading-relaxed"
-            style={{ opacity: bodyOpacity, maxWidth: "480px" }}
+            className="text-sm text-muted-foreground leading-relaxed whitespace-nowrap"
+            style={{ opacity: bodyOpacity }}
           >
-            Manufacturing is deeply fragmented — every product restarts from zero,
-            burning capital and losing knowledge at every handoff.
+            Manufacturing is deeply fragmented — every product restarts from zero, burning capital and losing knowledge at every handoff.
           </p>
         </div>
 
@@ -135,20 +130,16 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
 
                 {/* Card body */}
                 <div className="flex flex-col px-5 pb-4 pt-3 gap-2">
-                  <div className="flex items-center justify-between">
-                    <span
-                      className="text-[10px] tracking-[0.3em] uppercase font-semibold"
-                      style={{ color: `hsl(${ph.color} / 0.9)` }}
-                    >
-                      {ph.label}
-                    </span>
-                    <span
-                      className="text-[10px] font-mono"
-                      style={{ color: `hsl(${ph.color} / 0.3)` }}
-                    >
-                      {ph.num}
-                    </span>
-                  </div>
+                  <span
+                    className="text-base md:text-lg tracking-[0.18em] uppercase font-semibold"
+                    style={{
+                      color: `hsl(${ph.color})`,
+                      letterSpacing: "0.18em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {ph.label}
+                  </span>
                   <div className="h-px" style={{ background: `hsl(${ph.color} / 0.12)` }} />
                   <p
                     className="text-lg md:text-xl font-medium leading-snug"
@@ -162,28 +153,26 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
           })}
         </div>
 
-        {/* ── INSIGHTS ── */}
-        <div
-          className="grid grid-cols-3 gap-4 rounded-2xl border px-5 py-5"
-          style={{
-            opacity: bodyOpacity,
-            borderColor: "hsl(275 40% 50% / 0.18)",
-            background: "hsl(275 20% 8% / 0.5)",
-          }}
-        >
+        {/* ── INSIGHTS — three individual violet boxes, titles only ── */}
+        <div className="grid grid-cols-3 gap-4" style={{ opacity: bodyOpacity }}>
           {PHASES.map((ph) => (
             <div
               key={ph.insightTitle}
-              className="flex flex-col gap-2"
+              className="rounded-2xl border px-5 py-4 flex items-center justify-center text-center"
+              style={{
+                borderColor: "hsl(275 70% 55% / 0.35)",
+                background: "linear-gradient(135deg, hsl(275 70% 50% / 0.10), hsl(275 20% 8% / 0.6))",
+                boxShadow: "0 0 24px hsl(275 80% 50% / 0.10)",
+              }}
             >
               <span
-                className="text-base font-bold tracking-tight"
-                style={{ color: `hsl(${ph.color})` }}
+                className="text-base md:text-lg font-bold tracking-tight"
+                style={{
+                  color: "hsl(275 80% 75%)",
+                  textShadow: "0 0 18px hsl(275 80% 60% / 0.35)",
+                }}
               >
                 {ph.insightTitle}
-              </span>
-              <span className="text-xs text-muted-foreground leading-relaxed">
-                {ph.insightBody}
               </span>
             </div>
           ))}

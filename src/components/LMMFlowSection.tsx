@@ -49,18 +49,20 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         transform: `translateY(${(1 - p) * 16}px)`,
       }}
     >
-      {/* Header above image: step label */}
-      <div className="mb-1.5 px-0.5">
+      {/* Header above image: step label, centered */}
+      <div className="mb-1.5 px-0.5 text-center">
         <span className="text-[12px] md:text-sm tracking-[0.16em] uppercase font-semibold text-foreground">
           {step.label}
         </span>
       </div>
 
-      {/* Image — wider, short height */}
+      {/* Image — 3:2 aspect, compact */}
       <div
-        className="relative w-full overflow-hidden"
+        className="relative w-full overflow-hidden mx-auto"
         style={{
-          height: "90px",
+          aspectRatio: "3 / 2",
+          maxHeight: "95px",
+          maxWidth: "calc(95px * 3 / 2)",
           flexShrink: 0,
           borderRadius: "8px",
           background: "hsl(220 20% 6%)",
@@ -162,7 +164,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
   };
 
   // Grid template: card | arrow | card | arrow | card | arrow | card
-  const gridCols = "1fr 28px 1fr 28px 1fr 28px 1fr";
+  const gridCols = "1fr 40px 1fr 40px 1fr 40px 1fr";
 
   return (
     <div
@@ -172,17 +174,11 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
       <div className="w-full max-w-[1380px] mx-auto px-4 md:px-8">
         {/* Header */}
         <div
-          className="text-center mb-4 md:mb-5"
+          className="text-center mb-3"
           style={{ opacity: headP, transform: `translateY(${(1 - headP) * 14}px)` }}
         >
-          <p
-            className="text-[0.6rem] md:text-xs tracking-[0.4em] uppercase font-medium mb-2"
-            style={{ color: "hsl(275 60% 65%)" }}
-          >
-            The NEMI LMM Flow
-          </p>
           <h2
-            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight"
+            className="text-lg md:text-2xl lg:text-3xl font-bold tracking-tight"
             style={{
               letterSpacing: "-0.02em",
               textShadow: "0 0 40px hsl(275 80% 60% / 0.3), 0 0 80px hsl(270 70% 50% / 0.15)",
@@ -190,7 +186,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           >
             From Months to Hours
           </h2>
-          <p className="text-xs md:text-sm text-muted-foreground mt-2 tracking-wide">
+          <p className="text-[10px] md:text-xs text-muted-foreground mt-1 tracking-wide">
             End-to-end manufacturing — every step compressed by NEMI LMM, looping continuously.
           </p>
         </div>

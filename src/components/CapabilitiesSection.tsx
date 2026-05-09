@@ -12,11 +12,11 @@ import vehicleElectronics from "@/assets/vehicle-electronics.webp";
 import vehicleMechanical from "@/assets/vehicle-mechanical.webp";
 import vehicleMotor from "@/assets/vehicle-motor.webp";
 
-const roboticFull = "/Images/for%20robotic%20arm/complex%20assembly%20.png";
-const roboticBattery = "/Images/for%20robotic%20arm/battery%20(1).png";
-const roboticElectronics = "/Images/for%20robotic%20arm/eletrical%20parts%20.png";
-const roboticMechanical = "/Images/for%20robotic%20arm/mechanical%20parts%20%20(1).png";
-const roboticMotor = "/Images/for%20robotic%20arm/motor%20.png";
+const roboticFull = "/Images/For%20robotic%20arm/complex%20assembly%20.webp";
+const roboticBattery = "/Images/For%20robotic%20arm/battery%20(1).webp";
+const roboticElectronics = "/Images/For%20robotic%20arm/eletrical%20parts%20.webp";
+const roboticMechanical = "/Images/For%20robotic%20arm/mechanical%20parts%20%20(1).webp";
+const roboticMotor = "/Images/For%20robotic%20arm/motor%20.webp";
 
 interface CapabilitiesSectionProps {
   scrollProgress: number;

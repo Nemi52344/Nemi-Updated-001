@@ -121,7 +121,7 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
             className="text-sm mt-1.5 tracking-wide"
             style={{ color: "hsl(275 40% 75% / 0.6)" }}
           >
-            Four reinforcing streams — each compounding the next.
+            Four reinforcing streams, each compounding the next.
           </p>
         </div>
 

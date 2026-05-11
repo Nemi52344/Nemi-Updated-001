@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 interface DualRevenueSectionProps {
   scrollProgress: number;
@@ -19,9 +19,9 @@ interface Stream {
 
 const STREAMS: Stream[] = [
   {
-    tag: "Stream 1",
+    tag: "",
     title: "Internal Use",
-    subtitle: "“Dogfooding”",
+    subtitle: "Dogfooding",
     bullets: [
       "Proves technology in real production",
       "Generates foundational LMM training data",
@@ -30,7 +30,7 @@ const STREAMS: Stream[] = [
     accent: "275 70% 65%",
   },
   {
-    tag: "Stream 2",
+    tag: "",
     title: "External Deployment",
     subtitle: "Scale Revenue",
     bullets: [
@@ -81,7 +81,7 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
           style={{ opacity: headP, transform: `translateY(${(1 - headP) * 14}px)` }}
         >
           <p
-            className="text-[0.6rem] md:text-xs tracking-[0.4em] uppercase font-medium mb-2"
+            className="text-[12px] tracking-[0.4em] uppercase font-medium mb-2"
             style={{ color: "hsl(275 60% 65%)" }}
           >
             Business Model
@@ -95,8 +95,8 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
           >
             Dual Revenue Model
           </h2>
-          <p className="text-[10px] md:text-[11px] text-muted-foreground mt-1.5 tracking-wide">
-            Two reinforcing streams - proof at home, scale outside.
+          <p className="text-base text-muted-foreground mt-1.5 tracking-wide">
+            Two reinforcing streams, proof at home, scale outside.
           </p>
         </div>
 
@@ -116,16 +116,18 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
                 }}
               >
                 <div className="flex items-baseline gap-2">
-                  <span
-                    className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase font-semibold px-2 py-0.5 rounded"
-                    style={{
-                      color: `hsl(${s.accent})`,
-                      background: `hsl(${s.accent} / 0.12)`,
-                      border: `1px solid hsl(${s.accent} / 0.3)`,
-                    }}
-                  >
-                    {s.tag}
-                  </span>
+                  {s.tag && (
+                    <span
+                      className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase font-semibold px-2 py-0.5 rounded"
+                      style={{
+                        color: `hsl(${s.accent})`,
+                        background: `hsl(${s.accent} / 0.12)`,
+                        border: `1px solid hsl(${s.accent} / 0.3)`,
+                      }}
+                    >
+                      {s.tag}
+                    </span>
+                  )}
                   <h3
                     className="text-base md:text-lg lg:text-xl font-bold tracking-tight uppercase leading-tight"
                     style={{ letterSpacing: "-0.01em" }}
@@ -135,8 +137,8 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
                 </div>
 
                 <p
-                  className="text-xs md:text-sm italic"
-                  style={{ color: `hsl(${s.accent} / 0.85)` }}
+                  className="text-base italic"
+                  style={{ color: i === 1 ? "hsl(275 70% 80%)" : `hsl(${s.accent} / 0.85)` }}
                 >
                   {s.subtitle}
                 </p>
@@ -145,11 +147,12 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
                   {s.bullets.map((b) => (
                     <li
                       key={b}
-                      className="flex items-start gap-2 text-[12px] md:text-sm text-foreground/85 leading-relaxed"
+                      className="flex items-start gap-2 text-base leading-relaxed"
+                      style={{ color: i === 1 ? "hsl(275 70% 80%)" : "hsl(275 70% 65% / 0.85)" }}
                     >
                       <span
                         className="inline-block mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
-                        style={{ background: `hsl(${s.accent})` }}
+                        style={{ background: i === 1 ? "hsl(275 70% 80%)" : "hsl(275 70% 65% / 0.85)" }}
                       />
                       <span>{b}</span>
                     </li>
@@ -162,7 +165,7 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
 
         {/* Reinforcing arrow caption */}
         <p
-          className="text-center text-[9px] md:text-[10px] tracking-[0.3em] uppercase mt-4"
+          className="text-center text-[12px] tracking-[0.3em] uppercase mt-4"
           style={{ color: "hsl(0 0% 100% / 0.4)", opacity: enterP }}
         >
           Internal use ⟷ External deployment · Each stream compounds the other

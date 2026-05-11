@@ -157,7 +157,7 @@ const StreamlinedHome = () => {
       <section className="py-32 px-6 md:px-12 lg:px-16 border-t border-border/20 relative z-[1]">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <p className="text-xs tracking-[0.4em] uppercase mb-4 font-bold" style={{ color: "hsl(0 65% 55%)" }}>Full-Stack MaaS</p>
+            <p className="text-xs tracking-[0.4em] uppercase mb-4 font-bold" style={{ color: "hsl(275 80% 70%)" }}>Full-Stack MaaS</p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">Every component,<br />manufactured end-to-end.</h2>
           </ScrollReveal>
           <ScrollReveal delay={80}>
@@ -228,8 +228,7 @@ const StreamlinedHome = () => {
       <section className="py-32 px-6 md:px-12 lg:px-16 border-t border-border/20 relative z-[1]">
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
-            <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-4 font-bold">Timing</p>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">Why We Are Doing It Now</h2>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-4">Why Now</h2>
           </ScrollReveal>
           <ScrollReveal delay={80}>
             <p className="text-base text-muted-foreground mb-16 max-w-xl">A once in a 30-year shift is underway in manufacturing.</p>

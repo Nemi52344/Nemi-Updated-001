@@ -44,15 +44,12 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
       >
         {/* Header */}
         <div className="mb-10 md:mb-14">
-          <p className="text-[0.65rem] md:text-xs tracking-[0.3em] uppercase text-primary font-semibold mb-3 md:mb-4">
-            Timing
-          </p>
           <h2
             id="why-now-section-heading"
             className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3"
             style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.35), 0 0 60px hsl(270 70% 50% / 0.15)" }}
           >
-            Why We Are Doing It Now
+            Why Now
           </h2>
           <p className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[540px]">
             A once-in-a-30-year shift is underway in manufacturing.
@@ -68,52 +65,52 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
               role="img"
               aria-label="Three converging forces: Sovereign Manufacturing, Physical AI, and High ROI Automation"
             >
-              {/* Top circle */}
+              {/* Top circle — text pushed UP into its outer petal */}
               <div
-                className="absolute rounded-full flex items-center justify-center text-center px-6"
+                className="absolute rounded-full flex items-start justify-center text-center px-6 pt-12"
                 style={{
-                  width: "220px", height: "220px",
-                  top: "0", left: "50%", marginLeft: "-110px",
+                  width: "230px", height: "230px",
+                  top: "0", left: "50%", marginLeft: "-115px",
                   background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
                   border: "1px solid hsl(275 80% 65% / 0.35)",
                   boxShadow: "0 0 30px hsl(275 80% 55% / 0.2)",
                 }}
               >
                 <div>
-                  <span className="text-sm font-bold text-foreground block mb-1.5">Sovereign Manufacturing</span>
-                  <span className="text-[0.63rem] text-muted-foreground leading-snug">$3T of global trade at risk due to reshoring push</span>
+                  <p className="text-sm font-bold text-foreground mb-1 leading-tight">Sovereign Manufacturing</p>
+                  <p className="text-[0.65rem] text-muted-foreground/90 leading-[1.3]">$3T of global trade at risk due to reshoring push</p>
                 </div>
               </div>
-              {/* Bottom-left circle */}
+              {/* Bottom-left circle — text pushed LEFT into its outer petal */}
               <div
-                className="absolute rounded-full flex items-center justify-center text-center px-6"
+                className="absolute rounded-full flex items-center justify-start text-left pl-5 pr-3"
                 style={{
-                  width: "220px", height: "220px",
+                  width: "230px", height: "230px",
                   bottom: "0", left: "0",
                   background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
                   border: "1px solid hsl(275 80% 65% / 0.35)",
                   boxShadow: "0 0 30px hsl(275 80% 55% / 0.2)",
                 }}
               >
-                <div>
-                  <span className="text-sm font-bold text-foreground block mb-1.5">Physical AI</span>
-                  <span className="text-[0.63rem] text-muted-foreground leading-snug">Starting to transform manufacturing</span>
+                <div style={{ maxWidth: "130px" }}>
+                  <p className="text-sm font-bold text-foreground mb-1 leading-tight">Physical AI</p>
+                  <p className="text-[0.65rem] text-muted-foreground/90 leading-[1.3]">Starting to transform manufacturing</p>
                 </div>
               </div>
-              {/* Bottom-right circle */}
+              {/* Bottom-right circle — title wraps to 2 lines, pushed RIGHT into its outer petal */}
               <div
-                className="absolute rounded-full flex items-center justify-center text-center px-6"
+                className="absolute rounded-full flex items-center justify-end text-right pr-5 pl-3"
                 style={{
-                  width: "220px", height: "220px",
+                  width: "230px", height: "230px",
                   bottom: "0", right: "0",
                   background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
                   border: "1px solid hsl(275 80% 65% / 0.35)",
                   boxShadow: "0 0 30px hsl(275 80% 55% / 0.2)",
                 }}
               >
-                <div>
-                  <span className="text-sm font-bold text-foreground block mb-1.5">High ROI Automation</span>
-                  <span className="text-[0.63rem] text-muted-foreground leading-snug">Driving immediate value from M&amp;A</span>
+                <div style={{ maxWidth: "130px" }}>
+                  <p className="text-sm font-bold text-foreground mb-1 leading-tight">High ROI<br />Automation</p>
+                  <p className="text-[0.65rem] text-muted-foreground/90 leading-[1.3]">Driving immediate value from M&amp;A</p>
                 </div>
               </div>
             </div>

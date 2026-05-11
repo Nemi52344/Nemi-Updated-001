@@ -136,7 +136,7 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
                 <div className="px-5 py-5 flex flex-col gap-4 flex-1">
                   {/* Card title — largest, bold */}
                   <h3
-                    className="text-xl md:text-2xl font-extrabold tracking-tight uppercase leading-tight"
+                    className="text-base md:text-lg font-extrabold tracking-tight uppercase leading-tight"
                     style={{ letterSpacing: "-0.01em" }}
                   >
                     {cs.title}
@@ -144,42 +144,42 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
 
                   {/* Context */}
                   <div>
-                    <p className="text-[11px] tracking-[0.25em] uppercase font-bold mb-1" style={{ color: "hsl(275 70% 70%)" }}>
+                    <p className="text-[10px] tracking-[0.22em] uppercase font-bold mb-1" style={{ color: "hsl(275 70% 70%)" }}>
                       Context
                     </p>
-                    <p className="text-[15px] text-muted-foreground leading-snug line-clamp-2 min-h-[2.4em]">
+                    <p className="text-[13px] text-muted-foreground leading-snug line-clamp-2 min-h-[2.4em]">
                       {cs.context}
                     </p>
                   </div>
 
                   {/* Outcome */}
                   <div>
-                    <p className="text-[11px] tracking-[0.25em] uppercase font-bold mb-1" style={{ color: "hsl(275 70% 70%)" }}>
+                    <p className="text-[10px] tracking-[0.22em] uppercase font-bold mb-1" style={{ color: "hsl(275 70% 70%)" }}>
                       Outcome
                     </p>
-                    <p className="text-[15px] text-muted-foreground leading-snug line-clamp-2 min-h-[2.4em]">
+                    <p className="text-[13px] text-muted-foreground leading-snug line-clamp-2 min-h-[2.4em]">
                       {cs.outcome}
                     </p>
                   </div>
 
                   {/* Key metrics table - pinned to bottom */}
                   <div className="mt-auto pt-3 border-t" style={{ borderColor: "hsl(0 0% 100% / 0.10)" }}>
-                    <p className="text-[11px] tracking-[0.25em] uppercase font-bold mb-2" style={{ color: "hsl(275 70% 70%)" }}>
+                    <p className="text-[10px] tracking-[0.22em] uppercase font-bold mb-2" style={{ color: "hsl(275 70% 70%)" }}>
                       Key Metrics
                     </p>
                     {/* Column headers */}
-                    <div className="flex items-center justify-between text-[10px] tracking-[0.2em] uppercase mb-2 font-semibold" style={{ color: "hsl(0 0% 45%)" }}>
+                    <div className="flex items-center justify-between text-[9px] tracking-[0.18em] uppercase mb-2 font-semibold" style={{ color: "hsl(0 0% 45%)" }}>
                       <span className="flex-1">Metric</span>
-                      <span className="w-20 text-right">Before</span>
-                      <span className="w-20 text-right" style={{ color: "hsl(275 70% 60%)" }}>After</span>
+                      <span className="w-16 text-right">Before</span>
+                      <span className="w-16 text-right" style={{ color: "hsl(275 70% 60%)" }}>After</span>
                     </div>
                     {/* Rows */}
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1.5">
                       {cs.metrics.map((m) => (
                         <div key={m.label} className="flex items-center justify-between">
-                          <span className="flex-1 text-[14px] text-foreground/85 font-medium">{m.label}</span>
-                          <span className="w-20 text-right text-[13px] line-through whitespace-nowrap" style={{ color: "hsl(0 0% 50%)" }}>{m.before}</span>
-                          <span className="w-20 text-right text-[15px] font-bold whitespace-nowrap" style={{ color: "hsl(275 75% 75%)" }}>{m.after}</span>
+                          <span className="flex-1 text-[12px] text-foreground/85 font-medium">{m.label}</span>
+                          <span className="w-16 text-right text-[12px] line-through whitespace-nowrap" style={{ color: "hsl(0 0% 50%)" }}>{m.before}</span>
+                          <span className="w-16 text-right text-[13px] font-bold whitespace-nowrap" style={{ color: "hsl(275 75% 75%)" }}>{m.after}</span>
                         </div>
                       ))}
                     </div>

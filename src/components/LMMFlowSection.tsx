@@ -52,7 +52,7 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
     >
       {/* Header above image: step label, centered */}
       <div className="mb-2 px-0.5 text-center">
-        <span className="text-base tracking-[0.18em] uppercase font-bold text-foreground">
+        <span className="text-[13px] tracking-[0.18em] uppercase font-bold text-foreground">
           {step.label}
         </span>
       </div>
@@ -62,8 +62,8 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         className="relative w-full overflow-hidden mx-auto"
         style={{
           aspectRatio: "3 / 2",
-          maxHeight: "130px",
-          maxWidth: "calc(130px * 3 / 2)",
+          maxHeight: "105px",
+          maxWidth: "calc(105px * 3 / 2)",
           flexShrink: 0,
           borderRadius: "10px",
           background: "hsl(220 20% 6%)",
@@ -81,7 +81,7 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
 
       {/* Comparison box - stacked label/value above the bar so nothing crushes */}
       <div
-        className="mt-3 px-3.5 py-3 flex flex-col gap-3 border rounded-lg"
+        className="mt-2 px-2.5 py-2 flex flex-col gap-2 border rounded-lg"
         style={{
           flexShrink: 0,
           borderColor: "hsl(0 0% 100% / 0.18)",
@@ -169,7 +169,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-hidden"
+      className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-hidden pt-16"
       style={{ zIndex: 42, opacity, background: "hsl(0 0% 2%)" }}
     >
       <div className="w-full max-w-[1380px] mx-auto px-4 md:px-8">
@@ -187,7 +187,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           >
             From Months to Hours
           </h2>
-          <p className="text-base text-muted-foreground mt-1 tracking-wide">
+          <p className="text-[13px] text-muted-foreground mt-1 tracking-wide">
             End-to-end manufacturing, every step compressed by NEMI LMM, looping continuously.
           </p>
         </div>

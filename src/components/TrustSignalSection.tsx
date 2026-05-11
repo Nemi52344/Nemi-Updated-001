@@ -92,7 +92,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
 
         {/* Headline */}
         <h2
-          className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-10 md:mb-14"
+          className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4"
           style={{
             opacity: enterP,
             transform: `translateY(${(1 - enterP) * 24}px)`,
@@ -100,11 +100,17 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
               "0 0 30px hsl(275 80% 60% / 0.4), 0 0 60px hsl(270 70% 50% / 0.2)",
           }}
         >
-          Trusted by leading industrial companies
-          <br className="hidden md:block" />
-          {" "}
-          - across aerospace, defense, automotive and industrial.
+          Trusted Across Aerospace, Automotive, Defense, and Industrial Manufacturing
         </h2>
+        <p
+          className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-4xl mx-auto text-center mb-10 md:mb-14"
+          style={{
+            opacity: enterP,
+            transform: `translateY(${(1 - enterP) * 24}px)`,
+          }}
+        >
+          Industrial leaders leveraging NEMI&rsquo;s manufacturing intelligence infrastructure across production, automation, and supply chain operations.
+        </p>
 
         {/* Two-row counter-scrolling logo cards */}
         <div style={{ opacity: enterP }} className="w-full space-y-3 md:space-y-4">

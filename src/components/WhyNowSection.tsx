@@ -36,7 +36,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
       />
 
       <div
-        className="relative z-[2] w-full max-w-7xl mx-auto px-6 md:px-8 py-8 pointer-events-auto"
+        className="relative z-[2] w-full max-w-7xl mx-auto px-[7.5rem] pt-40 pb-[7.5rem] pointer-events-auto"
         style={{
           opacity: enterP,
           transform: `translateY(${(1 - enterP) * 24}px)`,
@@ -49,7 +49,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
             className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3"
             style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.35), 0 0 60px hsl(270 70% 50% / 0.15)" }}
           >
-            Why Now
+            The Next Industrial Infrastructure Shift is happening now
           </h2>
           <p className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[540px]">
             A once-in-a-30-year shift is underway in manufacturing.
@@ -140,7 +140,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
               style={{ background: "hsl(230 20% 8% / 0.5)", borderLeft: "3px solid hsl(275 80% 55% / 0.5)" }}
             >
               <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
-                This type of shift happens once every ~30 years
+                Industrial infrastructure transitions create generational market leaders.
               </p>
               <p className="text-xs text-muted-foreground mt-1">e.g., previously the rise of IT, TPS</p>
             </div>
@@ -150,7 +150,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
               style={{ background: "hsl(230 20% 8% / 0.5)", borderLeft: "3px solid hsl(275 80% 55% / 0.5)" }}
             >
               <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
-                Early leaders capture data, market share, and permanence
+                The first platforms to compound manufacturing intelligence become the default infrastructure layer
               </p>
               <p className="text-xs text-muted-foreground mt-1">They become the default.</p>
             </div>

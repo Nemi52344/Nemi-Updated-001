@@ -171,22 +171,22 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
     >
       <div className="max-w-6xl w-full mx-6 pointer-events-auto">
         <div className="text-center mb-6" style={{ opacity: enterP }}>
-          <p
-            className="text-[0.6rem] md:text-xs tracking-[0.4em] uppercase font-medium mb-2"
-            style={{ color: "hsl(275 60% 65%)" }}
-          >
-            Why Us
-          </p>
           <h2
-            className="text-xl md:text-3xl lg:text-4xl font-bold tracking-tight"
+            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight"
             style={{
               letterSpacing: "-0.02em",
               color: "hsl(275 80% 80%)",
               textShadow: "0 0 24px hsl(275 80% 60% / 0.4)",
             }}
           >
-            Hardware + Software with AI applied enhancement
+            Nemi&apos;s Fortress Factory
           </h2>
+          <p className="mt-3 text-sm md:text-base text-white/70">
+            Nemi&apos;s Physical AI — Built on Real Manufacturing Infrastructure
+          </p>
+          <p className="mt-4 text-sm md:text-base text-white/70 max-w-3xl mx-auto">
+            From aerospace-grade manufacturing to large-scale production infrastructure, NEMI operates across the full industrial stack with Physical AI applied.
+          </p>
         </div>
         {/* Factory photo cards, 4x2 grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-8">

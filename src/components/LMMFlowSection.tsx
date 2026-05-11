@@ -13,23 +13,24 @@ interface Step {
   num: string;
   label: string;
   img: string;
-  tradMonths: number;     // traditional time in months (for bar scale + label)
+  tradMonths: number;     // traditional time in months (for bar scale)
+  tradLabel?: string;     // override display label (e.g. "6-12 mo")
   lmmFraction: number;    // 0..1 of traditional bar to show LMM bar width
   lmmLabel: string;       // human-readable LMM time
 }
 
-// Bar scale: max 3 months → 100% width
-const MAX_MONTHS = 3;
+// Bar scale: max 12 months → 100% width
+const MAX_MONTHS = 12;
 
 const STEPS: Step[] = [
-  { num: "01", label: "Sketch",     img: "/Images/lmm-flow/01-sketch.png",     tradMonths: 1,    lmmFraction: 0.02, lmmLabel: "Days" },
-  { num: "02", label: "Render",     img: "/Images/lmm-flow/02-render.png",     tradMonths: 1,    lmmFraction: 0.02, lmmLabel: "Days" },
-  { num: "03", label: "CAD",        img: "/Images/lmm-flow/03-cad.png",        tradMonths: 2,    lmmFraction: 0.03, lmmLabel: "Hours" },
-  { num: "04", label: "Simulation", img: "/Images/lmm-flow/04-simulation.png", tradMonths: 1.5,  lmmFraction: 0.03, lmmLabel: "Hours" },
-  { num: "05", label: "BOM",        img: "/Images/lmm-flow/05-bom.png",        tradMonths: 1,    lmmFraction: 0.02, lmmLabel: "Days" },
-  { num: "06", label: "Tooling",    img: "/Images/lmm-flow/06-tooling.png",    tradMonths: 3,    lmmFraction: 0.18, lmmLabel: "2 weeks" },
-  { num: "07", label: "Production", img: "/Images/lmm-flow/07-production.png", tradMonths: 1.5,  lmmFraction: 0.05, lmmLabel: "Days" },
-  { num: "08", label: "After Sales", img: "/Images/lmm-flow/08-dashboard.png",  tradMonths: 1,    lmmFraction: 0.01, lmmLabel: "Real-time" },
+  { num: "01", label: "Sketch",      img: "/Images/lmm-flow/01-sketch.png",     tradMonths: 2,    tradLabel: "2 mo",     lmmFraction: 0.02, lmmLabel: "<1 week" },
+  { num: "02", label: "Render",      img: "/Images/lmm-flow/02-render.png",     tradMonths: 9,    tradLabel: "6-12 mo",  lmmFraction: 0.07, lmmLabel: "12 wks" },
+  { num: "03", label: "CAD",         img: "/Images/lmm-flow/03-cad.png",        tradMonths: 9,    tradLabel: "6-12 mo",  lmmFraction: 0.07, lmmLabel: "12 wks" },
+  { num: "04", label: "Simulation",  img: "/Images/lmm-flow/04-simulation.png", tradMonths: 1,    tradLabel: "1 mo",     lmmFraction: 0.02, lmmLabel: "<1 week" },
+  { num: "05", label: "BOM",         img: "/Images/lmm-flow/05-bom.png",        tradMonths: 1,    tradLabel: "1 mo",     lmmFraction: 0.02, lmmLabel: "<1 week" },
+  { num: "06", label: "Tooling",     img: "/Images/lmm-flow/06-tooling.png",    tradMonths: 10,   tradLabel: "9-12 mo",  lmmFraction: 0.08, lmmLabel: "12 wks" },
+  { num: "07", label: "Production",  img: "/Images/lmm-flow/07-production.png", tradMonths: 10,   tradLabel: "9-12 mo",  lmmFraction: 0.08, lmmLabel: "12 wks" },
+  { num: "08", label: "After Sales", img: "/Images/lmm-flow/08-dashboard.png",  tradMonths: 1,    tradLabel: "1 mo",     lmmFraction: 0.01, lmmLabel: "Real-time" },
 ];
 
 const ROW1 = [STEPS[0], STEPS[1], STEPS[2], STEPS[3]];
@@ -51,7 +52,7 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
     >
       {/* Header above image: step label, centered */}
       <div className="mb-2 px-0.5 text-center">
-        <span className="text-sm md:text-base tracking-[0.18em] uppercase font-bold text-foreground">
+        <span className="text-base tracking-[0.18em] uppercase font-bold text-foreground">
           {step.label}
         </span>
       </div>
@@ -94,7 +95,7 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
               Traditional
             </span>
             <span className="text-[13px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 0% 95%)" }}>
-              {formatMonths(step.tradMonths)}
+              {step.tradLabel ?? formatMonths(step.tradMonths)}
             </span>
           </div>
           <div className="relative h-[3px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
@@ -186,8 +187,8 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           >
             From Months to Hours
           </h2>
-          <p className="text-[10px] md:text-xs text-muted-foreground mt-1 tracking-wide">
-            End-to-end manufacturing - every step compressed by NEMI LMM, looping continuously.
+          <p className="text-base text-muted-foreground mt-1 tracking-wide">
+            End-to-end manufacturing, every step compressed by NEMI LMM, looping continuously.
           </p>
         </div>
 
@@ -248,7 +249,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
 
         {/* Footer caption */}
         <div className="text-center mt-3" style={{ opacity: enterP }}>
-          <span className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase" style={{ color: "hsl(275 60% 65% / 0.7)" }}>
+          <span className="text-[11px] md:text-[12px] tracking-[0.3em] uppercase" style={{ color: "hsl(275 60% 65% / 0.7)" }}>
             NEMI LMM LOOP · EVERY CYCLE COMPOUNDS KNOWLEDGE, PRECISION, SPEED & COST REDUCTION
           </span>
         </div>

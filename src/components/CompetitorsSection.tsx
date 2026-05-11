@@ -185,7 +185,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
               textShadow: "0 0 24px hsl(275 80% 60% / 0.4)",
             }}
           >
-            Hardware + Software AI applied
+            Hardware + Software with AI applied enhancement
           </h2>
         </div>
         {/* Factory photo cards, 4x2 grid */}

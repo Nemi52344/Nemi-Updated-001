@@ -83,10 +83,10 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
             Hardware is Hard.
           </h2>
           <p
-            className="text-sm text-muted-foreground leading-relaxed whitespace-nowrap"
+            className="text-base text-muted-foreground leading-relaxed whitespace-nowrap"
             style={{ opacity: bodyOpacity }}
           >
-            Manufacturing is deeply fragmented - every product restarts from zero, burning capital and losing knowledge at every handoff.
+            Manufacturing is deeply fragmented, every product restarts from zero, burning capital and losing knowledge at every handoff.
           </p>
         </div>
 

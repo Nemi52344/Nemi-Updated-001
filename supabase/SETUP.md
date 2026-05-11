@@ -1,4 +1,4 @@
-# Careers Applications — Supabase + Resend Setup
+# Careers Applications - Supabase + Resend Setup
 
 ## 1. One-time Supabase setup
 
@@ -46,7 +46,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_FT26jKZMRKO60vR85TLpyQ_QduuLLsu
 
 Add the same two vars to your Netlify environment (Site settings → Environment variables) before deploying.
 
-## 5. Emails — verified domain (production)
+## 5. Emails - verified domain (production)
 
 The function currently sends from `onboarding@resend.dev` (Resend's test sender). For production:
 
@@ -59,4 +59,4 @@ The function currently sends from `onboarding@resend.dev` (Resend's test sender)
 
 ## 6. Viewing applications
 
-Dashboard → **Table Editor** → `applications` — every submission appears here. Click a row's `resume_path` then Storage → `resumes` → that file to download.
+Dashboard → **Table Editor** → `applications` - every submission appears here. Click a row's `resume_path` then Storage → `resumes` → that file to download.

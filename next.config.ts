@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   output: "export",
 
   images: {
-    // Required when using output: "export" — Next.js Image Optimization
+    // Required when using output: "export" - Next.js Image Optimization
     // needs a server; since we export statically we use plain <img> tags.
     unoptimized: true,
   },
@@ -27,8 +27,8 @@ const nextConfig: NextConfig = {
 
   webpack(config) {
     // Replace Next.js's next-image-loader with webpack's asset/resource so that
-    // `import logo from "@/assets/logo.png"` returns a plain URL string — exactly
-    // like Vite — keeping all existing <img src={logo} /> patterns working without
+    // `import logo from "@/assets/logo.png"` returns a plain URL string - exactly
+    // like Vite - keeping all existing <img src={logo} /> patterns working without
     // any component changes.
     //
     // next-image-loader can live at the top level OR inside a oneOf array.

@@ -30,7 +30,7 @@ const PHASES = [
     color: "215 75% 60%",
     desc: "Tooling from scratch, knowledge locked in heads.",
     insightTitle: "More Time-Consuming",
-    insightBody: "Development cycles stretch endlessly — each iteration restarts from scratch with no reusable process.",
+    insightBody: "Development cycles stretch endlessly - each iteration restarts from scratch with no reusable process.",
     image: developToolingImg,
     imageAlt: "Manual tooling and manufacturing process",
   },
@@ -40,7 +40,7 @@ const PHASES = [
     color: "152 60% 45%",
     desc: "Fragmented supply chain, zero visibility.",
     insightTitle: "Knowledge Doesn't Compound",
-    insightBody: "Expertise stays locked in people's heads — nothing transfers across the value chain.",
+    insightBody: "Expertise stays locked in people's heads - nothing transfers across the value chain.",
     image: distributeWarehousingImg,
     imageAlt: "Manual warehousing and delivery process",
   },
@@ -86,7 +86,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
             className="text-sm text-muted-foreground leading-relaxed whitespace-nowrap"
             style={{ opacity: bodyOpacity }}
           >
-            Manufacturing is deeply fragmented — every product restarts from zero, burning capital and losing knowledge at every handoff.
+            Manufacturing is deeply fragmented - every product restarts from zero, burning capital and losing knowledge at every handoff.
           </p>
         </div>
 
@@ -153,7 +153,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
           })}
         </div>
 
-        {/* ── INSIGHTS — three individual violet boxes, titles only ── */}
+        {/* ── INSIGHTS - three individual violet boxes, titles only ── */}
         <div className="grid grid-cols-3 gap-4" style={{ opacity: bodyOpacity }}>
           {PHASES.map((ph) => (
             <div

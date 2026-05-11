@@ -54,7 +54,7 @@ function parseZip(buffer) {
 
       offset = dataStart + compressedSize;
     } else if (sig === 0x02014b50) {
-      // Central directory header — we're done with local entries
+      // Central directory header - we're done with local entries
       break;
     } else {
       offset++;

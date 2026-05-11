@@ -1,5 +1,5 @@
 // Override Next.js's StaticImageData types so that PNG/JPG/JPEG/GIF/WebP/SVG
-// imports are typed as plain strings — matching Vite's behaviour and keeping all
+// imports are typed as plain strings - matching Vite's behaviour and keeping all
 // existing `<img src={importedAsset} />` patterns valid without modification.
 
 declare module "*.png" {

@@ -29,7 +29,7 @@ const STEPS: Step[] = [
   { num: "05", label: "BOM",        img: "/Images/lmm-flow/05-bom.png",        tradMonths: 1,    lmmFraction: 0.02, lmmLabel: "Days" },
   { num: "06", label: "Tooling",    img: "/Images/lmm-flow/06-tooling.png",    tradMonths: 3,    lmmFraction: 0.18, lmmLabel: "2 weeks" },
   { num: "07", label: "Production", img: "/Images/lmm-flow/07-production.png", tradMonths: 1.5,  lmmFraction: 0.05, lmmLabel: "Days" },
-  { num: "08", label: "Dashboard",  img: "/Images/lmm-flow/08-dashboard.png",  tradMonths: 1,    lmmFraction: 0.01, lmmLabel: "Real-time" },
+  { num: "08", label: "After Sales", img: "/Images/lmm-flow/08-dashboard.png",  tradMonths: 1,    lmmFraction: 0.01, lmmLabel: "Real-time" },
 ];
 
 const ROW1 = [STEPS[0], STEPS[1], STEPS[2], STEPS[3]];
@@ -50,21 +50,21 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
       }}
     >
       {/* Header above image: step label, centered */}
-      <div className="mb-1.5 px-0.5 text-center">
-        <span className="text-[12px] md:text-sm tracking-[0.16em] uppercase font-semibold text-foreground">
+      <div className="mb-2 px-0.5 text-center">
+        <span className="text-sm md:text-base tracking-[0.18em] uppercase font-bold text-foreground">
           {step.label}
         </span>
       </div>
 
-      {/* Image — 3:2 aspect, compact */}
+      {/* Image - 3:2 aspect */}
       <div
         className="relative w-full overflow-hidden mx-auto"
         style={{
           aspectRatio: "3 / 2",
-          maxHeight: "95px",
-          maxWidth: "calc(95px * 3 / 2)",
+          maxHeight: "130px",
+          maxWidth: "calc(130px * 3 / 2)",
           flexShrink: 0,
-          borderRadius: "8px",
+          borderRadius: "10px",
           background: "hsl(220 20% 6%)",
         }}
       >
@@ -78,9 +78,9 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         />
       </div>
 
-      {/* Comparison box — stacked label/value above the bar so nothing crushes */}
+      {/* Comparison box - stacked label/value above the bar so nothing crushes */}
       <div
-        className="mt-2 px-3 py-2.5 flex flex-col gap-2.5 border rounded-lg"
+        className="mt-3 px-3.5 py-3 flex flex-col gap-3 border rounded-lg"
         style={{
           flexShrink: 0,
           borderColor: "hsl(0 0% 100% / 0.18)",
@@ -90,14 +90,14 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         {/* Traditional */}
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase tracking-[0.12em] font-medium" style={{ color: "hsl(0 0% 65%)" }}>
+            <span className="text-[11px] uppercase tracking-[0.14em] font-semibold" style={{ color: "hsl(0 0% 72%)" }}>
               Traditional
             </span>
-            <span className="text-[12px] tabular-nums font-semibold whitespace-nowrap" style={{ color: "hsl(0 0% 88%)" }}>
+            <span className="text-[13px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 0% 95%)" }}>
               {formatMonths(step.tradMonths)}
             </span>
           </div>
-          <div className="relative h-[2px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+          <div className="relative h-[3px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
             <div
               className="absolute inset-y-0 left-0 rounded-full"
               style={{
@@ -112,14 +112,14 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         {/* NEMI LMM */}
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase tracking-[0.12em] font-semibold" style={{ color: "hsl(0 70% 58%)" }}>
+            <span className="text-[11px] uppercase tracking-[0.14em] font-bold" style={{ color: "hsl(0 70% 62%)" }}>
               NEMI LMM
             </span>
-            <span className="text-[12px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 75% 70%)" }}>
+            <span className="text-[13px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 75% 72%)" }}>
               {step.lmmLabel}
             </span>
           </div>
-          <div className="relative h-[2px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+          <div className="relative h-[3px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
             <div
               className="absolute inset-y-0 left-0 rounded-full"
               style={{
@@ -187,7 +187,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
             From Months to Hours
           </h2>
           <p className="text-[10px] md:text-xs text-muted-foreground mt-1 tracking-wide">
-            End-to-end manufacturing — every step compressed by NEMI LMM, looping continuously.
+            End-to-end manufacturing - every step compressed by NEMI LMM, looping continuously.
           </p>
         </div>
 
@@ -204,13 +204,13 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
             <Card step={ROW1[3]} p={cardP(3)} />
           </div>
 
-          {/* Down chevron between rows, centered under card 04 (col 7) — visually nudged down via transform */}
+          {/* Down chevron between rows, centered under card 04 (col 7) - visually nudged down via transform */}
           <div className="grid my-2" style={{ gridTemplateColumns: gridCols }}>
             <div /><div /><div /><div /><div /><div />
-            <div style={{ justifySelf: "center" }}>
+            <div className="flex justify-center">
               <svg
-                width="20"
-                height="14"
+                width="24"
+                height="17"
                 viewBox="0 0 20 14"
                 fill="none"
                 style={{
@@ -224,15 +224,12 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
             </div>
           </div>
 
-          {/* Up chevron centered above card 08 (loop back to 01) */}
+          {/* Up chevron centered above card 08 image (loop back to 01) */}
           <div className="grid mb-1" style={{ gridTemplateColumns: gridCols }}>
-            <div className="flex flex-col items-center gap-0.5" style={{ opacity: cardP(7), justifySelf: "center" }}>
-              <svg width="20" height="14" viewBox="0 0 20 14" fill="none" style={{ display: "block" }}>
+            <div className="flex justify-center" style={{ opacity: cardP(7) }}>
+              <svg width="24" height="17" viewBox="0 0 20 14" fill="none" style={{ display: "block" }}>
                 <path d="M2 11 L10 2 L18 11" stroke="hsl(275 70% 75%)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span className="text-[8px] tracking-[0.25em] uppercase whitespace-nowrap" style={{ color: "hsl(275 60% 65% / 0.7)" }}>
-                Loop
-              </span>
             </div>
             <div /><div /><div /><div /><div /><div />
           </div>
@@ -252,7 +249,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
         {/* Footer caption */}
         <div className="text-center mt-3" style={{ opacity: enterP }}>
           <span className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase" style={{ color: "hsl(275 60% 65% / 0.7)" }}>
-            Continuous loop · Every cycle compounds knowledge
+            NEMI LMM LOOP · EVERY CYCLE COMPOUNDS KNOWLEDGE, PRECISION, SPEED & COST REDUCTION
           </span>
         </div>
       </div>

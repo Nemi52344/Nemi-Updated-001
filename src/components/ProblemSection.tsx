@@ -202,12 +202,12 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
           style={{ background: `linear-gradient(90deg, ${PURPLE_FILL} 0%, ${PURPLE_DEEP} 100%)` }}
         />
 
-        {/* SNAKE FLOW WRAPPER — relative for outer connector positioning.
+        {/* SNAKE FLOW WRAPPER - relative for outer connector positioning.
             Side padding leaves room for the outer L-arrows. Bottom padding
             keeps the wrap-around bracket's bottom rail clear of the row 3
             summary panels. */}
         <div className="relative lg:px-10 lg:pb-6">
-          {/* OUTER WRAP-AROUND BRACKET — 4 pieces forming a U-shape that wraps
+          {/* OUTER WRAP-AROUND BRACKET - 4 pieces forming a U-shape that wraps
               the entire snake-flow:
                 1. Top-left arm SVG with arrowhead → INTO Sketch
                 2. Left vertical bar (down)
@@ -224,7 +224,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
                 {/* Top-left arm with rightward arrowhead. SVG width matches the
                     distance from the bracket's left edge to Sketch's left edge
                     (snake-flow padding 40 + bracket left:-2 offset = 42px), so
-                    the arrowhead tip lands exactly ON Sketch's left edge —
+                    the arrowhead tip lands exactly ON Sketch's left edge -
                     fully visible and touching the image. */}
                 <svg
                   aria-hidden
@@ -269,7 +269,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
                     pointerEvents: "none",
                   }}
                 />
-                {/* Drop connector — runs from dashboard bottom down to the bottom rail top.
+                {/* Drop connector - runs from dashboard bottom down to the bottom rail top.
                     top = row1 + gap + row2 + connector + IMG_H (dashboard bottom).
                     bottom matches rail exactly so it never overshoots. */}
                 <div
@@ -284,12 +284,12 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
                     zIndex: 0,
                   }}
                 />
-                {/* Right vertical bar — removed per design feedback */}
+                {/* Right vertical bar - removed per design feedback */}
               </>
             );
           })()}
 
-          {/* ROW 1 — Sketch → Render → CAD */}
+          {/* ROW 1 - Sketch → Render → CAD */}
           <div
             className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr] gap-2 items-center"
             style={{ marginBottom: `${ROW_GAP}px`, zIndex: 1 }}
@@ -301,7 +301,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
             <SlideImage src={IMG.cad} alt="CAD model" />
           </div>
 
-          {/* OUTER RIGHT L-ARROW — exact path from slide Shape 28, scaled.
+          {/* OUTER RIGHT L-ARROW - exact path from slide Shape 28, scaled.
               Filled L-shape with arrowhead pointing LEFT into row 2's right edge.
               Path coord space: 60.84 wide × 253.87 tall (from PPT EMUs, /10000). */}
           <svg
@@ -332,7 +332,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
             />
           </svg>
 
-          {/* ROW 2 — Tooling | BOM | Simulation (flow ←) */}
+          {/* ROW 2 - Tooling | BOM | Simulation (flow ←) */}
           <div
             className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr] gap-2 items-center"
             style={{ marginBottom: 0, zIndex: 1 }}
@@ -357,7 +357,7 @@ const ProblemSection = ({ scrollProgress }: ProblemSectionProps) => {
             <div />
           </div>
 
-          {/* ROW 3 — Production → Dashboard | Comparison panels. items-center matches rows 1 & 2 */}
+          {/* ROW 3 - Production → Dashboard | Comparison panels. items-center matches rows 1 & 2 */}
           <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1.05fr_1.67fr] gap-2 lg:items-start items-center" style={{ zIndex: 1 }}>
             {/* Constrain production image to the same width as col 1 in rows 1/2.
                 Rows 1/2 grid: [1fr auto 1fr auto 1fr] with auto=160px, gap=8px.

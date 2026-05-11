@@ -57,26 +57,26 @@ Deno.serve(async (req) => {
       <p><strong>Name:</strong> ${row.full_name}</p>
       <p><strong>Email:</strong> ${row.email}</p>
       <p><strong>Phone:</strong> ${row.phone}</p>
-      <p><strong>Location:</strong> ${row.location ?? "—"}</p>
+      <p><strong>Location:</strong> ${row.location ?? "-"}</p>
       <p><strong>Experience:</strong> ${row.experience}</p>
-      <p><strong>LinkedIn:</strong> ${row.linkedin ?? "—"}</p>
-      <p><strong>Portfolio:</strong> ${row.portfolio ?? "—"}</p>
+      <p><strong>LinkedIn:</strong> ${row.linkedin ?? "-"}</p>
+      <p><strong>Portfolio:</strong> ${row.portfolio ?? "-"}</p>
       <hr/>
       <p><strong>Cover letter:</strong></p>
       <p>${(row.cover_letter ?? "").replace(/\n/g, "<br/>")}</p>
       <hr/>
       <p><a href="${resumeLink}">Download resume</a> (link valid 7 days)</p>
     `;
-    await sendEmail(NOTIFY_TO, `New application: ${row.full_name} — ${row.role}`, notifyHtml);
+    await sendEmail(NOTIFY_TO, `New application: ${row.full_name} - ${row.role}`, notifyHtml);
 
     // 2. Applicant confirmation
     const confirmHtml = `
       <p>Hi ${row.full_name.split(" ")[0]},</p>
       <p>Thanks for applying to the <strong>${row.role}</strong> role at NEMI AI. We've received your application and our team will review it shortly.</p>
       <p>If your background is a fit, we'll reach out at ${row.email} to schedule a call.</p>
-      <p>— The NEMI AI team</p>
+      <p>- The NEMI AI team</p>
     `;
-    await sendEmail(row.email, `We received your NEMI AI application — ${row.role}`, confirmHtml);
+    await sendEmail(row.email, `We received your NEMI AI application - ${row.role}`, confirmHtml);
 
     return new Response(JSON.stringify({ ok: true }), {
       headers: { "Content-Type": "application/json" },

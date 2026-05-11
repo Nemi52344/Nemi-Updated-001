@@ -27,10 +27,10 @@ interface CaseStudy {
 const CASE_STUDIES: CaseStudy[] = [
   {
     image: "/Images/Messenger.webp",
-    imageAlt: "Akio C110 Messenger — electric motorcycle",
+    imageAlt: "Akio C110 Messenger - electric motorcycle",
     title: "Electric Motorcycle for Africa",
     context: "Rugged EV motorcycle for African road conditions & bike-taxi use.",
-    outcome: "PRD to production-ready in 9 months — CAD, tooling, supplier base delivered.",
+    outcome: "PRD to production-ready in 9 months - CAD, tooling, supplier base delivered.",
     metrics: [
       { label: "Design time", before: "24 mo", after: "9 mo" },
       { label: "Dev cost",    before: "$5M+",  after: "<$0.5M" },
@@ -38,7 +38,7 @@ const CASE_STUDIES: CaseStudy[] = [
   },
   {
     image: "/Images/aerospace-manufacturing.webp",
-    imageAlt: "Aerospace machined parts — precision components",
+    imageAlt: "Aerospace machined parts - precision components",
     title: "Aerospace Machined Parts",
     context: "Aluminium 6061-T651 parts at < 2 micron tolerance.",
     outcome: "Built fixtures to machine on 3-axis instead of 5-axis.",
@@ -49,7 +49,7 @@ const CASE_STUDIES: CaseStudy[] = [
   },
   {
     image: "/Images/COffee%20mfg.webp",
-    imageAlt: "Complex assembly production — coffee machine line",
+    imageAlt: "Complex assembly production - coffee machine line",
     title: "Complex Assembly Production",
     context: "Mass production of an automated coffee machine.",
     outcome: "End-to-end fabrication, machining, electronics & assembly.",
@@ -143,7 +143,7 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
 
                   {/* Context */}
                   <div>
-                    <p className="text-[10px] tracking-[0.22em] uppercase font-semibold mb-1.5" style={{ color: "hsl(0 65% 58%)" }}>
+                    <p className="text-[10px] tracking-[0.22em] uppercase font-semibold mb-1.5" style={{ color: "hsl(275 70% 70%)" }}>
                       Context
                     </p>
                     <p className="text-[13px] md:text-sm text-muted-foreground leading-relaxed line-clamp-2 min-h-[2.6em]">
@@ -153,7 +153,7 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
 
                   {/* Outcome */}
                   <div>
-                    <p className="text-[10px] tracking-[0.22em] uppercase font-semibold mb-1.5" style={{ color: "hsl(0 65% 58%)" }}>
+                    <p className="text-[10px] tracking-[0.22em] uppercase font-semibold mb-1.5" style={{ color: "hsl(275 70% 70%)" }}>
                       Outcome
                     </p>
                     <p className="text-[13px] md:text-sm text-muted-foreground leading-relaxed line-clamp-2 min-h-[2.6em]">
@@ -161,22 +161,22 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
                     </p>
                   </div>
 
-                  {/* Key metrics table — pinned to bottom */}
+                  {/* Key metrics table - pinned to bottom */}
                   <div className="mt-auto pt-3 border-t" style={{ borderColor: "hsl(0 0% 100% / 0.10)" }}>
-                    <p className="text-[10px] tracking-[0.22em] uppercase font-semibold mb-2.5" style={{ color: "hsl(0 65% 58%)" }}>
+                    <p className="text-[10px] tracking-[0.22em] uppercase font-semibold mb-2.5" style={{ color: "hsl(275 70% 70%)" }}>
                       Key Metrics
                     </p>
                     <div className="flex items-center justify-between text-[9px] tracking-[0.18em] uppercase mb-2 font-medium" style={{ color: "hsl(0 0% 55%)" }}>
                       <span className="flex-1">Metric</span>
                       <span className="w-20 text-right">Before</span>
-                      <span className="w-20 text-right" style={{ color: "hsl(0 65% 58%)" }}>After</span>
+                      <span className="w-20 text-right" style={{ color: "hsl(275 70% 70%)" }}>After</span>
                     </div>
                     <div className="flex flex-col gap-1.5">
                       {cs.metrics.map((m) => (
                         <div key={m.label} className="flex items-center justify-between text-[12px] md:text-[13px]">
                           <span className="flex-1 text-foreground/90 font-medium">{m.label}</span>
                           <span className="w-20 text-right line-through whitespace-nowrap" style={{ color: "hsl(0 0% 65%)" }}>{m.before}</span>
-                          <span className="w-20 text-right font-bold whitespace-nowrap" style={{ color: "hsl(0 70% 65%)" }}>{m.after}</span>
+                          <span className="w-20 text-right font-bold whitespace-nowrap" style={{ color: "hsl(275 75% 75%)" }}>{m.after}</span>
                         </div>
                       ))}
                     </div>

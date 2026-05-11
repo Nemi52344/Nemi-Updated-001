@@ -120,7 +120,7 @@ const Index = () => {
       <WhyNowSection scrollProgress={scrollProgress} />
       <LeadershipSection scrollProgress={scrollProgress} />
       <TrustSignalSection scrollProgress={scrollProgress} />
-      {/* Hidden for now — re-enable when needed */}
+      {/* Hidden for now - re-enable when needed */}
       {/* <IndustriesSection scrollProgress={scrollProgress} /> */}
       {/* <CaseStudyEVSection scrollProgress={scrollProgress} /> */}
       <CTASection scrollProgress={scrollProgress} />
@@ -211,7 +211,7 @@ const Index = () => {
           </ul>
         </nav>
         <p>
-          NEMI AI &mdash; full-stack, end-to-end manufacturing automation with
+          NEMI AI - full-stack, end-to-end manufacturing automation with
           Physical AI. Certifications: AS9100D, ISO 9001:2015.
         </p>
       </footer>

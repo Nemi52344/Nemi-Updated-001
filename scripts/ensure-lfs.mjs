@@ -52,7 +52,7 @@ function findPointerFiles(dir) {
       }
     }
   } catch {
-    // Directory may not exist — fine.
+    // Directory may not exist - fine.
   }
   return results;
 }
@@ -121,7 +121,7 @@ if (pointers.length === 0) {
 }
 
 console.warn(
-  `⚠ Found ${pointers.length} LFS pointer file(s) in public/videos/ — pulling real binaries...`
+  `⚠ Found ${pointers.length} LFS pointer file(s) in public/videos/ - pulling real binaries...`
 );
 pointers.forEach((p) => console.warn("    • " + path.relative(ROOT, p)));
 
@@ -132,12 +132,12 @@ if (pull.ok) {
 }
 
 // LFS not installed, or auth failed, or CI shallow-clone stripped config.
-// If we are on Vercel, skip the build rather than fail — Vercel is preview-only
+// If we are on Vercel, skip the build rather than fail - Vercel is preview-only
 // for this repo; the real production deploy is AWS. Without LFS, a Vercel deploy
 // would ship broken videos, but failing the build blocks every PR preview. By
 // explicitly no-op'ing here we let Vercel publish a preview where videos simply
-// 404 (surfaced by the browser), while AWS — which runs `git lfs pull` during
-// deploy — stays protected.
+// 404 (surfaced by the browser), while AWS - which runs `git lfs pull` during
+// deploy - stays protected.
 if (process.env.VERCEL) {
   console.warn("");
   console.warn(
@@ -165,7 +165,7 @@ console.error(
 );
 console.error("         Shipping the build will serve broken videos.");
 console.error("");
-console.error("  Fix on this host — run once:");
+console.error("  Fix on this host - run once:");
 console.error("    sudo apt-get install -y git-lfs   # (or: brew install git-lfs)");
 console.error("    git lfs install");
 console.error("    git lfs pull");

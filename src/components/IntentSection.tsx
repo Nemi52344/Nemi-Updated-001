@@ -38,7 +38,7 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
         className="relative z-[1] max-w-5xl mx-auto text-center pointer-events-auto"
         style={{ transform: `translateY(${translateY}px)` }}
       >
-        {/* Kicker — refined eyebrow */}
+        {/* Kicker - refined eyebrow */}
         <div className="inline-flex items-center gap-3 mb-7 md:mb-9">
           <span
             aria-hidden
@@ -58,7 +58,7 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
           />
         </div>
 
-        {/* Heading — manufacturing reimagined with AI, NEMI is leading */}
+        {/* Heading - manufacturing reimagined with AI, NEMI is leading */}
         <h2
           className="text-2xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.25] md:leading-[1.2] text-foreground/95"
           style={{ textShadow: "0 0 24px hsl(275 60% 50% / 0.18)" }}

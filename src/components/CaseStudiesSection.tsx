@@ -117,7 +117,7 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
                 }}
               >
                 {/* Image on top */}
-                <div className="relative w-full overflow-hidden" style={{ height: "150px", background: "hsl(220 20% 5%)" }}>
+                <div className="relative w-full overflow-hidden" style={{ height: "110px", background: "hsl(220 20% 5%)" }}>
                   <img
                     src={cs.image}
                     alt={cs.imageAlt}
@@ -133,10 +133,10 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
                 </div>
 
                 {/* Content below */}
-                <div className="px-5 py-5 flex flex-col gap-4 flex-1">
+                <div className="px-4 py-3 flex flex-col gap-2.5 flex-1">
                   {/* Card title — largest, bold */}
                   <h3
-                    className="text-base md:text-lg font-extrabold tracking-tight uppercase leading-tight"
+                    className="text-sm md:text-base font-extrabold tracking-tight uppercase leading-tight"
                     style={{ letterSpacing: "-0.01em" }}
                   >
                     {cs.title}

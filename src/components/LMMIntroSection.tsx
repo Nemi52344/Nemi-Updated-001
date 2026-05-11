@@ -29,16 +29,28 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
     >
       <div className="flex flex-col items-center text-center px-6">
 
-        {/* Kicker */}
+        {/* Kicker — new heading */}
         <p
-          className="text-xs tracking-[0.5em] uppercase font-medium mb-6"
+          className="text-sm md:text-base tracking-wide font-semibold mb-6 max-w-xl leading-snug"
           style={{
-            color: "hsl(275 60% 65%)",
+            color: "hsl(275 60% 75%)",
             opacity: tagP,
             transform: `translateY(${(1 - tagP) * 12}px)`,
           }}
         >
-          Introducing
+          We built the system that fixes fragmented manufacturing
+        </p>
+
+        {/* Introducing line */}
+        <p
+          className="text-xs tracking-[0.5em] uppercase font-medium mb-3"
+          style={{
+            color: "hsl(275 50% 60%)",
+            opacity: titleP,
+            transform: `translateY(${(1 - titleP) * 10}px)`,
+          }}
+        >
+          Introducing NEMI LMM
         </p>
 
         {/* Title */}
@@ -81,14 +93,13 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
 
         {/* One-liner */}
         <p
-          className="mt-8 text-sm md:text-base text-muted-foreground max-w-md leading-relaxed"
+          className="mt-8 text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed"
           style={{
             opacity: lineP,
             transform: `translateY(${(1 - lineP) * 10}px)`,
           }}
         >
-          The world&rsquo;s first AI model purpose-built for
-          end-to-end manufacturing automation.
+          A unified AI-powered system that connects the entire manufacturing value chain into one continuously learning network — turning fragmented manufacturing into compounding intelligence.
         </p>
 
       </div>

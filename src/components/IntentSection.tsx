@@ -60,31 +60,17 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
 
         {/* Heading - manufacturing reimagined with AI, NEMI is leading */}
         <h2
-          className="text-2xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.25] md:leading-[1.2] text-foreground/95"
+          className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight leading-[1.25] md:leading-[1.2] text-foreground/95"
           style={{ textShadow: "0 0 24px hsl(275 60% 50% / 0.18)" }}
         >
-          Manufacturing is being reimagined{" "}
-          <span
-            className="relative inline-block font-extrabold"
-            style={{ color: "hsl(275 55% 78%)" }}
-          >
-            with AI
-            <span
-              aria-hidden
-              className="absolute left-0 right-0 -bottom-1 md:-bottom-1.5 h-[2px]"
-              style={{
-                background:
-                  "linear-gradient(to right, transparent, hsl(275 60% 60% / 0.55), transparent)",
-              }}
-            />
-          </span>
+          AI is changing manufacturing and{" "}
           <br />
-          and{" "}
+          NEMI is the{" "}
           <span
             className="relative inline-block font-extrabold"
             style={{ color: "hsl(275 55% 78%)" }}
           >
-            we are leading the way
+            one-stop platform
             <span
               aria-hidden
               className="absolute left-0 right-0 -bottom-1 md:-bottom-1.5 h-[2px]"
@@ -94,7 +80,22 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
               }}
             />
           </span>
-          <span className="text-foreground/95">.</span>
+          {" "}for AI-powered manufacturing, helping manufacturers{" "}
+          <span
+            className="relative inline-block font-extrabold"
+            style={{ color: "hsl(275 55% 78%)" }}
+          >
+            scale intelligently
+            <span
+              aria-hidden
+              className="absolute left-0 right-0 -bottom-1 md:-bottom-1.5 h-[2px]"
+              style={{
+                background:
+                  "linear-gradient(to right, transparent, hsl(275 60% 60% / 0.55), transparent)",
+              }}
+            />
+          </span>
+          {" "}without scaling complexity<span className="text-foreground/95">.</span>
         </h2>
       </div>
     </div>

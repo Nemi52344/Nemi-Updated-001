@@ -62,8 +62,8 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         className="relative w-full overflow-hidden mx-auto"
         style={{
           aspectRatio: "3 / 2",
-          maxHeight: "105px",
-          maxWidth: "calc(105px * 3 / 2)",
+          maxHeight: "88px",
+          maxWidth: "calc(88px * 3 / 2)",
           flexShrink: 0,
           borderRadius: "10px",
           background: "hsl(220 20% 6%)",
@@ -81,7 +81,7 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
 
       {/* Comparison box - stacked label/value above the bar so nothing crushes */}
       <div
-        className="mt-2 px-2.5 py-2 flex flex-col gap-2 border rounded-lg"
+        className="mt-1.5 px-2 py-1.5 flex flex-col gap-1.5 border rounded-lg"
         style={{
           flexShrink: 0,
           borderColor: "hsl(0 0% 100% / 0.18)",
@@ -169,13 +169,13 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-hidden pt-16"
+      className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-hidden"
       style={{ zIndex: 42, opacity, background: "hsl(0 0% 2%)" }}
     >
       <div className="w-full max-w-[1380px] mx-auto px-4 md:px-8">
         {/* Header */}
         <div
-          className="text-center mb-3"
+          className="text-center mb-2"
           style={{ opacity: headP, transform: `translateY(${(1 - headP) * 14}px)` }}
         >
           <h2
@@ -187,8 +187,8 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           >
             From Months to Hours
           </h2>
-          <p className="text-[13px] text-muted-foreground mt-1 tracking-wide">
-            End-to-end manufacturing, every step compressed by NEMI LMM, looping continuously.
+          <p className="text-[13px] text-muted-foreground mt-1 tracking-wide max-w-2xl mx-auto leading-relaxed">
+            From Fragmented Workflows to a unified manufacturing system that Learns Faster Every Cycle, connecting every stage from design to delivery.
           </p>
         </div>
 
@@ -206,7 +206,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           </div>
 
           {/* Down chevron between rows, centered under card 04 (col 7) - visually nudged down via transform */}
-          <div className="grid my-2" style={{ gridTemplateColumns: gridCols }}>
+          <div className="grid my-1" style={{ gridTemplateColumns: gridCols }}>
             <div /><div /><div /><div /><div /><div />
             <div className="flex justify-center">
               <svg
@@ -248,7 +248,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
         </div>
 
         {/* Footer caption */}
-        <div className="text-center mt-3" style={{ opacity: enterP }}>
+        <div className="text-center mt-8" style={{ opacity: enterP }}>
           <span className="text-[11px] md:text-[12px] tracking-[0.3em] uppercase" style={{ color: "hsl(275 60% 65% / 0.7)" }}>
             NEMI LMM LOOP · EVERY CYCLE COMPOUNDS KNOWLEDGE, PRECISION, SPEED & COST REDUCTION
           </span>

@@ -19,7 +19,7 @@ const PHASES = [
     label: "Design",
     color: "0 72% 58%",
     desc: "Siloed tools, manual BOMs, no production feedback.",
-    insightTitle: "High Capital",
+    insightTitle: "High Upfront Capital & Burn at Every Iteration",
     insightBody: "Every new product demands massive upfront investment in tooling, prototyping, and certification.",
     image: designReleaseImg,
     imageAlt: "Motorcycle CAD design release for production",
@@ -29,7 +29,7 @@ const PHASES = [
     label: "Develop",
     color: "215 75% 60%",
     desc: "Tooling from scratch, knowledge locked in heads.",
-    insightTitle: "More Time-Consuming",
+    insightTitle: "Repeated Engineering Overhead & Slow Iteration Cycles",
     insightBody: "Development cycles stretch endlessly - each iteration restarts from scratch with no reusable process.",
     image: developToolingImg,
     imageAlt: "Manual tooling and manufacturing process",
@@ -38,8 +38,8 @@ const PHASES = [
     num: "03",
     label: "Deliver",
     color: "152 60% 45%",
-    desc: "Fragmented supply chain, zero visibility.",
-    insightTitle: "Knowledge Doesn't Compound",
+    desc: "Fragmented supply chain, zero visibility, knowledge lost at every handoff.",
+    insightTitle: "Factories Should Compound Knowledge",
     insightBody: "Expertise stays locked in people's heads - nothing transfers across the value chain.",
     image: distributeWarehousingImg,
     imageAlt: "Manual warehousing and delivery process",
@@ -86,7 +86,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
             className="text-base text-muted-foreground leading-relaxed whitespace-nowrap"
             style={{ opacity: bodyOpacity }}
           >
-            Manufacturing is deeply fragmented, every product restarts from zero, burning capital and losing knowledge at every handoff.
+            Manufacturing today is fragmented across disconnected tools, suppliers, and workflows — causing every production cycle to restart from zero.
           </p>
         </div>
 
@@ -166,7 +166,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
               }}
             >
               <span
-                className="text-base md:text-lg font-bold tracking-tight"
+                className="text-[11px] md:text-[13px] font-bold tracking-tight whitespace-nowrap"
                 style={{
                   color: "hsl(275 80% 75%)",
                   textShadow: "0 0 18px hsl(275 80% 60% / 0.35)",

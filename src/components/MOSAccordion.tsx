@@ -224,7 +224,7 @@ const MOSAccordion = () => {
     <div
       className="rounded-2xl border overflow-hidden relative"
       style={{
-        // Top-down purple gradient — saturated at top fading to dark muted at
+        // Top-down purple gradient - saturated at top fading to dark muted at
         // bottom, mirroring the descent from user-facing apps → silicon.
         background: `linear-gradient(180deg,
           hsl(275 80% 22% / 0.28) 0%,

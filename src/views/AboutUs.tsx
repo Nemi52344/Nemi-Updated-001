@@ -48,7 +48,7 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
           willChange: hovered ? "transform" : "auto",
         }}
       >
-        {/* FRONT — uniform layout: photo top-anchored, name and role in fixed slots
+        {/* FRONT - uniform layout: photo top-anchored, name and role in fixed slots
             so cards line up regardless of name/role length. */}
         <div
           className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden border flex flex-col items-center pt-6 md:pt-8 pb-5 md:pb-6 px-3 md:px-4 transition-shadow duration-500"
@@ -88,7 +88,7 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
             className="absolute w-20 h-20 md:w-44 md:h-44 rounded-full blur-2xl opacity-20 pointer-events-none"
             style={{ background: `radial-gradient(circle, hsl(${member.colorHsl} / 0.4), transparent)`, top: "10%" }}
           />
-          {/* Name slot — every name renders on exactly 2 lines (everything before
+          {/* Name slot - every name renders on exactly 2 lines (everything before
               last space on top, last word below) so cards always line up. */}
           {(() => {
             const parts = member.name.trim().split(/\s+/);
@@ -108,7 +108,7 @@ const LeaderFlipCard = ({ member }: { member: LeaderMember }) => {
               </h3>
             );
           })()}
-          {/* Role slot — reserves room for up to 3 lines */}
+          {/* Role slot - reserves room for up to 3 lines */}
           <p
             className="text-[10px] md:text-xs tracking-[0.15em] md:tracking-[0.25em] uppercase font-medium text-center flex items-start justify-center w-full px-1"
             style={{
@@ -215,7 +215,7 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* ── WHO WE ARE — TEAM ── */}
+      {/* ── WHO WE ARE - TEAM ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
         <div className="text-center max-w-6xl mx-auto">
           <ScrollReveal>

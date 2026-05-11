@@ -1,4 +1,4 @@
-# NEMI AI — robots.txt
+# NEMI AI - robots.txt
 # https://nemi-ai.com
 
 # ── Search engines ──────────────────────────────────────────────────

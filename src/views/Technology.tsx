@@ -173,7 +173,7 @@ const Technology = () => {
         </div>
       </section>
 
-      {/* ── NEMI M-OS ARCHITECTURE (the explainer — comes first) ── */}
+      {/* ── NEMI M-OS ARCHITECTURE (the explainer - comes first) ── */}
       <section
         id="nemi-m-os"
         className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]"
@@ -221,7 +221,7 @@ const Technology = () => {
           </p>
         </ScrollReveal>
 
-        {/* TIER 1 — One Intelligence flywheel */}
+        {/* TIER 1 - One Intelligence flywheel */}
         <ScrollReveal>
           <div className="flex flex-col items-center mb-12 md:mb-16">
             <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-8 font-bold text-center">One Intelligence</p>
@@ -411,7 +411,7 @@ const Technology = () => {
           </div>
         </ScrollReveal>
 
-        {/* TIER 2 — Three Verticals */}
+        {/* TIER 2 - Three Verticals */}
         <ScrollReveal delay={100}>
           <div className="flex flex-col items-center mb-12 md:mb-16">
             <h3 className="text-xl md:text-3xl font-extrabold tracking-wider uppercase text-foreground mb-6 md:mb-8 text-center"
@@ -481,7 +481,7 @@ const Technology = () => {
           </div>
         </ScrollReveal>
 
-        {/* TIER 3 — Six Agents (rich photo cards) */}
+        {/* TIER 3 - Six Agents (rich photo cards) */}
         <ScrollReveal delay={150}>
           <div className="flex flex-col items-center mb-12 md:mb-16">
             <h3 className="text-xl md:text-3xl font-extrabold tracking-wider uppercase text-foreground mb-6 md:mb-8 text-center"
@@ -554,7 +554,7 @@ const Technology = () => {
           </div>
         </ScrollReveal>
 
-        {/* TIER 4 — Nine Platforms — image cards, one per platform */}
+        {/* TIER 4 - Nine Platforms - image cards, one per platform */}
         <ScrollReveal delay={280}>
           <div className="flex flex-col items-center">
             <h3 className="text-xl md:text-3xl font-extrabold tracking-wider uppercase text-foreground mb-6 md:mb-8 text-center"
@@ -629,7 +629,7 @@ const Technology = () => {
         </ScrollReveal>
       </section>
 
-      {/* ── OUR PLAYBOOK — THE 3A METHOD ── */}
+      {/* ── OUR PLAYBOOK - THE 3A METHOD ── */}
       <section className="py-24 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]">
         <ScrollReveal>
           <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4 font-bold">Our Playbook</p>

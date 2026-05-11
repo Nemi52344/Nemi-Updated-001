@@ -259,7 +259,7 @@ const Services = () => {
       <Navbar />
 
       <div className="relative z-[2]">
-        {/* LANDING HERO — full viewport, vertically centered */}
+        {/* LANDING HERO - full viewport, vertically centered */}
         <section className="min-h-screen flex flex-col items-center justify-center px-6 md:px-12 lg:px-16 text-center">
           <div className="max-w-5xl mx-auto w-full pt-16">
             <ScrollReveal delay={100}>
@@ -288,7 +288,7 @@ const Services = () => {
             </ScrollReveal>
             <ScrollReveal delay={300}>
               <p className="text-muted-foreground text-sm md:text-base lg:text-lg leading-[1.8] max-w-2xl mx-auto tracking-wide">
-                From idea to product in the field &mdash; design with AKIO,
+                From idea to product in the field - design with AKIO,
                 manufacture with HENRY, deploy with SAM. One stack, one partner,
                 one outcome.
               </p>
@@ -366,7 +366,7 @@ const Services = () => {
           </div>
         </section>
 
-        {/* CASE STUDIES — 3 best */}
+        {/* CASE STUDIES - 3 best */}
         <div className="px-6 md:px-12 lg:px-16 pt-16 md:pt-20 pb-10">
           <ScrollReveal>
             <div style={{ display: "inline-block" }}>

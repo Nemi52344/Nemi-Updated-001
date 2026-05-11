@@ -153,7 +153,7 @@ const FactoryFlipCard = ({
 };
 
 const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
-  // Why Us — placed between Dual Revenue and Why Now
+  // Why Us - placed between Dual Revenue and Why Now
   const sectionVisible = scrollProgress > 0.860 && scrollProgress < 0.910;
   const enterP = easeOut(rangeProgress(scrollProgress, 0.866, 0.880));
   const cardsP = rangeProgress(scrollProgress, 0.872, 0.895);
@@ -208,7 +208,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           })}
         </div>
 
-        {/* Stats — individually styled cards */}
+        {/* Stats - individually styled cards */}
         <div
           className="flex flex-wrap items-stretch justify-center gap-3 md:gap-4 mx-auto w-fit"
           style={{

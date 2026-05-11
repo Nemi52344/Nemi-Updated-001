@@ -96,7 +96,7 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
             Dual Revenue Model
           </h2>
           <p className="text-[10px] md:text-[11px] text-muted-foreground mt-1.5 tracking-wide">
-            Two reinforcing streams — proof at home, scale outside.
+            Two reinforcing streams - proof at home, scale outside.
           </p>
         </div>
 

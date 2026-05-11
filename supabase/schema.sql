@@ -44,5 +44,5 @@ create policy "anon can upload resumes"
   to anon, authenticated
   with check (bucket_id = 'resumes');
 
--- (Reads are intentionally NOT granted to anon — you'll download resumes
+-- (Reads are intentionally NOT granted to anon - you'll download resumes
 -- from the Supabase dashboard or via a signed URL from an authenticated context.)

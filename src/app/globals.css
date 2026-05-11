@@ -15,7 +15,7 @@
     --popover: 230 20% 8%;
     --popover-foreground: 0 0% 95%;
 
-    /* Nemi Violet — #513A9F */
+    /* Nemi Violet - #513A9F */
     --primary: 254 47% 43%;
     --primary-foreground: 0 0% 100%;
 
@@ -57,7 +57,7 @@
     --card-foreground: 0 0% 95%;
     --popover: 230 20% 8%;
     --popover-foreground: 0 0% 95%;
-    /* Nemi Violet — #513A9F */
+    /* Nemi Violet - #513A9F */
     --primary: 254 47% 43%;
     --primary-foreground: 0 0% 100%;
     --secondary: 230 20% 12%;
@@ -178,7 +178,7 @@
   50% { box-shadow: 0 0 14px var(--pulse-color), 0 0 28px var(--pulse-color-dim); }
 }
 
-/* Hero text animations — minimal, clean */
+/* Hero text animations - minimal, clean */
 @keyframes hero-fade-up {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }

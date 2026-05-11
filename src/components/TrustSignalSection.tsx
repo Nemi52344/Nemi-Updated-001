@@ -103,12 +103,12 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
           Trusted by leading industrial companies
           <br className="hidden md:block" />
           {" "}
-          &mdash; across aerospace, defense, automotive and industrial.
+          - across aerospace, defense, automotive and industrial.
         </h2>
 
         {/* Two-row counter-scrolling logo cards */}
         <div style={{ opacity: enterP }} className="w-full space-y-3 md:space-y-4">
-          {/* Row 1 — scrolls left */}
+          {/* Row 1 - scrolls left */}
           <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
             <div className="flex" style={{ animation: "partner-scroll-left 40s linear infinite", willChange: "transform" }}>
               {[0, 1].map((set) => (
@@ -121,7 +121,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
             </div>
           </div>
 
-          {/* Row 2 — scrolls right */}
+          {/* Row 2 - scrolls right */}
           <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
             <div className="flex" style={{ animation: "partner-scroll-right 38s linear infinite", willChange: "transform" }}>
               {[0, 1].map((set) => (

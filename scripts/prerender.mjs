@@ -1,5 +1,5 @@
 /**
- * NEMI AI — Static Site Generation (Pre-render) Script
+ * NEMI AI - Static Site Generation (Pre-render) Script
  *
  * Flow:
  *   1. vite build          → client bundle  → dist/
@@ -36,7 +36,7 @@ await build({
     },
   },
   ssr: {
-    // Bundle all deps into the SSR bundle — avoids ESM resolution issues on Windows/Node 24
+    // Bundle all deps into the SSR bundle - avoids ESM resolution issues on Windows/Node 24
     noExternal: /.*/,
   },
 });

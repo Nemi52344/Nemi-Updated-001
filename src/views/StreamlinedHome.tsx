@@ -150,8 +150,8 @@ const StreamlinedHome = () => {
       {/* ── 03 PROBLEM ───────────────────────────────────────────────────── */}
       <EmptySection number="03" title="Problem" />
 
-      {/* ── 04 SOLUTION — LMM ────────────────────────────────────────────── */}
-      <EmptySection number="04" title="Solution — LMM" />
+      {/* ── 04 SOLUTION - LMM ────────────────────────────────────────────── */}
+      <EmptySection number="04" title="Solution - LMM" />
 
       {/* ── 05 FULL STACK MAAS ───────────────────────────────────────────── */}
       <section className="py-32 px-6 md:px-12 lg:px-16 border-t border-border/20 relative z-[1]">
@@ -275,7 +275,7 @@ const StreamlinedHome = () => {
         </div>
       </section>
 
-      {/* ── 09 WHO WE ARE — LEADERSHIP & BOARD ──────────────────────────── */}
+      {/* ── 09 WHO WE ARE - LEADERSHIP & BOARD ──────────────────────────── */}
       <section className="py-32 px-6 md:px-12 lg:px-16 border-t border-border/20 relative z-[1]">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>

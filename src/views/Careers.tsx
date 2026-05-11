@@ -160,7 +160,7 @@ const Careers = () => {
               </h2>
             </ScrollReveal>
 
-            {/* Values grid — wider columns + tighter padding so each body fits in 3 lines */}
+            {/* Values grid - wider columns + tighter padding so each body fits in 3 lines */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-7xl items-start">
               {values.map((val, i) => (
                 <ScrollReveal key={val.title} delay={i * 100}>

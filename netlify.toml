@@ -3,7 +3,7 @@
   publish = "out"
 
 # Next.js static export writes per-route index.html files (e.g. out/about/index.html).
-# No SPA fallback redirect needed — each route has its own real HTML file.
+# No SPA fallback redirect needed - each route has its own real HTML file.
 
 # Security & performance headers for all routes
 [[headers]]
@@ -38,7 +38,7 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# llms.txt — serve as plain text
+# llms.txt - serve as plain text
 [[headers]]
   for = "/llms.txt"
   [headers.values]

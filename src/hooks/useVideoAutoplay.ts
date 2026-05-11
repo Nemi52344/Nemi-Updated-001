@@ -17,7 +17,7 @@ export function useVideoAutoplay(threshold = 0.5) {
         if (entry.isIntersecting) {
           video.currentTime = 0;
           video.play().catch(() => {
-            // Autoplay blocked — silently ignore; user can still use controls
+            // Autoplay blocked - silently ignore; user can still use controls
           });
         } else {
           video.pause();

@@ -109,14 +109,22 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
         {/* Heading */}
         <h3
-          className="text-sm md:text-2xl lg:text-3xl font-light text-foreground tracking-wide text-center max-w-3xl mx-auto mb-4 md:mb-8"
+          className="text-sm md:text-xl lg:text-2xl font-light text-foreground tracking-wide text-center max-w-3xl mx-auto mb-1 md:mb-2 whitespace-nowrap"
           style={{
             opacity: enterP,
             transform: `translateY(${(1 - enterP) * 25}px)`,
           }}
         >
-          Every component, manufactured end-to-end as a service.
+          Manufacturing Complex Products as a Unified Service
         </h3>
+
+        {/* Subline */}
+        <p
+          className="text-sm md:text-base text-muted-foreground text-center max-w-2xl mx-auto mb-4 md:mb-6 leading-relaxed"
+          style={{ opacity: enterP, transform: `translateY(${(1 - enterP) * 20}px)` }}
+        >
+          Replace fragmented vendors and disconnected workflows with one integrated manufacturing platform.
+        </p>
 
         {/* Parts pills - equation: Battery + Motor + Mech + EE = Complex Assemblies */}
         <div

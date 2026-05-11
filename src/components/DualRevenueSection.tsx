@@ -20,8 +20,8 @@ interface Stream {
 const STREAMS: Stream[] = [
   {
     num: "01",
-    title: "Internal EV Production",
-    subtitle: "B2B · Last-Mile · Tier 1 Supply",
+    title: "Internal Manufacturing Operations",
+    subtitle: "Internal Manufacturing · Physical AI Dogfooding · System Optimization",
     bullets: [
       "B2B & last-mile delivery partner",
       "Tier 1 manufacturing supplier",
@@ -32,7 +32,7 @@ const STREAMS: Stream[] = [
   {
     num: "02",
     title: "Manufacturing as a Service",
-    subtitle: "Turn-key Production · Any Client · Any Industry",
+    subtitle: "End-to-End Manufacturing · AI-Powered Production · Scalable Operations",
     bullets: [
       "Physical AI-powered contract manufacturing for external clients",
       "Faster turnaround, lower unit cost, uncompromised quality",
@@ -43,7 +43,7 @@ const STREAMS: Stream[] = [
   {
     num: "03",
     title: "External Deployment",
-    subtitle: "Physical AI Platform · Licensing & Scale",
+    subtitle: "Enterprise Deployment · Factory Intelligence · External AI Integration",
     bullets: [
       "Physical AI platform licensed to external manufacturers",
       "Full-stack LMM deployment at client facilities",
@@ -53,12 +53,12 @@ const STREAMS: Stream[] = [
   },
   {
     num: "04",
-    title: "Mergers & Acquisitions",
-    subtitle: "Physical AI Integration · Portfolio Scale",
+    title: "Global Manufacturing Intelligence Network",
+    subtitle: "Physical AI Infrastructure · Cross-Border Learning · Operational Scale",
     bullets: [
-      "Acquire targets with Physical AI deployment",
-      "Integrate LMM stack into acquired ops",
-      "Scale portfolio with unified AI layer",
+      "Expand manufacturing intelligence across global production hubs",
+      "Continuously refine Physical AI through real-world operational data",
+      "Combine precision engineering, scalable production, and cost-efficient infrastructure into one unified manufacturing network",
     ],
     alpha: 0.05,
   },

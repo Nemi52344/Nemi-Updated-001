@@ -187,8 +187,8 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           >
             From Months to Hours
           </h2>
-          <p className="text-[13px] text-muted-foreground mt-1 tracking-wide">
-            End-to-end manufacturing, every step compressed by NEMI LMM, looping continuously.
+          <p className="text-[13px] text-muted-foreground mt-1 tracking-wide max-w-2xl mx-auto leading-relaxed">
+            From Fragmented Workflows to a unified manufacturing system that Learns Faster Every Cycle, connecting every stage from design to delivery.
           </p>
         </div>
 
@@ -248,7 +248,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
         </div>
 
         {/* Footer caption */}
-        <div className="text-center mt-3" style={{ opacity: enterP }}>
+        <div className="text-center mt-8" style={{ opacity: enterP }}>
           <span className="text-[11px] md:text-[12px] tracking-[0.3em] uppercase" style={{ color: "hsl(275 60% 65% / 0.7)" }}>
             NEMI LMM LOOP · EVERY CYCLE COMPOUNDS KNOWLEDGE, PRECISION, SPEED & COST REDUCTION
           </span>

@@ -94,10 +94,10 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
               textShadow: "0 0 40px hsl(275 80% 60% / 0.3), 0 0 80px hsl(270 70% 50% / 0.15)",
             }}
           >
-            Case Studies
+            Real Outcomes. Powered by NEMI.
           </h2>
           <p className="text-base text-muted-foreground mt-2 tracking-wide">
-            Real engagements where NEMI compressed cost, time, and team size.
+            Real-world manufacturing programs accelerated through NEMI's LMM.
           </p>
         </div>
 

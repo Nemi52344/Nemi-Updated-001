@@ -56,17 +56,17 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
       />
 
       <div
-        className="relative z-[2] w-full max-w-7xl mx-auto px-[7.5rem] pt-40 pb-[7.5rem] pointer-events-auto"
+        className="relative z-[2] w-full max-w-7xl mx-auto px-[7.5rem] pt-16 pb-10 pointer-events-auto"
         style={{
           opacity: enterP,
           transform: `translateY(${(1 - enterP) * 24}px)`,
         }}
       >
         {/* Header */}
-        <div className="mb-10 md:mb-14">
+        <div className="mb-4 md:mb-6">
           <h2
             id="why-now-section-heading"
-            className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3"
+            className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight mb-2"
             style={{
               textShadow: "0 0 30px hsl(275 80% 60% / 0.35), 0 0 60px hsl(270 70% 50% / 0.15)",
               ...headingAnim,
@@ -75,14 +75,14 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
             The Next Industrial Infrastructure Shift is happening now
           </h2>
           <p
-            className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[540px]"
+            className="text-xs md:text-sm text-muted-foreground tracking-wide max-w-[540px]"
             style={sublineAnim}
           >
             A once-in-a-30-year shift is underway in manufacturing.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-6 lg:gap-10 items-center">
           {/* Venn diagram */}
           <div className="flex justify-center items-center">
             <div
@@ -148,11 +148,11 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
           </div>
 
           {/* Right: text blocks */}
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-3">
             {/* Window heading */}
             <div style={windowAnim}>
-              <h3 className="text-base md:text-lg font-bold text-foreground mb-3 flex items-baseline gap-2">
-                <span className="text-primary text-xl md:text-2xl">24–48 mo</span>
+              <h3 className="text-sm md:text-base font-bold text-foreground mb-2 flex items-baseline gap-2">
+                <span className="text-primary text-lg md:text-xl">24–48 mo</span>
                 <span>window</span>
               </h3>
               <ul className="text-xs md:text-sm text-muted-foreground space-y-2 list-none pl-0">
@@ -168,35 +168,35 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
             </div>
 
             <div
-              className="rounded-xl px-5 py-4"
+              className="rounded-xl px-4 py-3"
               style={{
                 background: "hsl(230 20% 8% / 0.5)",
                 borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
                 ...card1Anim,
               }}
             >
-              <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
+              <p className="text-xs md:text-sm font-semibold text-foreground leading-snug">
                 Industrial infrastructure transitions create generational market leaders.
               </p>
               <p className="text-xs text-muted-foreground mt-1">e.g., previously the rise of IT, TPS</p>
             </div>
 
             <div
-              className="rounded-xl px-5 py-4"
+              className="rounded-xl px-4 py-3"
               style={{
                 background: "hsl(230 20% 8% / 0.5)",
                 borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
                 ...card2Anim,
               }}
             >
-              <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
+              <p className="text-xs md:text-sm font-semibold text-foreground leading-snug">
                 The first platforms to compound manufacturing intelligence become the default infrastructure layer
               </p>
               <p className="text-xs text-muted-foreground mt-1">They become the default.</p>
             </div>
 
             <div
-              className="rounded-xl px-6 py-5"
+              className="rounded-xl px-4 py-3"
               style={{
                 background: "linear-gradient(135deg, hsl(275 80% 40% / 0.18), hsl(260 70% 30% / 0.12))",
                 border: "1px solid hsl(275 80% 55% / 0.3)",
@@ -204,7 +204,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                 ...card3Anim,
               }}
             >
-              <p className="text-sm md:text-base font-bold text-foreground">
+              <p className="text-xs md:text-sm font-bold text-foreground">
                 NEMI is building the infrastructure to win this shift.
               </p>
             </div>

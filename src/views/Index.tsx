@@ -189,13 +189,9 @@ const Index = () => {
           className="mt-6 text-sm md:text-base lg:text-lg font-light text-center text-muted-foreground tracking-[0.25em] uppercase mx-4 leading-[1.6]"
           style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}
         >
-          Manufacturing as a Service for the Autonomous Era
-        </p>
-        <p
-          className="mt-3 text-xs md:text-sm font-light text-center mx-6 md:mx-auto max-w-2xl leading-relaxed tracking-wide"
-          style={{ color: "hsl(275 30% 80% / 0.6)" }}
-        >
-          AI-powered full-stack manufacturing infrastructure enabling faster production, intelligent automation, and scalable industrial operations.
+          Full-stack, end-to-end manufacturing automation
+          <br />
+          with Physical AI
         </p>
 
       </div>

@@ -189,9 +189,7 @@ const Index = () => {
           className="mt-6 text-sm md:text-base lg:text-lg font-light text-center text-muted-foreground tracking-[0.25em] uppercase mx-4 leading-[1.6]"
           style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}
         >
-          Full-stack, end-to-end manufacturing automation
-          <br />
-          with Physical AI
+          Full stack Manufacturing as a Service
         </p>
 
       </div>

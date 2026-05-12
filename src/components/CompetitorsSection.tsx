@@ -166,13 +166,13 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center pointer-events-none"
-      style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
+      className="fixed inset-0 flex items-end justify-center pointer-events-none"
+      style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)", paddingBottom: "70px" }}
     >
       <div className="max-w-7xl w-full mx-6 pointer-events-auto">
-        <div className="text-center mb-4" style={{ opacity: enterP }}>
+        <div className="text-center mb-3" style={{ opacity: enterP }}>
           <h2
-            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight"
+            className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight"
             style={{
               letterSpacing: "-0.02em",
               color: "hsl(275 80% 80%)",

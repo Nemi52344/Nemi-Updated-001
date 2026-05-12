@@ -10,15 +10,15 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
-  const sectionVisible = scrollProgress > 0.315 && scrollProgress < 0.46;
-  const enterP  = easeOut(rangeProgress(scrollProgress, 0.325, 0.37));
-  const exitP   = easeOut(rangeProgress(scrollProgress, 0.43, 0.455));
+  const sectionVisible = scrollProgress > 0.220 && scrollProgress < 0.305;
+  const enterP  = easeOut(rangeProgress(scrollProgress, 0.225, 0.255));
+  const exitP   = easeOut(rangeProgress(scrollProgress, 0.285, 0.303));
   const opacity = enterP * (1 - exitP);
 
-  const tagP      = easeOut(rangeProgress(scrollProgress, 0.33, 0.37));
-  const titleP    = easeOut(rangeProgress(scrollProgress, 0.35, 0.39));
-  const subtitleP = easeOut(rangeProgress(scrollProgress, 0.37, 0.41));
-  const lineP     = easeOut(rangeProgress(scrollProgress, 0.38, 0.42));
+  const tagP      = easeOut(rangeProgress(scrollProgress, 0.228, 0.250));
+  const titleP    = easeOut(rangeProgress(scrollProgress, 0.238, 0.265));
+  const subtitleP = easeOut(rangeProgress(scrollProgress, 0.248, 0.275));
+  const lineP     = easeOut(rangeProgress(scrollProgress, 0.255, 0.280));
 
   if (!sectionVisible) return null;
 
@@ -41,6 +41,7 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
           We built the system that fixes fragmented manufacturing
         </p>
 
+
         {/* Introducing line */}
         <p
           className="text-xs tracking-[0.5em] uppercase font-medium mb-3"
@@ -50,7 +51,7 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
             transform: `translateY(${(1 - titleP) * 10}px)`,
           }}
         >
-          Introducing NEMI LMM
+          Introducing
         </p>
 
         {/* Title */}
@@ -93,13 +94,13 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
 
         {/* One-liner */}
         <p
-          className="mt-8 text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed"
+          className="mt-8 text-sm md:text-base text-muted-foreground max-w-3xl leading-relaxed"
           style={{
             opacity: lineP,
             transform: `translateY(${(1 - lineP) * 10}px)`,
           }}
         >
-          A unified AI-powered system that connects the entire manufacturing value chain into one continuously learning network — turning fragmented manufacturing into compounding intelligence.
+          A unified AI-powered system connecting the entire manufacturing value chain,<br />turning fragmented manufacturing into compounding intelligence.
         </p>
 
       </div>

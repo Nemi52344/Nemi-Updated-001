@@ -154,11 +154,11 @@ const FactoryFlipCard = ({
 
 const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
   // Why Us - placed between Dual Revenue and Why Now
-  const sectionVisible = scrollProgress > 0.860 && scrollProgress < 0.910;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.866, 0.880));
-  const cardsP = rangeProgress(scrollProgress, 0.872, 0.895);
-  const statsP = easeOut(rangeProgress(scrollProgress, 0.882, 0.898));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.900, 0.910));
+  const sectionVisible = scrollProgress > 0.650 && scrollProgress < 0.735;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.656, 0.672));
+  const cardsP = rangeProgress(scrollProgress, 0.665, 0.700);
+  const statsP = easeOut(rangeProgress(scrollProgress, 0.690, 0.710));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.722, 0.733));
 
   if (!sectionVisible) return null;
 

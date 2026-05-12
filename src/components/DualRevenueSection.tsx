@@ -65,17 +65,17 @@ const STREAMS: Stream[] = [
 ];
 
 const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
-  const sectionVisible = scrollProgress > 0.812 && scrollProgress < 0.860;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.818, 0.835));
-  const exitP  = easeOut(rangeProgress(scrollProgress, 0.850, 0.860));
+  const sectionVisible = scrollProgress > 0.565 && scrollProgress < 0.655;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.572, 0.590));
+  const exitP  = easeOut(rangeProgress(scrollProgress, 0.638, 0.653));
   const opacity = enterP * (1 - exitP);
-  const headP = easeOut(rangeProgress(scrollProgress, 0.820, 0.840));
+  const headP = easeOut(rangeProgress(scrollProgress, 0.575, 0.595));
 
   if (!sectionVisible) return null;
 
   const cardP = (i: number) => {
     const delay = i * 0.004;
-    return easeOut(rangeProgress(scrollProgress, 0.826 + delay, 0.846 + delay));
+    return easeOut(rangeProgress(scrollProgress, 0.580 + delay, 0.600 + delay));
   };
 
   return (

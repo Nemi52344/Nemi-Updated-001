@@ -127,14 +127,17 @@ const Index = () => {
 
       {/* Transition dividers between sections */}
       <ScrollTransition scrollProgress={scrollProgress} at={0.05} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.15} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.32} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.45} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.60} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.74} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.815} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.12} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.22} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.30} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.40} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.49} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.57} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.65} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.73} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.82} />
       <ScrollTransition scrollProgress={scrollProgress} at={0.89} />
-      <ScrollTransition scrollProgress={scrollProgress} at={0.963} />
+      <ScrollTransition scrollProgress={scrollProgress} at={0.95} />
 
       {/* Purple nebula glow behind logo */}
       <div

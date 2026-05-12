@@ -9,14 +9,34 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
+const fadeIn = (scroll: number, start: number, end: number) => {
+  const p = easeOut(rangeProgress(scroll, start, end));
+  return { opacity: p, transform: `translateY(${(1 - p) * 20}px)` };
+};
+
 const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
-  // Section: 0.910–0.945 (after Why Us)
-  const sectionVisible = scrollProgress > 0.905 && scrollProgress < 0.945;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.912, 0.928));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.935, 0.945));
+  const sectionVisible = scrollProgress > 0.730 && scrollProgress < 0.825;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.735, 0.750));
+  const exitP  = easeOut(rangeProgress(scrollProgress, 0.810, 0.823));
   const opacity = Math.min(enterP, 1 - exitP);
 
   if (!sectionVisible) return null;
+
+  const s = scrollProgress;
+
+  // Staggered element animations
+  const headingAnim   = fadeIn(s, 0.735, 0.748);
+  const sublineAnim   = fadeIn(s, 0.738, 0.751);
+  const circle1Anim   = fadeIn(s, 0.742, 0.755);
+  const circle2Anim   = fadeIn(s, 0.746, 0.759);
+  const circle3Anim   = fadeIn(s, 0.750, 0.763);
+  const windowAnim    = fadeIn(s, 0.748, 0.760);
+  const bullet1Anim   = fadeIn(s, 0.752, 0.764);
+  const bullet2Anim   = fadeIn(s, 0.756, 0.768);
+  const card1Anim     = fadeIn(s, 0.760, 0.772);
+  const card2Anim     = fadeIn(s, 0.764, 0.776);
+  const card3Anim     = fadeIn(s, 0.768, 0.780);
+  const sourceAnim    = fadeIn(s, 0.772, 0.784);
 
   return (
     <div
@@ -47,11 +67,17 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
           <h2
             id="why-now-section-heading"
             className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3"
-            style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.35), 0 0 60px hsl(270 70% 50% / 0.15)" }}
+            style={{
+              textShadow: "0 0 30px hsl(275 80% 60% / 0.35), 0 0 60px hsl(270 70% 50% / 0.15)",
+              ...headingAnim,
+            }}
           >
             The Next Industrial Infrastructure Shift is happening now
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[540px]">
+          <p
+            className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[540px]"
+            style={sublineAnim}
+          >
             A once-in-a-30-year shift is underway in manufacturing.
           </p>
         </div>
@@ -65,7 +91,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
               role="img"
               aria-label="Three converging forces: Sovereign Manufacturing, Physical AI, and High ROI Automation"
             >
-              {/* Top circle — text pushed UP into its outer petal */}
+              {/* Top circle */}
               <div
                 className="absolute rounded-full flex items-start justify-center text-center px-6 pt-12"
                 style={{
@@ -74,6 +100,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                   background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
                   border: "1px solid hsl(275 80% 65% / 0.35)",
                   boxShadow: "0 0 30px hsl(275 80% 55% / 0.2)",
+                  ...circle1Anim,
                 }}
               >
                 <div>
@@ -81,7 +108,8 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                   <p className="text-[0.65rem] text-muted-foreground/90 leading-[1.3]">$3T of global trade at risk due to reshoring push</p>
                 </div>
               </div>
-              {/* Bottom-left circle — text pushed LEFT into its outer petal */}
+
+              {/* Bottom-left circle */}
               <div
                 className="absolute rounded-full flex items-center justify-start text-left pl-5 pr-3"
                 style={{
@@ -90,6 +118,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                   background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
                   border: "1px solid hsl(275 80% 65% / 0.35)",
                   boxShadow: "0 0 30px hsl(275 80% 55% / 0.2)",
+                  ...circle2Anim,
                 }}
               >
                 <div style={{ maxWidth: "130px" }}>
@@ -97,7 +126,8 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                   <p className="text-[0.65rem] text-muted-foreground/90 leading-[1.3]">Starting to transform manufacturing</p>
                 </div>
               </div>
-              {/* Bottom-right circle — title wraps to 2 lines, pushed RIGHT into its outer petal */}
+
+              {/* Bottom-right circle */}
               <div
                 className="absolute rounded-full flex items-center justify-end text-right pr-5 pl-3"
                 style={{
@@ -106,6 +136,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                   background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
                   border: "1px solid hsl(275 80% 65% / 0.35)",
                   boxShadow: "0 0 30px hsl(275 80% 55% / 0.2)",
+                  ...circle3Anim,
                 }}
               >
                 <div style={{ maxWidth: "130px" }}>
@@ -118,17 +149,18 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
 
           {/* Right: text blocks */}
           <div className="flex flex-col gap-5">
-            <div>
+            {/* Window heading */}
+            <div style={windowAnim}>
               <h3 className="text-base md:text-lg font-bold text-foreground mb-3 flex items-baseline gap-2">
                 <span className="text-primary text-xl md:text-2xl">24–48 mo</span>
                 <span>window</span>
               </h3>
               <ul className="text-xs md:text-sm text-muted-foreground space-y-2 list-none pl-0">
-                <li className="flex gap-3 items-start">
+                <li className="flex gap-3 items-start" style={bullet1Anim}>
                   <span className="text-primary mt-1.5 shrink-0">•</span>
                   <span>Physical AI reaches massive commercial deployment</span>
                 </li>
-                <li className="flex gap-3 items-start">
+                <li className="flex gap-3 items-start" style={bullet2Anim}>
                   <span className="text-primary mt-1.5 shrink-0">•</span>
                   <span>Reshoring driven by geopolitics reframes manufacturing</span>
                 </li>
@@ -137,7 +169,11 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
 
             <div
               className="rounded-xl px-5 py-4"
-              style={{ background: "hsl(230 20% 8% / 0.5)", borderLeft: "3px solid hsl(275 80% 55% / 0.5)" }}
+              style={{
+                background: "hsl(230 20% 8% / 0.5)",
+                borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
+                ...card1Anim,
+              }}
             >
               <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
                 Industrial infrastructure transitions create generational market leaders.
@@ -147,7 +183,11 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
 
             <div
               className="rounded-xl px-5 py-4"
-              style={{ background: "hsl(230 20% 8% / 0.5)", borderLeft: "3px solid hsl(275 80% 55% / 0.5)" }}
+              style={{
+                background: "hsl(230 20% 8% / 0.5)",
+                borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
+                ...card2Anim,
+              }}
             >
               <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
                 The first platforms to compound manufacturing intelligence become the default infrastructure layer
@@ -161,6 +201,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                 background: "linear-gradient(135deg, hsl(275 80% 40% / 0.18), hsl(260 70% 30% / 0.12))",
                 border: "1px solid hsl(275 80% 55% / 0.3)",
                 boxShadow: "0 0 30px hsl(275 80% 55% / 0.15)",
+                ...card3Anim,
               }}
             >
               <p className="text-sm md:text-base font-bold text-foreground">
@@ -168,7 +209,9 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
               </p>
             </div>
 
-            <p className="text-[0.6rem] text-muted-foreground/50 italic">Source: McKinsey Global Institute, 2025.</p>
+            <p className="text-[0.6rem] text-muted-foreground/50 italic" style={sourceAnim}>
+              Source: McKinsey Global Institute, 2025.
+            </p>
           </div>
         </div>
       </div>

@@ -234,9 +234,9 @@ const BOARD: CompactMember[] = [
 
 const LeadershipSection = ({ scrollProgress }: LeadershipSectionProps) => {
   // Section: 0.945–0.975
-  const sectionVisible = scrollProgress > 0.942 && scrollProgress < 0.975;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.948, 0.960));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.967, 0.975));
+  const sectionVisible = scrollProgress > 0.820 && scrollProgress < 0.895;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.828, 0.845));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.880, 0.893));
   const opacity = Math.min(enterP, 1 - exitP);
 
   if (!sectionVisible) return null;

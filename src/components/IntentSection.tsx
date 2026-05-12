@@ -8,9 +8,9 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
-  const sectionVisible = scrollProgress > 0.045 && scrollProgress < 0.155;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.05, 0.075));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.13, 0.15));
+  const sectionVisible = scrollProgress > 0.050 && scrollProgress < 0.125;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.055, 0.075));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.110, 0.123));
 
   if (!sectionVisible) return null;
 

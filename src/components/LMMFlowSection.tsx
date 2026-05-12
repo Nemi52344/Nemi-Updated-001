@@ -51,21 +51,20 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
       }}
     >
       {/* Header above image: step label, centered */}
-      <div className="mb-2 px-0.5 text-center">
-        <span className="text-[13px] tracking-[0.18em] uppercase font-bold text-foreground">
+      <div className="mb-1 px-0.5 text-center">
+        <span className="text-[11px] tracking-[0.15em] uppercase font-bold text-foreground">
           {step.label}
         </span>
       </div>
 
       {/* Image - 3:2 aspect */}
       <div
-        className="relative w-full overflow-hidden mx-auto"
+        className="relative w-full overflow-hidden"
         style={{
           aspectRatio: "3 / 2",
-          maxHeight: "88px",
-          maxWidth: "calc(88px * 3 / 2)",
+          maxHeight: "110px",
           flexShrink: 0,
-          borderRadius: "10px",
+          borderRadius: "8px",
           background: "hsl(220 20% 6%)",
         }}
       >
@@ -79,9 +78,9 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         />
       </div>
 
-      {/* Comparison box - stacked label/value above the bar so nothing crushes */}
+      {/* Comparison box */}
       <div
-        className="mt-1.5 px-2 py-1.5 flex flex-col gap-1.5 border rounded-lg"
+        className="mt-1 px-1.5 py-1 flex flex-col gap-1 border rounded-md"
         style={{
           flexShrink: 0,
           borderColor: "hsl(0 0% 100% / 0.18)",
@@ -89,16 +88,16 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         }}
       >
         {/* Traditional */}
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0.5">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] uppercase tracking-[0.14em] font-semibold" style={{ color: "hsl(0 0% 72%)" }}>
+            <span className="text-[9px] uppercase tracking-[0.12em] font-semibold" style={{ color: "hsl(0 0% 72%)" }}>
               Traditional
             </span>
-            <span className="text-[13px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 0% 95%)" }}>
+            <span className="text-[10px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 0% 95%)" }}>
               {step.tradLabel ?? formatMonths(step.tradMonths)}
             </span>
           </div>
-          <div className="relative h-[3px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
+          <div className="relative h-[2px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
             <div
               className="absolute inset-y-0 left-0 rounded-full"
               style={{
@@ -111,16 +110,16 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         </div>
 
         {/* NEMI LMM */}
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0.5">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] uppercase tracking-[0.14em] font-bold" style={{ color: "hsl(0 70% 62%)" }}>
+            <span className="text-[9px] uppercase tracking-[0.12em] font-bold" style={{ color: "hsl(0 70% 62%)" }}>
               NEMI LMM
             </span>
-            <span className="text-[13px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 75% 72%)" }}>
+            <span className="text-[10px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 75% 72%)" }}>
               {step.lmmLabel}
             </span>
           </div>
-          <div className="relative h-[3px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
+          <div className="relative h-[2px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
             <div
               className="absolute inset-y-0 left-0 rounded-full"
               style={{
@@ -150,18 +149,18 @@ const HArrow = ({ direction, opacity }: { direction: "right" | "left"; opacity: 
 );
 
 const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
-  const sectionVisible = scrollProgress > 0.455 && scrollProgress < 0.61;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.465, 0.50));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.585, 0.61));
+  const sectionVisible = scrollProgress > 0.300 && scrollProgress < 0.400;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.308, 0.338));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.383, 0.398));
   const opacity = enterP * (1 - exitP);
 
-  const headP = easeOut(rangeProgress(scrollProgress, 0.47, 0.50));
+  const headP = easeOut(rangeProgress(scrollProgress, 0.310, 0.340));
 
   if (!sectionVisible) return null;
 
   const cardP = (idx: number) => {
     const delay = idx * 0.003;
-    return easeOut(rangeProgress(scrollProgress, 0.48 + delay, 0.52 + delay));
+    return easeOut(rangeProgress(scrollProgress, 0.320 + delay, 0.350 + delay));
   };
 
   // Grid template: card | arrow | card | arrow | card | arrow | card
@@ -175,27 +174,27 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
       <div className="w-full max-w-[1380px] mx-auto px-4 md:px-8">
         {/* Header */}
         <div
-          className="text-center mb-2"
+          className="text-center mb-4"
           style={{ opacity: headP, transform: `translateY(${(1 - headP) * 14}px)` }}
         >
           <h2
-            className="text-lg md:text-2xl lg:text-3xl font-bold tracking-tight"
+            className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight"
             style={{
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.03em",
               textShadow: "0 0 40px hsl(275 80% 60% / 0.3), 0 0 80px hsl(270 70% 50% / 0.15)",
             }}
           >
             From Months to Hours
           </h2>
-          <p className="text-[13px] text-muted-foreground mt-1 tracking-wide max-w-2xl mx-auto leading-relaxed">
-            From Fragmented Workflows to a unified manufacturing system that Learns Faster Every Cycle, connecting every stage from design to delivery.
+          <p className="text-[13px] text-muted-foreground mt-2 tracking-wide w-full mx-auto leading-relaxed whitespace-nowrap">
+            From fragmented workflows to a unified manufacturing system that learns faster every cycle, connecting every stage from design to delivery.
           </p>
         </div>
 
         {/* Flow container */}
         <div className="relative">
           {/* Row 1: 01 → 02 → 03 → 04 */}
-          <div className="grid items-stretch gap-y-2" style={{ gridTemplateColumns: gridCols }}>
+          <div className="grid items-stretch gap-y-1" style={{ gridTemplateColumns: gridCols }}>
             <Card step={ROW1[0]} p={cardP(0)} />
             <HArrow direction="right" opacity={cardP(0)} />
             <Card step={ROW1[1]} p={cardP(1)} />
@@ -206,7 +205,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           </div>
 
           {/* Down chevron between rows, centered under card 04 (col 7) - visually nudged down via transform */}
-          <div className="grid my-1" style={{ gridTemplateColumns: gridCols }}>
+          <div className="grid" style={{ gridTemplateColumns: gridCols }}>
             <div /><div /><div /><div /><div /><div />
             <div className="flex justify-center">
               <svg
@@ -217,7 +216,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
                 style={{
                   opacity: cardP(3),
                   display: "block",
-                  transform: "translateY(28px)",
+                  transform: "translateY(14px)",
                 }}
               >
                 <path d="M2 2 L10 11 L18 2" stroke="hsl(275 70% 75%)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -226,7 +225,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           </div>
 
           {/* Up chevron centered above card 08 image (loop back to 01) */}
-          <div className="grid mb-1" style={{ gridTemplateColumns: gridCols }}>
+          <div className="grid" style={{ gridTemplateColumns: gridCols }}>
             <div className="flex justify-center" style={{ opacity: cardP(7) }}>
               <svg width="24" height="17" viewBox="0 0 20 14" fill="none" style={{ display: "block" }}>
                 <path d="M2 11 L10 2 L18 11" stroke="hsl(275 70% 75%)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -236,7 +235,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           </div>
 
           {/* Row 2 visual: 08 ← 07 ← 06 ← 05 */}
-          <div className="grid items-stretch gap-y-2" style={{ gridTemplateColumns: gridCols }}>
+          <div className="grid items-stretch gap-y-1" style={{ gridTemplateColumns: gridCols }}>
             <Card step={ROW2_VISUAL[0]} p={cardP(7)} />
             <HArrow direction="left" opacity={cardP(6)} />
             <Card step={ROW2_VISUAL[1]} p={cardP(6)} />
@@ -248,7 +247,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
         </div>
 
         {/* Footer caption */}
-        <div className="text-center mt-8" style={{ opacity: enterP }}>
+        <div className="text-center mt-2" style={{ opacity: enterP, transform: "translateY(16px)" }}>
           <span className="text-[11px] md:text-[12px] tracking-[0.3em] uppercase" style={{ color: "hsl(275 60% 65% / 0.7)" }}>
             NEMI LMM LOOP · EVERY CYCLE COMPOUNDS KNOWLEDGE, PRECISION, SPEED & COST REDUCTION
           </span>

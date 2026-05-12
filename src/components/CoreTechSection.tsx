@@ -47,21 +47,21 @@ const PHASES = [
 ];
 
 const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
-  const sectionVisible = scrollProgress > 0.145 && scrollProgress < 0.33;
-  const crossfadeP     = rangeProgress(scrollProgress, 0.30, 0.33);
+  const sectionVisible = scrollProgress > 0.120 && scrollProgress < 0.225;
+  const crossfadeP     = rangeProgress(scrollProgress, 0.215, 0.225);
 
-  const headEnterP  = easeOut(rangeProgress(scrollProgress, 0.16, 0.20));
-  const headExitP   = easeOut(rangeProgress(scrollProgress, 0.29, 0.32));
+  const headEnterP  = easeOut(rangeProgress(scrollProgress, 0.128, 0.150));
+  const headExitP   = easeOut(rangeProgress(scrollProgress, 0.205, 0.222));
   const headOpacity = headEnterP * (1 - headExitP);
 
-  const bodyP       = easeOut(rangeProgress(scrollProgress, 0.19, 0.23));
-  const bodyExit    = easeOut(rangeProgress(scrollProgress, 0.29, 0.32));
+  const bodyP       = easeOut(rangeProgress(scrollProgress, 0.140, 0.160));
+  const bodyExit    = easeOut(rangeProgress(scrollProgress, 0.205, 0.222));
   const bodyOpacity = bodyP * (1 - bodyExit);
 
-  const panel0P    = easeOut(rangeProgress(scrollProgress, 0.21, 0.25));
-  const panel1P    = easeOut(rangeProgress(scrollProgress, 0.23, 0.27));
-  const panel2P    = easeOut(rangeProgress(scrollProgress, 0.25, 0.29));
-  const panelExitP = easeOut(rangeProgress(scrollProgress, 0.29, 0.33));
+  const panel0P    = easeOut(rangeProgress(scrollProgress, 0.155, 0.175));
+  const panel1P    = easeOut(rangeProgress(scrollProgress, 0.165, 0.185));
+  const panel2P    = easeOut(rangeProgress(scrollProgress, 0.175, 0.195));
+  const panelExitP = easeOut(rangeProgress(scrollProgress, 0.205, 0.225));
 
   if (!sectionVisible) return null;
 
@@ -86,7 +86,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
             className="text-base text-muted-foreground leading-relaxed whitespace-nowrap"
             style={{ opacity: bodyOpacity }}
           >
-            Manufacturing today is fragmented across disconnected tools, suppliers, and workflows — causing every production cycle to restart from zero.
+            Manufacturing today is fragmented across disconnected tools, suppliers, and workflows causing every production cycle to restart from zero.
           </p>
         </div>
 

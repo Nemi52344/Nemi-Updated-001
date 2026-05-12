@@ -62,18 +62,18 @@ const CASE_STUDIES: CaseStudy[] = [
 
 const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
   // Single combined section: 0.605–0.755 (was 3 separate slots)
-  const sectionVisible = scrollProgress > 0.605 && scrollProgress < 0.755;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.615, 0.655));
-  const exitP  = easeOut(rangeProgress(scrollProgress, 0.735, 0.755));
+  const sectionVisible = scrollProgress > 0.395 && scrollProgress < 0.495;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.403, 0.433));
+  const exitP  = easeOut(rangeProgress(scrollProgress, 0.478, 0.493));
   const opacity = enterP * (1 - exitP);
 
-  const headP = easeOut(rangeProgress(scrollProgress, 0.620, 0.650));
+  const headP = easeOut(rangeProgress(scrollProgress, 0.405, 0.430));
 
   if (!sectionVisible) return null;
 
   const cardP = (i: number) => {
     const delay = i * 0.008;
-    return easeOut(rangeProgress(scrollProgress, 0.630 + delay, 0.665 + delay));
+    return easeOut(rangeProgress(scrollProgress, 0.415 + delay, 0.445 + delay));
   };
 
   return (

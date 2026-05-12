@@ -90,7 +90,7 @@ const FactoryFlipCard = ({
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="cursor-pointer w-full h-24 md:h-36 lg:h-40"
+      className="cursor-pointer w-full h-24 md:h-32 lg:h-36"
       style={{ perspective: "1000px", ...style }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -169,8 +169,8 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
       className="fixed inset-0 flex items-center justify-center pointer-events-none"
       style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
     >
-      <div className="max-w-6xl w-full mx-6 pointer-events-auto">
-        <div className="text-center mb-6" style={{ opacity: enterP }}>
+      <div className="max-w-7xl w-full mx-6 pointer-events-auto">
+        <div className="text-center mb-4" style={{ opacity: enterP }}>
           <h2
             className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight"
             style={{
@@ -181,15 +181,15 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           >
             Nemi&apos;s Fortress Factory
           </h2>
-          <p className="mt-3 text-sm md:text-base text-white/70">
-            Nemi&apos;s Physical AI — Built on Real Manufacturing Infrastructure
+          <p className="mt-2 text-sm md:text-base text-white/70">
+            Nemi&apos;s Physical AI, Built on Real Manufacturing Infrastructure
           </p>
-          <p className="mt-4 text-sm md:text-base text-white/70 max-w-3xl mx-auto">
+          <p className="mt-2 text-sm md:text-base text-white/70 max-w-3xl mx-auto">
             From aerospace-grade manufacturing to large-scale production infrastructure, NEMI operates across the full industrial stack with Physical AI applied.
           </p>
         </div>
         {/* Factory photo cards, 4x2 grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-4">
         {factoryImages.map((item, i) => {
             const cardDelay = i * 0.08;
             const cardP = easeOut(Math.min(Math.max((cardsP - cardDelay) / 0.35, 0), 1));
@@ -221,7 +221,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
               key={stat.label}
               className="relative rounded-2xl px-5 md:px-6 py-3 flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-0.5"
               style={{
-                minHeight: "110px",
+                minHeight: "95px",
                 minWidth: "140px",
                 border: `1px solid hsl(${stat.accent} / 0.28)`,
                 background: `linear-gradient(135deg, hsl(${stat.accent} / 0.10), hsl(220 25% 6% / 0.7))`,
@@ -239,7 +239,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
               />
 
               {stat.variant === "logo" ? (
-                <div className="flex items-center justify-center" style={{ height: "60px" }}>
+                <div className="flex items-center justify-center" style={{ height: "50px" }}>
                   <img
                     src={stat.image}
                     alt={stat.imageAlt || stat.label}
@@ -254,7 +254,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   />
                 </div>
               ) : (
-                <div className="flex items-baseline justify-center gap-1" style={{ height: "60px" }}>
+                <div className="flex items-baseline justify-center gap-1" style={{ height: "50px" }}>
                   <span
                     className="text-3xl md:text-4xl font-bold leading-none self-center"
                     style={{

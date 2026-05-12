@@ -81,9 +81,9 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
   const [selectedPart, setSelectedPart] = useState<PartKey>("complex_parts");
 
   // Section: 0.755–0.815 (Full-stack MaaS)
-  const sectionVisible = scrollProgress > 0.750 && scrollProgress < 0.815;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.758, 0.775));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.802, 0.815));
+  const sectionVisible = scrollProgress > 0.490 && scrollProgress < 0.570;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.498, 0.518));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.555, 0.568));
 
   if (!sectionVisible) return null;
 
@@ -120,7 +120,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
         {/* Subline */}
         <p
-          className="text-sm md:text-base text-muted-foreground text-center max-w-2xl mx-auto mb-4 md:mb-6 leading-relaxed"
+          className="text-sm md:text-base text-muted-foreground text-center w-full mx-auto mb-4 md:mb-6 leading-relaxed whitespace-nowrap"
           style={{ opacity: enterP, transform: `translateY(${(1 - enterP) * 20}px)` }}
         >
           Replace fragmented vendors and disconnected workflows with one integrated manufacturing platform.

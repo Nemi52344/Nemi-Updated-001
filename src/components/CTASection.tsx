@@ -10,8 +10,8 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const CTASection = ({ scrollProgress }: CTASectionProps) => {
-  const sectionVisible = scrollProgress > 0.992;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.993, 1.0));
+  const sectionVisible = scrollProgress > 0.945;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.950, 0.975));
 
   if (!sectionVisible) return null;
 

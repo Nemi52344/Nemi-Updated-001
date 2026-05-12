@@ -53,9 +53,9 @@ const LogoCard = ({ logo, set }: { logo: LogoEntry; set: number }) => (
 
 const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
   // Section: 0.975–0.992 (compressed)
-  const sectionVisible = scrollProgress > 0.973 && scrollProgress < 0.992;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.976, 0.984));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.988, 0.992));
+  const sectionVisible = scrollProgress > 0.890 && scrollProgress < 0.950;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.896, 0.912));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.940, 0.950));
   const opacity = Math.min(enterP, 1 - exitP);
 
   if (!sectionVisible) return null;

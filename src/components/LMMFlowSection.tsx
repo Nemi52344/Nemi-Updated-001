@@ -51,7 +51,7 @@ const MobileCard = ({ step, p }: { step: Step; p: number }) => {
         background: "hsl(220 20% 7% / 0.8)",
       }}
     >
-      <div className="relative w-full h-[55px] overflow-hidden">
+      <div className="relative w-full h-[40px] overflow-hidden">
         <img src={step.img} alt={step.label} loading="lazy" decoding="async" className="w-full h-full object-cover" style={{ filter: "brightness(0.8)" }} />
         <div className="absolute inset-0 flex items-end pb-1 pl-1.5" style={{ background: "linear-gradient(to top, hsl(0 0% 0% / 0.7), transparent 60%)" }}>
           <span className="text-[9px] tracking-[0.12em] uppercase font-bold text-white">{step.label}</span>
@@ -182,10 +182,10 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
       className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-hidden"
       style={{ zIndex: 42, opacity, background: "hsl(0 0% 2%)" }}
     >
-      <div className="w-full max-w-[1380px] mx-auto px-4 md:px-8">
+      <div className="w-full max-w-[1380px] mx-auto px-4 md:px-8 -mt-10 md:mt-0">
         {/* Header */}
         <div
-          className="text-center mb-2 md:mb-4"
+          className="text-center mb-1 md:mb-4"
           style={{ opacity: headP, transform: `translateY(${(1 - headP) * 14}px)` }}
         >
           <h2
@@ -197,39 +197,82 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           >
             From Months to Hours
           </h2>
-          <p className="text-[11px] md:text-[13px] text-muted-foreground mt-2 tracking-wide w-full mx-auto leading-relaxed md:whitespace-nowrap">
+          <p className="text-[10px] md:text-[13px] text-muted-foreground mt-1 tracking-wide w-full mx-auto leading-snug md:whitespace-nowrap">
             From fragmented workflows to a unified manufacturing system that learns faster every cycle, connecting every stage from design to delivery.
           </p>
         </div>
 
-        {/* Mobile layout - Page 1 (cards 1-4) then Page 2 (cards 5-8) */}
-        {(() => {
-          const mobilePage2P = rangeProgress(scrollProgress, 0.355, 0.370);
-          const page1Opacity = 1 - mobilePage2P;
-          const page2Opacity = mobilePage2P;
-          return (
-            <div className="relative md:hidden" style={{ minHeight: "320px" }}>
-              {/* Page 1: cards 01-04 */}
-              <div
-                className="absolute inset-0 grid grid-cols-2 gap-2"
-                style={{ opacity: page1Opacity, pointerEvents: mobilePage2P > 0.5 ? "none" : "auto" }}
-              >
-                {STEPS.slice(0, 4).map((step, i) => (
-                  <MobileCard key={step.num} step={step} p={cardP(i)} />
-                ))}
-              </div>
-              {/* Page 2: cards 05-08 */}
-              <div
-                className="absolute inset-0 grid grid-cols-2 gap-2"
-                style={{ opacity: page2Opacity, pointerEvents: mobilePage2P > 0.5 ? "auto" : "none" }}
-              >
-                {STEPS.slice(4).map((step, i) => (
-                  <MobileCard key={step.num} step={step} p={cardP(i + 4)} />
-                ))}
-              </div>
+        {/* Mobile layout - 2x4 circular loop: 01→02→03→04→05→06→07→08→01 */}
+        <div className="md:hidden">
+          <div className="grid grid-cols-[1fr_20px_1fr] items-stretch gap-x-1">
+            {/* Row 1: 01 → 02 */}
+            <MobileCard step={STEPS[0]} p={cardP(0)} />
+            <div className="flex items-center justify-center" style={{ opacity: cardP(0) }}>
+              <svg width="10" height="14" viewBox="0 0 10 14" fill="none">
+                <path d="M2 3 L8 7 L2 11" stroke="hsl(275 70% 75%)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </div>
-          );
-        })()}
+            <MobileCard step={STEPS[1]} p={cardP(1)} />
+
+            {/* Arrow row: ↑ left, ↓ right */}
+            <div className="flex justify-center" style={{ opacity: cardP(7), padding: "2px 0" }}>
+              <svg width="10" height="14" viewBox="0 0 10 14" fill="none">
+                <path d="M5 12 L5 2 M2 5 L5 2 L8 5" stroke="hsl(275 70% 75%)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <div />
+            <div className="flex justify-center" style={{ opacity: cardP(1), padding: "2px 0" }}>
+              <svg width="10" height="14" viewBox="0 0 10 14" fill="none">
+                <path d="M5 2 L5 12 M2 9 L5 12 L8 9" stroke="hsl(275 70% 75%)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+
+            {/* Row 2: 08  03 */}
+            <MobileCard step={STEPS[7]} p={cardP(7)} />
+            <div />
+            <MobileCard step={STEPS[2]} p={cardP(2)} />
+
+            {/* Arrow row: ↑ left, ↓ right */}
+            <div className="flex justify-center" style={{ opacity: cardP(6), padding: "2px 0" }}>
+              <svg width="10" height="14" viewBox="0 0 10 14" fill="none">
+                <path d="M5 12 L5 2 M2 5 L5 2 L8 5" stroke="hsl(275 70% 75%)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <div />
+            <div className="flex justify-center" style={{ opacity: cardP(2), padding: "2px 0" }}>
+              <svg width="10" height="14" viewBox="0 0 10 14" fill="none">
+                <path d="M5 2 L5 12 M2 9 L5 12 L8 9" stroke="hsl(275 70% 75%)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+
+            {/* Row 3: 07  04 */}
+            <MobileCard step={STEPS[6]} p={cardP(6)} />
+            <div />
+            <MobileCard step={STEPS[3]} p={cardP(3)} />
+
+            {/* Arrow row: ↑ left, ↓ right */}
+            <div className="flex justify-center" style={{ opacity: cardP(5), padding: "2px 0" }}>
+              <svg width="10" height="14" viewBox="0 0 10 14" fill="none">
+                <path d="M5 12 L5 2 M2 5 L5 2 L8 5" stroke="hsl(275 70% 75%)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <div />
+            <div className="flex justify-center" style={{ opacity: cardP(3), padding: "2px 0" }}>
+              <svg width="10" height="14" viewBox="0 0 10 14" fill="none">
+                <path d="M5 2 L5 12 M2 9 L5 12 L8 9" stroke="hsl(275 70% 75%)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+
+            {/* Row 4: 06 ← 05 */}
+            <MobileCard step={STEPS[5]} p={cardP(5)} />
+            <div className="flex items-center justify-center" style={{ opacity: cardP(4) }}>
+              <svg width="10" height="14" viewBox="0 0 10 14" fill="none">
+                <path d="M8 3 L2 7 L8 11" stroke="hsl(275 70% 75%)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <MobileCard step={STEPS[4]} p={cardP(4)} />
+          </div>
+        </div>
 
         {/* Desktop layout */}
         <div className="relative hidden md:block">

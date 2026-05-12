@@ -262,36 +262,135 @@ const LeadershipSection = ({ scrollProgress }: LeadershipSectionProps) => {
         style={{ opacity: enterP, transform: `translateY(${(1 - enterP) * 16}px)` }}
       >
         {/* Header */}
-        <div className="text-center mb-3 md:mb-4">
-          <p className="text-[0.6rem] md:text-[0.7rem] tracking-[0.3em] uppercase text-primary font-semibold mb-1">
+        <div className="text-center mb-2 md:mb-4">
+          <p className="text-[0.55rem] md:text-[0.7rem] tracking-[0.3em] uppercase text-primary font-semibold mb-0.5 md:mb-1">
             Who We Are
           </p>
           <h2
-            className="text-xl md:text-3xl lg:text-4xl font-extrabold tracking-tight"
+            className="text-base md:text-3xl lg:text-4xl font-extrabold tracking-tight"
             style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4), 0 0 60px hsl(270 70% 50% / 0.2)" }}
           >
             Leadership &amp; Board
           </h2>
         </div>
 
-        {/* Core team */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 md:gap-3 mb-4">
-          {CORE_TEAM.map((m) => <CoreCard key={m.name} member={m} />)}
-        </div>
+        {/* ── MOBILE LAYOUT ── */}
+        <div className="md:hidden flex flex-col gap-2">
+          {/* Core team - stacked rows */}
+          <div className="flex flex-col gap-1.5">
+            {CORE_TEAM.map((m) => (
+              <div
+                key={m.name}
+                className="rounded-lg border px-3 py-3 flex items-center gap-3"
+                style={{
+                  borderColor: `hsl(${m.colorHsl} / 0.25)`,
+                  background: `linear-gradient(135deg, hsl(${m.colorHsl} / 0.06), hsl(var(--card) / 0.6))`,
+                }}
+              >
+                <div
+                  className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center shrink-0"
+                  style={{ border: `1.5px solid hsl(${m.colorHsl} / 0.4)` }}
+                >
+                  {m.photo ? (
+                    <img src={m.photo} alt={m.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                  ) : (
+                    <span className="font-black text-xs" style={{ color: `hsl(${m.colorHsl})` }}>{m.initials}</span>
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold text-foreground leading-tight">{m.name}</p>
+                  <p className="text-[9px] tracking-[0.1em] uppercase font-semibold mt-0.5" style={{ color: `hsl(${m.colorHsl})` }}>{m.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
 
-        {/* Extended Leadership */}
-        <div className="mb-3">
-          <p className="text-[0.7rem] tracking-[0.3em] uppercase text-primary mb-2 font-bold">Extended Leadership</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            {EXTENDED.map((m) => <CompactCard key={m.name} member={m} />)}
+          {/* Extended Leadership */}
+          <div>
+            <p className="text-[0.55rem] tracking-[0.25em] uppercase text-primary mb-1 font-bold">Extended Leadership</p>
+            <div className="grid grid-cols-2 gap-1.5">
+              {EXTENDED.map((m) => (
+                <div
+                  key={m.name}
+                  className="rounded-lg border px-2 py-1.5 flex items-center gap-2"
+                  style={{
+                    borderColor: `hsl(${m.color} / 0.2)`,
+                    background: `linear-gradient(135deg, hsl(${m.color} / 0.05), hsl(var(--card) / 0.5))`,
+                  }}
+                >
+                  <div
+                    className="w-7 h-7 rounded-full overflow-hidden flex items-center justify-center shrink-0"
+                    style={{ background: `hsl(${m.color} / 0.1)`, border: `1px solid hsl(${m.color} / 0.25)` }}
+                  >
+                    {m.photo ? (
+                      <img src={m.photo} alt={m.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                    ) : (
+                      <span className="font-black text-[8px]" style={{ color: `hsl(${m.color})` }}>{m.initials}</span>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[9px] font-bold text-foreground leading-tight truncate">{m.name}</p>
+                    <p className="text-[7px] tracking-[0.08em] uppercase font-semibold mt-0.5" style={{ color: `hsl(${m.color})` }}>{m.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Board of Directors */}
+          <div>
+            <p className="text-[0.55rem] tracking-[0.25em] uppercase text-primary mb-1 font-bold">Board of Directors</p>
+            <div className="grid grid-cols-2 gap-1.5">
+              {BOARD.map((m) => (
+                <div
+                  key={m.name}
+                  className="rounded-lg border px-2 py-1.5 flex items-center gap-2"
+                  style={{
+                    borderColor: `hsl(${m.color} / 0.2)`,
+                    background: `linear-gradient(135deg, hsl(${m.color} / 0.05), hsl(var(--card) / 0.5))`,
+                  }}
+                >
+                  <div
+                    className="w-7 h-7 rounded-full overflow-hidden flex items-center justify-center shrink-0"
+                    style={{ background: `hsl(${m.color} / 0.1)`, border: `1px solid hsl(${m.color} / 0.25)` }}
+                  >
+                    {m.photo ? (
+                      <img src={m.photo} alt={m.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                    ) : (
+                      <span className="font-black text-[8px]" style={{ color: `hsl(${m.color})` }}>{m.initials}</span>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[9px] font-bold text-foreground leading-tight truncate">{m.name}</p>
+                    <p className="text-[7px] tracking-[0.08em] uppercase font-semibold mt-0.5" style={{ color: `hsl(${m.color})` }}>{m.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Board of Directors */}
-        <div>
-          <p className="text-[0.7rem] tracking-[0.3em] uppercase text-primary mb-2 font-bold">Board of Directors</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {BOARD.map((m) => <CompactCard key={m.name} member={m} />)}
+        {/* ── DESKTOP LAYOUT ── */}
+        <div className="hidden md:block">
+          {/* Core team */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 md:gap-3 mb-4">
+            {CORE_TEAM.map((m) => <CoreCard key={m.name} member={m} />)}
+          </div>
+
+          {/* Extended Leadership */}
+          <div className="mb-3">
+            <p className="text-[0.7rem] tracking-[0.3em] uppercase text-primary mb-2 font-bold">Extended Leadership</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              {EXTENDED.map((m) => <CompactCard key={m.name} member={m} />)}
+            </div>
+          </div>
+
+          {/* Board of Directors */}
+          <div>
+            <p className="text-[0.7rem] tracking-[0.3em] uppercase text-primary mb-2 font-bold">Board of Directors</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {BOARD.map((m) => <CompactCard key={m.name} member={m} />)}
+            </div>
           </div>
         </div>
       </div>

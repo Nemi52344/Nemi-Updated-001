@@ -60,11 +60,11 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
 
         {/* Heading - manufacturing reimagined with AI, NEMI is leading */}
         <h2
-          className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight leading-[1.25] md:leading-[1.2] text-foreground/95"
+          className="text-base md:text-2xl lg:text-3xl font-bold tracking-tight leading-[1.4] md:leading-[1.2] text-foreground/95 px-2 md:px-0"
           style={{ textShadow: "0 0 24px hsl(275 60% 50% / 0.18)" }}
         >
           AI is changing manufacturing and{" "}
-          <br />
+          <br className="hidden md:block" />
           NEMI is the{" "}
           <span
             className="relative inline-block font-extrabold"

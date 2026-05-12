@@ -90,7 +90,7 @@ const FactoryFlipCard = ({
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="cursor-pointer w-full h-24 md:h-32 lg:h-36"
+      className="cursor-pointer w-full h-16 md:h-32 lg:h-36"
       style={{ perspective: "1000px", ...style }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -166,13 +166,13 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-end justify-center pointer-events-none"
-      style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)", paddingBottom: "70px" }}
+      className="fixed inset-0 flex items-center justify-center pointer-events-none"
+      style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)", paddingBottom: "0px", paddingTop: "50px" }}
     >
-      <div className="max-w-7xl w-full mx-6 pointer-events-auto">
-        <div className="text-center mb-3" style={{ opacity: enterP }}>
+      <div className="max-w-7xl w-full mx-3 md:mx-6 pointer-events-auto">
+        <div className="text-center mb-2 md:mb-3" style={{ opacity: enterP }}>
           <h2
-            className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight"
+            className="text-base md:text-2xl lg:text-3xl font-bold tracking-tight"
             style={{
               letterSpacing: "-0.02em",
               color: "hsl(275 80% 80%)",
@@ -181,111 +181,112 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           >
             Nemi&apos;s Fortress Factory
           </h2>
-          <p className="mt-2 text-sm md:text-base text-white/70">
+          <p className="mt-1 text-xs md:text-base text-white/70">
             Nemi&apos;s Physical AI, Built on Real Manufacturing Infrastructure
           </p>
-          <p className="mt-2 text-sm md:text-base text-white/70 max-w-3xl mx-auto">
+          <p className="hidden md:block mt-2 text-base text-white/70 max-w-3xl mx-auto">
             From aerospace-grade manufacturing to large-scale production infrastructure, NEMI operates across the full industrial stack with Physical AI applied.
           </p>
         </div>
-        {/* Factory photo cards, 4x2 grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-4">
-        {factoryImages.map((item, i) => {
-            const cardDelay = i * 0.08;
-            const cardP = easeOut(Math.min(Math.max((cardsP - cardDelay) / 0.35, 0), 1));
+        {/* ── MOBILE LAYOUT ── */}
+        <div className="md:hidden flex flex-col gap-2">
+          {/* 2x4 image grid with title overlays */}
+          <div className="grid grid-cols-2 gap-[3px] rounded-xl overflow-hidden flex-1">
+            {factoryImages.map((item, i) => {
+              const cardDelay = i * 0.08;
+              const cardP = easeOut(Math.min(Math.max((cardsP - cardDelay) / 0.35, 0), 1));
+              return (
+                <div
+                  key={i}
+                  className="relative overflow-hidden"
+                  style={{ opacity: cardP, height: "95px" }}
+                >
+                  <img src={item.src} alt={item.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(0 0% 0% / 0.65), transparent 50%)" }} />
+                  <span className="absolute bottom-1.5 left-2 text-[9px] font-bold text-white tracking-wide uppercase">{item.title}</span>
+                </div>
+              );
+            })}
+          </div>
 
-            return (
-              <FactoryFlipCard
-                key={i}
-                item={item}
+          {/* Stats row */}
+          <div className="flex justify-between gap-1.5" style={{ opacity: statsP }}>
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex-1 rounded-lg border px-1 py-2 flex flex-col items-center justify-center text-center"
                 style={{
-                  opacity: cardP,
-                  transform: `translateY(${(1 - cardP) * 50}px) scale(${0.9 + cardP * 0.1})`,
-                  boxShadow: `0 8px 40px hsl(275 80% 40% / ${cardP * 0.15})`,
+                  borderColor: `hsl(${stat.accent} / 0.25)`,
+                  background: `linear-gradient(135deg, hsl(${stat.accent} / 0.08), hsl(220 25% 6% / 0.7))`,
                 }}
-              />
-            );
-          })}
+              >
+                {stat.variant === "logo" ? (
+                  <img src={stat.image} alt={stat.imageAlt || stat.label} style={{ height: "22px", width: "auto" }} loading="lazy" decoding="async" />
+                ) : (
+                  <span className="text-base font-bold leading-none" style={{ color: `hsl(${stat.accent})` }}>
+                    {stat.value}{stat.unit && <span className="text-[7px] font-semibold"> {stat.unit}</span>}
+                  </span>
+                )}
+                <span className="text-[6px] tracking-[0.1em] uppercase mt-1 font-semibold" style={{ color: `hsl(${stat.accent} / 0.8)` }}>
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Stats - individually styled cards */}
-        <div
-          className="flex flex-wrap items-stretch justify-center gap-3 md:gap-4 mx-auto w-fit"
-          style={{
-            opacity: statsP,
-            transform: `translateY(${(1 - statsP) * 25}px)`,
-          }}
-        >
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="relative rounded-2xl px-5 md:px-6 py-3 flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-0.5"
-              style={{
-                minHeight: "95px",
-                minWidth: "140px",
-                border: `1px solid hsl(${stat.accent} / 0.28)`,
-                background: `linear-gradient(135deg, hsl(${stat.accent} / 0.10), hsl(220 25% 6% / 0.7))`,
-                boxShadow: `0 0 24px hsl(${stat.accent} / 0.12), inset 0 0 20px hsl(${stat.accent} / 0.04)`,
-                backdropFilter: "blur(6px)",
-              }}
-            >
-              {/* Top accent bar */}
+        {/* ── DESKTOP LAYOUT ── */}
+        <div className="hidden md:block">
+          <div className="grid grid-cols-4 gap-3 mb-4">
+            {factoryImages.map((item, i) => {
+              const cardDelay = i * 0.08;
+              const cardP = easeOut(Math.min(Math.max((cardsP - cardDelay) / 0.35, 0), 1));
+              return (
+                <FactoryFlipCard
+                  key={i}
+                  item={item}
+                  style={{
+                    opacity: cardP,
+                    transform: `translateY(${(1 - cardP) * 50}px) scale(${0.9 + cardP * 0.1})`,
+                    boxShadow: `0 8px 40px hsl(275 80% 40% / ${cardP * 0.15})`,
+                  }}
+                />
+              );
+            })}
+          </div>
+
+          <div
+            className="flex flex-wrap items-stretch justify-center gap-4 mx-auto w-fit"
+            style={{ opacity: statsP, transform: `translateY(${(1 - statsP) * 25}px)` }}
+          >
+            {stats.map((stat) => (
               <div
-                className="absolute top-0 left-1/2 -translate-x-1/2 h-px"
+                key={stat.label}
+                className="relative rounded-2xl px-6 py-3 flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-0.5"
                 style={{
-                  width: "60%",
-                  background: `linear-gradient(to right, transparent, hsl(${stat.accent} / 0.7), transparent)`,
+                  minHeight: "95px",
+                  minWidth: "140px",
+                  border: `1px solid hsl(${stat.accent} / 0.28)`,
+                  background: `linear-gradient(135deg, hsl(${stat.accent} / 0.10), hsl(220 25% 6% / 0.7))`,
+                  boxShadow: `0 0 24px hsl(${stat.accent} / 0.12), inset 0 0 20px hsl(${stat.accent} / 0.04)`,
+                  backdropFilter: "blur(6px)",
                 }}
-              />
-
-              {stat.variant === "logo" ? (
-                <div className="flex items-center justify-center" style={{ height: "50px" }}>
-                  <img
-                    src={stat.image}
-                    alt={stat.imageAlt || stat.label}
-                    style={{
-                      height: `${stat.imageHeight ?? 44}px`,
-                      width: "auto",
-                      display: "block",
-                      filter: `drop-shadow(0 0 16px hsl(${stat.accent} / 0.55))`,
-                    }}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              ) : (
-                <div className="flex items-baseline justify-center gap-1" style={{ height: "50px" }}>
-                  <span
-                    className="text-3xl md:text-4xl font-bold leading-none self-center"
-                    style={{
-                      color: `hsl(${stat.accent})`,
-                      textShadow: `0 0 18px hsl(${stat.accent} / 0.55), 0 0 36px hsl(${stat.accent} / 0.20)`,
-                    }}
-                  >
-                    {stat.value}
-                  </span>
-                  {stat.unit && (
-                    <span
-                      className="text-xs md:text-sm font-semibold leading-none self-center"
-                      style={{
-                        color: `hsl(${stat.accent} / 0.85)`,
-                        textShadow: `0 0 12px hsl(${stat.accent} / 0.35)`,
-                      }}
-                    >
-                      {stat.unit}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              <span
-                className="text-[10px] md:text-[11px] tracking-[0.25em] uppercase mt-2 block font-semibold"
-                style={{ color: `hsl(${stat.accent} / 0.85)` }}
               >
-                {stat.label}
-              </span>
-            </div>
-          ))}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px" style={{ width: "60%", background: `linear-gradient(to right, transparent, hsl(${stat.accent} / 0.7), transparent)` }} />
+                {stat.variant === "logo" ? (
+                  <div className="flex items-center justify-center" style={{ height: "50px" }}>
+                    <img src={stat.image} alt={stat.imageAlt || stat.label} style={{ height: `${stat.imageHeight ?? 44}px`, width: "auto", display: "block", filter: `drop-shadow(0 0 16px hsl(${stat.accent} / 0.55))` }} loading="lazy" decoding="async" />
+                  </div>
+                ) : (
+                  <div className="flex items-baseline justify-center gap-1" style={{ height: "50px" }}>
+                    <span className="text-4xl font-bold leading-none self-center" style={{ color: `hsl(${stat.accent})`, textShadow: `0 0 18px hsl(${stat.accent} / 0.55), 0 0 36px hsl(${stat.accent} / 0.20)` }}>{stat.value}</span>
+                    {stat.unit && <span className="text-sm font-semibold leading-none self-center" style={{ color: `hsl(${stat.accent} / 0.85)`, textShadow: `0 0 12px hsl(${stat.accent} / 0.35)` }}>{stat.unit}</span>}
+                  </div>
+                )}
+                <span className="text-[11px] tracking-[0.25em] uppercase mt-2 block font-semibold" style={{ color: `hsl(${stat.accent} / 0.85)` }}>{stat.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

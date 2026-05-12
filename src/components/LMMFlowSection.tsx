@@ -38,6 +38,45 @@ const ROW2_VISUAL = [STEPS[7], STEPS[6], STEPS[5], STEPS[4]]; // 08, 07, 06, 05 
 
 const formatMonths = (m: number) => (m === 1 ? "1 mo" : `${m} mo`);
 
+const MobileCard = ({ step, p }: { step: Step; p: number }) => {
+  const tradWidth = (step.tradMonths / MAX_MONTHS) * 100;
+  const lmmWidth = tradWidth * step.lmmFraction;
+
+  return (
+    <div
+      className="relative flex flex-col rounded-lg border overflow-hidden"
+      style={{
+        opacity: p,
+        borderColor: "hsl(0 0% 100% / 0.1)",
+        background: "hsl(220 20% 7% / 0.8)",
+      }}
+    >
+      <div className="relative w-full h-[55px] overflow-hidden">
+        <img src={step.img} alt={step.label} loading="lazy" decoding="async" className="w-full h-full object-cover" style={{ filter: "brightness(0.8)" }} />
+        <div className="absolute inset-0 flex items-end pb-1 pl-1.5" style={{ background: "linear-gradient(to top, hsl(0 0% 0% / 0.7), transparent 60%)" }}>
+          <span className="text-[9px] tracking-[0.12em] uppercase font-bold text-white">{step.label}</span>
+        </div>
+      </div>
+      <div className="px-1.5 py-1 flex flex-col gap-0.5">
+        <div className="flex items-center justify-between">
+          <span className="text-[7px] uppercase tracking-wide font-semibold" style={{ color: "hsl(0 0% 72%)" }}>Traditional</span>
+          <span className="text-[8px] tabular-nums font-bold" style={{ color: "hsl(0 0% 95%)" }}>{step.tradLabel ?? formatMonths(step.tradMonths)}</span>
+        </div>
+        <div className="relative h-[2px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
+          <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${tradWidth * p}%`, background: "hsl(0 0% 70%)" }} />
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-[7px] uppercase tracking-wide font-bold" style={{ color: "hsl(0 70% 62%)" }}>NEMI LMM</span>
+          <span className="text-[8px] tabular-nums font-bold" style={{ color: "hsl(0 75% 72%)" }}>{step.lmmLabel}</span>
+        </div>
+        <div className="relative h-[2px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
+          <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${Math.max(lmmWidth * p, p > 0.1 ? 2 : 0)}%`, background: "hsl(0 70% 50%)" }} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Card = ({ step, p }: { step: Step; p: number }) => {
   const tradWidth = (step.tradMonths / MAX_MONTHS) * 100;
   const lmmWidth = tradWidth * step.lmmFraction;
@@ -50,14 +89,12 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         transform: `translateY(${(1 - p) * 16}px)`,
       }}
     >
-      {/* Header above image: step label, centered */}
       <div className="mb-1 px-0.5 text-center">
         <span className="text-[11px] tracking-[0.15em] uppercase font-bold text-foreground">
           {step.label}
         </span>
       </div>
 
-      {/* Image - 3:2 aspect */}
       <div
         className="relative w-full overflow-hidden"
         style={{
@@ -78,7 +115,6 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         />
       </div>
 
-      {/* Comparison box */}
       <div
         className="mt-1 px-1.5 py-1 flex flex-col gap-1 border rounded-md"
         style={{
@@ -87,47 +123,22 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
           background: "hsl(0 0% 100% / 0.025)",
         }}
       >
-        {/* Traditional */}
         <div className="flex flex-col gap-0.5">
           <div className="flex items-center justify-between">
-            <span className="text-[9px] uppercase tracking-[0.12em] font-semibold" style={{ color: "hsl(0 0% 72%)" }}>
-              Traditional
-            </span>
-            <span className="text-[10px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 0% 95%)" }}>
-              {step.tradLabel ?? formatMonths(step.tradMonths)}
-            </span>
+            <span className="text-[9px] uppercase tracking-[0.12em] font-semibold" style={{ color: "hsl(0 0% 72%)" }}>Traditional</span>
+            <span className="text-[10px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 0% 95%)" }}>{step.tradLabel ?? formatMonths(step.tradMonths)}</span>
           </div>
           <div className="relative h-[2px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
-            <div
-              className="absolute inset-y-0 left-0 rounded-full"
-              style={{
-                width: `${tradWidth * p}%`,
-                background: "hsl(0 0% 70%)",
-                transition: "width 0.2s ease-out",
-              }}
-            />
+            <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${tradWidth * p}%`, background: "hsl(0 0% 70%)", transition: "width 0.2s ease-out" }} />
           </div>
         </div>
-
-        {/* NEMI LMM */}
         <div className="flex flex-col gap-0.5">
           <div className="flex items-center justify-between">
-            <span className="text-[9px] uppercase tracking-[0.12em] font-bold" style={{ color: "hsl(0 70% 62%)" }}>
-              NEMI LMM
-            </span>
-            <span className="text-[10px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 75% 72%)" }}>
-              {step.lmmLabel}
-            </span>
+            <span className="text-[9px] uppercase tracking-[0.12em] font-bold" style={{ color: "hsl(0 70% 62%)" }}>NEMI LMM</span>
+            <span className="text-[10px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 75% 72%)" }}>{step.lmmLabel}</span>
           </div>
           <div className="relative h-[2px] rounded-full overflow-hidden" style={{ background: "hsl(0 0% 100% / 0.08)" }}>
-            <div
-              className="absolute inset-y-0 left-0 rounded-full"
-              style={{
-                width: `${Math.max(lmmWidth * p, p > 0.1 ? 2 : 0)}%`,
-                background: "hsl(0 70% 50%)",
-                transition: "width 0.2s ease-out",
-              }}
-            />
+            <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${Math.max(lmmWidth * p, p > 0.1 ? 2 : 0)}%`, background: "hsl(0 70% 50%)", transition: "width 0.2s ease-out" }} />
           </div>
         </div>
       </div>
@@ -174,11 +185,11 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
       <div className="w-full max-w-[1380px] mx-auto px-4 md:px-8">
         {/* Header */}
         <div
-          className="text-center mb-4"
+          className="text-center mb-2 md:mb-4"
           style={{ opacity: headP, transform: `translateY(${(1 - headP) * 14}px)` }}
         >
           <h2
-            className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight"
+            className="text-base md:text-3xl lg:text-4xl font-bold tracking-tight"
             style={{
               letterSpacing: "-0.03em",
               textShadow: "0 0 40px hsl(275 80% 60% / 0.3), 0 0 80px hsl(270 70% 50% / 0.15)",
@@ -186,13 +197,42 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           >
             From Months to Hours
           </h2>
-          <p className="text-[13px] text-muted-foreground mt-2 tracking-wide w-full mx-auto leading-relaxed whitespace-nowrap">
+          <p className="text-[11px] md:text-[13px] text-muted-foreground mt-2 tracking-wide w-full mx-auto leading-relaxed md:whitespace-nowrap">
             From fragmented workflows to a unified manufacturing system that learns faster every cycle, connecting every stage from design to delivery.
           </p>
         </div>
 
-        {/* Flow container */}
-        <div className="relative">
+        {/* Mobile layout - Page 1 (cards 1-4) then Page 2 (cards 5-8) */}
+        {(() => {
+          const mobilePage2P = rangeProgress(scrollProgress, 0.355, 0.370);
+          const page1Opacity = 1 - mobilePage2P;
+          const page2Opacity = mobilePage2P;
+          return (
+            <div className="relative md:hidden" style={{ minHeight: "320px" }}>
+              {/* Page 1: cards 01-04 */}
+              <div
+                className="absolute inset-0 grid grid-cols-2 gap-2"
+                style={{ opacity: page1Opacity, pointerEvents: mobilePage2P > 0.5 ? "none" : "auto" }}
+              >
+                {STEPS.slice(0, 4).map((step, i) => (
+                  <MobileCard key={step.num} step={step} p={cardP(i)} />
+                ))}
+              </div>
+              {/* Page 2: cards 05-08 */}
+              <div
+                className="absolute inset-0 grid grid-cols-2 gap-2"
+                style={{ opacity: page2Opacity, pointerEvents: mobilePage2P > 0.5 ? "auto" : "none" }}
+              >
+                {STEPS.slice(4).map((step, i) => (
+                  <MobileCard key={step.num} step={step} p={cardP(i + 4)} />
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Desktop layout */}
+        <div className="relative hidden md:block">
           {/* Row 1: 01 → 02 → 03 → 04 */}
           <div className="grid items-stretch gap-y-1" style={{ gridTemplateColumns: gridCols }}>
             <Card step={ROW1[0]} p={cardP(0)} />
@@ -204,7 +244,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
             <Card step={ROW1[3]} p={cardP(3)} />
           </div>
 
-          {/* Down chevron between rows, centered under card 04 (col 7) - visually nudged down via transform */}
+          {/* Down chevron between rows */}
           <div className="grid" style={{ gridTemplateColumns: gridCols }}>
             <div /><div /><div /><div /><div /><div />
             <div className="flex justify-center">
@@ -224,7 +264,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
             </div>
           </div>
 
-          {/* Up chevron centered above card 08 image (loop back to 01) */}
+          {/* Up chevron */}
           <div className="grid" style={{ gridTemplateColumns: gridCols }}>
             <div className="flex justify-center" style={{ opacity: cardP(7) }}>
               <svg width="24" height="17" viewBox="0 0 20 14" fill="none" style={{ display: "block" }}>
@@ -248,7 +288,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
 
         {/* Footer caption */}
         <div className="text-center mt-2" style={{ opacity: enterP, transform: "translateY(16px)" }}>
-          <span className="text-[11px] md:text-[12px] tracking-[0.3em] uppercase" style={{ color: "hsl(275 60% 65% / 0.7)" }}>
+          <span className="text-[7px] md:text-[12px] tracking-[0.2em] md:tracking-[0.3em] uppercase" style={{ color: "hsl(275 60% 65% / 0.7)" }}>
             NEMI LMM LOOP · EVERY CYCLE COMPOUNDS KNOWLEDGE, PRECISION, SPEED & COST REDUCTION
           </span>
         </div>

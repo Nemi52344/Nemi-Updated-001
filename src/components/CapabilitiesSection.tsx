@@ -94,10 +94,10 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
       className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-y-auto"
       style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
     >
-      <div className="max-w-6xl w-full px-4 md:px-6 mx-auto pointer-events-auto flex flex-col items-center py-16 md:py-20 lg:py-24">
+      <div className="max-w-6xl w-full px-4 md:px-6 mx-auto pointer-events-auto flex flex-col items-center py-8 md:py-20 lg:py-24">
         {/* Subtitle */}
         <h2
-          className="text-[10px] md:text-sm tracking-[0.4em] uppercase mb-3 md:mb-6"
+          className="text-xs md:text-sm tracking-[0.4em] uppercase mb-3 md:mb-6"
           style={{
             color: "hsl(0 65% 55%)",
             opacity: enterP,
@@ -109,7 +109,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
         {/* Heading */}
         <h3
-          className="text-sm md:text-xl lg:text-2xl font-light text-foreground tracking-wide text-center max-w-3xl mx-auto mb-1 md:mb-2 whitespace-nowrap"
+          className="text-base md:text-xl lg:text-2xl font-light text-foreground tracking-wide text-center max-w-3xl mx-auto mb-1 md:mb-2 md:whitespace-nowrap"
           style={{
             opacity: enterP,
             transform: `translateY(${(1 - enterP) * 25}px)`,
@@ -120,7 +120,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
         {/* Subline */}
         <p
-          className="text-sm md:text-base text-muted-foreground text-center w-full mx-auto mb-4 md:mb-6 leading-relaxed whitespace-nowrap"
+          className="text-xs md:text-base text-muted-foreground text-center w-full mx-auto mb-4 md:mb-6 leading-relaxed md:whitespace-nowrap"
           style={{ opacity: enterP, transform: `translateY(${(1 - enterP) * 20}px)` }}
         >
           Replace fragmented vendors and disconnected workflows with one integrated manufacturing platform.
@@ -128,7 +128,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
         {/* Parts pills - equation: Battery + Motor + Mech + EE = Complex Assemblies */}
         <div
-          className="flex flex-wrap justify-center items-center gap-2 md:gap-3 mb-6 md:mb-10 px-2"
+          className="flex flex-wrap justify-center items-center gap-1.5 md:gap-3 mb-4 md:mb-10 px-2"
           style={{ opacity: enterP }}
         >
           {parts.map((part, idx) => {
@@ -138,7 +138,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
             return (
               <div key={part.key} className="flex items-center gap-2 md:gap-3">
                 <button
-                  className="px-3 py-1.5 md:px-5 md:py-2.5 rounded-lg border transition-all duration-300 cursor-pointer"
+                  className="px-2 py-1 md:px-5 md:py-2.5 rounded-lg border transition-all duration-300 cursor-pointer"
                   onMouseEnter={() => setSelectedPart(part.key)}
                   onFocus={() => setSelectedPart(part.key)}
                   style={{
@@ -167,7 +167,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
                 {connector && (
                   <span
                     aria-hidden
-                    className="text-base md:text-xl font-light select-none"
+                    className="text-xs md:text-xl font-light select-none"
                     style={{ color: "hsl(0 65% 60% / 0.7)" }}
                   >
                     {connector}
@@ -179,7 +179,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
         </div>
 
         {/* Vehicles row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-10 lg:gap-16 w-full max-w-5xl mx-auto justify-items-center">
+        <div className="grid grid-cols-3 gap-3 md:gap-10 lg:gap-16 w-full max-w-5xl mx-auto justify-items-center">
           {vehicles.map((v) => {
             const data = vehicleImages[v.key];
             const highlightImg = data.parts[selectedPart];
@@ -187,9 +187,9 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
             const isRobotic = v.key === "humanoid";
             return (
-              <div key={v.key} className="flex flex-col items-center gap-2 md:gap-4">
+              <div key={v.key} className="flex flex-col items-center gap-1 md:gap-4">
                 <div
-                  className="relative w-[7.5rem] h-[8.5rem] md:w-48 md:h-52 lg:w-60 lg:h-60 flex items-center justify-center"
+                  className="relative w-[6.5rem] h-[8rem] md:w-48 md:h-52 lg:w-60 lg:h-60 flex items-center justify-center"
                   style={isRobotic ? { position: "relative", top: "12px" } : {}}
                 >
                   <img

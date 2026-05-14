@@ -5,7 +5,7 @@ import ConstellationCanvas from "@/components/ConstellationCanvas";
 import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
 import { CaseStudy } from "@/components/services/CaseStudy";
-import { ScrollReveal } from "@/hooks/ScrollReveal";
+import useScrollProgress from "@/hooks/useScrollProgress";
 import industryAerospace from "@/assets/industry-aerospace.webp";
 import industryAutomotive from "@/assets/industry-automotive.webp";
 import industryElectronics from "@/assets/industry-electronics.webp";
@@ -15,28 +15,15 @@ const akio = "hsl(0, 72%, 52%)";
 const henry = "hsl(217, 91%, 60%)";
 const sam = "hsl(142, 71%, 45%)";
 
+const rangeProgress = (scroll: number, start: number, end: number) =>
+  Math.min(Math.max((scroll - start) / (end - start), 0), 1);
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
 interface ServiceItem {
   title: string;
   desc: string;
   img: string;
 }
-
-interface VerticalCfg {
-  id: string;
-  name: string;
-  subtitle: string;
-  paragraph: string;
-  bullets: string[];
-  bannerImg: string;
-  color: string;
-  services: ServiceItem[];
-}
-
-const akioServices: ServiceItem[] = [
-  { title: "Product Design", desc: "Rapidly design and engineer your products.", img: "/Images/Design%20and%20Development.webp" },
-  { title: "Component Design", desc: "Design specific components (e.g., battery, electronics) that go into your products.", img: "/Images/Parts%20Manufacturing.webp" },
-  { title: "Prototyping & Validation", desc: "Physically build out or simulate and validate your design before production.", img: "/Images/Validation.webp" },
-];
 
 const henryServices: ServiceItem[] = [
   { title: "Tooling & Fixturing", desc: "Injection moulding, die casting, press tools, fixtures", img: "/Images/tooling-cnc.webp" },
@@ -58,227 +45,18 @@ interface Industry {
 }
 
 const industries: Industry[] = [
-  {
-    name: "Aerospace & Defense",
-    image: industryAerospace,
-    colorHsl: "210 85% 55%",
-    description: "AS9100D-certified production of UAV airframes, structural assemblies and mission electronics for defense primes.",
-  },
-  {
-    name: "Automotive",
-    image: industryAutomotive,
-    colorHsl: "0 75% 55%",
-    description: "Electronics and battery enclosures: PCBAs, sensor modules, EV battery enclosures and trim assemblies for automotive OEMs.",
-  },
-  {
-    name: "Appliance & Consumer Hardware",
-    image: industryElectronics,
-    colorHsl: "45 90% 50%",
-    description: "Connected appliances and consumer hardware: PCBs, plastics, sheet metal and final assembly under one roof.",
-  },
-  {
-    name: "Robotics & AI",
-    image: industryRobotics,
-    colorHsl: "275 80% 60%",
-    description: "Industrial robot platforms: precision actuators, vision modules and motion control sub-systems.",
-  },
+  { name: "Aerospace & Defense", image: industryAerospace, colorHsl: "210 85% 55%", description: "AS9100D-certified production of UAV airframes, structural assemblies and mission electronics for defense primes." },
+  { name: "Automotive", image: industryAutomotive, colorHsl: "0 75% 55%", description: "Electronics and battery enclosures: PCBAs, sensor modules, EV battery enclosures and trim assemblies for automotive OEMs." },
+  { name: "Appliance & Consumer Hardware", image: industryElectronics, colorHsl: "45 90% 50%", description: "Connected appliances and consumer hardware: PCBs, plastics, sheet metal and final assembly under one roof." },
+  { name: "Robotics & AI", image: industryRobotics, colorHsl: "275 80% 60%", description: "Industrial robot platforms: precision actuators, vision modules and motion control sub-systems." },
 ];
-
-const samServices: ServiceItem[] = [
-  { title: "Last Mile Delivery", desc: "SAM manages deployment and delivery of products to real-world environments. Supporting 2500+ EV fleet and consumer vehicles across India and Africa.", img: "/Images/Last%20mile%20Delivery%20.webp" },
-  { title: "Usage Tracking", desc: "Once products are deployed, SAM continuously monitors their performance and feeds data back into AKIO and Henry.", img: "/Images/Usage%20tracking.webp" },
-  { title: "Predictive Maintenance", desc: "SAM enables proactive maintenance using operational data, reducing downtime and improving product reliability.", img: "/Images/Predictive%20Maintenance.webp" },
-];
-
-const verticals: VerticalCfg[] = [
-  {
-    id: "akio",
-    name: "AKIO",
-    subtitle: "Design Studio",
-    paragraph: "Tell us what you need built. AKIO's AI-driven design engine handles the engineering, CAD, simulation, prototyping, so you get a validated, production-ready design without the 6-month wait or the $200k bill.",
-    bullets: [
-      "Concept visualization in hours instead of months",
-      "Faster iterations for every design feedback cycle",
-      "Reduced engineering effort and cost",
-      "Integrates prototyping, simulation & PLM",
-    ],
-    bannerImg: "/Images/Akio%2002.png",
-    color: akio,
-    services: akioServices,
-  },
-  {
-    id: "henry",
-    name: "HENRY",
-    subtitle: "Development Engine",
-    paragraph: "You've designed it. Now it needs to be built, at the right quality, the right cost, on time. HENRY is your one-stop AI-powered manufacturing partner: from raw tooling to finished assemblies, no supply chain juggling required.",
-    bullets: [
-      "Integrated with AKIO design workflows",
-      "AI-assisted supply chain development",
-      "AI-assisted tooling & capex design",
-      "Full-stack manufacturing capabilities",
-    ],
-    bannerImg: "/Images/Henry%2002.png",
-    color: henry,
-    services: henryServices,
-  },
-  {
-    id: "sam",
-    name: "SAM",
-    subtitle: "Deployment Planner",
-    paragraph: "Your product leaving the factory is just the beginning. SAM gets it to your customers, tracks every unit in the field, and feeds real performance data back into your next design, so each generation is better than the last.",
-    bullets: [
-      "Deliver products to end users",
-      "Support leasing & financing",
-      "Monitor real-world product performance",
-      "Improve products using operational data",
-    ],
-    bannerImg: "/Images/Sam%2002.png",
-    color: sam,
-    services: samServices,
-  },
-];
-
-const VerticalSection = ({ v }: { v: VerticalCfg }) => {
-  const gridCols = v.services.length >= 6 ? "repeat(3, 1fr)" : "repeat(3, 1fr)";
-
-  return (
-    <section id={v.id} className="px-6 md:px-12 lg:px-16 pt-16 md:pt-24 pb-8">
-      {/* Intro banner: text left, big colored image right */}
-      <ScrollReveal>
-        <div className="services-tab-hero-grid grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center mb-12 md:mb-16">
-          <div className="flex flex-col justify-center">
-            <div
-              className="font-bold text-4xl md:text-5xl lg:text-6xl uppercase tracking-wider mb-2"
-              style={{ color: v.color }}
-            >
-              {v.name}
-            </div>
-            <div className="font-semibold text-muted-foreground text-sm md:text-base uppercase tracking-[0.25em] mb-5">
-              {v.subtitle}
-            </div>
-            <p className="text-muted-foreground text-sm md:text-base leading-[1.8] mb-8 max-w-[500px] tracking-wide">
-              {v.paragraph}
-            </p>
-            <ul
-              style={{
-                listStyle: "none",
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.6rem",
-                padding: 0,
-              }}
-            >
-              {v.bullets.map((b) => (
-                <li
-                  key={b}
-                  className="text-muted-foreground text-sm tracking-wide"
-                  style={{ display: "flex", alignItems: "flex-start", gap: "0.8rem" }}
-                >
-                  <span className="font-bold text-xs shrink-0 mt-0.5" style={{ color: v.color }}>
-                    →
-                  </span>
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="flex items-stretch">
-            <ScrollReveal variant="scale" repeat delay={100} className="w-full flex">
-              <div
-                className="bg-card rounded-lg overflow-hidden w-full flex relative"
-                style={{ borderTop: `2px solid ${v.color}`, minHeight: 320 }}
-              >
-                <img
-                  src={v.bannerImg}
-                  alt={`${v.name} ${v.subtitle}`}
-                  className="w-full h-full object-cover"
-                  style={{ minHeight: 320 }}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </ScrollReveal>
-
-      {/* Services grid */}
-      <div className="services-grid-wrapper pb-4 pt-4">
-        <ScrollReveal>
-          <p
-            className="font-bold text-xl md:text-2xl tracking-wider uppercase mb-10"
-            style={{ color: v.color }}
-          >
-            {v.name} Services
-          </p>
-        </ScrollReveal>
-        <div
-          className="services-card-grid border border-border"
-          style={{
-            display: "grid",
-            gridTemplateColumns: gridCols,
-            gap: "1px",
-            background: "hsl(var(--border))",
-          }}
-        >
-          {v.services.map((s, i) => (
-            <ScrollReveal key={s.title} delay={i * 80}>
-              <div
-                className="bg-background hover:bg-card transition-colors duration-300 cursor-default h-full"
-                style={{ padding: "2rem" }}
-              >
-                <div
-                  className="bg-card"
-                  style={{
-                    height: 140,
-                    marginBottom: "1.5rem",
-                    overflow: "hidden",
-                    borderLeft: `2px solid ${v.color}`,
-                    padding: 0,
-                  }}
-                >
-                  <img
-                    src={s.img}
-                    alt={s.title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      opacity: 0.65,
-                      transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)",
-                    }}
-                    className="hover:scale-105"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div
-                  style={{
-                    width: "3rem",
-                    height: 2,
-                    background: v.color,
-                    marginBottom: "1.2rem",
-                  }}
-                />
-                <h3 className="text-foreground font-bold text-base md:text-lg tracking-wider uppercase mb-3">
-                  {s.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-[1.7] tracking-wide">
-                  {s.desc}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
 
 const Services = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const scrollProgress = useScrollProgress();
 
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", company: "", location: "", website: "", message: "" });
@@ -295,9 +73,50 @@ const Services = () => {
     setSubmitted(true);
   };
 
+  // 7 panels evenly distributed across the scroll: hero, grid, industries, CS1, CS2, CS3, CTA
+  // Step ~ 0.143 each
+  // Hero
+  const heroVisible = scrollProgress < 0.16;
+  const heroExit = easeOut(rangeProgress(scrollProgress, 0.12, 0.16));
+  const heroOp = 1 - heroExit;
+
+  // Services grid
+  const gridVisible = scrollProgress > 0.13 && scrollProgress < 0.30;
+  const gridEnter = easeOut(rangeProgress(scrollProgress, 0.14, 0.18));
+  const gridExit = easeOut(rangeProgress(scrollProgress, 0.26, 0.30));
+  const gridOp = gridEnter * (1 - gridExit);
+
+  // Industries
+  const indVisible = scrollProgress > 0.28 && scrollProgress < 0.45;
+  const indEnter = easeOut(rangeProgress(scrollProgress, 0.29, 0.33));
+  const indExit = easeOut(rangeProgress(scrollProgress, 0.41, 0.45));
+  const indOp = indEnter * (1 - indExit);
+
+  // Case Study 1
+  const cs1Visible = scrollProgress > 0.43 && scrollProgress < 0.59;
+  const cs1Enter = easeOut(rangeProgress(scrollProgress, 0.44, 0.48));
+  const cs1Exit = easeOut(rangeProgress(scrollProgress, 0.55, 0.59));
+  const cs1Op = cs1Enter * (1 - cs1Exit);
+
+  // Case Study 2
+  const cs2Visible = scrollProgress > 0.57 && scrollProgress < 0.73;
+  const cs2Enter = easeOut(rangeProgress(scrollProgress, 0.58, 0.62));
+  const cs2Exit = easeOut(rangeProgress(scrollProgress, 0.69, 0.73));
+  const cs2Op = cs2Enter * (1 - cs2Exit);
+
+  // Case Study 3
+  const cs3Visible = scrollProgress > 0.71 && scrollProgress < 0.87;
+  const cs3Enter = easeOut(rangeProgress(scrollProgress, 0.72, 0.76));
+  const cs3Exit = easeOut(rangeProgress(scrollProgress, 0.83, 0.87));
+  const cs3Op = cs3Enter * (1 - cs3Exit);
+
+  // CTA + Footer
+  const ctaVisible = scrollProgress > 0.85;
+  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.86, 0.92));
+
   return (
-    <div className="bg-background text-foreground font-['Montserrat',sans-serif] font-light min-h-screen relative">
-      {/* CONSTELLATION + GLOW BACKGROUND */}
+    <div className="bg-background text-foreground font-['Montserrat',sans-serif] font-light relative" style={{ height: "700vh" }}>
+      {/* Background */}
       <div className="fixed inset-0 z-0">
         <ConstellationCanvas />
         <div
@@ -311,139 +130,122 @@ const Services = () => {
 
       <Navbar />
 
-      <div className="relative z-[2]">
-        {/* LANDING HERO - full viewport, vertically centered */}
-        <section className="min-h-screen flex flex-col items-center justify-center px-6 md:px-12 lg:px-16 text-center">
+      {/* ── 1. HERO ── */}
+      {heroVisible && (
+        <div
+          className="fixed inset-0 z-[10] flex flex-col items-center justify-center px-6 md:px-12 lg:px-16 text-center"
+          style={{ opacity: heroOp }}
+        >
           <div className="max-w-5xl mx-auto w-full pt-16">
-            <ScrollReveal delay={100}>
-              <p className="text-[10px] md:text-xs tracking-[0.45em] uppercase text-muted-foreground font-semibold mb-6 md:mb-8">
-                Services
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delay={200}>
-              <h1
-                className="font-extrabold uppercase leading-[1.02] tracking-tight mb-2 md:mb-3 text-foreground"
-                style={{ fontSize: "clamp(2rem, 6vw, 4.25rem)" }}
-              >
-                We deliver on what matters.
-              </h1>
-              <p
-                className="font-extrabold uppercase leading-[1.05] tracking-tight mb-8 md:mb-10"
-                style={{ fontSize: "clamp(2.25rem, 7vw, 5rem)" }}
-              >
-                <span style={{ color: akio }}>Cost</span>
-                <span className="text-muted-foreground/50">{" · "}</span>
-                <span style={{ color: henry }}>Quality</span>
-                <span className="text-muted-foreground/50">{" · "}</span>
-                <span style={{ color: sam }}>Speed</span>
-                <span className="text-foreground">.</span>
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delay={300}>
-              <p className="text-muted-foreground text-sm md:text-base lg:text-lg leading-[1.8] max-w-2xl mx-auto tracking-wide">
-                <span className="text-foreground font-semibold">Cost unmatched. Quality par excellence. Speed never before seen.</span>{" "}
-                Physical AI turns every job into compounding advantage.
-              </p>
-            </ScrollReveal>
+            <p className="text-[10px] md:text-xs tracking-[0.45em] uppercase text-muted-foreground font-semibold mb-6 md:mb-8">
+              Services
+            </p>
+            <h1
+              className="font-extrabold uppercase leading-[1.02] tracking-tight mb-2 md:mb-3 text-foreground"
+              style={{ fontSize: "clamp(2rem, 6vw, 4.25rem)" }}
+            >
+              We deliver on what matters.
+            </h1>
+            <p
+              className="font-extrabold uppercase leading-[1.05] tracking-tight mb-8 md:mb-10"
+              style={{ fontSize: "clamp(2.25rem, 7vw, 5rem)" }}
+            >
+              <span style={{ color: akio }}>Cost</span>
+              <span className="text-muted-foreground/50">{" · "}</span>
+              <span style={{ color: henry }}>Quality</span>
+              <span className="text-muted-foreground/50">{" · "}</span>
+              <span style={{ color: sam }}>Speed</span>
+              <span className="text-foreground">.</span>
+            </p>
+            <p className="text-muted-foreground text-sm md:text-base lg:text-lg leading-[1.8] max-w-2xl mx-auto tracking-wide">
+              <span className="text-foreground font-semibold">Cost unmatched. Quality par excellence. Speed never before seen.</span>{" "}
+              Physical AI turns every job into compounding advantage.
+            </p>
           </div>
-        </section>
+        </div>
+      )}
 
-        {/* 9 Henry services grid */}
-        <section className="px-6 md:px-12 lg:px-16 pt-8 pb-8">
-          <ScrollReveal>
-            <div style={{ marginBottom: "2.5rem" }}>
-              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">
-                Services
-              </p>
+      {/* ── 2. SERVICES GRID ── */}
+      {gridVisible && (
+        <div
+          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
+          style={{ opacity: gridOp }}
+        >
+          <div className="max-w-6xl w-full mx-auto pt-20">
+            <div className="mb-6">
+              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Services</p>
               <div style={{ height: 2, background: henry, width: "3rem" }} />
             </div>
-          </ScrollReveal>
-          <div
-            className="services-card-grid border border-border"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "1px",
-              background: "hsl(var(--border))",
-            }}
-          >
-            {henryServices.map((s, i) => (
-              <ScrollReveal key={s.title} delay={i * 80}>
+            <div
+              className="services-card-grid border border-border"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "1px",
+                background: "hsl(var(--border))",
+              }}
+            >
+              {henryServices.map((s, i) => {
+                const cardP = easeOut(Math.min(Math.max((gridEnter - i * 0.08) / 0.5, 0), 1));
+                return (
                 <div
+                  key={s.title}
                   className="bg-background hover:bg-card transition-colors duration-300 cursor-default h-full"
-                  style={{ padding: "2rem" }}
+                  style={{ padding: "1rem", opacity: cardP, transform: `translateY(${(1 - cardP) * 24}px)` }}
                 >
                   <div
                     className="bg-card"
-                    style={{
-                      height: 140,
-                      marginBottom: "1.5rem",
-                      overflow: "hidden",
-                      borderLeft: `2px solid ${henry}`,
-                      padding: 0,
-                    }}
+                    style={{ height: 90, marginBottom: "0.75rem", overflow: "hidden", borderLeft: `2px solid ${henry}` }}
                   >
                     <img
                       src={s.img}
                       alt={s.title}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        opacity: 0.65,
-                        transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)",
-                      }}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.65, transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }}
                       className="hover:scale-105"
                       loading="lazy"
                       decoding="async"
                     />
                   </div>
-                  <div
-                    style={{
-                      width: "3rem",
-                      height: 2,
-                      background: henry,
-                      marginBottom: "1.2rem",
-                    }}
-                  />
-                  <h3 className="text-foreground font-bold text-base md:text-lg tracking-wider uppercase mb-3">
-                    {s.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-[1.7] tracking-wide">
-                    {s.desc}
-                  </p>
+                  <div style={{ width: "2rem", height: 2, background: henry, marginBottom: "0.6rem" }} />
+                  <h3 className="text-foreground font-bold text-xs md:text-sm tracking-wider uppercase mb-1.5">{s.title}</h3>
+                  <p className="text-muted-foreground text-[11px] md:text-xs leading-[1.5] tracking-wide">{s.desc}</p>
                 </div>
-              </ScrollReveal>
-            ))}
+                );
+              })}
+            </div>
           </div>
-        </section>
+        </div>
+      )}
 
-        {/* INDUSTRIES SERVICED */}
-        <section className="px-6 md:px-12 lg:px-16 pt-16 md:pt-20 pb-10">
-          <ScrollReveal>
-            <div style={{ marginBottom: "2.5rem" }}>
-              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">
-                Industries Serviced
-              </p>
+      {/* ── 3. INDUSTRIES ── */}
+      {indVisible && (
+        <div
+          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
+          style={{ opacity: indOp }}
+        >
+          <div className="max-w-6xl w-full mx-auto pt-20">
+            <div className="mb-6">
+              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Industries Serviced</p>
               <div style={{ height: 2, background: henry, width: "3rem" }} />
             </div>
-          </ScrollReveal>
-          <ScrollReveal>
-            <div className="text-center mb-10 md:mb-12">
+            <div className="text-center mb-6">
               <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-wider" style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}>
-                Trusted by industry leaders
+                Industries we serve
               </h2>
             </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
-            {industries.map((industry, i) => (
-              <ScrollReveal key={industry.name} delay={i * 80}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 max-w-6xl mx-auto">
+              {industries.map((industry, i) => {
+                const cardP = easeOut(Math.min(Math.max((indEnter - i * 0.1) / 0.5, 0), 1));
+                return (
                 <div
+                  key={industry.name}
                   className="group rounded-2xl border overflow-hidden flex flex-col transition-all duration-300 h-full"
                   style={{
                     borderColor: `hsl(${industry.colorHsl} / 0.25)`,
                     background: "hsl(230 25% 8%)",
                     boxShadow: `0 4px 30px hsl(${industry.colorHsl} / 0.08)`,
+                    opacity: cardP,
+                    transform: `translateY(${(1 - cardP) * 28}px)`,
                   }}
                 >
                   <div className="relative aspect-[4/3] overflow-hidden">
@@ -461,140 +263,162 @@ const Services = () => {
                         backdropFilter: "blur(2px)",
                       }}
                     >
-                      <p
-                        className="text-[11px] md:text-xs leading-snug text-foreground/95"
-                        style={{ textShadow: `0 0 12px hsl(${industry.colorHsl} / 0.5)` }}
-                      >
+                      <p className="text-[11px] md:text-xs leading-snug text-foreground/95" style={{ textShadow: `0 0 12px hsl(${industry.colorHsl} / 0.5)` }}>
                         {industry.description}
                       </p>
                     </div>
                   </div>
-                  <div className="p-4 text-center">
+                  <div className="p-3 text-center">
                     <h4
-                      className="text-sm md:text-base font-bold tracking-wider uppercase text-foreground transition-colors duration-300 group-hover:text-[color:var(--ind-color)]"
+                      className="text-xs md:text-sm font-bold tracking-wider uppercase text-foreground transition-colors duration-300 group-hover:text-[color:var(--ind-color)]"
                       style={{ ["--ind-color" as never]: `hsl(${industry.colorHsl})` }}
                     >
                       {industry.name}
                     </h4>
                   </div>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
-          <ScrollReveal>
-            <div className="text-center mt-10 max-w-3xl mx-auto">
-              <h4 className="text-lg md:text-xl font-semibold text-foreground tracking-wide mb-2">
-                Trusted by 36+ Enterprise Customers
+                );
+              })}
+            </div>
+            <div className="text-center mt-6 max-w-3xl mx-auto">
+              <h4 className="text-base md:text-lg font-semibold text-foreground tracking-wide mb-1">
+                Built for the industries that build the world
               </h4>
               <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-                Across Automotive, Defense, Industrial, and Consumer sectors, global leaders rely on NEMI's Physical AI platform to design, develop, and deploy complex hardware systems at scale.
+                From aerospace and automotive to consumer hardware and robotics, NEMI partners with manufacturers across every sector that demands precision, scale, and speed. We design, develop, and deliver complex hardware end-to-end.
               </p>
-            </div>
-          </ScrollReveal>
-        </section>
-
-        {/* CASE STUDIES - 3 best */}
-        <div className="px-6 md:px-12 lg:px-16 pt-16 md:pt-20 pb-10">
-          <ScrollReveal>
-            <div style={{ display: "inline-block" }}>
-              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">
-                Case Studies
-              </p>
-              <div style={{ height: 2, background: henry, width: "100%" }} />
-            </div>
-          </ScrollReveal>
-        </div>
-
-        <ScrollReveal>
-          <CaseStudy
-            title="Electric Motorcycle for Africa"
-            context="Ruggedised electric motorcycle design required for African road conditions and bike taxi use cases."
-            outcome="PRD to production-ready in 6 months, delivering full CAD and component designs. Tooling and fixture designs, and supplier base all delivered in additional 3 months."
-            color={akio}
-            imageSrc="/Images/Messenger.webp"
-            imageAlt="Electric Motorcycle for Africa"
-            metrics={[
-              { label: "Design time", before: "24 months", after: "9 months", barPercent: 37, color: akio },
-              { label: "Development cost", before: "Baseline", after: "1/10th", barPercent: 10, color: akio },
-            ]}
-          />
-        </ScrollReveal>
-
-        <ScrollReveal>
-          <CaseStudy
-            title="Aerospace Machined Parts"
-            context="Mass production of aluminium 6061-T651 machined parts with tight tolerances < 2 micron."
-            outcome="Created fixturing and innovative methods to manufacture part in standard 3-axis instead of 5-axis."
-            color={henry}
-            imageSrc="/Images/aerospace-manufacturing.webp"
-            imageAlt="Aerospace Machined Parts"
-            imageFirst={false}
-            metrics={[
-              { label: "Machining time", before: "9 hrs/part", after: "3 hrs/part", barPercent: 33, color: henry },
-              { label: "Cost reduction", before: "Baseline", after: ">50%", barPercent: 50, color: henry },
-            ]}
-          />
-        </ScrollReveal>
-
-        <ScrollReveal style={{ marginBottom: "5rem" }}>
-          <CaseStudy
-            title="Complex Assembly Production"
-            context="Mass production of automated coffee machine."
-            outcome="End-to-end manufacturing from fabrication, machining, electronics, wiring harnesses to complete assembly."
-            color={henry}
-            imageSrc="/Images/COffee%20mfg.webp"
-            imageAlt="Complex Assembly Production"
-            metrics={[
-              { label: "Initial setup lead time", before: "Benchmark", after: "<6 weeks", barPercent: 40, color: henry },
-              { label: "Cost reduction", before: "Baseline", after: ">30%", barPercent: 70, color: henry },
-            ]}
-          />
-        </ScrollReveal>
-        {/* HOME-PAGE CTA SECTION */}
-        <section className="relative py-24 md:py-32 px-6 overflow-hidden">
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: `
-                radial-gradient(ellipse 45% 50% at 50% 45%, hsl(275 80% 40% / 0.3) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 45% at 50% 50%, hsl(260 70% 30% / 0.18) 0%, transparent 55%)
-              `,
-            }}
-          />
-          <div className="text-center relative z-[2]">
-            <h2
-              className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4"
-              style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)" }}
-            >
-              See what LMM can do for
-              <br />
-              your costs and lead times
-            </h2>
-            <p className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[500px] mx-auto mb-8">
-              We'll show you how NEMI compresses your product development cycle.
-            </p>
-            <button
-              onClick={() => setShowForm(true)}
-              className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
-              style={{
-                background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-              }}
-            >
-              Reach Out to Us
-            </button>
-            <div className="mt-5">
-              <a
-                href="mailto:info@nemi-ai.com"
-                className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors"
-              >
-                info@nemi-ai.com
-              </a>
             </div>
           </div>
-        </section>
+        </div>
+      )}
 
-      </div>
+      {/* ── 4. CASE STUDY 1 ── */}
+      {cs1Visible && (
+        <div
+          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
+          style={{ opacity: cs1Op }}
+        >
+          <div className="max-w-6xl w-full mx-auto pt-20">
+            <div className="mb-4">
+              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Study · 1 / 3</p>
+              <div style={{ height: 2, background: akio, width: "3rem" }} />
+            </div>
+            <CaseStudy
+              title="Electric Motorcycle for Africa"
+              context="Ruggedised electric motorcycle design required for African road conditions and bike taxi use cases."
+              outcome="PRD to production-ready in 6 months, delivering full CAD and component designs. Tooling and fixture designs, and supplier base all delivered in additional 3 months."
+              color={akio}
+              imageSrc="/Images/Messenger.webp"
+              imageAlt="Electric Motorcycle for Africa"
+              metrics={[
+                { label: "Design time", before: "24 months", after: "9 months", barPercent: 37, color: akio },
+                { label: "Development cost", before: "Baseline", after: "1/10th", barPercent: 10, color: akio },
+              ]}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* ── 5. CASE STUDY 2 ── */}
+      {cs2Visible && (
+        <div
+          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
+          style={{ opacity: cs2Op }}
+        >
+          <div className="max-w-6xl w-full mx-auto pt-20">
+            <div className="mb-4">
+              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Study · 2 / 3</p>
+              <div style={{ height: 2, background: henry, width: "3rem" }} />
+            </div>
+            <CaseStudy
+              title="Aerospace Machined Parts"
+              context="Mass production of aluminium 6061-T651 machined parts with tight tolerances < 2 micron."
+              outcome="Created fixturing and innovative methods to manufacture part in standard 3-axis instead of 5-axis."
+              color={henry}
+              imageSrc="/Images/aerospace-manufacturing.webp"
+              imageAlt="Aerospace Machined Parts"
+              imageFirst={false}
+              metrics={[
+                { label: "Machining time", before: "9 hrs/part", after: "3 hrs/part", barPercent: 33, color: henry },
+                { label: "Cost reduction", before: "Baseline", after: ">50%", barPercent: 50, color: henry },
+              ]}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* ── 6. CASE STUDY 3 ── */}
+      {cs3Visible && (
+        <div
+          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
+          style={{ opacity: cs3Op }}
+        >
+          <div className="max-w-6xl w-full mx-auto pt-20">
+            <div className="mb-4">
+              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Study · 3 / 3</p>
+              <div style={{ height: 2, background: henry, width: "3rem" }} />
+            </div>
+            <CaseStudy
+              title="Complex Assembly Production"
+              context="Mass production of automated coffee machine."
+              outcome="End-to-end manufacturing from fabrication, machining, electronics, wiring harnesses to complete assembly."
+              color={henry}
+              imageSrc="/Images/COffee%20mfg.webp"
+              imageAlt="Complex Assembly Production"
+              metrics={[
+                { label: "Initial setup lead time", before: "Benchmark", after: "<6 weeks", barPercent: 40, color: henry },
+                { label: "Cost reduction", before: "Baseline", after: ">30%", barPercent: 70, color: henry },
+              ]}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* ── 7. CTA + FOOTER ── */}
+      {ctaVisible && (
+        <div className="fixed inset-0 z-[10] flex flex-col" style={{ opacity: ctaEnter }}>
+          <section className="relative flex-1 flex items-center justify-center py-16 px-6 overflow-hidden">
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `
+                  radial-gradient(ellipse 45% 50% at 50% 45%, hsl(275 80% 40% / 0.3) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 45% at 50% 50%, hsl(260 70% 30% / 0.18) 0%, transparent 55%)
+                `,
+              }}
+            />
+            <div className="text-center relative z-[2] max-w-3xl">
+              <h2
+                className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4"
+                style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)" }}
+              >
+                See what LMM can do for
+                <br />
+                your costs and lead times
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[500px] mx-auto mb-8">
+                We'll show you how NEMI compresses your product development cycle.
+              </p>
+              <button
+                onClick={() => setShowForm(true)}
+                className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
+                style={{
+                  background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
+                  boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
+                }}
+              >
+                Reach Out to Us
+              </button>
+              <div className="mt-5">
+                <a href="mailto:info@nemi-ai.com" className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors">
+                  info@nemi-ai.com
+                </a>
+              </div>
+            </div>
+          </section>
+          <SiteFooter />
+        </div>
+      )}
 
       {/* CTA Form Modal */}
       {showForm && (
@@ -611,11 +435,7 @@ const Services = () => {
               boxShadow: "0 0 80px hsl(275 80% 50% / 0.18), 0 30px 60px hsl(0 0% 0% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.06)",
             }}
           >
-            <div
-              className="h-[2px] w-full"
-              style={{ background: "linear-gradient(to right, transparent, hsl(275 80% 60%), hsl(var(--primary)), transparent)" }}
-            />
-
+            <div className="h-[2px] w-full" style={{ background: "linear-gradient(to right, transparent, hsl(275 80% 60%), hsl(var(--primary)), transparent)" }} />
             <div className="p-5 md:p-6">
               <button
                 onClick={() => { setShowForm(false); setSubmitted(false); }}
@@ -694,17 +514,12 @@ const Services = () => {
               )}
             </div>
           </div>
-
         </div>
       )}
 
-      <SiteFooter />
-
       <style>{`
         @media (max-width: 900px) {
-          .services-tab-hero-grid { grid-template-columns: 1fr !important; }
           .services-card-grid { grid-template-columns: 1fr !important; }
-          .services-grid-wrapper { padding-left: 0 !important; padding-right: 0 !important; }
         }
       `}</style>
     </div>

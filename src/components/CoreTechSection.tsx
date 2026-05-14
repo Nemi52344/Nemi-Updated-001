@@ -77,16 +77,16 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
         {/* ── HEADLINE ── */}
         <div style={{ opacity: headOpacity, transform: `translateY(${(1 - headEnterP) * 18}px)` }}>
           <h2
-            className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05] mb-2"
+            className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05] mb-3"
             style={{ letterSpacing: "-0.02em" }}
           >
-            Hardware is Hard.
+            Manufacturing is deeply fragmented.
           </h2>
           <p
-            className="text-base text-muted-foreground leading-relaxed whitespace-nowrap"
+            className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-4xl"
             style={{ opacity: bodyOpacity }}
           >
-            Manufacturing is deeply fragmented, every product restarts from zero, burning capital and losing knowledge at every handoff.
+            Every product restarts from zero &mdash; burning capital, stretching timelines, and losing hard-won knowledge at every handoff. Design, development, and delivery operate in silos, with no shared intelligence connecting them.
           </p>
         </div>
 

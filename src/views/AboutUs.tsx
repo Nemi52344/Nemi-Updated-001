@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import SiteFooter from "@/components/SiteFooter";
@@ -23,11 +23,41 @@ const HARDWARE_PHASES = [
 ];
 
 const JOURNEY_STEPS = [
-  { tag: "Intent", title: "Build BYD for India", sub: "Vertically integrated EV manufacturing", accent: "275 80% 65%" },
-  { tag: "Reality", title: "Plans met reality", sub: "2yr → 4+yr · $5M → $10M · Near-death events", accent: "268 75% 60%" },
-  { tag: "Insight", title: "Hardware Remains Hard", sub: "Non-compounding: more revenue = more capital", accent: "260 70% 58%" },
-  { tag: "Breakthrough", title: "AI changed everything", sub: "Years → months · Factories → data engines", accent: "252 75% 62%" },
-  { tag: "Outcome", title: "3k → 300k sq ft", sub: "35+ enterprise customers · Built to compound", accent: "275 85% 65%" },
+  {
+    tag: "Intent",
+    title: "Build BYD for India",
+    sub: "Started with a clear thesis: build a vertically integrated EV company for India, owning everything from cell to vehicle.",
+    points: ["Vertically integrated EV", "Own design + manufacturing", "Built in India, for India"],
+    accent: "275 80% 65%",
+  },
+  {
+    tag: "Reality",
+    title: "Plans met reality",
+    sub: "Hardware humbled us. Timelines doubled, capital needs doubled, and we faced multiple near-death moments.",
+    points: ["2yr → 4+yr timelines", "$5M → $10M capital", "Multiple near-death events"],
+    accent: "268 75% 60%",
+  },
+  {
+    tag: "Insight",
+    title: "Hardware Remains Hard",
+    sub: "We saw the core flaw: manufacturing doesn't compound. Every new product restarts the capital and knowledge cycle.",
+    points: ["No compounding leverage", "More revenue = more capital", "Knowledge stays in heads"],
+    accent: "260 70% 58%",
+  },
+  {
+    tag: "Breakthrough",
+    title: "AI changed everything",
+    sub: "Physical AI flipped the equation — turning factories from cost centers into compounding data engines.",
+    points: ["Years → months cycles", "Factories → data engines", "Knowledge that compounds"],
+    accent: "252 75% 62%",
+  },
+  {
+    tag: "Outcome",
+    title: "3k → 300k sq ft",
+    sub: "Today NEMI runs aerospace-grade manufacturing at scale, with a platform built to compound across every product.",
+    points: ["300,000+ sq ft footprint", "35+ enterprise customers", "Built to compound forever"],
+    accent: "275 85% 65%",
+  },
 ];
 
 interface TeamMember {
@@ -306,6 +336,17 @@ const AboutUs = () => {
           style={{ zIndex: 20, opacity: solOp, background: "hsl(230 25% 4%)" }}
         >
           <div className="max-w-6xl w-full mx-6 pointer-events-auto">
+            <div
+              className="text-left mb-8 md:mb-10"
+              style={{ opacity: solEnter, transform: `translateY(${(1 - solEnter) * 20}px)` }}
+            >
+              <h2
+                className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.08]"
+                style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.35)" }}
+              >
+                Manufacturing is deeply fragmented.
+              </h2>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {HARDWARE_PHASES.map((ph, i) => {
                 const cardP = easeOut(Math.min(Math.max((solEnter - i * 0.15) / 0.6, 0), 1));
@@ -340,6 +381,12 @@ const AboutUs = () => {
                 );
               })}
             </div>
+            <p
+              className="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-3xl mt-8 md:mt-10"
+              style={{ opacity: solEnter }}
+            >
+              Every product restarts from zero, burning capital and losing hard-won knowledge at every handoff. Design, develop and distribute operate in silos with no shared intelligence.
+            </p>
           </div>
         </div>
       )}
@@ -358,7 +405,6 @@ const AboutUs = () => {
           <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-10 relative z-[2] pointer-events-auto">
             {/* Heading */}
             <div className="text-center mb-8 md:mb-12" style={{ opacity: jrnEnter, transform: `translateY(${(1 - jrnEnter) * 25}px)` }}>
-              <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase font-semibold mb-4" style={{ color: "hsl(275 60% 65%)" }}>Our Journey</p>
               <h2 className="text-2xl md:text-4xl lg:text-[2.8rem] font-extrabold tracking-tight leading-[1.08]">
                 We didn't start with Physical AI.
               </h2>
@@ -367,22 +413,33 @@ const AboutUs = () => {
               </p>
             </div>
 
-            {/* Process flow — 5 cards, larger, no arrows */}
-            <div className="w-full max-w-[1280px] relative hidden md:grid grid-cols-5 gap-4">
+            {/* Process flow — 5 cards with chevron separators */}
+            <div className="w-full max-w-[1280px] relative hidden md:flex items-stretch gap-1">
               {JOURNEY_STEPS.map((step, i) => {
                 const cardDelay = i * 0.08;
                 const cardP = easeOut(Math.min(Math.max((jrnCardsP - cardDelay) / 0.35, 0), 1));
                 return (
+                  <React.Fragment key={step.tag}>
+                  {i > 0 && (
+                    <div
+                      className="flex items-center justify-center shrink-0"
+                      style={{ width: "28px", opacity: cardP }}
+                      aria-hidden="true"
+                    >
+                      <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
+                        <path d="M5 4 L15 14 L5 24" stroke="hsl(275 80% 70%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  )}
                   <div
-                    key={step.tag}
-                    className="rounded-2xl px-5 py-6 flex flex-col"
+                    className="rounded-2xl px-5 py-6 flex flex-col flex-1 min-w-0"
                     style={{
                       opacity: cardP,
                       transform: `translateY(${(1 - cardP) * 25}px)`,
                       background: `linear-gradient(155deg, hsl(${step.accent} / 0.14), hsl(230 22% 8% / 0.95))`,
                       border: `1px solid hsl(${step.accent} / 0.32)`,
                       boxShadow: `0 0 28px hsl(${step.accent} / 0.12), inset 0 1px 0 hsl(0 0% 100% / 0.05)`,
-                      minHeight: "230px",
+                      minHeight: "300px",
                     }}
                   >
                     <span
@@ -390,14 +447,23 @@ const AboutUs = () => {
                       style={{ background: `hsl(${step.accent})`, boxShadow: `0 0 12px hsl(${step.accent} / 0.6)` }}
                     />
                     <p
-                      className="text-[12px] tracking-[0.32em] uppercase font-bold mb-3"
+                      className="text-[10px] tracking-[0.3em] uppercase font-bold mb-2"
                       style={{ color: `hsl(${step.accent})` }}
                     >
                       {step.tag}
                     </p>
-                    <h3 className="text-[18px] lg:text-[20px] font-bold text-foreground leading-tight mb-3">{step.title}</h3>
-                    <p className="text-[13px] lg:text-[14px] text-muted-foreground leading-relaxed">{step.sub}</p>
+                    <h3 className="text-[14px] lg:text-[15px] font-bold text-foreground leading-tight mb-2">{step.title}</h3>
+                    <p className="text-[11px] lg:text-[12px] text-muted-foreground leading-relaxed mb-3">{step.sub}</p>
+                    <ul className="flex flex-col gap-1 mt-auto">
+                      {step.points.map((pt) => (
+                        <li key={pt} className="flex items-start gap-1.5 text-[10px] lg:text-[11px] text-foreground/80 leading-snug">
+                          <span className="w-1 h-1 rounded-full mt-1.5 shrink-0" style={{ background: `hsl(${step.accent})` }} />
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
+                  </React.Fragment>
                 );
               })}
             </div>
@@ -445,9 +511,6 @@ const AboutUs = () => {
           />
           <div className="max-w-5xl w-full mx-6 md:mx-auto md:px-6 relative z-[2] pointer-events-auto text-center">
             <div style={{ opacity: goalEnter, transform: `translateY(${(1 - goalEnter) * 20}px)` }}>
-              <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase font-semibold mb-3" style={{ color: "hsl(275 60% 65%)" }}>
-                Our Goal
-              </p>
               <h2
                 className="text-xl md:text-3xl lg:text-[2rem] font-extrabold tracking-tight leading-[1.15] mb-5"
                 style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}
@@ -466,12 +529,10 @@ const AboutUs = () => {
 
               <div className="space-y-3 max-w-3xl mx-auto">
                 <p className="text-xs md:text-sm text-muted-foreground/90 leading-relaxed">
-                  In software, every line of code compounds — build once, deploy infinitely, and each user makes the product smarter.
-                  Manufacturing has never worked this way. More revenue has always meant more machines, more capital, more people — linearly.
+                  Software compounds. Every line of code ships once and improves with every user. Manufacturing never did. More revenue meant more machines, more capital, more people. Growth stayed linear.
                 </p>
                 <p className="text-xs md:text-sm text-foreground/90 leading-relaxed">
-                  We're changing the equation. Our AI stack turns every factory job into training data, every production run into a
-                  feedback loop. The more we manufacture, the smarter the system gets — and the faster, cheaper, and better the next job becomes.
+                  NEMI changes the equation. Every factory job becomes training data. Every production run feeds the loop. The more we build, the smarter, faster, and cheaper the next job becomes.
                 </p>
               </div>
 
@@ -523,9 +584,6 @@ const AboutUs = () => {
           <div className="w-full px-4 md:px-10 lg:px-16 relative z-[2] pointer-events-auto">
             {/* Title */}
             <div className="mb-6" style={{ opacity: lmmEnter, transform: `translateY(${(1 - lmmEnter) * 20}px)` }}>
-              <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase font-semibold mb-3" style={{ color: "hsl(275 60% 65%)" }}>
-                The Stack
-              </p>
               <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight" style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.3)" }}>
                 LMM System Architecture
               </h2>
@@ -542,9 +600,9 @@ const AboutUs = () => {
                     style={{
                       opacity: p,
                       transform: `translateY(${(1 - p) * 15}px)`,
-                      background: "linear-gradient(to top, #8E26D9 0%, #4A0E78 60%, #2E0855 100%)",
-                      border: "1px solid rgba(180, 100, 240, 0.4)",
-                      boxShadow: "0 4px 20px rgba(60, 14, 100, 0.45), inset 0 1px 0 hsl(0 0% 100% / 0.06)",
+                      background: "linear-gradient(to top, #7A1ECC 0%, #3E0B6B 70%, #25064A 100%)",
+                      border: "1px solid rgba(150, 80, 210, 0.3)",
+                      boxShadow: "0 3px 14px rgba(40, 8, 70, 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.06)",
                     }}
                   >
                     <span className="text-sm md:text-base font-black tracking-wider text-white">PARLEY</span>
@@ -559,9 +617,9 @@ const AboutUs = () => {
               {(() => {
                 const p = easeOut(Math.min(Math.max((lmmLayersP - 0.08) / 0.25, 0), 1));
                 const platforms = [
-                  { name: "DESIGN", sub: "Design Platform", color: "#3B82F6", alpha: 0.7, tools: [{ bold: "Lumos", desc: "Ideation" }, { bold: "Manvil", desc: "Mechanical CAD" }, { bold: "Volt", desc: "Electronics CAD" }] },
-                  { name: "DEVELOP", sub: "Develop Platform", color: "#EF4444", alpha: 0.7, tools: [{ bold: "Forge", desc: "Digital Twin + MES" }, { bold: "Legion", desc: "Robotics" }, { bold: "Hawkeye", desc: "Vision + Data" }] },
-                  { name: "DELIVER", sub: "Deliver Platform", color: "#22C55E", alpha: 0.7, tools: [{ bold: "Quartermaster", desc: "WMS + Fleet" }, { bold: "Exchequer", desc: "Leasing + Finance" }, { bold: "Atom", desc: "IoT" }] },
+                  { name: "DESIGN", sub: "Design Platform", color: "#3B82F6", bg: "linear-gradient(to top, #1E5BB8 0%, #0E2A6B 70%, #061640 100%)", border: "rgba(90, 130, 220, 0.3)", tools: [{ bold: "Lumos", desc: "Ideation" }, { bold: "Manvil", desc: "Mechanical CAD" }, { bold: "Volt", desc: "Electronics CAD" }] },
+                  { name: "DEVELOP", sub: "Develop Platform", color: "#EF4444", bg: "linear-gradient(to top, #B81E2E 0%, #6B0E1A 70%, #400611 100%)", border: "rgba(220, 90, 100, 0.3)", tools: [{ bold: "Forge", desc: "Digital Twin + MES" }, { bold: "Legion", desc: "Robotics" }, { bold: "Hawkeye", desc: "Vision + Data" }] },
+                  { name: "DELIVER", sub: "Deliver Platform", color: "#22C55E", bg: "linear-gradient(to top, #1E9851 0%, #0E5028 70%, #062D17 100%)", border: "rgba(90, 200, 130, 0.3)", tools: [{ bold: "Quartermaster", desc: "WMS + Fleet" }, { bold: "Exchequer", desc: "Leasing + Finance" }, { bold: "Atom", desc: "IoT" }] },
                 ];
                 return (
                   <div
@@ -581,19 +639,19 @@ const AboutUs = () => {
                           key={pl.name}
                           className="rounded-lg px-4 py-4"
                           style={{
-                            background: "linear-gradient(to top, #7A1ECC 0%, #3E0B6B 65%, #25064A 100%)",
-                            border: "1px solid rgba(170, 90, 230, 0.32)",
-                            boxShadow: "0 3px 14px rgba(50, 12, 90, 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.05)",
+                            background: pl.bg,
+                            border: `1px solid ${pl.border}`,
+                            boxShadow: "0 3px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.06)",
                           }}
                         >
-                          <h3 className="text-base md:text-lg font-black tracking-widest text-center mb-0.5" style={{ color: pl.color, textShadow: `0 0 12px ${pl.color}55` }}>{pl.name}</h3>
+                          <h3 className="text-base md:text-lg font-black tracking-widest text-center mb-0.5 text-white">{pl.name}</h3>
                           <p className="text-[10px] text-white/80 text-center mb-3">{pl.sub}</p>
                           <ul className="space-y-1.5">
                             {pl.tools.map((t) => (
                               <li key={t.bold} className="text-[12px] text-white">
-                                <span className="mr-1.5" style={{ color: pl.color }}>•</span>
+                                <span className="mr-1.5 text-white/80">•</span>
                                 <span className="font-bold">{t.bold}</span>
-                                <span className="text-white/75 ml-1.5">{t.desc}</span>
+                                <span className="text-white/80 ml-1.5">{t.desc}</span>
                               </li>
                             ))}
                           </ul>
@@ -846,17 +904,16 @@ const AboutUs = () => {
           className="fixed inset-0 flex items-center justify-center pointer-events-none"
           style={{ zIndex: 20, opacity: tcOp, background: "hsl(230 25% 4%)" }}
         >
-          <div className="max-w-6xl w-full mx-6 pointer-events-auto text-center" style={{ maxHeight: "90vh", overflowY: "auto" }}>
+          <div className="max-w-6xl w-full mx-6 pointer-events-auto text-center">
             <div style={{ opacity: tcEnter, transform: `translateY(${(1 - tcEnter) * 20}px)` }}>
-              <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-2 font-bold">Who We Are</p>
-              <h2 className="text-2xl md:text-4xl font-bold tracking-wider mb-2" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Team</h2>
-              <p className="text-xs md:text-sm text-muted-foreground tracking-wide mb-6 max-w-2xl mx-auto">
+              <h2 className="text-xl md:text-3xl font-bold tracking-wider mb-1" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Team</h2>
+              <p className="text-[11px] md:text-xs text-muted-foreground tracking-wide mb-4 max-w-2xl mx-auto">
                 Leadership team that built manufacturing at scale and AI systems at scale, now combining both.
               </p>
             </div>
 
             {/* Core Team grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4">
               {CORE_TEAM.map((m, i) => {
                 const cp = easeOut(Math.min(Math.max((tcEnter - i * 0.08) / 0.5, 0), 1));
                 return (
@@ -868,12 +925,12 @@ const AboutUs = () => {
             </div>
 
             {/* Extended Leadership subheading */}
-            <div className="mb-3" style={{ opacity: tcExtP, transform: `translateY(${(1 - tcExtP) * 15}px)` }}>
+            <div className="mb-2" style={{ opacity: tcExtP, transform: `translateY(${(1 - tcExtP) * 15}px)` }}>
               <p className="text-[10px] md:text-xs tracking-[0.35em] uppercase text-muted-foreground font-bold">Extended Leadership</p>
             </div>
 
             {/* Extended Team grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
               {EXTENDED_TEAM.map((m, i) => {
                 const cp = easeOut(Math.min(Math.max((tcExtP - i * 0.08) / 0.5, 0), 1));
                 return (
@@ -895,7 +952,6 @@ const AboutUs = () => {
         >
           <div className="max-w-5xl w-full mx-6 pointer-events-auto">
             <div className="text-center mb-8" style={{ opacity: baEnter, transform: `translateY(${(1 - baEnter) * 20}px)` }}>
-              <p className="text-xs tracking-[0.4em] uppercase text-primary/80 mb-3 font-bold">Who We Are</p>
               <h2 className="text-2xl md:text-3xl font-bold tracking-wider mb-2" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Board & Advisors</h2>
               <p className="text-sm text-muted-foreground">Guided by operators who scaled global enterprises.</p>
             </div>
@@ -972,9 +1028,6 @@ const AboutUs = () => {
 
             {/* CTA */}
             <div className="text-center relative z-[2] max-w-2xl">
-              <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase font-semibold mb-4" style={{ color: "hsl(275 60% 65%)" }}>
-                Careers
-              </p>
               <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6" style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5)" }}>
                 Join Our Team.
               </h2>

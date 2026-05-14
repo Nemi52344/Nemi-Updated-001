@@ -4,16 +4,20 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
-import ScrollReveal from "@/hooks/ScrollReveal";
 import PageCTAFooter from "@/components/PageCTAFooter";
 import SiteFooter from "@/components/SiteFooter";
+import useScrollProgress from "@/hooks/useScrollProgress";
 import { supabase } from "@/lib/supabase";
 
+const rangeProgress = (scroll: number, start: number, end: number) =>
+  Math.min(Math.max((scroll - start) / (end - start), 0), 1);
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
 const values = [
-  { title: "Team Player", body: "We make parts, run machines, and learn in the real world, not just simulations.", img: "https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?w=800&h=500&fit=crop&q=80" },
-  { title: "Capital Discipline", body: "We build more with less. The 10× cost advantage is a culture, not just a metric.", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=500&fit=crop&q=80" },
-  { title: "End-to-End Thinking", body: "From design intent to deployed product, we own the full loop, not just tasks.", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=500&fit=crop&q=80" },
-  { title: "Data First", body: "Ground-truth manufacturing data drives our AI, not assumptions.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop&q=80" },
+  { title: "Team Player", body: "We make parts, run machines, and learn in the real world, not just simulations." },
+  { title: "Capital Discipline", body: "We build more with less. The 10× cost advantage is a culture, not just a metric." },
+  { title: "End-to-End Thinking", body: "From design intent to deployed product, we own the full loop, not just tasks." },
+  { title: "Data First", body: "Ground-truth manufacturing data drives our AI, not assumptions." },
 ];
 
 interface Job {
@@ -24,45 +28,16 @@ interface Job {
 }
 
 const jobs: Job[] = [
-  {
-    dept: "Engineering, AI/ML",
-    title: "LMM Research Engineer",
-    meta: "Bangalore · Full-time · Hybrid",
-    jd: "We are building the Large Manufacturing Model, a foundation model trained on real CAD geometries, sensor streams, quality outcomes, and process parameters. As an LMM Research Engineer, you will design training objectives, curate multi-modal industrial datasets, and evaluate the model against field outcomes on our production floors. You will publish internally, iterate quickly, and ship your work into live programs across aerospace, defense, EV, and precision tooling. You should have strong intuition for deep learning, comfort with distributed training, and a bias towards reality over benchmarks. Prior exposure to any subset of computer vision, graph neural networks, reinforcement learning, or physics-informed ML is a plus. You will work alongside mechanical, electrical, and manufacturing engineers, so the ability to explain tradeoffs to non-ML colleagues matters.",
-  },
-  {
-    dept: "Engineering, Manufacturing",
-    title: "Mechanical Design Engineer",
-    meta: "Bangalore · Full-time · On-site",
-    jd: "Our design platform compresses concept-to-production cycles from months to weeks. As a Mechanical Design Engineer, you will own the CAD, DFM, and simulation loop for real hardware programs, drones, EV subsystems, precision tooling, consumer electronics. You will work alongside AI engineers who augment your workflow with generative design, simulation automation, and PLM integration. You should bring 3-7 years of production design experience, fluency in SolidWorks / NX / CATIA (one is fine), and a portfolio of parts that actually shipped. Familiarity with structural FEA, thermal analysis, or tolerance stack-up is a strong plus. You will iterate with a tight manufacturing team on the floor, so on-site presence matters. This is a shipping role, not a research role.",
-  },
-  {
-    dept: "Engineering, Manufacturing",
-    title: "Process Engineer",
-    meta: "Bangalore · Full-time · On-site",
-    jd: "Our manufacturing platform is the full-stack layer for tooling, CNC, injection moulding, electronics, batteries, motors, complex assemblies. As a Process Engineer, you will own the translation from design intent to running production, including tooling specification, cycle-time optimisation, yield improvement, and quality sign-off. You will work with sensor-instrumented lines that feed data back into the LMM, so you will be closer to the model than most process engineers ever get. Bring 4-8 years of process engineering experience, hands-on comfort across at least two of CNC / injection moulding / battery assembly / PCBA, and a track record of driving measurable yield or cost improvements. AS9100 or ISO 9001 familiarity is helpful. This is an on-site role because real production demands real presence.",
-  },
-  {
-    dept: "Operations",
-    title: "Fleet Operations Manager",
-    meta: "Africa / Remote · Full-time",
-    jd: "Our deployment layer is where NEMI's hardware meets the real world, thousands of units operating across India and Africa. As Fleet Operations Manager, you will own uptime, last-mile logistics, maintenance cadence, and the feedback loop from field telemetry back to design and manufacturing. You will scale playbooks for deployment, training local operators, financing tie-ups, and after-sales service. Bring 5+ years in fleet ops, logistics, or deployed-hardware support (EV, drones, heavy equipment, or similar). You should be comfortable travelling across Africa and India, building teams on the ground, and running operations against tight margins. Data fluency matters, you will work with live telemetry dashboards every day.",
-  },
-  {
-    dept: "Business Development",
-    title: "Strategic Partnerships Lead",
-    meta: "Bangalore / London · Full-time",
-    jd: "We land with design compression, expand into full-stack manufacturing, and dominate inside each account with deployed fleet data. The Strategic Partnerships Lead runs the expand-and-dominate motion with enterprise customers across aerospace, defense, automotive, and industrial. You will map accounts, structure multi-year program deals, and work closely with the founders on institutional wins. You should bring 7+ years in complex B2B sales or strategic partnerships, fluency in hardware / manufacturing / aerospace buying cycles, and a track record of program-sized deals ($5M+). Comfort with NDA-heavy sales cycles, defense procurement, and institutional diligence is required. You will split time between Bangalore and London, with customer travel across EU and India.",
-  },
-  {
-    dept: "Engineering, Software",
-    title: "Manufacturing OS Platform Engineer",
-    meta: "Bangalore · Full-time · Hybrid",
-    jd: "NEMI M-OS is the operating system for our factories, scheduling, inference routing, telemetry, quality prediction, and the feedback loop back into the LMM. As a Platform Engineer, you will design and ship the backbone services that every application across design, manufacturing and deployment runs on. You will own latency, reliability, observability, and developer experience for our internal engineering teams. Bring 5+ years of distributed systems experience, fluency in TypeScript / Go / Rust (pick two), and comfort with Kubernetes, event streaming (Kafka / NATS), and time-series data. Any exposure to edge compute, industrial protocols (OPC-UA, Modbus), or real-time scheduling is a plus. Hybrid from Bangalore, with periodic on-site time at our factories.",
-  },
+  { dept: "Engineering, AI/ML", title: "LMM Research Engineer", meta: "Bangalore · Full-time · Hybrid", jd: "We are building the Large Manufacturing Model, a foundation model trained on real CAD geometries, sensor streams, quality outcomes, and process parameters. As an LMM Research Engineer, you will design training objectives, curate multi-modal industrial datasets, and evaluate the model against field outcomes on our production floors. You will publish internally, iterate quickly, and ship your work into live programs across aerospace, defense, EV, and precision tooling. You should have strong intuition for deep learning, comfort with distributed training, and a bias towards reality over benchmarks. Prior exposure to any subset of computer vision, graph neural networks, reinforcement learning, or physics-informed ML is a plus. You will work alongside mechanical, electrical, and manufacturing engineers, so the ability to explain tradeoffs to non-ML colleagues matters." },
+  { dept: "Engineering, Manufacturing", title: "Mechanical Design Engineer", meta: "Bangalore · Full-time · On-site", jd: "Our design platform compresses concept-to-production cycles from months to weeks. As a Mechanical Design Engineer, you will own the CAD, DFM, and simulation loop for real hardware programs, drones, EV subsystems, precision tooling, consumer electronics. You will work alongside AI engineers who augment your workflow with generative design, simulation automation, and PLM integration. You should bring 3-7 years of production design experience, fluency in SolidWorks / NX / CATIA (one is fine), and a portfolio of parts that actually shipped. Familiarity with structural FEA, thermal analysis, or tolerance stack-up is a strong plus. You will iterate with a tight manufacturing team on the floor, so on-site presence matters. This is a shipping role, not a research role." },
+  { dept: "Engineering, Manufacturing", title: "Process Engineer", meta: "Bangalore · Full-time · On-site", jd: "Our manufacturing platform is the full-stack layer for tooling, CNC, injection moulding, electronics, batteries, motors, complex assemblies. As a Process Engineer, you will own the translation from design intent to running production, including tooling specification, cycle-time optimisation, yield improvement, and quality sign-off. You will work with sensor-instrumented lines that feed data back into the LMM, so you will be closer to the model than most process engineers ever get. Bring 4-8 years of process engineering experience, hands-on comfort across at least two of CNC / injection moulding / battery assembly / PCBA, and a track record of driving measurable yield or cost improvements. AS9100 or ISO 9001 familiarity is helpful. This is an on-site role because real production demands real presence." },
+  { dept: "Operations", title: "Fleet Operations Manager", meta: "Africa / Remote · Full-time", jd: "Our deployment layer is where NEMI's hardware meets the real world, thousands of units operating across India and Africa. As Fleet Operations Manager, you will own uptime, last-mile logistics, maintenance cadence, and the feedback loop from field telemetry back to design and manufacturing. You will scale playbooks for deployment, training local operators, financing tie-ups, and after-sales service. Bring 5+ years in fleet ops, logistics, or deployed-hardware support (EV, drones, heavy equipment, or similar). You should be comfortable travelling across Africa and India, building teams on the ground, and running operations against tight margins. Data fluency matters, you will work with live telemetry dashboards every day." },
+  { dept: "Business Development", title: "Strategic Partnerships Lead", meta: "Bangalore / London · Full-time", jd: "We land with design compression, expand into full-stack manufacturing, and dominate inside each account with deployed fleet data. The Strategic Partnerships Lead runs the expand-and-dominate motion with enterprise customers across aerospace, defense, automotive, and industrial. You will map accounts, structure multi-year program deals, and work closely with the founders on institutional wins. You should bring 7+ years in complex B2B sales or strategic partnerships, fluency in hardware / manufacturing / aerospace buying cycles, and a track record of program-sized deals ($5M+). Comfort with NDA-heavy sales cycles, defense procurement, and institutional diligence is required. You will split time between Bangalore and London, with customer travel across EU and India." },
+  { dept: "Engineering, Software", title: "Manufacturing OS Platform Engineer", meta: "Bangalore · Full-time · Hybrid", jd: "NEMI M-OS is the operating system for our factories, scheduling, inference routing, telemetry, quality prediction, and the feedback loop back into the LMM. As a Platform Engineer, you will design and ship the backbone services that every application across design, manufacturing and deployment runs on. You will own latency, reliability, observability, and developer experience for our internal engineering teams. Bring 5+ years of distributed systems experience, fluency in TypeScript / Go / Rust (pick two), and comfort with Kubernetes, event streaming (Kafka / NATS), and time-series data. Any exposure to edge compute, industrial protocols (OPC-UA, Modbus), or real-time scheduling is a plus. Hybrid from Bangalore, with periodic on-site time at our factories." },
 ];
 
 const Careers = () => {
+  const scrollProgress = useScrollProgress();
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showApplyForm, setShowApplyForm] = useState(false);
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -83,18 +58,10 @@ const Careers = () => {
 
     try {
       if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
-
       const safeName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
       const filePath = `${Date.now()}_${safeName}`;
-
-      const { error: uploadErr } = await supabase.storage
-        .from("resumes")
-        .upload(filePath, resumeFile, {
-          contentType: resumeFile.type,
-          upsert: false,
-        });
+      const { error: uploadErr } = await supabase.storage.from("resumes").upload(filePath, resumeFile, { contentType: resumeFile.type, upsert: false });
       if (uploadErr) throw uploadErr;
-
       const { error: insertErr } = await supabase.from("applications").insert({
         role: selectedJob.title,
         department: selectedJob.dept,
@@ -109,7 +76,6 @@ const Careers = () => {
         resume_path: filePath,
       });
       if (insertErr) throw insertErr;
-
       setSubmitState("success");
       form.reset();
     } catch (err) {
@@ -118,8 +84,26 @@ const Careers = () => {
     }
   };
 
+  // 4 panels: Hero, Values, Positions, CTA+Footer
+  const heroVisible = scrollProgress < 0.29;
+  const heroExit = easeOut(rangeProgress(scrollProgress, 0.24, 0.29));
+  const heroOp = 1 - heroExit;
+
+  const valVisible = scrollProgress > 0.27 && scrollProgress < 0.55;
+  const valEnter = easeOut(rangeProgress(scrollProgress, 0.28, 0.34));
+  const valExit = easeOut(rangeProgress(scrollProgress, 0.50, 0.55));
+  const valOp = valEnter * (1 - valExit);
+
+  const posVisible = scrollProgress > 0.53 && scrollProgress < 0.82;
+  const posEnter = easeOut(rangeProgress(scrollProgress, 0.54, 0.60));
+  const posExit = easeOut(rangeProgress(scrollProgress, 0.77, 0.82));
+  const posOp = posEnter * (1 - posExit);
+
+  const ctaVisible = scrollProgress > 0.80;
+  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.81, 0.88));
+
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+    <div className="bg-background text-foreground relative" style={{ height: "400vh" }}>
       <div className="fixed inset-0 z-0">
         <ConstellationCanvas />
         <div
@@ -130,167 +114,136 @@ const Careers = () => {
 
       <Navbar scrollProgress={1} />
 
-      {/* HERO, Full screen (matches About page style) */}
-      <section className="min-h-screen flex items-center justify-center relative z-[1] overflow-hidden pt-32 pb-16 px-6 md:px-12 lg:px-16">
+      {/* ── 1. HERO ── */}
+      {heroVisible && (
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `
-              radial-gradient(ellipse 40% 35% at 50% 45%, hsl(275 80% 40% / 0.15) 0%, transparent 60%),
-              radial-gradient(ellipse 55% 45% at 50% 50%, hsl(260 70% 30% / 0.1) 0%, transparent 55%)
-            `,
-          }}
-        />
-        <div className="text-center relative z-[3] max-w-4xl mx-auto">
-          <h1
-            className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
-            style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
-          >
-            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
-              Engineer the
-            </span>
-            <br />
-            <span
-              className="bg-clip-text text-transparent inline-block"
-              style={{
-                backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary) / 0.8))",
-                backgroundSize: "200% 200%",
-                animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both, hero-gradient-shift 6s ease-in-out infinite 1.4s",
-              }}
+          className="fixed inset-0 z-[10] flex items-center justify-center px-6 md:px-12 lg:px-16 overflow-hidden"
+          style={{ opacity: heroOp }}
+        >
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `
+                radial-gradient(ellipse 40% 35% at 50% 45%, hsl(275 80% 40% / 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 55% 45% at 50% 50%, hsl(260 70% 30% / 0.1) 0%, transparent 55%)
+              `,
+            }}
+          />
+          <div className="text-center relative z-[3] max-w-4xl mx-auto">
+            <h1
+              className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
+              style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
             >
-              Physical
-            </span>
-            <br />
-            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}>
-              Future.
-            </span>
-          </h1>
-          <p
-            className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[600px] mx-auto"
-            style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
-          >
-            The next era of manufacturing runs on Physical AI. Join to be part of it.
-          </p>
+              <span style={{ display: "inline-block" }}>Engineer the</span>
+              <br />
+              <span
+                className="bg-clip-text text-transparent inline-block"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary) / 0.8))",
+                  backgroundSize: "200% 200%",
+                }}
+              >
+                Physical
+              </span>
+              <br />
+              <span style={{ display: "inline-block" }}>Future.</span>
+            </h1>
+            <p className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[600px] mx-auto">
+              The next era of manufacturing runs on Physical AI. Join to be part of it.
+            </p>
+          </div>
         </div>
-      </section>
+      )}
 
-      {/* OUR TEAM + VALUES, Team image background with purple shade & values overlay */}
-      <section className="relative z-[1] w-full">
-        <div className="relative min-h-[70vh] overflow-hidden flex flex-col">
-          {/* Team background image */}
+      {/* ── 2. VALUES ── */}
+      {valVisible && (
+        <div className="fixed inset-0 z-[10] w-full overflow-hidden" style={{ opacity: valOp }}>
           <img
             src="/Images/about us.webp"
             alt="NEMI team"
             className="absolute inset-0 w-full h-full object-cover object-center"
             loading="lazy" decoding="async"
           />
-          {/* Tinted black overlay */}
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.82) 100%)" }} />
-
-          {/* Content, centered vertically */}
-          <div className="relative z-10 flex flex-col flex-1 min-h-[70vh] items-center justify-center px-6 md:px-12 lg:px-16 text-center">
-            {/* Section heading */}
-            <ScrollReveal>
-              <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] text-white mb-14 md:mb-16">
-                Our Values
-              </h2>
-            </ScrollReveal>
-
-            {/* Values grid - wider columns + tighter padding so each body fits in 3 lines */}
+          <div className="relative z-10 flex flex-col h-full items-center justify-center px-6 md:px-12 lg:px-16 text-center"
+            style={{ transform: `translateY(${(1 - valEnter) * 24}px)` }}
+          >
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] text-white mb-14 md:mb-16">
+              Our Values
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-7xl items-start">
-              {values.map((val, i) => (
-                <ScrollReveal key={val.title} delay={i * 100}>
-                  <div className="p-3 md:p-4 group flex flex-col items-center text-center">
-                    <div className="w-10 h-[2px] mb-5 transition-all duration-300 group-hover:w-16" style={{ background: "linear-gradient(to right, hsl(275 80% 75%), hsl(275 80% 75% / 0.3))" }} />
-                    <h3 className="font-bold text-xs md:text-sm tracking-[0.12em] md:tracking-[0.15em] uppercase text-white mb-3 group-hover:text-purple-300 transition-colors duration-300 whitespace-nowrap">
-                      {val.title}
-                    </h3>
-                    <p
-                      className="text-xs md:text-sm text-white/60 leading-[1.7] w-full"
-                      style={{
-                        display: "-webkit-box",
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: "vertical" as const,
-                        overflow: "hidden",
-                        minHeight: "calc(3 * 1.7em)",
-                      }}
-                    >
-                      {val.body}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ))}
+              {values.map((val, i) => {
+                const cardP = easeOut(Math.min(Math.max((valEnter - i * 0.1) / 0.5, 0), 1));
+                return (
+                <div key={val.title} className="p-3 md:p-4 group flex flex-col items-center text-center" style={{ opacity: cardP, transform: `translateY(${(1 - cardP) * 24}px)` }}>
+                  <div className="w-10 h-[2px] mb-5 transition-all duration-300 group-hover:w-16" style={{ background: "linear-gradient(to right, hsl(275 80% 75%), hsl(275 80% 75% / 0.3))" }} />
+                  <h3 className="font-bold text-xs md:text-sm tracking-[0.12em] md:tracking-[0.15em] uppercase text-white mb-3 group-hover:text-purple-300 transition-colors duration-300 whitespace-nowrap">
+                    {val.title}
+                  </h3>
+                  <p className="text-xs md:text-sm text-white/70 leading-[1.7] w-full">{val.body}</p>
+                </div>
+                );
+              })}
             </div>
           </div>
         </div>
-      </section>
+      )}
 
-      {/* OPEN POSITIONS */}
-      <section className="py-16 pb-24 px-6 md:px-12 lg:px-16 relative z-[1]">
-        <ScrollReveal>
-          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-            Open Positions
-          </p>
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-3">
-            Shape the Future
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-10 max-w-2xl">
-            Submit your resume for an open role below, or send it our way for future opportunities.
-          </p>
-        </ScrollReveal>
-        {jobs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/30">
-            {jobs.map((job, i) => (
-              <ScrollReveal key={job.title} delay={i * 80}>
+      {/* ── 3. OPEN POSITIONS ── */}
+      {posVisible && (
+        <div
+          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
+          style={{ opacity: posOp }}
+        >
+          <div className="max-w-6xl w-full mx-auto pt-20" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
+            <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-3" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
+              Open Positions
+            </p>
+            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-2">
+              Shape the Future
+            </h2>
+            <p className="text-xs md:text-sm text-muted-foreground tracking-wide mb-6 max-w-2xl">
+              Submit your resume for an open role below, or send it our way for future opportunities.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/30">
+              {jobs.map((job, i) => {
+                const cardP = easeOut(Math.min(Math.max((posEnter - i * 0.07) / 0.5, 0), 1));
+                return (
                 <button
+                  key={job.title}
                   type="button"
                   onClick={() => setSelectedJob(job)}
-                  className="bg-background p-6 md:p-8 w-full text-left cursor-pointer transition-colors duration-200 hover:bg-card/80 group"
+                  className="bg-background p-4 md:p-5 w-full text-left cursor-pointer transition-colors duration-200 hover:bg-card/80 group"
+                  style={{ opacity: cardP, transform: `translateY(${(1 - cardP) * 24}px)` }}
                 >
-                  <p className="font-bold text-[0.58rem] tracking-[0.15em] uppercase text-primary mb-2">{job.dept}</p>
-                  <h3 className="font-bold text-sm md:text-base tracking-[0.05em] uppercase text-foreground mb-2">{job.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-4">{job.meta}</p>
-                  <span className="inline-flex items-center gap-1 text-[0.65rem] font-bold tracking-[0.18em] uppercase text-primary group-hover:gap-2 transition-all">
+                  <p className="font-bold text-[0.55rem] tracking-[0.15em] uppercase text-primary mb-1.5">{job.dept}</p>
+                  <h3 className="font-bold text-xs md:text-sm tracking-[0.05em] uppercase text-foreground mb-1.5">{job.title}</h3>
+                  <p className="text-[11px] text-muted-foreground mb-3">{job.meta}</p>
+                  <span className="inline-flex items-center gap-1 text-[0.6rem] font-bold tracking-[0.18em] uppercase text-primary group-hover:gap-2 transition-all">
                     View Role <span aria-hidden="true">&rarr;</span>
                   </span>
                 </button>
-              </ScrollReveal>
-            ))}
-          </div>
-        ) : (
-          <ScrollReveal>
-            <div
-              className="rounded-2xl border px-8 py-14 md:py-16 text-center"
-              style={{
-                borderColor: "hsl(275 80% 60% / 0.25)",
-                background:
-                  "linear-gradient(135deg, hsl(275 80% 22% / 0.18), hsl(230 25% 6% / 0.6))",
-                boxShadow: "0 0 40px hsl(275 80% 50% / 0.08)",
-              }}
-            >
-              <p className="text-[0.65rem] md:text-xs tracking-[0.35em] uppercase text-primary/80 font-bold mb-3">
-                No Open Positions
-              </p>
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-wide text-foreground mb-4">
-                We&rsquo;re not actively hiring right now.
-              </h3>
-              <p className="text-sm md:text-base text-muted-foreground leading-[1.8] max-w-[520px] mx-auto mb-6">
-                We still want to hear from exceptional engineers, designers and operators who believe Physical AI is the next era of manufacturing. Send your resume and we&rsquo;ll keep you in mind when roles open.
-              </p>
-              <a
-                href="mailto:info@nemi-ai.com?subject=Future%20opportunities%20at%20NEMI"
-                className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-lg transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 text-primary-foreground"
-                style={{
-                  background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                  boxShadow: "0 4px 20px hsl(var(--primary) / 0.3)",
-                }}
-              >
-                Stay in Touch
-              </a>
+                );
+              })}
             </div>
-          </ScrollReveal>
-        )}
-      </section>
+          </div>
+        </div>
+      )}
+
+      {/* ── 4. CTA + FOOTER ── */}
+      {ctaVisible && (
+        <div className="fixed inset-0 z-[10] flex flex-col" style={{ opacity: ctaEnter }}>
+          <div className="flex-1 flex items-center justify-center">
+            <PageCTAFooter
+              headline="Shape the Future."
+              tagline="Join the team building full-stack, end-to-end manufacturing automation with Physical AI."
+              buttonText="Get in Touch"
+              buttonHref="mailto:info@nemi-ai.com"
+            />
+          </div>
+          <SiteFooter />
+        </div>
+      )}
 
       {/* ── JD MODAL ── */}
       {selectedJob && (
@@ -300,7 +253,7 @@ const Careers = () => {
           onClick={closeModal}
         >
           <div
-            className="relative w-full max-w-2xl rounded-2xl p-6 md:p-10 overflow-y-auto max-h-[85vh] animate-in fade-in zoom-in-95 duration-200"
+            className="relative w-full max-w-2xl rounded-2xl p-6 md:p-10 overflow-y-auto max-h-[85vh]"
             style={{
               background: "linear-gradient(145deg, hsl(230 20% 10%), hsl(230 25% 6%))",
               border: "1px solid hsl(275 80% 55% / 0.25)",
@@ -333,15 +286,11 @@ const Careers = () => {
                 <p className="text-sm text-muted-foreground leading-[1.8] mb-8 whitespace-pre-line">
                   {selectedJob.jd}
                 </p>
-
                 <button
                   type="button"
                   onClick={() => setShowApplyForm(true)}
                   className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 text-primary-foreground"
-                  style={{
-                    background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                    boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-                  }}
+                  style={{ background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))", boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)" }}
                 >
                   Apply for this Role
                 </button>
@@ -349,10 +298,7 @@ const Careers = () => {
             )}
 
             {showApplyForm && submitState !== "success" && (
-              <form
-                onSubmit={handleApplySubmit}
-                className="space-y-4"
-              >
+              <form onSubmit={handleApplySubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Full Name *</label>
@@ -379,41 +325,27 @@ const Careers = () => {
                     <input name="linkedin" type="url" placeholder="https://linkedin.com/in/..." className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                 </div>
-
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Portfolio (optional)</label>
                   <input name="portfolio" type="url" placeholder="https://" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                 </div>
-
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Resume * (PDF or DOC, max 5MB)</label>
-                  <input
-                    required
-                    name="resume"
-                    type="file"
-                    accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-wider file:bg-primary/20 file:text-primary hover:file:bg-primary/30 file:cursor-pointer"
-                  />
+                  <input required name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-wider file:bg-primary/20 file:text-primary hover:file:bg-primary/30 file:cursor-pointer" />
                 </div>
-
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Why this role? *</label>
                   <textarea required name="coverLetter" rows={4} className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 resize-none" />
                 </div>
-
                 {submitState === "error" && (
                   <p className="text-xs text-red-400">Something went wrong. Please email info@nemi-ai.com directly.</p>
                 )}
-
                 <div className="flex gap-3 pt-2">
                   <button
                     type="submit"
                     disabled={submitState === "submitting"}
                     className="flex-1 font-bold text-xs tracking-[0.2em] uppercase px-6 py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] text-primary-foreground disabled:opacity-60 disabled:cursor-not-allowed"
-                    style={{
-                      background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                      boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-                    }}
+                    style={{ background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))", boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)" }}
                   >
                     {submitState === "submitting" ? "Submitting…" : "Submit Application"}
                   </button>
@@ -444,14 +376,6 @@ const Careers = () => {
           </div>
         </div>
       )}
-
-      <PageCTAFooter
-        headline="Shape the Future."
-        tagline="Join the team building full-stack, end-to-end manufacturing automation with Physical AI."
-        buttonText="Get in Touch"
-        buttonHref="mailto:info@nemi-ai.com"
-      />
-      <SiteFooter />
     </div>
   );
 };

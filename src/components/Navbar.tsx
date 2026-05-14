@@ -9,7 +9,12 @@ interface NavbarProps {
   scrollProgress?: number;
 }
 
-const navLinks: { href: string; label: string }[] = [];
+const navLinks: { href: string; label: string }[] = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
+  { href: "/services", label: "Services" },
+  { href: "/careers", label: "Careers" },
+];
 
 const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);

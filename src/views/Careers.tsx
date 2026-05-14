@@ -23,8 +23,44 @@ interface Job {
   jd: string;
 }
 
-// No open positions at the moment. The empty list renders the empty state below.
-const jobs: Job[] = [];
+const jobs: Job[] = [
+  {
+    dept: "Engineering, AI/ML",
+    title: "LMM Research Engineer",
+    meta: "Bangalore · Full-time · Hybrid",
+    jd: "We are building the Large Manufacturing Model, a foundation model trained on real CAD geometries, sensor streams, quality outcomes, and process parameters. As an LMM Research Engineer, you will design training objectives, curate multi-modal industrial datasets, and evaluate the model against field outcomes on our production floors. You will publish internally, iterate quickly, and ship your work into live programs across aerospace, defense, EV, and precision tooling. You should have strong intuition for deep learning, comfort with distributed training, and a bias towards reality over benchmarks. Prior exposure to any subset of computer vision, graph neural networks, reinforcement learning, or physics-informed ML is a plus. You will work alongside mechanical, electrical, and manufacturing engineers, so the ability to explain tradeoffs to non-ML colleagues matters.",
+  },
+  {
+    dept: "Engineering, Manufacturing",
+    title: "Mechanical Design Engineer",
+    meta: "Bangalore · Full-time · On-site",
+    jd: "Our design platform compresses concept-to-production cycles from months to weeks. As a Mechanical Design Engineer, you will own the CAD, DFM, and simulation loop for real hardware programs, drones, EV subsystems, precision tooling, consumer electronics. You will work alongside AI engineers who augment your workflow with generative design, simulation automation, and PLM integration. You should bring 3-7 years of production design experience, fluency in SolidWorks / NX / CATIA (one is fine), and a portfolio of parts that actually shipped. Familiarity with structural FEA, thermal analysis, or tolerance stack-up is a strong plus. You will iterate with a tight manufacturing team on the floor, so on-site presence matters. This is a shipping role, not a research role.",
+  },
+  {
+    dept: "Engineering, Manufacturing",
+    title: "Process Engineer",
+    meta: "Bangalore · Full-time · On-site",
+    jd: "Our manufacturing platform is the full-stack layer for tooling, CNC, injection moulding, electronics, batteries, motors, complex assemblies. As a Process Engineer, you will own the translation from design intent to running production, including tooling specification, cycle-time optimisation, yield improvement, and quality sign-off. You will work with sensor-instrumented lines that feed data back into the LMM, so you will be closer to the model than most process engineers ever get. Bring 4-8 years of process engineering experience, hands-on comfort across at least two of CNC / injection moulding / battery assembly / PCBA, and a track record of driving measurable yield or cost improvements. AS9100 or ISO 9001 familiarity is helpful. This is an on-site role because real production demands real presence.",
+  },
+  {
+    dept: "Operations",
+    title: "Fleet Operations Manager",
+    meta: "Africa / Remote · Full-time",
+    jd: "Our deployment layer is where NEMI's hardware meets the real world, thousands of units operating across India and Africa. As Fleet Operations Manager, you will own uptime, last-mile logistics, maintenance cadence, and the feedback loop from field telemetry back to design and manufacturing. You will scale playbooks for deployment, training local operators, financing tie-ups, and after-sales service. Bring 5+ years in fleet ops, logistics, or deployed-hardware support (EV, drones, heavy equipment, or similar). You should be comfortable travelling across Africa and India, building teams on the ground, and running operations against tight margins. Data fluency matters, you will work with live telemetry dashboards every day.",
+  },
+  {
+    dept: "Business Development",
+    title: "Strategic Partnerships Lead",
+    meta: "Bangalore / London · Full-time",
+    jd: "We land with design compression, expand into full-stack manufacturing, and dominate inside each account with deployed fleet data. The Strategic Partnerships Lead runs the expand-and-dominate motion with enterprise customers across aerospace, defense, automotive, and industrial. You will map accounts, structure multi-year program deals, and work closely with the founders on institutional wins. You should bring 7+ years in complex B2B sales or strategic partnerships, fluency in hardware / manufacturing / aerospace buying cycles, and a track record of program-sized deals ($5M+). Comfort with NDA-heavy sales cycles, defense procurement, and institutional diligence is required. You will split time between Bangalore and London, with customer travel across EU and India.",
+  },
+  {
+    dept: "Engineering, Software",
+    title: "Manufacturing OS Platform Engineer",
+    meta: "Bangalore · Full-time · Hybrid",
+    jd: "NEMI M-OS is the operating system for our factories, scheduling, inference routing, telemetry, quality prediction, and the feedback loop back into the LMM. As a Platform Engineer, you will design and ship the backbone services that every application across design, manufacturing and deployment runs on. You will own latency, reliability, observability, and developer experience for our internal engineering teams. Bring 5+ years of distributed systems experience, fluency in TypeScript / Go / Rust (pick two), and comfort with Kubernetes, event streaming (Kafka / NATS), and time-series data. Any exposure to edge compute, industrial protocols (OPC-UA, Modbus), or real-time scheduling is a plus. Hybrid from Bangalore, with periodic on-site time at our factories.",
+  },
+];
 
 const Careers = () => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
@@ -195,9 +231,12 @@ const Careers = () => {
           <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
             Open Positions
           </p>
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-10">
-            Join the Team
+          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-3">
+            Shape the Future
           </h2>
+          <p className="text-sm md:text-base text-muted-foreground tracking-wide mb-10 max-w-2xl">
+            Submit your resume for an open role below, or send it our way for future opportunities.
+          </p>
         </ScrollReveal>
         {jobs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/30">

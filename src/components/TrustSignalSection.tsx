@@ -34,28 +34,42 @@ const ROW2: LogoEntry[] = [
   { src: "/Images/logos/ducati.webp",        label: "Ducati" },
 ];
 
-const LogoCard = ({ logo, set }: { logo: LogoEntry; set: number }) => (
-  <div
-    key={logo.label + set}
-    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm"
-    style={{ width: "160px", height: "80px" }}
-  >
-    <img
-      src={logo.src}
-      alt={logo.label}
-      title={logo.label}
-      loading="lazy"
-      decoding="async"
-      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }}
-    />
-  </div>
-);
+const LARGER_LOGOS = ["Flipkart", "TVS Mobility", "Lamborghini", "Rapido", "Boeing", "Ashok Leyland"];
+
+const LogoCard = ({ logo, set }: { logo: LogoEntry; set: number }) => {
+  const isLarger = LARGER_LOGOS.includes(logo.label);
+  return (
+    <div
+      key={logo.label + set}
+      className="flex items-center justify-center shrink-0 rounded-xl border backdrop-blur-sm"
+      style={{
+        width: "190px",
+        height: "95px",
+        background: "hsl(0 0% 100%)",
+        borderColor: "hsl(0 0% 100% / 0.12)",
+      }}
+    >
+      <img
+        src={logo.src}
+        alt={logo.label}
+        title={logo.label}
+        loading="lazy"
+        decoding="async"
+        style={{
+          height: isLarger ? "64px" : "52px",
+          width: "auto",
+          maxWidth: isLarger ? "160px" : "150px",
+          objectFit: "contain",
+        }}
+      />
+    </div>
+  );
+};
 
 const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
-  // Section: 0.975–0.992 (compressed)
-  const sectionVisible = scrollProgress > 0.973 && scrollProgress < 0.992;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.976, 0.984));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.988, 0.992));
+  const sectionVisible = scrollProgress > 0.973 && scrollProgress < 0.996;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.975, 0.981));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.993, 0.996));
   const opacity = Math.min(enterP, 1 - exitP);
 
   if (!sectionVisible) return null;

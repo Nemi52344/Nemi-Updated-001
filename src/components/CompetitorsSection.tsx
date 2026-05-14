@@ -1,4 +1,6 @@
 import { useState } from "react";
+import toolingImg from "@/assets/tooling-fixture.webp";
+import injectionMoldingImg from "@/assets/injection-molding.webp";
 
 interface CompetitorsSectionProps {
   scrollProgress: number;
@@ -11,7 +13,7 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const factoryImages: { src: string; title: string; description: string }[] = [
   {
-    src: "/Images/Injection%20modling%20.webp",
+    src: injectionMoldingImg,
     title: "Press and Molds",
     description: "Injection moulding, compression moulding and high-tonnage press operations across plastics and metals.",
   },
@@ -26,7 +28,7 @@ const factoryImages: { src: string; title: string; description: string }[] = [
     description: "End-to-end Li-ion cell ageing and pack assembly, from portable chargers to EVs and industrial energy storage.",
   },
   {
-    src: "/Images/Tooling%20and%20fixturing.webp",
+    src: toolingImg,
     title: "Tools, Dies, and Fixtures",
     description: "Injection moulding tools, die-casting tools, press tools, welding fixtures and assembly jigs designed and built in-house.",
   },
@@ -175,7 +177,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
             className="text-[0.6rem] md:text-xs tracking-[0.4em] uppercase font-medium mb-2"
             style={{ color: "hsl(275 60% 65%)" }}
           >
-            Why Us
+            Fortress Factories
           </p>
           <h2
             className="text-xl md:text-3xl lg:text-4xl font-bold tracking-tight"
@@ -185,7 +187,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
               textShadow: "0 0 24px hsl(275 80% 60% / 0.4)",
             }}
           >
-            Hardware + Software with AI applied enhancement
+            Multi-capability factories deploying LMM
           </h2>
         </div>
         {/* Factory photo cards, 4x2 grid */}

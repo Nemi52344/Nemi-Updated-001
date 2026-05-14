@@ -12,7 +12,7 @@ interface LogoEntry {
   label: string;
 }
 
-const ROW1: LogoEntry[] = [
+const ALL_LOGOS: LogoEntry[] = [
   { src: "/Images/logos/samsung.webp",       label: "Samsung" },
   { src: "/Images/logos/tata.webp",          label: "Tata" },
   { src: "/Images/logos/lamborghini.webp",   label: "Lamborghini" },
@@ -21,9 +21,6 @@ const ROW1: LogoEntry[] = [
   { src: "/Images/logos/caterpillar.webp",   label: "Caterpillar" },
   { src: "/Images/logos/boeing.webp",        label: "Boeing" },
   { src: "/Images/logos/ashok-leyland.webp", label: "Ashok Leyland" },
-];
-
-const ROW2: LogoEntry[] = [
   { src: "/Images/logos/royal-enfield.webp", label: "Royal Enfield" },
   { src: "/Images/logos/exide.webp",         label: "Exide" },
   { src: "/Images/logos/flipkart.webp",      label: "Flipkart" },
@@ -34,11 +31,17 @@ const ROW2: LogoEntry[] = [
   { src: "/Images/logos/ducati.webp",        label: "Ducati" },
 ];
 
+const ROW1 = ALL_LOGOS.slice(0, 8);
+const ROW2 = ALL_LOGOS.slice(8, 16);
+
+const MOBILE_ROW1 = ALL_LOGOS.slice(0, 6);
+const MOBILE_ROW2 = ALL_LOGOS.slice(6, 11);
+const MOBILE_ROW3 = ALL_LOGOS.slice(11, 16);
+
 const LogoCard = ({ logo, set }: { logo: LogoEntry; set: number }) => (
   <div
     key={logo.label + set}
-    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm"
-    style={{ width: "160px", height: "80px" }}
+    className="flex items-center justify-center shrink-0 rounded-xl border border-border/30 bg-card/50 backdrop-blur-sm w-[120px] h-[60px] md:w-[160px] md:h-[80px]"
   >
     <img
       src={logo.src}
@@ -46,7 +49,7 @@ const LogoCard = ({ logo, set }: { logo: LogoEntry; set: number }) => (
       title={logo.label}
       loading="lazy"
       decoding="async"
-      style={{ height: "40px", width: "auto", maxWidth: "120px", objectFit: "contain" }}
+      className="h-[28px] md:h-[40px] w-auto max-w-[90px] md:max-w-[120px] object-contain"
     />
   </div>
 );
@@ -92,7 +95,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
 
         {/* Headline */}
         <h2
-          className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4"
+          className="text-xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-3 md:mb-4"
           style={{
             opacity: enterP,
             transform: `translateY(${(1 - enterP) * 24}px)`,
@@ -103,7 +106,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
           Trusted Across Aerospace, Automotive, Defense, and Industrial Manufacturing
         </h2>
         <p
-          className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-4xl mx-auto text-center mb-10 md:mb-14"
+          className="text-xs md:text-base lg:text-lg text-muted-foreground max-w-4xl mx-auto text-center mb-6 md:mb-14"
           style={{
             opacity: enterP,
             transform: `translateY(${(1 - enterP) * 24}px)`,
@@ -112,13 +115,46 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
           Industrial leaders leveraging NEMI&rsquo;s manufacturing intelligence infrastructure across production, automation, and supply chain operations.
         </p>
 
-        {/* Two-row counter-scrolling logo cards */}
-        <div style={{ opacity: enterP }} className="w-full space-y-3 md:space-y-4">
+        {/* ── MOBILE: 3-row fast marquee with small logos ── */}
+        <div style={{ opacity: enterP }} className="md:hidden w-full space-y-3">
+          {[
+            { logos: MOBILE_ROW1, anim: "partner-scroll-left", speed: "18s" },
+            { logos: MOBILE_ROW2, anim: "partner-scroll-right", speed: "16s" },
+            { logos: MOBILE_ROW3, anim: "partner-scroll-left", speed: "20s" },
+          ].map((row, ri) => (
+            <div key={ri} className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+              <div className="flex" style={{ animation: `${row.anim} ${row.speed} linear infinite`, willChange: "transform" }}>
+                {[0, 1, 2].map((set) => (
+                  <div key={set} className="flex items-center gap-2 shrink-0 pr-2" aria-hidden={set > 0 ? true : undefined}>
+                    {row.logos.map((logo) => (
+                      <div
+                        key={logo.label + set}
+                        className="flex items-center justify-center shrink-0 rounded-lg border border-border/30 bg-card/50 w-[100px] h-[50px]"
+                      >
+                        <img
+                          src={logo.src}
+                          alt={logo.label}
+                          title={logo.label}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-[26px] w-auto max-w-[75px] object-contain"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── DESKTOP: 2-row counter-scrolling logo cards ── */}
+        <div style={{ opacity: enterP }} className="hidden md:block w-full space-y-4">
           {/* Row 1 - scrolls left */}
           <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
             <div className="flex" style={{ animation: "partner-scroll-left 40s linear infinite", willChange: "transform" }}>
               {[0, 1].map((set) => (
-                <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
+                <div key={set} className="flex items-center gap-4 shrink-0 pr-4" aria-hidden={set === 1 ? true : undefined}>
                   {ROW1.map((logo) => (
                     <LogoCard key={logo.label + set} logo={logo} set={set} />
                   ))}
@@ -131,7 +167,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
           <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
             <div className="flex" style={{ animation: "partner-scroll-right 38s linear infinite", willChange: "transform" }}>
               {[0, 1].map((set) => (
-                <div key={set} className="flex items-center gap-3 md:gap-4 shrink-0 pr-3 md:pr-4" aria-hidden={set === 1 ? true : undefined}>
+                <div key={set} className="flex items-center gap-4 shrink-0 pr-4" aria-hidden={set === 1 ? true : undefined}>
                   {ROW2.map((logo) => (
                     <LogoCard key={logo.label + set} logo={logo} set={set} />
                   ))}

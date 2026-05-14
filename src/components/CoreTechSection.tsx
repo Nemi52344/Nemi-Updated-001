@@ -70,20 +70,20 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
   return (
     <>
       <div
-        className="fixed inset-0 pointer-events-none flex flex-col justify-center"
-        style={{ zIndex: 25, padding: "8vh 6vw 3vh" }}
+        className="fixed inset-0 pointer-events-none flex flex-col justify-center pt-[50px] md:pt-0"
+        style={{ zIndex: 25, padding: "4vh 4vw 2vh" }}
       >
 
         {/* ── HEADLINE ── */}
         <div style={{ opacity: headOpacity, transform: `translateY(${(1 - headEnterP) * 18}px)` }}>
           <h2
-            className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.05] mb-2"
+            className="text-2xl md:text-5xl font-bold tracking-tight leading-[1.05] mb-2"
             style={{ letterSpacing: "-0.02em" }}
           >
             Hardware is Hard.
           </h2>
           <p
-            className="text-base text-muted-foreground leading-relaxed whitespace-nowrap"
+            className="text-sm md:text-base text-muted-foreground leading-relaxed md:whitespace-nowrap"
             style={{ opacity: bodyOpacity }}
           >
             Manufacturing today is fragmented across disconnected tools, suppliers, and workflows causing every production cycle to restart from zero.
@@ -92,8 +92,8 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
 
         {/* ── CARDS ── */}
         <div
-          className="grid grid-cols-3 gap-4 pointer-events-auto"
-          style={{ margin: "2.5vh 0" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 pointer-events-auto"
+          style={{ margin: "1.5vh 0" }}
         >
           {PHASES.map((ph, i) => {
             const p       = panelPs[i];
@@ -113,7 +113,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
                 }}
               >
                 {/* Image */}
-                <div className="relative overflow-hidden" style={{ height: "180px", background: "hsl(220 20% 6%)" }}>
+                <div className="relative overflow-hidden h-[75px] md:h-[180px]" style={{ background: "hsl(220 20% 6%)" }}>
                   <img
                     src={ph.image}
                     alt={ph.imageAlt}
@@ -129,9 +129,9 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
                 </div>
 
                 {/* Card body */}
-                <div className="flex flex-col px-5 pb-4 pt-3 gap-2">
+                <div className="flex flex-col px-3 pb-3 pt-2 gap-1 md:px-5 md:pb-4 md:pt-3 md:gap-2">
                   <span
-                    className="text-base md:text-lg tracking-[0.18em] uppercase font-semibold"
+                    className="text-xs md:text-lg tracking-[0.18em] uppercase font-semibold"
                     style={{
                       color: `hsl(${ph.color})`,
                       letterSpacing: "0.18em",
@@ -142,7 +142,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
                   </span>
                   <div className="h-px" style={{ background: `hsl(${ph.color} / 0.12)` }} />
                   <p
-                    className="text-lg md:text-xl font-medium leading-snug"
+                    className="text-xs md:text-xl font-medium leading-snug"
                     style={{ letterSpacing: "-0.01em", color: "hsl(0 0% 92%)" }}
                   >
                     {ph.desc}
@@ -154,11 +154,11 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
         </div>
 
         {/* ── INSIGHTS - three individual violet boxes, titles only ── */}
-        <div className="grid grid-cols-3 gap-4" style={{ opacity: bodyOpacity }}>
+        <div className="hidden md:grid grid-cols-3 gap-4" style={{ opacity: bodyOpacity }}>
           {PHASES.map((ph) => (
             <div
               key={ph.insightTitle}
-              className="rounded-2xl border px-5 py-4 flex items-center justify-center text-center"
+              className="rounded-2xl border px-3 py-2 md:px-5 md:py-4 flex items-center justify-center text-center"
               style={{
                 borderColor: "hsl(275 70% 55% / 0.35)",
                 background: "linear-gradient(135deg, hsl(275 70% 50% / 0.10), hsl(275 20% 8% / 0.6))",
@@ -166,7 +166,7 @@ const CoreTechSection = ({ scrollProgress }: CoreTechSectionProps) => {
               }}
             >
               <span
-                className="text-[11px] md:text-[13px] font-bold tracking-tight whitespace-nowrap"
+                className="text-[9px] md:text-[13px] font-bold tracking-tight whitespace-nowrap"
                 style={{
                   color: "hsl(275 80% 75%)",
                   textShadow: "0 0 18px hsl(275 80% 60% / 0.35)",

@@ -98,7 +98,7 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
       <div className="relative w-full max-w-[1300px] mx-auto px-4 md:px-8">
         {/* Header */}
         <div
-          className="text-center mb-6"
+          className="text-center mb-2 md:mb-6"
           style={{ opacity: headP, transform: `translateY(${(1 - headP) * 14}px)` }}
         >
           <p
@@ -108,7 +108,7 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
             Business Model
           </p>
           <h2
-            className="text-2xl md:text-3xl lg:text-4xl font-bold"
+            className="text-base md:text-3xl lg:text-4xl font-bold"
             style={{
               letterSpacing: "-0.02em",
               color: "hsl(0 0% 98%)",
@@ -118,15 +118,50 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
             Four Revenue Streams
           </h2>
           <p
-            className="text-sm mt-1.5 tracking-wide"
+            className="text-[10px] md:text-sm mt-1 md:mt-1.5 tracking-wide"
             style={{ color: "hsl(275 40% 75% / 0.6)" }}
           >
             Four reinforcing streams, each compounding the next.
           </p>
         </div>
 
-        {/* Four streams — 2×2 grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+        {/* Four streams — mobile: slim stacked cards, desktop: 2×2 grid */}
+        {/* Mobile */}
+        <div className="flex flex-col gap-2.5 md:hidden">
+          {STREAMS.map((s, i) => {
+            const p = cardP(i);
+            return (
+              <div
+                key={s.title}
+                className="rounded-xl border px-3 py-3 flex items-start gap-3"
+                style={{
+                  opacity: p,
+                  transform: `translateY(${(1 - p) * 12}px)`,
+                  borderColor: `hsl(275 70% 60% / ${s.alpha + 0.12})`,
+                  background: `linear-gradient(135deg, hsl(275 70% 50% / ${s.alpha}) 0%, hsl(270 60% 15% / 0.4) 100%)`,
+                }}
+              >
+                <span
+                  className="text-lg font-black leading-none mt-0.5 shrink-0"
+                  style={{ color: "hsl(275 70% 65% / 0.35)", fontVariantNumeric: "tabular-nums" }}
+                >
+                  {s.num}
+                </span>
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-wide leading-tight" style={{ color: "hsl(0 0% 97%)" }}>
+                    {s.title}
+                  </h3>
+                  <p className="text-xs mt-1 leading-snug" style={{ color: "hsl(275 30% 85% / 0.7)" }}>
+                    {s.bullets[0]}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Desktop */}
+        <div className="hidden md:grid grid-cols-2 gap-4">
           {STREAMS.map((s, i) => {
             const p = cardP(i);
             return (
@@ -141,7 +176,6 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
                   backdropFilter: "blur(4px)",
                 }}
               >
-                {/* Number + Title */}
                 <div className="flex items-start gap-3">
                   <span
                     className="text-2xl font-black leading-none mt-0.5 flex-shrink-0"
@@ -150,33 +184,18 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
                     {s.num}
                   </span>
                   <div className="flex flex-col gap-0.5">
-                    <h3
-                      className="text-sm md:text-base font-bold uppercase tracking-wide leading-tight"
-                      style={{ color: "hsl(0 0% 97%)" }}
-                    >
+                    <h3 className="text-base font-bold uppercase tracking-wide leading-tight" style={{ color: "hsl(0 0% 97%)" }}>
                       {s.title}
                     </h3>
-                    <p
-                      className="text-[11px] tracking-wide"
-                      style={{ color: "hsl(275 50% 75% / 0.55)" }}
-                    >
+                    <p className="text-[11px] tracking-wide" style={{ color: "hsl(275 50% 75% / 0.55)" }}>
                       {s.subtitle}
                     </p>
                   </div>
                 </div>
-
-                {/* Bullets */}
                 <ul className="flex flex-col gap-1.5">
                   {s.bullets.map((b) => (
-                    <li
-                      key={b}
-                      className="flex items-start gap-2 text-sm leading-relaxed"
-                      style={{ color: "hsl(275 30% 85% / 0.8)" }}
-                    >
-                      <span
-                        className="inline-block mt-[5px] w-1 h-1 rounded-full flex-shrink-0"
-                        style={{ background: "hsl(275 70% 70%)" }}
-                      />
+                    <li key={b} className="flex items-start gap-2 text-sm leading-relaxed" style={{ color: "hsl(275 30% 85% / 0.8)" }}>
+                      <span className="inline-block mt-[5px] w-1 h-1 rounded-full flex-shrink-0" style={{ background: "hsl(275 70% 70%)" }} />
                       {b}
                     </li>
                   ))}
@@ -188,7 +207,7 @@ const DualRevenueSection = ({ scrollProgress }: DualRevenueSectionProps) => {
 
         {/* Bottom caption */}
         <p
-          className="text-center text-[11px] tracking-[0.3em] uppercase mt-4"
+          className="text-center text-[7px] md:text-[11px] tracking-[0.2em] md:tracking-[0.3em] uppercase mt-2 md:mt-4"
           style={{ color: "hsl(275 40% 70% / 0.4)", opacity: enterP }}
         >
           Internal use ⟷ External deployment · Each stream compounds the other

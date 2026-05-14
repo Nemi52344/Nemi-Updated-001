@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Index from "@/views/Index";
+import StreamlinedHome from "@/views/StreamlinedHome";
 
 export const metadata: Metadata = {
   title: "NEMI AI, End-to-End Physical AI Platform for Manufacturing",
@@ -198,7 +198,7 @@ export default function HomePage() {
         </main>
       </div>
 
-      <Index />
+      <StreamlinedHome />
     </>
   );
 }

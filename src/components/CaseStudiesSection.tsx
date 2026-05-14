@@ -84,11 +84,11 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
       <div className="w-full max-w-[1380px] mx-auto px-4 md:px-8" style={{ transform: "translateY(30px)" }}>
         {/* Header */}
         <div
-          className="text-center mb-4 md:mb-5"
+          className="text-center mb-2 md:mb-5"
           style={{ opacity: headP, transform: `translateY(${(1 - headP) * 14}px)` }}
         >
           <h2
-            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight"
+            className="text-xl md:text-4xl lg:text-5xl font-bold tracking-tight"
             style={{
               letterSpacing: "-0.02em",
               textShadow: "0 0 40px hsl(275 80% 60% / 0.3), 0 0 80px hsl(270 70% 50% / 0.15)",
@@ -96,13 +96,65 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
           >
             Real Outcomes. Powered by NEMI.
           </h2>
-          <p className="text-base text-muted-foreground mt-2 tracking-wide">
+          <p className="text-xs md:text-base text-muted-foreground mt-1 md:mt-2 tracking-wide">
             Real-world manufacturing programs accelerated through NEMI's LMM.
           </p>
         </div>
 
-        {/* 3-card grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+        {/* ── MOBILE: horizontal card layout ── */}
+        <div className="md:hidden flex flex-col gap-3">
+          {CASE_STUDIES.map((cs, i) => {
+            const p = cardP(i);
+            return (
+              <article
+                key={cs.title}
+                className="rounded-xl overflow-hidden border flex flex-row"
+                style={{
+                  opacity: p,
+                  transform: `translateY(${(1 - p) * 18}px)`,
+                  borderColor: "hsl(275 40% 50% / 0.18)",
+                  background: "hsl(220 20% 6% / 0.6)",
+                }}
+              >
+                <div className="relative w-[110px] shrink-0 overflow-hidden" style={{ background: "hsl(220 20% 5%)" }}>
+                  <img
+                    src={cs.image}
+                    alt={cs.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ filter: "brightness(0.92) saturate(0.95)" }}
+                  />
+                </div>
+                <div className="px-3 py-2.5 flex flex-col gap-1 flex-1">
+                  <h3
+                    className="text-xs font-extrabold tracking-tight uppercase leading-tight"
+                    style={{ letterSpacing: "-0.01em" }}
+                  >
+                    {cs.title}
+                  </h3>
+                  <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">
+                    {cs.context}
+                  </p>
+                  <div className="mt-auto pt-1 border-t" style={{ borderColor: "hsl(0 0% 100% / 0.10)" }}>
+                    <div className="flex flex-col gap-0.5">
+                      {cs.metrics.map((m) => (
+                        <div key={m.label} className="flex items-center justify-between">
+                          <span className="flex-1 text-[10px] text-foreground/85 font-medium">{m.label}</span>
+                          <span className="w-12 text-right text-[10px] line-through whitespace-nowrap" style={{ color: "hsl(0 0% 50%)" }}>{m.before}</span>
+                          <span className="w-14 text-right text-[11px] font-bold whitespace-nowrap" style={{ color: "hsl(275 75% 75%)" }}>{m.after}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {/* ── DESKTOP: 3-card grid ── */}
+        <div className="hidden md:grid grid-cols-3 gap-4">
           {CASE_STUDIES.map((cs, i) => {
             const p = cardP(i);
             return (
@@ -116,8 +168,7 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
                   background: "hsl(220 20% 6% / 0.6)",
                 }}
               >
-                {/* Image on top */}
-                <div className="relative w-full overflow-hidden" style={{ height: "110px", background: "hsl(220 20% 5%)" }}>
+                <div className="relative w-full overflow-hidden h-[110px]" style={{ background: "hsl(220 20% 5%)" }}>
                   <img
                     src={cs.image}
                     alt={cs.imageAlt}
@@ -131,49 +182,13 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
                     style={{ background: "linear-gradient(to bottom, transparent 60%, hsl(220 20% 6%) 100%)" }}
                   />
                 </div>
-
-                {/* Content below */}
                 <div className="px-4 py-3 flex flex-col gap-2.5 flex-1">
-                  {/* Card title — largest, bold */}
-                  <h3
-                    className="text-sm md:text-base font-extrabold tracking-tight uppercase leading-tight"
-                    style={{ letterSpacing: "-0.01em" }}
-                  >
-                    {cs.title}
-                  </h3>
-
-                  {/* Context */}
-                  <div>
-                    <p className="text-[10px] tracking-[0.22em] uppercase font-bold mb-1" style={{ color: "hsl(275 70% 70%)" }}>
-                      Context
-                    </p>
-                    <p className="text-[13px] text-muted-foreground leading-snug line-clamp-2 min-h-[2.4em]">
-                      {cs.context}
-                    </p>
-                  </div>
-
-                  {/* Outcome */}
-                  <div>
-                    <p className="text-[10px] tracking-[0.22em] uppercase font-bold mb-1" style={{ color: "hsl(275 70% 70%)" }}>
-                      Outcome
-                    </p>
-                    <p className="text-[13px] text-muted-foreground leading-snug line-clamp-2 min-h-[2.4em]">
-                      {cs.outcome}
-                    </p>
-                  </div>
-
-                  {/* Key metrics table - pinned to bottom */}
+                  <h3 className="text-base font-extrabold tracking-tight uppercase leading-tight" style={{ letterSpacing: "-0.01em" }}>{cs.title}</h3>
+                  <p className="text-[10px] tracking-[0.22em] uppercase font-bold" style={{ color: "hsl(275 70% 70%)" }}>Context</p>
+                  <p className="text-[13px] text-muted-foreground leading-snug line-clamp-1">{cs.context}</p>
+                  <p className="text-[10px] tracking-[0.22em] uppercase font-bold" style={{ color: "hsl(275 70% 70%)" }}>Outcome</p>
+                  <p className="text-[13px] text-muted-foreground leading-snug line-clamp-2">{cs.outcome}</p>
                   <div className="mt-auto pt-3 border-t" style={{ borderColor: "hsl(0 0% 100% / 0.10)" }}>
-                    <p className="text-[10px] tracking-[0.22em] uppercase font-bold mb-2" style={{ color: "hsl(275 70% 70%)" }}>
-                      Key Metrics
-                    </p>
-                    {/* Column headers */}
-                    <div className="flex items-center justify-between text-[9px] tracking-[0.18em] uppercase mb-2 font-semibold" style={{ color: "hsl(0 0% 45%)" }}>
-                      <span className="flex-1">Metric</span>
-                      <span className="w-16 text-right">Before</span>
-                      <span className="w-16 text-right" style={{ color: "hsl(275 70% 60%)" }}>After</span>
-                    </div>
-                    {/* Rows */}
                     <div className="flex flex-col gap-1.5">
                       {cs.metrics.map((m) => (
                         <div key={m.label} className="flex items-center justify-between">
@@ -192,7 +207,7 @@ const CaseStudiesSection = ({ scrollProgress }: CaseStudiesSectionProps) => {
 
         {/* Footer note */}
         <p
-          className="text-center text-[11px] md:text-[12px] tracking-[0.25em] uppercase mt-3"
+          className="text-center hidden md:block text-[12px] tracking-[0.25em] uppercase mt-3"
           style={{ color: "hsl(0 0% 100% / 0.35)", opacity: enterP }}
         >
           Customer names withheld under NDA · References available on request

@@ -56,17 +56,17 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
       />
 
       <div
-        className="relative z-[2] w-full max-w-7xl mx-auto px-[7.5rem] pt-16 pb-10 pointer-events-auto"
+        className="relative z-[2] w-full max-w-7xl mx-auto px-3 md:px-12 lg:px-[7.5rem] pt-6 md:pt-16 pb-2 md:pb-10 pointer-events-auto"
         style={{
           opacity: enterP,
           transform: `translateY(${(1 - enterP) * 24}px)`,
         }}
       >
         {/* Header */}
-        <div className="mb-4 md:mb-6">
+        <div className="mb-2 md:mb-6">
           <h2
             id="why-now-section-heading"
-            className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight mb-2"
+            className="text-base md:text-2xl lg:text-3xl font-extrabold tracking-tight mb-1 md:mb-2"
             style={{
               textShadow: "0 0 30px hsl(275 80% 60% / 0.35), 0 0 60px hsl(270 70% 50% / 0.15)",
               ...headingAnim,
@@ -82,20 +82,123 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-6 lg:gap-10 items-center">
+        {/* ── MOBILE LAYOUT ── */}
+        <div className="md:hidden flex flex-col items-center gap-2.5">
+          {/* Centered Venn diagram */}
+          <div
+            className="relative w-[200px] h-[175px]"
+            role="img"
+            aria-label="Three converging forces: Sovereign Manufacturing, Physical AI, and High ROI Automation"
+            style={circle1Anim}
+          >
+            <div
+              className="absolute rounded-full flex items-start justify-center text-center px-3 pt-6 w-[115px] h-[115px]"
+              style={{
+                top: "0", left: "50%", marginLeft: "-57px",
+                background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
+                border: "1px solid hsl(275 80% 65% / 0.35)",
+              }}
+            >
+              <p className="text-[8px] font-bold text-foreground leading-tight">Sovereign<br />Manufacturing</p>
+            </div>
+            <div
+              className="absolute rounded-full flex items-center justify-start text-left pl-2.5 w-[115px] h-[115px]"
+              style={{
+                bottom: "0", left: "0",
+                background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
+                border: "1px solid hsl(275 80% 65% / 0.35)",
+              }}
+            >
+              <p className="text-[8px] font-bold text-foreground leading-tight">Physical<br />AI</p>
+            </div>
+            <div
+              className="absolute rounded-full flex items-center justify-end text-right pr-2.5 w-[115px] h-[115px]"
+              style={{
+                bottom: "0", right: "0",
+                background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
+                border: "1px solid hsl(275 80% 65% / 0.35)",
+              }}
+            >
+              <p className="text-[8px] font-bold text-foreground leading-tight">High ROI<br />Automation</p>
+            </div>
+          </div>
+
+          {/* Window + bullets */}
+          <div className="w-full" style={windowAnim}>
+            <h3 className="text-xs font-bold text-foreground mb-1 flex items-baseline gap-1.5">
+              <span className="text-primary text-sm">24–48 mo</span>
+              <span>window</span>
+            </h3>
+            <ul className="text-[9px] text-muted-foreground space-y-1 list-none pl-0">
+              <li className="flex gap-1.5 items-start" style={bullet1Anim}>
+                <span className="text-primary mt-0.5 shrink-0">•</span>
+                <span>Physical AI reaches massive commercial deployment</span>
+              </li>
+              <li className="flex gap-1.5 items-start" style={bullet2Anim}>
+                <span className="text-primary mt-0.5 shrink-0">•</span>
+                <span>Reshoring driven by geopolitics reframes manufacturing</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Cards stacked */}
+          <div
+            className="w-full rounded-lg px-3 py-2"
+            style={{
+              background: "hsl(230 20% 8% / 0.5)",
+              borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
+              ...card1Anim,
+            }}
+          >
+            <p className="text-[11px] font-semibold text-foreground leading-snug">
+              Industrial infrastructure transitions create generational market leaders.
+            </p>
+          </div>
+
+          <div
+            className="w-full rounded-lg px-3 py-2"
+            style={{
+              background: "hsl(230 20% 8% / 0.5)",
+              borderLeft: "3px solid hsl(275 80% 55% / 0.5)",
+              ...card2Anim,
+            }}
+          >
+            <p className="text-[11px] font-semibold text-foreground leading-snug">
+              The first platforms to compound manufacturing intelligence become the default infrastructure layer.
+            </p>
+          </div>
+
+          <div
+            className="w-full rounded-lg px-3 py-2"
+            style={{
+              background: "linear-gradient(135deg, hsl(275 80% 40% / 0.18), hsl(260 70% 30% / 0.12))",
+              border: "1px solid hsl(275 80% 55% / 0.3)",
+              ...card3Anim,
+            }}
+          >
+            <p className="text-[11px] font-bold text-foreground">
+              NEMI is building the infrastructure to win this shift.
+            </p>
+          </div>
+
+          <p className="text-[6px] text-muted-foreground/50 italic self-start" style={sourceAnim}>
+            Source: McKinsey Global Institute, 2025.
+          </p>
+        </div>
+
+        {/* ── DESKTOP LAYOUT ── */}
+        <div className="hidden md:grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-6 lg:gap-10 items-center">
           {/* Venn diagram */}
           <div className="flex justify-center items-center">
             <div
-              className="relative"
-              style={{ width: "100%", maxWidth: "400px", height: "360px" }}
+              className="relative w-full max-w-[400px] h-[360px]"
               role="img"
               aria-label="Three converging forces: Sovereign Manufacturing, Physical AI, and High ROI Automation"
             >
               {/* Top circle */}
               <div
-                className="absolute rounded-full flex items-start justify-center text-center px-6 pt-12"
+                className="absolute rounded-full flex items-start justify-center text-center px-6 pt-12 w-[230px] h-[230px]"
                 style={{
-                  width: "230px", height: "230px",
                   top: "0", left: "50%", marginLeft: "-115px",
                   background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
                   border: "1px solid hsl(275 80% 65% / 0.35)",
@@ -111,9 +214,8 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
 
               {/* Bottom-left circle */}
               <div
-                className="absolute rounded-full flex items-center justify-start text-left pl-5 pr-3"
+                className="absolute rounded-full flex items-center justify-start text-left pl-5 pr-3 w-[230px] h-[230px]"
                 style={{
-                  width: "230px", height: "230px",
                   bottom: "0", left: "0",
                   background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
                   border: "1px solid hsl(275 80% 65% / 0.35)",
@@ -129,9 +231,8 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
 
               {/* Bottom-right circle */}
               <div
-                className="absolute rounded-full flex items-center justify-end text-right pr-5 pl-3"
+                className="absolute rounded-full flex items-center justify-end text-right pr-5 pl-3 w-[230px] h-[230px]"
                 style={{
-                  width: "230px", height: "230px",
                   bottom: "0", right: "0",
                   background: "linear-gradient(135deg, hsl(275 80% 22% / 0.85) 0%, hsl(275 80% 60% / 0.55) 100%)",
                   border: "1px solid hsl(275 80% 65% / 0.35)",
@@ -151,11 +252,11 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
           <div className="flex flex-col gap-3">
             {/* Window heading */}
             <div style={windowAnim}>
-              <h3 className="text-sm md:text-base font-bold text-foreground mb-2 flex items-baseline gap-2">
-                <span className="text-primary text-lg md:text-xl">24–48 mo</span>
+              <h3 className="text-base font-bold text-foreground mb-2 flex items-baseline gap-2">
+                <span className="text-primary text-xl">24–48 mo</span>
                 <span>window</span>
               </h3>
-              <ul className="text-xs md:text-sm text-muted-foreground space-y-2 list-none pl-0">
+              <ul className="text-sm text-muted-foreground space-y-2 list-none pl-0">
                 <li className="flex gap-3 items-start" style={bullet1Anim}>
                   <span className="text-primary mt-1.5 shrink-0">•</span>
                   <span>Physical AI reaches massive commercial deployment</span>
@@ -175,7 +276,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                 ...card1Anim,
               }}
             >
-              <p className="text-xs md:text-sm font-semibold text-foreground leading-snug">
+              <p className="text-sm font-semibold text-foreground leading-snug">
                 Industrial infrastructure transitions create generational market leaders.
               </p>
               <p className="text-xs text-muted-foreground mt-1">e.g., previously the rise of IT, TPS</p>
@@ -189,7 +290,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                 ...card2Anim,
               }}
             >
-              <p className="text-xs md:text-sm font-semibold text-foreground leading-snug">
+              <p className="text-sm font-semibold text-foreground leading-snug">
                 The first platforms to compound manufacturing intelligence become the default infrastructure layer
               </p>
               <p className="text-xs text-muted-foreground mt-1">They become the default.</p>
@@ -204,7 +305,7 @@ const WhyNowSection = ({ scrollProgress }: WhyNowSectionProps) => {
                 ...card3Anim,
               }}
             >
-              <p className="text-xs md:text-sm font-bold text-foreground">
+              <p className="text-sm font-bold text-foreground">
                 NEMI is building the infrastructure to win this shift.
               </p>
             </div>

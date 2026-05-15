@@ -14,10 +14,10 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const values = [
-  { title: "Team Player", body: "We make parts, run machines, and learn in the real world, not just simulations." },
-  { title: "Capital Discipline", body: "We build more with less. The 10× cost advantage is a culture, not just a metric." },
-  { title: "End-to-End Thinking", body: "From design intent to deployed product, we own the full loop, not just tasks." },
-  { title: "Data First", body: "Ground-truth manufacturing data drives our AI, not assumptions." },
+  { title: "First Principles", body: "Build as if nothing exists. We don't inherit decisions from competitors. We start from the truth and rebuild from there." },
+  { title: "Ownership", body: "Every employee is an owner. Stock options for all, and ideas welcome from anywhere, beyond your domain or title." },
+  { title: "Highest Standards", body: "Raise the bar. Ship products that delight customers and prevent mistakes so the same one never costs us twice." },
+  { title: "Build Trust", body: "Lead with empathy, listen attentively, speak candidly. Safe, honest teams move faster and go further." },
 ];
 
 interface Job {
@@ -41,6 +41,73 @@ const Careers = () => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showApplyForm, setShowApplyForm] = useState(false);
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [dropState, setDropState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [dropFileName, setDropFileName] = useState<string>("");
+  const [dropFileSize, setDropFileSize] = useState<number>(0);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [pickedFile, setPickedFile] = useState<File | null>(null);
+
+  const handleFilePick = (file: File | null) => {
+    if (!file) {
+      setPickedFile(null);
+      setDropFileName("");
+      setDropFileSize(0);
+      return;
+    }
+    setPickedFile(file);
+    setDropFileName(file.name);
+    setDropFileSize(file.size);
+  };
+
+  const formatBytes = (b: number) => {
+    if (b < 1024) return `${b} B`;
+    if (b < 1024 * 1024) return `${(b / 1024).toFixed(1)} KB`;
+    return `${(b / 1024 / 1024).toFixed(2)} MB`;
+  };
+
+  const ROUTING_CHIPS = [
+    "Engineering",
+    "AI / ML Research",
+    "Manufacturing",
+    "Operations",
+    "Business Development",
+    "Design",
+  ];
+
+  const handleResumeDrop = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setDropState("submitting");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const resumeFile = pickedFile || (data.get("resume") as File | null);
+    try {
+      if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
+      const safeName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const filePath = `${Date.now()}_${safeName}`;
+      const { error: uploadErr } = await supabase.storage.from("resumes").upload(filePath, resumeFile, { contentType: resumeFile.type, upsert: false });
+      if (uploadErr) throw uploadErr;
+      const { error: insertErr } = await supabase.from("applications").insert({
+        role: "General Application",
+        department: "AI Screening",
+        full_name: data.get("fullName") as string,
+        email: data.get("email") as string,
+        phone: (data.get("phone") as string) || null,
+        location: null,
+        experience: null,
+        linkedin: null,
+        portfolio: null,
+        cover_letter: null,
+        resume_path: filePath,
+      });
+      if (insertErr) throw insertErr;
+      setDropState("success");
+      form.reset();
+      handleFilePick(null);
+    } catch (err) {
+      console.error("Resume drop error:", err);
+      setDropState("error");
+    }
+  };
 
   const closeModal = () => {
     setSelectedJob(null);
@@ -195,37 +262,102 @@ const Careers = () => {
           className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
           style={{ opacity: posOp }}
         >
-          <div className="max-w-6xl w-full mx-auto pt-20" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
-            <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-3" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-              Open Positions
-            </p>
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-2">
-              Shape the Future
-            </h2>
-            <p className="text-xs md:text-sm text-muted-foreground tracking-wide mb-6 max-w-2xl">
-              Submit your resume for an open role below, or send it our way for future opportunities.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/30">
-              {jobs.map((job, i) => {
-                const cardP = easeOut(Math.min(Math.max((posEnter - i * 0.07) / 0.5, 0), 1));
-                return (
-                <button
-                  key={job.title}
-                  type="button"
-                  onClick={() => setSelectedJob(job)}
-                  className="bg-background p-4 md:p-5 w-full text-left cursor-pointer transition-colors duration-200 hover:bg-card/80 group"
-                  style={{ opacity: cardP, transform: `translateY(${(1 - cardP) * 24}px)` }}
-                >
-                  <p className="font-bold text-[0.55rem] tracking-[0.15em] uppercase text-primary mb-1.5">{job.dept}</p>
-                  <h3 className="font-bold text-xs md:text-sm tracking-[0.05em] uppercase text-foreground mb-1.5">{job.title}</h3>
-                  <p className="text-[11px] text-muted-foreground mb-3">{job.meta}</p>
-                  <span className="inline-flex items-center gap-1 text-[0.6rem] font-bold tracking-[0.18em] uppercase text-primary group-hover:gap-2 transition-all">
-                    View Role <span aria-hidden="true">&rarr;</span>
-                  </span>
-                </button>
-                );
-              })}
+          <div className="max-w-2xl w-full mx-auto pt-20" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
+            <div className="text-center mb-8">
+              <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-3" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
+                Apply Now
+              </p>
+              <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-3">
+                Drop Your Resume
+              </h2>
+              <p className="text-xs md:text-sm text-muted-foreground tracking-wide max-w-xl mx-auto leading-relaxed">
+                Join the team building Physical AI for manufacturing. We review every resume and reach out when there's a fit.
+              </p>
             </div>
+
+            {dropState !== "success" ? (
+              <form
+                onSubmit={handleResumeDrop}
+                className="rounded-2xl p-6 md:p-8 space-y-4"
+                style={{
+                  background: "linear-gradient(145deg, hsl(230 20% 10% / 0.9), hsl(230 25% 6% / 0.9))",
+                  border: "1px solid hsl(275 80% 55% / 0.25)",
+                  boxShadow: "0 0 40px hsl(275 80% 55% / 0.10), 0 20px 40px hsl(230 25% 4% / 0.4)",
+                }}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Full Name *</label>
+                    <input required name="fullName" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  </div>
+                  <div>
+                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Email *</label>
+                    <input required name="email" type="email" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Phone</label>
+                  <input name="phone" type="tel" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                </div>
+                <div>
+                  <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Resume * (PDF or DOC, max 5MB)</label>
+                  <label
+                    className="flex items-center gap-3 rounded-md border border-dashed border-border/50 px-4 py-5 cursor-pointer transition-all duration-200 hover:border-primary/60 hover:bg-primary/5"
+                    style={{ background: "hsl(0 0% 100% / 0.02)" }}
+                  >
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="hsl(275 70% 70%)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span className="text-xs md:text-sm flex-1" style={{ color: dropFileName ? "hsl(0 0% 90%)" : "hsl(0 0% 55%)" }}>
+                      {dropFileName || "Click to upload your resume"}
+                    </span>
+                    <input
+                      required
+                      name="resume"
+                      type="file"
+                      accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                      className="hidden"
+                      onChange={(e) => handleFilePick(e.target.files?.[0] || null)}
+                    />
+                  </label>
+                </div>
+                {dropState === "error" && (
+                  <p className="text-xs text-red-400">Something went wrong. Please email info@nemi-ai.com directly.</p>
+                )}
+                <button
+                  type="submit"
+                  disabled={dropState === "submitting"}
+                  className="w-full font-bold text-xs tracking-[0.2em] uppercase px-6 py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] text-primary-foreground disabled:opacity-60 disabled:cursor-not-allowed"
+                  style={{ background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))", boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)" }}
+                >
+                  {dropState === "submitting" ? "Submitting…" : "Submit Resume"}
+                </button>
+                <p className="text-[11px] text-muted-foreground text-center pt-1">
+                  Or send your resume to{" "}
+                  <a href="mailto:careers@nemi-ai.com" className="text-primary hover:text-primary/80 transition-colors font-semibold">
+                    careers@nemi-ai.com
+                  </a>
+                </p>
+              </form>
+            ) : (
+              <div
+                className="rounded-2xl p-8 text-center"
+                style={{
+                  background: "linear-gradient(145deg, hsl(230 20% 10% / 0.9), hsl(230 25% 6% / 0.9))",
+                  border: "1px solid hsl(275 80% 55% / 0.25)",
+                }}
+              >
+                <h4 className="text-lg font-bold text-foreground mb-2">Resume received.</h4>
+                <p className="text-sm text-muted-foreground mb-6">Our AI will screen it and route it to the right team. We&apos;ll be in touch at the email you provided.</p>
+                <button
+                  type="button"
+                  onClick={() => setDropState("idle")}
+                  className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-lg border border-border/40 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Submit Another
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -11,9 +11,9 @@ import industryAutomotive from "@/assets/industry-automotive.webp";
 import industryElectronics from "@/assets/industry-electronics.webp";
 import industryRobotics from "@/assets/industry-robotics.webp";
 
-const akio = "hsl(0, 72%, 52%)";
-const henry = "hsl(217, 91%, 60%)";
-const sam = "hsl(142, 71%, 45%)";
+const akio = "hsl(275, 80%, 65%)";
+const henry = "hsl(275, 80%, 65%)";
+const sam = "hsl(275, 80%, 65%)";
 
 const rangeProgress = (scroll: number, start: number, end: number) =>
   Math.min(Math.max((scroll - start) / (end - start), 0), 1);
@@ -155,7 +155,6 @@ const Services = () => {
               <span style={{ color: henry }}>Quality</span>
               <span className="text-muted-foreground/50">{" · "}</span>
               <span style={{ color: sam }}>Speed</span>
-              <span className="text-foreground">.</span>
             </p>
             <p className="text-muted-foreground text-sm md:text-base lg:text-lg leading-[1.8] max-w-2xl mx-auto tracking-wide">
               <span className="text-foreground font-semibold">Cost unmatched. Quality par excellence. Speed never before seen.</span>{" "}
@@ -168,13 +167,15 @@ const Services = () => {
       {/* ── 2. SERVICES GRID ── */}
       {gridVisible && (
         <div
-          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
-          style={{ opacity: gridOp }}
+          className="fixed inset-0 z-[10] flex flex-col justify-center"
+          style={{ opacity: gridOp, paddingTop: "50px" }}
         >
-          <div className="max-w-6xl w-full mx-auto pt-20">
-            <div className="mb-6">
-              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Services</p>
-              <div style={{ height: 2, background: henry, width: "3rem" }} />
+          <div className="w-full mx-auto px-6 md:px-10 lg:px-14" style={{ maxWidth: "1600px" }}>
+            <div className="mb-4 md:mb-5">
+              <p className="font-bold text-sm md:text-base tracking-[0.35em] uppercase mb-2" style={{ color: henry, textShadow: `0 0 18px ${henry}55` }}>
+                Services
+              </p>
+              <div style={{ height: 2, background: henry, width: "4rem" }} />
             </div>
             <div
               className="services-card-grid border border-border"
@@ -223,7 +224,7 @@ const Services = () => {
           className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
           style={{ opacity: indOp }}
         >
-          <div className="max-w-6xl w-full mx-auto pt-20">
+          <div className="w-full mx-auto pt-16 px-6 md:px-10" style={{ maxWidth: "1600px" }}>
             <div className="mb-6">
               <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Industries Serviced</p>
               <div style={{ height: 2, background: henry, width: "3rem" }} />
@@ -233,7 +234,7 @@ const Services = () => {
                 Industries we serve
               </h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 w-full mx-auto" style={{ maxWidth: "1600px" }}>
               {industries.map((industry, i) => {
                 const cardP = easeOut(Math.min(Math.max((indEnter - i * 0.1) / 0.5, 0), 1));
                 return (
@@ -294,15 +295,12 @@ const Services = () => {
 
       {/* ── 4. CASE STUDY 1 ── */}
       {cs1Visible && (
-        <div
-          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
-          style={{ opacity: cs1Op }}
-        >
-          <div className="max-w-6xl w-full mx-auto pt-20">
-            <div className="mb-4">
-              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Study · 1 / 3</p>
-              <div style={{ height: 2, background: akio, width: "3rem" }} />
-            </div>
+        <div className="fixed inset-0 z-[10] flex flex-col justify-center" style={{ opacity: cs1Op, paddingTop: "29px" }}>
+          <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
+            <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Study · 1 / 3</p>
+            <div style={{ height: 2, background: akio, width: "3rem" }} />
+          </div>
+          <div className="w-full">
             <CaseStudy
               title="Electric Motorcycle for Africa"
               context="Ruggedised electric motorcycle design required for African road conditions and bike taxi use cases."
@@ -311,8 +309,8 @@ const Services = () => {
               imageSrc="/Images/Messenger.webp"
               imageAlt="Electric Motorcycle for Africa"
               metrics={[
-                { label: "Design time", before: "24 months", after: "9 months", barPercent: 37, color: akio },
-                { label: "Development cost", before: "Baseline", after: "1/10th", barPercent: 10, color: akio },
+                { label: "Design time", before: "24 months", beforeDetail: "Traditional CAD-to-production cycle", after: "9 months", afterDetail: "Concept to production-ready with NEMI", barPercent: 37, color: akio },
+                { label: "Development cost", before: "Baseline", beforeDetail: "Industry-standard tooling + supplier spend", after: "1/10th", afterDetail: "Integrated stack, no supply chain juggling", barPercent: 10, color: akio },
               ]}
             />
           </div>
@@ -321,26 +319,23 @@ const Services = () => {
 
       {/* ── 5. CASE STUDY 2 ── */}
       {cs2Visible && (
-        <div
-          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
-          style={{ opacity: cs2Op }}
-        >
-          <div className="max-w-6xl w-full mx-auto pt-20">
-            <div className="mb-4">
-              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Study · 2 / 3</p>
-              <div style={{ height: 2, background: henry, width: "3rem" }} />
-            </div>
+        <div className="fixed inset-0 z-[10] flex flex-col justify-center" style={{ opacity: cs2Op, paddingTop: "29px" }}>
+          <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
+            <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Study · 2 / 3</p>
+            <div style={{ height: 2, background: henry, width: "3rem" }} />
+          </div>
+          <div className="w-full">
             <CaseStudy
               title="Aerospace Machined Parts"
               context="Mass production of aluminium 6061-T651 machined parts with tight tolerances < 2 micron."
               outcome="Created fixturing and innovative methods to manufacture part in standard 3-axis instead of 5-axis."
               color={henry}
-              imageSrc="/Images/aerospace-manufacturing.webp"
+              imageSrc="/Images/Aerospace%20machined%20parts.png"
               imageAlt="Aerospace Machined Parts"
               imageFirst={false}
               metrics={[
-                { label: "Machining time", before: "9 hrs/part", after: "3 hrs/part", barPercent: 33, color: henry },
-                { label: "Cost reduction", before: "Baseline", after: ">50%", barPercent: 50, color: henry },
+                { label: "Machining time", before: "9 hrs/part", beforeDetail: "5-axis precision setup per part", after: "3 hrs/part", afterDetail: "Standard 3-axis with custom fixturing", barPercent: 33, color: henry },
+                { label: "Cost reduction", before: "Baseline", beforeDetail: "Industry-standard aerospace machining cost", after: ">50%", afterDetail: "Lower tooling + faster cycle time", barPercent: 50, color: henry },
               ]}
             />
           </div>
@@ -349,15 +344,12 @@ const Services = () => {
 
       {/* ── 6. CASE STUDY 3 ── */}
       {cs3Visible && (
-        <div
-          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
-          style={{ opacity: cs3Op }}
-        >
-          <div className="max-w-6xl w-full mx-auto pt-20">
-            <div className="mb-4">
-              <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Study · 3 / 3</p>
-              <div style={{ height: 2, background: henry, width: "3rem" }} />
-            </div>
+        <div className="fixed inset-0 z-[10] flex flex-col justify-center" style={{ opacity: cs3Op, paddingTop: "29px" }}>
+          <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
+            <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">Case Study · 3 / 3</p>
+            <div style={{ height: 2, background: henry, width: "3rem" }} />
+          </div>
+          <div className="w-full">
             <CaseStudy
               title="Complex Assembly Production"
               context="Mass production of automated coffee machine."
@@ -366,8 +358,8 @@ const Services = () => {
               imageSrc="/Images/COffee%20mfg.webp"
               imageAlt="Complex Assembly Production"
               metrics={[
-                { label: "Initial setup lead time", before: "Benchmark", after: "<6 weeks", barPercent: 40, color: henry },
-                { label: "Cost reduction", before: "Baseline", after: ">30%", barPercent: 70, color: henry },
+                { label: "Initial setup lead time", before: "Benchmark", beforeDetail: "Typical multi-supplier coordination cycle", after: "<6 weeks", afterDetail: "End-to-end NEMI setup with in-house tooling", barPercent: 40, color: henry },
+                { label: "Cost reduction", before: "Baseline", beforeDetail: "Traditional outsourced assembly cost", after: ">30%", afterDetail: "Vertically integrated machining + assembly", barPercent: 70, color: henry },
               ]}
             />
           </div>
@@ -377,46 +369,46 @@ const Services = () => {
       {/* ── 7. CTA + FOOTER ── */}
       {ctaVisible && (
         <div className="fixed inset-0 z-[10] flex flex-col" style={{ opacity: ctaEnter }}>
-          <section className="relative flex-1 flex items-center justify-center py-16 px-6 overflow-hidden">
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: `
-                  radial-gradient(ellipse 45% 50% at 50% 45%, hsl(275 80% 40% / 0.3) 0%, transparent 60%),
-                  radial-gradient(ellipse 60% 45% at 50% 50%, hsl(260 70% 30% / 0.18) 0%, transparent 55%)
-                `,
-              }}
-            />
-            <div className="text-center relative z-[2] max-w-3xl">
-              <h2
-                className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4"
-                style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)" }}
-              >
-                See what LMM can do for
-                <br />
-                your costs and lead times
-              </h2>
-              <p className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[500px] mx-auto mb-8">
-                We'll show you how NEMI compresses your product development cycle.
-              </p>
-              <button
-                onClick={() => setShowForm(true)}
-                className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
-                style={{
-                  background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                  boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-                }}
-              >
-                Reach Out to Us
-              </button>
-              <div className="mt-5">
-                <a href="mailto:info@nemi-ai.com" className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors">
-                  info@nemi-ai.com
-                </a>
-              </div>
-            </div>
-          </section>
-          <SiteFooter />
+        <section className="relative z-[5] flex-1 flex items-center justify-center py-16 px-6 overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `
+              radial-gradient(ellipse 45% 50% at 50% 45%, hsl(275 80% 40% / 0.3) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 45% at 50% 50%, hsl(260 70% 30% / 0.18) 0%, transparent 55%)
+            `,
+          }}
+        />
+        <div className="text-center relative z-[2] max-w-3xl">
+          <h2
+            className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4"
+            style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)" }}
+          >
+            See what LMM can do for
+            <br />
+            your costs and lead times
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[500px] mx-auto mb-8">
+            We'll show you how NEMI compresses your product development cycle.
+          </p>
+          <button
+            onClick={() => setShowForm(true)}
+            className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
+            style={{
+              background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
+              boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
+            }}
+          >
+            Reach Out to Us
+          </button>
+          <div className="mt-5">
+            <a href="mailto:info@nemi-ai.com" className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors">
+              info@nemi-ai.com
+            </a>
+          </div>
+        </div>
+        </section>
+        <SiteFooter />
         </div>
       )}
 

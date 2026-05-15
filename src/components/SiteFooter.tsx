@@ -17,7 +17,7 @@ const SiteFooter = () => {
             NEMI AI
           </p>
           <p className="text-[11px] md:text-xs text-muted-foreground max-w-xl leading-relaxed">
-            The AI Operating System for Manufacturing. Design, manufacture, and deploy physical products under one Large Manufacturing Model.
+            Full-stack, end-to-end manufacturing automation with Physical AI.
           </p>
         </div>
 

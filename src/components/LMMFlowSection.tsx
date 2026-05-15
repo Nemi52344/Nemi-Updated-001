@@ -26,9 +26,9 @@ const STEPS: Step[] = [
   { num: "01", label: "Sketch",      img: "/Images/lmm-flow/01-sketch.png",     tradMonths: 1,    tradLabel: "1 mo",     lmmFraction: 0.02, lmmLabel: "Days" },
   { num: "02", label: "Render",      img: "/Images/lmm-flow/02-render.png",     tradMonths: 1,    tradLabel: "1 mo",     lmmFraction: 0.02, lmmLabel: "Days" },
   { num: "03", label: "CAD",         img: "/Images/lmm-flow/03-cad.png",        tradMonths: 6,    tradLabel: "6+ mo",    lmmFraction: 0.08, lmmLabel: "Weeks" },
-  { num: "04", label: "Simulation",  img: "/Images/lmm-flow/04-simulation.png", tradMonths: 2,    tradLabel: "2+ mo",    lmmFraction: 0.03, lmmLabel: "Days" },
+  { num: "04", label: "Simulation",  img: "/Images/lmm-flow/04-simulation.png", tradMonths: 2,    tradLabel: "2+ mo",    lmmFraction: 0.03, lmmLabel: "Weeks" },
   { num: "05", label: "Tooling",     img: "/Images/lmm-flow/06-tooling.png",    tradMonths: 6,    tradLabel: "6+ mo",    lmmFraction: 0.17, lmmLabel: "3 mo" },
-  { num: "06", label: "Production",  img: "/Images/lmm-flow/07-production.png", tradMonths: 12,   tradLabel: "Months",   lmmFraction: 0.08, lmmLabel: "AI Orchestrated" },
+  { num: "06", label: "Production",  img: "/Images/lmm-flow/07-production.png", tradMonths: 12,   tradLabel: "Manual Coding",   lmmFraction: 0.08, lmmLabel: "AI Orchestrated" },
 ];
 
 const ROW1 = [STEPS[0], STEPS[1], STEPS[2]];
@@ -101,10 +101,10 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
         {/* NEMI LMM */}
         <div>
           <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase tracking-[0.12em] font-bold" style={{ color: "hsl(0 70% 62%)" }}>
+            <span className="text-[10px] uppercase tracking-[0.12em] font-bold" style={{ color: "hsl(275 70% 70%)" }}>
               NEMI LMM
             </span>
-            <span className="text-[12px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(0 75% 72%)" }}>
+            <span className="text-[12px] tabular-nums font-bold whitespace-nowrap" style={{ color: "hsl(275 80% 78%)" }}>
               {step.lmmLabel}
             </span>
           </div>
@@ -113,7 +113,7 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
               className="absolute inset-y-0 left-0 rounded-full"
               style={{
                 width: `${Math.max(lmmWidth * p, p > 0.1 ? 2 : 0)}%`,
-                background: "hsl(0 70% 50%)",
+                background: "hsl(275 75% 60%)",
                 transition: "width 0.2s ease-out",
               }}
             />
@@ -124,14 +124,21 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
   );
 };
 
+// 6 arrows in flow order — gradient from dark purple (first) to lighter purple (last)
+const arrowColor = (i: number) => {
+  const TOTAL = 6;
+  const lightness = 32 + (i / (TOTAL - 1)) * 50; // 32% → 82%
+  return `hsl(275 75% ${lightness}%)`;
+};
+
 // Arrowhead-only chevrons between cards
-const HArrow = ({ direction, opacity }: { direction: "right" | "left"; opacity: number }) => (
+const HArrow = ({ direction, opacity, color }: { direction: "right" | "left"; opacity: number; color: string }) => (
   <div className="flex items-center justify-center" style={{ opacity, padding: "2px 4px" }}>
     <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
       {direction === "right" ? (
-        <path d="M2 2 L11 10 L2 18" stroke="hsl(275 70% 75%)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M2 2 L11 10 L2 18" stroke={color} strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
       ) : (
-        <path d="M12 2 L3 10 L12 18" stroke="hsl(275 70% 75%)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 2 L3 10 L12 18" stroke={color} strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
       )}
     </svg>
   </div>
@@ -185,23 +192,23 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           {/* Row 1: Sketch → Render → CAD */}
           <div className="grid items-stretch gap-y-2" style={{ gridTemplateColumns: gridCols }}>
             <Card step={ROW1[0]} p={cardP(0)} />
-            <HArrow direction="right" opacity={cardP(0)} />
+            <HArrow direction="right" opacity={cardP(0)} color={arrowColor(0)} />
             <Card step={ROW1[1]} p={cardP(1)} />
-            <HArrow direction="right" opacity={cardP(1)} />
+            <HArrow direction="right" opacity={cardP(1)} color={arrowColor(1)} />
             <Card step={ROW1[2]} p={cardP(2)} />
           </div>
 
-          {/* Down chevron under CAD + Up chevron above Production */}
+          {/* Loop-up chevron under Sketch (Production→Sketch) + Down chevron above Simulation (CAD→Simulation) */}
           <div className="grid" style={{ gridTemplateColumns: gridCols, margin: "2px 0" }}>
             <div className="flex justify-center" style={{ opacity: cardP(5) }}>
               <svg width="18" height="13" viewBox="0 0 20 14" fill="none" style={{ display: "block" }}>
-                <path d="M2 11 L10 2 L18 11" stroke="hsl(275 70% 75%)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M2 11 L10 2 L18 11" stroke={arrowColor(5)} strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
             <div /><div /><div />
             <div className="flex justify-center">
               <svg width="18" height="13" viewBox="0 0 20 14" fill="none" style={{ opacity: cardP(2), display: "block" }}>
-                <path d="M2 2 L10 11 L18 2" stroke="hsl(275 70% 75%)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M2 2 L10 11 L18 2" stroke={arrowColor(2)} strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
           </div>
@@ -209,9 +216,9 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
           {/* Row 2 visual: Production ← Tooling ← Simulation */}
           <div className="grid items-stretch gap-y-2" style={{ gridTemplateColumns: gridCols }}>
             <Card step={ROW2_VISUAL[0]} p={cardP(5)} />
-            <HArrow direction="left" opacity={cardP(4)} />
+            <HArrow direction="left" opacity={cardP(4)} color={arrowColor(4)} />
             <Card step={ROW2_VISUAL[1]} p={cardP(4)} />
-            <HArrow direction="left" opacity={cardP(3)} />
+            <HArrow direction="left" opacity={cardP(3)} color={arrowColor(3)} />
             <Card step={ROW2_VISUAL[2]} p={cardP(3)} />
           </div>
         </div>

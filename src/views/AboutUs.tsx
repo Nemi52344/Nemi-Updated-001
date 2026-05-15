@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import SiteFooter from "@/components/SiteFooter";
+
+const WorldLocationMap = dynamic(() => import("@/components/WorldLocationMap"), { ssr: false });
 import useScrollProgress from "@/hooks/useScrollProgress";
 import designReleaseImg from "@/assets/design-release.webp";
 import developToolingImg from "@/assets/develop-tooling.webp";
@@ -24,39 +27,35 @@ const HARDWARE_PHASES = [
 
 const JOURNEY_STEPS = [
   {
-    tag: "Intent",
-    title: "Build BYD for India",
-    sub: "Started with a clear thesis: build a vertically integrated EV company for India, owning everything from cell to vehicle.",
-    points: ["Vertically integrated EV", "Own design + manufacturing", "Built in India, for India"],
+    tag: "Phase 1",
+    title: "Started as an EV Company",
+    years: "2020 – 2023",
+    points: [
+      "Founded with the goal of building a BYD for India",
+      "Built first EV product, the Challenger motorcycle launched in July 2023",
+      "Multiple additional products in pipeline: 3 motorcycles, 1 LCV",
+    ],
     accent: "275 80% 65%",
   },
   {
-    tag: "Reality",
-    title: "Plans met reality",
-    sub: "Hardware humbled us. Timelines doubled, capital needs doubled, and we faced multiple near-death moments.",
-    points: ["2yr → 4+yr timelines", "$5M → $10M capital", "Multiple near-death events"],
-    accent: "268 75% 60%",
+    tag: "Phase 2",
+    title: "Expanded to provide design and manufacturing services",
+    years: "2023 – 2026",
+    points: [
+      "In the process of building EVs, built a wide and deep set of engineering and manufacturing competence (metals, plastics, composites, batteries, electronics, motors, etc.)",
+      "Began monetizing these as services in high-margin demanding applications",
+    ],
+    accent: "270 78% 62%",
   },
   {
-    tag: "Insight",
-    title: "Hardware Remains Hard",
-    sub: "We saw the core flaw: manufacturing doesn't compound. Every new product restarts the capital and knowledge cycle.",
-    points: ["No compounding leverage", "More revenue = more capital", "Knowledge stays in heads"],
-    accent: "260 70% 58%",
-  },
-  {
-    tag: "Breakthrough",
-    title: "AI changed everything",
-    sub: "Physical AI flipped the equation — turning factories from cost centers into compounding data engines.",
-    points: ["Years → months cycles", "Factories → data engines", "Knowledge that compounds"],
-    accent: "252 75% 62%",
-  },
-  {
-    tag: "Outcome",
-    title: "3k → 300k sq ft",
-    sub: "Today NEMI runs aerospace-grade manufacturing at scale, with a platform built to compound across every product.",
-    points: ["300,000+ sq ft footprint", "35+ enterprise customers", "Built to compound forever"],
-    accent: "275 85% 65%",
+    tag: "Phase 3",
+    title: "Applying AI to create end-to-end full-stack automated manufacturing",
+    years: "2026 – onwards",
+    points: [
+      "Started automating across Design → Development → Distribution (end-to-end) and along different types of manufacturing (full stack)",
+      "Achieving levels of speed and efficiencies never before seen in manufacturing",
+    ],
+    accent: "265 82% 60%",
   },
 ];
 
@@ -71,16 +70,16 @@ interface TeamMember {
 
 const CORE_TEAM: TeamMember[] = [
   { name: "Anirudh Ravi Narayanan", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp", role: "Chief Executive Officer", desc: "Built Nemi from a garage to 300k sq ft and $15M ARR; led 10+ recovery and margin transformations at McKinsey. BS ECE Rose-Hulman, MBA Yale.", colorHsl: "275 85% 65%", linkedin: "https://www.linkedin.com/in/anirudh-narayanan-26b0a121/" },
-  { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.webp", role: "Chief Financial Officer", desc: "Supported M&A integrations, built digital finance ops, led digital transformations. A.B., PhD from Harvard, MBA from Yale.", colorHsl: "268 82% 62%" },
-  { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.webp", role: "Chief Technology Officer", desc: "Deployed AI systems used by 100M+ users, shaped early architecture at eightfold.AI. CS, UIUC.", colorHsl: "282 78% 60%" },
-  { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", role: "Chief Operating Officer", desc: "20+ years in automotive manufacturing. Scaled production lines from pilot to 100K+ units multiple times.", colorHsl: "272 80% 58%" },
+  { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.webp", role: "Chief Financial Officer", desc: "Supported M&A integrations, built digital finance ops, led digital transformations. A.B., PhD from Harvard, MBA from Yale.", colorHsl: "268 82% 62%", linkedin: "" },
+  { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.webp", role: "Chief Technology Officer", desc: "Deployed AI systems used by 100M+ users, shaped early architecture at eightfold.AI. CS, UIUC.", colorHsl: "282 78% 60%", linkedin: "" },
+  { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", role: "Chief Operating Officer", desc: "20+ years in automotive manufacturing. Scaled production lines from pilot to 100K+ units multiple times.", colorHsl: "272 80% 58%", linkedin: "" },
 ];
 
 const EXTENDED_TEAM: TeamMember[] = [
-  { name: "Subramanian Rangaswamy", photo: "/Images/team/Subramanian%20R.webp", role: "CFO, India", desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods.", colorHsl: "275 55% 52%" },
-  { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "President, AKIO Suite", desc: "30+ years in manufacturing leadership, automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%" },
-  { name: "Sadasivam Balasubramaniam", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "President, AKIO Suite", desc: "20 years in electronics product development across telematics, defense, aerospace, and factory automation.", colorHsl: "272 48% 50%" },
-  { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.webp", role: "President, SAM", desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Built and led 100+ person sales teams.", colorHsl: "278 53% 49%" },
+  { name: "Subramanian Rangaswamy", photo: "/Images/team/Subramanian%20R.webp", role: "CFO, India", desc: "Chartered & Cost Accountant with 27+ years in manufacturing across auto, industrial, and consumer goods.", colorHsl: "275 55% 52%", linkedin: "" },
+  { name: "Vijay Ragavalu", photo: "/Images/team/Vijay%20Ragavalu.webp", role: "Manufacturing Head", desc: "30+ years in manufacturing leadership, automation, operational optimization, and large-scale team management.", colorHsl: "282 50% 48%", linkedin: "" },
+  { name: "Sadasivam Balasubramaniam", photo: "/Images/team/Sadasivam%20Balasubramanian.webp", role: "Electrical Head", desc: "20 years in electronics product development across telematics, defense, aerospace, and factory automation.", colorHsl: "272 48% 50%", linkedin: "" },
+  { name: "Vijay Ramakrishnan", photo: "/Images/team/Vijay%20RamaKrishnan.webp", role: "Distribution Head", desc: "15+ years in Sales & Marketing across automotive, finance, and tourism. Built and led 100+ person sales teams.", colorHsl: "278 53% 49%", linkedin: "" },
 ];
 
 const BOARD = [
@@ -89,7 +88,7 @@ const BOARD = [
 ];
 
 const ADVISORS = [
-  { photo: "/Images/team/Sampath%20Ravi%20Narayanan.webp", name: "Dr. Sampath Ravinarayanan", title: "Board Advisor", color: "275 30% 38%", highlights: ["Founder, Microcon; Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL"] },
+  { photo: "/Images/team/Sampath%20Ravi%20Narayanan.webp", name: "Dr. Sampath Ravinarayanan", title: "Board Advisor", color: "275 30% 38%", highlights: ["Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL"] },
   { photo: "/Images/team/Ramesh%20Mangaleshwaran.webp", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%", highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Co-led Industrials Practice, India & Asia"] },
   { photo: "/Images/team/Vinod%20K%20Dasari.webp", name: "Vinod K. Dasari", title: "Advisor", color: "282 26% 35%", highlights: ["Fmr. MD & CEO, Ashok Leyland & Royal Enfield", "Led global innovation & international expansion"] },
 ];
@@ -219,52 +218,53 @@ const AboutUs = () => {
   const solExit = easeOut(rangeProgress(scrollProgress, 0.155, 0.18));
   const solOp = solEnter * (1 - solExit);
 
-  // 3. Journey
-  const jrnVisible = scrollProgress > 0.16 && scrollProgress < 0.31;
-  const jrnEnter = easeOut(rangeProgress(scrollProgress, 0.165, 0.20));
-  const jrnExit = easeOut(rangeProgress(scrollProgress, 0.285, 0.31));
-  const jrnOp = jrnEnter * (1 - jrnExit);
-  const jrnCardsP = rangeProgress(scrollProgress, 0.19, 0.27);
-
-  // 4. Our Goal
-  const goalVisible = scrollProgress > 0.29 && scrollProgress < 0.38;
-  const goalEnter = easeOut(rangeProgress(scrollProgress, 0.295, 0.325));
-  const goalExit = easeOut(rangeProgress(scrollProgress, 0.355, 0.38));
+  // 3. Our Goal (Make manufacturing compound)
+  const goalVisible = scrollProgress > 0.16 && scrollProgress < 0.26;
+  const goalEnter = easeOut(rangeProgress(scrollProgress, 0.165, 0.195));
+  const goalExit = easeOut(rangeProgress(scrollProgress, 0.235, 0.26));
   const goalOp = goalEnter * (1 - goalExit);
 
-  // 5. LMM Architecture
-  const lmmVisible = scrollProgress > 0.36 && scrollProgress < 0.47;
+  // 4. Journey (Our Journey)
+  const jrnVisible = scrollProgress > 0.24 && scrollProgress < 0.38;
+  const jrnEnter = easeOut(rangeProgress(scrollProgress, 0.245, 0.28));
+  const jrnExit = easeOut(rangeProgress(scrollProgress, 0.355, 0.38));
+  const jrnOp = jrnEnter * (1 - jrnExit);
+  const jrnCardsP = rangeProgress(scrollProgress, 0.27, 0.35);
+
+  // 5. LMM Architecture — HIDDEN (set to false to re-enable visibility)
+  const LMM_SECTION_ENABLED = false;
+  const lmmVisible = LMM_SECTION_ENABLED && scrollProgress > 0.36 && scrollProgress < 0.47;
   const lmmEnter = easeOut(rangeProgress(scrollProgress, 0.365, 0.40));
   const lmmExit = easeOut(rangeProgress(scrollProgress, 0.445, 0.47));
   const lmmOp = lmmEnter * (1 - lmmExit);
   const lmmLayersP = rangeProgress(scrollProgress, 0.38, 0.44);
 
-  // 6. Our Locations
-  const locVisible = scrollProgress > 0.45 && scrollProgress < 0.55;
-  const locEnter = easeOut(rangeProgress(scrollProgress, 0.455, 0.49));
-  const locExit = easeOut(rangeProgress(scrollProgress, 0.525, 0.55));
+  // 6. Our Locations (shifted up since LMM section is hidden)
+  const locVisible = scrollProgress > 0.36 && scrollProgress < 0.46;
+  const locEnter = easeOut(rangeProgress(scrollProgress, 0.365, 0.40));
+  const locExit = easeOut(rangeProgress(scrollProgress, 0.435, 0.46));
   const locOp = locEnter * (1 - locExit);
-  const locMarkersP = rangeProgress(scrollProgress, 0.475, 0.52);
+  const locMarkersP = rangeProgress(scrollProgress, 0.385, 0.43);
 
   // 7. Team (Core + Extended merged)
-  const tcVisible = scrollProgress > 0.53 && scrollProgress < 0.69;
-  const tcEnter = easeOut(rangeProgress(scrollProgress, 0.535, 0.575));
-  const tcExtP = easeOut(rangeProgress(scrollProgress, 0.595, 0.635));
-  const tcExit = easeOut(rangeProgress(scrollProgress, 0.665, 0.69));
+  const tcVisible = scrollProgress > 0.44 && scrollProgress < 0.60;
+  const tcEnter = easeOut(rangeProgress(scrollProgress, 0.445, 0.485));
+  const tcExtP = easeOut(rangeProgress(scrollProgress, 0.505, 0.545));
+  const tcExit = easeOut(rangeProgress(scrollProgress, 0.575, 0.60));
   const tcOp = tcEnter * (1 - tcExit);
 
   // 8. Board & Advisors
-  const baVisible = scrollProgress > 0.67 && scrollProgress < 0.85;
-  const baEnter = easeOut(rangeProgress(scrollProgress, 0.675, 0.72));
-  const baExit = easeOut(rangeProgress(scrollProgress, 0.815, 0.85));
+  const baVisible = scrollProgress > 0.58 && scrollProgress < 0.76;
+  const baEnter = easeOut(rangeProgress(scrollProgress, 0.585, 0.63));
+  const baExit = easeOut(rangeProgress(scrollProgress, 0.725, 0.76));
   const baOp = baEnter * (1 - baExit);
 
   // 9. CTA + Footer
-  const ctaVisible = scrollProgress > 0.83;
-  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.84, 0.88));
+  const ctaVisible = scrollProgress > 0.74;
+  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.75, 0.79));
 
   return (
-    <div className="relative" style={{ height: "3350vh" }}>
+    <div className="relative" style={{ height: "2800vh" }}>
       <Navbar scrollProgress={scrollProgress} />
       <ConstellationCanvas />
 
@@ -382,7 +382,7 @@ const AboutUs = () => {
               })}
             </div>
             <p
-              className="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-3xl mt-8 md:mt-10"
+              className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed w-full mt-8 md:mt-10 text-center"
               style={{ opacity: solEnter }}
             >
               Every product restarts from zero, burning capital and losing hard-won knowledge at every handoff. Design, develop and distribute operate in silos with no shared intelligence.
@@ -413,51 +413,51 @@ const AboutUs = () => {
               </p>
             </div>
 
-            {/* Process flow — 5 cards with chevron separators */}
-            <div className="w-full max-w-[1280px] relative hidden md:flex items-stretch gap-1">
+            {/* Process flow — 3 phases with chevron arrows between */}
+            <div className="w-full max-w-[1280px] relative hidden md:flex items-stretch gap-2">
               {JOURNEY_STEPS.map((step, i) => {
-                const cardDelay = i * 0.08;
+                const cardDelay = i * 0.1;
                 const cardP = easeOut(Math.min(Math.max((jrnCardsP - cardDelay) / 0.35, 0), 1));
                 return (
                   <React.Fragment key={step.tag}>
                   {i > 0 && (
                     <div
                       className="flex items-center justify-center shrink-0"
-                      style={{ width: "28px", opacity: cardP }}
+                      style={{ width: "32px", opacity: cardP }}
                       aria-hidden="true"
                     >
-                      <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
-                        <path d="M5 4 L15 14 L5 24" stroke="hsl(275 80% 70%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <svg width="22" height="32" viewBox="0 0 22 32" fill="none">
+                        <path d="M6 5 L16 16 L6 27" stroke="hsl(275 80% 70%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                   )}
                   <div
-                    className="rounded-2xl px-5 py-6 flex flex-col flex-1 min-w-0"
+                    className="rounded-2xl px-6 py-7 flex flex-col flex-1 min-w-0"
                     style={{
                       opacity: cardP,
                       transform: `translateY(${(1 - cardP) * 25}px)`,
                       background: `linear-gradient(155deg, hsl(${step.accent} / 0.14), hsl(230 22% 8% / 0.95))`,
                       border: `1px solid hsl(${step.accent} / 0.32)`,
                       boxShadow: `0 0 28px hsl(${step.accent} / 0.12), inset 0 1px 0 hsl(0 0% 100% / 0.05)`,
-                      minHeight: "300px",
+                      minHeight: "340px",
                     }}
                   >
                     <span
-                      className="inline-block w-10 h-[3px] mb-4 rounded-full"
+                      className="inline-block w-12 h-[3px] mb-4 rounded-full"
                       style={{ background: `hsl(${step.accent})`, boxShadow: `0 0 12px hsl(${step.accent} / 0.6)` }}
                     />
                     <p
-                      className="text-[10px] tracking-[0.3em] uppercase font-bold mb-2"
+                      className="text-[11px] tracking-[0.32em] uppercase font-bold mb-2"
                       style={{ color: `hsl(${step.accent})` }}
                     >
                       {step.tag}
                     </p>
-                    <h3 className="text-[14px] lg:text-[15px] font-bold text-foreground leading-tight mb-2">{step.title}</h3>
-                    <p className="text-[11px] lg:text-[12px] text-muted-foreground leading-relaxed mb-3">{step.sub}</p>
-                    <ul className="flex flex-col gap-1 mt-auto">
+                    <h3 className="text-[16px] lg:text-[17px] font-bold text-foreground leading-snug mb-1.5">{step.title}</h3>
+                    <p className="text-[12px] lg:text-[13px] font-semibold mb-4" style={{ color: `hsl(${step.accent})` }}>{step.years}</p>
+                    <ul className="flex flex-col gap-2.5">
                       {step.points.map((pt) => (
-                        <li key={pt} className="flex items-start gap-1.5 text-[10px] lg:text-[11px] text-foreground/80 leading-snug">
-                          <span className="w-1 h-1 rounded-full mt-1.5 shrink-0" style={{ background: `hsl(${step.accent})` }} />
+                        <li key={pt} className="flex items-start gap-2 text-[13px] lg:text-[14px] text-foreground/85 leading-relaxed">
+                          <span className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: `hsl(${step.accent})` }} />
                           <span>{pt}</span>
                         </li>
                       ))}
@@ -468,7 +468,7 @@ const AboutUs = () => {
               })}
             </div>
 
-            {/* Mobile: stacked cards, larger, no arrows */}
+            {/* Mobile: stacked cards */}
             <div className="w-full flex md:hidden flex-col gap-3">
               {JOURNEY_STEPS.map((step, i) => {
                 const cardDelay = i * 0.1;
@@ -476,7 +476,7 @@ const AboutUs = () => {
                 return (
                   <div
                     key={step.tag}
-                    className="rounded-xl px-5 py-4"
+                    className="rounded-xl px-5 py-5"
                     style={{
                       opacity: cardP,
                       transform: `translateX(${(1 - cardP) * -20}px)`,
@@ -489,8 +489,16 @@ const AboutUs = () => {
                       style={{ background: `hsl(${step.accent})` }}
                     />
                     <p className="text-[11px] tracking-[0.3em] uppercase font-bold mb-2" style={{ color: `hsl(${step.accent})` }}>{step.tag}</p>
-                    <h3 className="text-[17px] font-bold text-foreground leading-tight mb-1.5">{step.title}</h3>
-                    <p className="text-[13px] text-muted-foreground leading-relaxed">{step.sub}</p>
+                    <h3 className="text-[16px] font-bold text-foreground leading-snug mb-1">{step.title}</h3>
+                    <p className="text-[12px] font-semibold mb-3" style={{ color: `hsl(${step.accent})` }}>{step.years}</p>
+                    <ul className="flex flex-col gap-2">
+                      {step.points.map((pt) => (
+                        <li key={pt} className="flex items-start gap-2 text-[12.5px] text-foreground/85 leading-relaxed">
+                          <span className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: `hsl(${step.accent})` }} />
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 );
               })}
@@ -730,145 +738,7 @@ const AboutUs = () => {
                 maxHeight: "60vh",
               }}
             >
-              {/* World map background image */}
-              <img
-                src="/Images/world-map.png"
-                alt=""
-                className="absolute inset-0 w-full h-full object-fill pointer-events-none select-none"
-                style={{
-                  opacity: 0.5,
-                  filter: "brightness(0) saturate(100%) invert(75%)",
-                }}
-                draggable={false}
-              />
-              <svg viewBox="0 0 1280 836" className="relative w-full block" style={{ aspectRatio: "1280 / 836", maxHeight: "60vh" }}>
-                <defs>
-                  <radialGradient id="loc-active-glow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="hsl(275 90% 70%)" stopOpacity="0.9" />
-                    <stop offset="100%" stopColor="hsl(275 90% 60%)" stopOpacity="0" />
-                  </radialGradient>
-                  <radialGradient id="loc-upcoming-glow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="hsl(200 80% 70%)" stopOpacity="0.7" />
-                    <stop offset="100%" stopColor="hsl(200 80% 60%)" stopOpacity="0" />
-                  </radialGradient>
-                </defs>
-
-                {/* === UPCOMING MARKERS (2026) === */}
-                {[
-                  { x: 90, y: 190, label: "United States", delay: 0.15 },
-                  { x: 680, y: 240, label: "Western Europe", delay: 0.25 },
-                  { x: 845, y: 355, label: "Middle East", delay: 0.35 },
-                ].map((m) => {
-                  const p = easeOut(Math.min(Math.max((locMarkersP - m.delay) / 0.3, 0), 1));
-                  return (
-                    <g key={m.label} style={{ opacity: p }}>
-                      {/* Outer pulse ring */}
-                      <circle cx={m.x} cy={m.y} r="22" fill="url(#loc-upcoming-glow)" opacity="0.6">
-                        <animate attributeName="r" values="18;30;18" dur="3s" repeatCount="indefinite" />
-                        <animate attributeName="opacity" values="0.6;0.1;0.6" dur="3s" repeatCount="indefinite" />
-                      </circle>
-                      {/* Dashed marker */}
-                      <circle
-                        cx={m.x}
-                        cy={m.y}
-                        r="11"
-                        fill="hsl(230 25% 6%)"
-                        stroke="hsl(200 80% 65%)"
-                        strokeWidth="2"
-                        strokeDasharray="4 2.5"
-                      />
-                      <circle cx={m.x} cy={m.y} r="3.5" fill="hsl(200 80% 70%)" />
-                      {/* Label badge */}
-                      <g>
-                        <rect
-                          x={m.x - 65}
-                          y={m.y + 18}
-                          width="130"
-                          height="34"
-                          rx="7"
-                          fill="hsl(230 25% 8% / 0.95)"
-                          stroke="hsl(200 80% 60% / 0.4)"
-                          strokeWidth="0.8"
-                        />
-                        <text
-                          x={m.x}
-                          y={m.y + 33}
-                          textAnchor="middle"
-                          fontSize="12"
-                          fontWeight="700"
-                          fill="hsl(200 80% 80%)"
-                          letterSpacing="0.5"
-                        >
-                          {m.label.toUpperCase()}
-                        </text>
-                        <text
-                          x={m.x}
-                          y={m.y + 46}
-                          textAnchor="middle"
-                          fontSize="9"
-                          fontWeight="600"
-                          fill="hsl(200 60% 70%)"
-                          letterSpacing="1.5"
-                        >
-                          2026
-                        </text>
-                      </g>
-                    </g>
-                  );
-                })}
-
-                {/* === ACTIVE MARKERS (India) === */}
-                {[
-                  { x: 1037, y: 420, name: "Coimbatore", delay: 0 },
-                  { x: 1051, y: 405, name: "Chennai", delay: 0.05 },
-                ].map((m) => {
-                  const p = easeOut(Math.min(Math.max((locMarkersP - m.delay) / 0.25, 0), 1));
-                  return (
-                    <g key={m.name} style={{ opacity: p }}>
-                      {/* Big glow */}
-                      <circle cx={m.x} cy={m.y} r="30" fill="url(#loc-active-glow)" opacity="0.9">
-                        <animate attributeName="r" values="24;38;24" dur="2.5s" repeatCount="indefinite" />
-                        <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2.5s" repeatCount="indefinite" />
-                      </circle>
-                      <circle
-                        cx={m.x}
-                        cy={m.y}
-                        r="9"
-                        fill="hsl(275 85% 65%)"
-                        stroke="hsl(275 100% 90%)"
-                        strokeWidth="2"
-                      />
-                      <circle cx={m.x} cy={m.y} r="3" fill="hsl(0 0% 100%)" />
-                    </g>
-                  );
-                })}
-
-                {/* India combined label */}
-                {(() => {
-                  const p = easeOut(Math.min(Math.max((locMarkersP - 0.05) / 0.25, 0), 1));
-                  return (
-                    <g style={{ opacity: p }}>
-                      <line x1="1059" y1="415" x2="1169" y2="455" stroke="hsl(275 80% 65% / 0.7)" strokeWidth="1.5" />
-                      <rect
-                        x="1169"
-                        y="430"
-                        width="220"
-                        height="58"
-                        rx="10"
-                        fill="hsl(275 70% 22% / 0.95)"
-                        stroke="hsl(275 80% 60%)"
-                        strokeWidth="1.4"
-                      />
-                      <text x="1279" y="453" textAnchor="middle" fontSize="11" fontWeight="700" fill="hsl(275 80% 80%)" letterSpacing="2.5">
-                        INDIA · ACTIVE
-                      </text>
-                      <text x="1279" y="475" textAnchor="middle" fontSize="14" fontWeight="800" fill="hsl(0 0% 100%)">
-                        Coimbatore · Chennai
-                      </text>
-                    </g>
-                  );
-                })()}
-              </svg>
+              <WorldLocationMap visibleProgress={locMarkersP} />
             </div>
 
             {/* Legend — Coming Soon */}
@@ -880,7 +750,7 @@ const AboutUs = () => {
                 Coming Soon
               </span>
               <span className="w-6 h-px" style={{ background: "hsl(200 60% 50% / 0.5)" }} />
-              {["United States", "Western Europe", "Middle East"].map((label) => (
+              {["United States", "Western Europe", "UAE"].map((label) => (
                 <div key={label} className="flex items-center gap-2">
                   <span
                     className="inline-block w-3 h-3 rounded-full"

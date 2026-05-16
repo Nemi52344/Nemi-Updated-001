@@ -31,9 +31,9 @@ const JOURNEY_STEPS = [
     title: "Started as an EV Company",
     years: "2020 – 2023",
     points: [
-      "Founded with the goal of building a BYD for India",
+      "Founded with the goal of helping the world transition into sustainable energy, beginning with indigenously developed electric two-wheelers",
       "Built first EV product, the Challenger motorcycle launched in July 2023",
-      "Multiple additional products in pipeline: 3 motorcycles, 1 LCV",
+      "Multiple product expansion planned in pipeline including commercial two-wheeler and four-wheeler platforms",
     ],
     accent: "275 80% 65%",
   },
@@ -43,7 +43,7 @@ const JOURNEY_STEPS = [
     years: "2023 – 2026",
     points: [
       "In the process of building EVs, built a wide and deep set of engineering and manufacturing competence (metals, plastics, composites, batteries, electronics, motors, etc.)",
-      "Began monetizing these as services in high-margin demanding applications",
+      "Started extending our in-house built capabilities as services to high-critical and demanding applications",
     ],
     accent: "270 78% 62%",
   },
@@ -52,7 +52,7 @@ const JOURNEY_STEPS = [
     title: "Applying AI to create end-to-end full-stack automated manufacturing",
     years: "2026 – onwards",
     points: [
-      "Started automating across Design → Development → Distribution (end-to-end) and along different types of manufacturing (full stack)",
+      "With full-stack in hand, we started automating across Design → Development → Distribution cycles to completely transform the manufacturing platform",
       "Achieving levels of speed and efficiencies never before seen in manufacturing",
     ],
     accent: "265 82% 60%",
@@ -70,9 +70,9 @@ interface TeamMember {
 
 const CORE_TEAM: TeamMember[] = [
   { name: "Anirudh Ravi Narayanan", photo: "/Images/team/Anirudh%20Ravi%20Narayanan.webp", role: "Chief Executive Officer", desc: "Built Nemi from a garage to 300k sq ft and $15M ARR; led 10+ recovery and margin transformations at McKinsey. BS ECE Rose-Hulman, MBA Yale.", colorHsl: "275 85% 65%", linkedin: "https://www.linkedin.com/in/anirudh-narayanan-26b0a121/" },
-  { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.webp", role: "Chief Financial Officer", desc: "Supported M&A integrations, built digital finance ops, led digital transformations. A.B., PhD from Harvard, MBA from Yale.", colorHsl: "268 82% 62%", linkedin: "" },
-  { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.webp", role: "Chief Technology Officer", desc: "Deployed AI systems used by 100M+ users, shaped early architecture at eightfold.AI. CS, UIUC.", colorHsl: "282 78% 60%", linkedin: "" },
-  { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", role: "Chief Operating Officer", desc: "20+ years in automotive manufacturing. Scaled production lines from pilot to 100K+ units multiple times.", colorHsl: "272 80% 58%", linkedin: "" },
+  { name: "Gokul Madhavan", photo: "/Images/team/Gokul%20Madhavan.webp", role: "Chief Financial Officer", desc: "Supported M&A integrations, built digital finance ops, led digital transformations. A.B., PhD from Harvard, MBA from Yale.", colorHsl: "268 82% 62%", linkedin: "https://www.linkedin.com/in/madhavangokul/" },
+  { name: "Shreerith Seshadri", photo: "/Images/team/Sreeridh%20Seshahri.webp", role: "Chief Technology Officer", desc: "Deployed AI systems used by 100M+ users, shaped early architecture at eightfold.AI. CS, UIUC.", colorHsl: "282 78% 60%", linkedin: "https://www.linkedin.com/in/shreerith-seshadri/" },
+  { name: "Vinoth Thiruvenkatasamy", photo: "/Images/team/Vinoth%20Thiruvenkatasamy.webp", role: "Chief Operating Officer", desc: "20+ years in automotive manufacturing. Scaled production lines from pilot to 100K+ units multiple times.", colorHsl: "272 80% 58%", linkedin: "https://www.linkedin.com/in/vinoth-thiruvenkatasamy-523338219/" },
 ];
 
 const EXTENDED_TEAM: TeamMember[] = [
@@ -89,8 +89,8 @@ const BOARD = [
 
 const ADVISORS = [
   { photo: "/Images/team/Sampath%20Ravi%20Narayanan.webp", name: "Dr. Sampath Ravinarayanan", title: "Board Advisor", color: "275 30% 38%", highlights: ["Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL"] },
-  { photo: "/Images/team/Ramesh%20Mangaleshwaran.webp", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%", highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Co-led Industrials Practice, India & Asia"] },
-  { photo: "/Images/team/Vinod%20K%20Dasari.webp", name: "Vinod K. Dasari", title: "Advisor", color: "282 26% 35%", highlights: ["Fmr. MD & CEO, Ashok Leyland & Royal Enfield", "Led global innovation & international expansion"] },
+  { photo: "/Images/team/Vinod%20K%20Dasari.webp", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%", highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Co-led Industrials Practice, India & Asia"] },
+  { photo: "/Images/team/Ramesh%20Mangaleshwaran.webp", name: "Vinod K. Dasari", title: "Advisor", color: "282 26% 35%", highlights: ["Fmr. MD & CEO, Ashok Leyland & Royal Enfield", "Led global innovation & international expansion"] },
 ];
 
 const MOATS = [
@@ -184,15 +184,17 @@ const LeaderFlipCard = ({ member }: { member: TeamMember }) => {
         >
           <p className="text-[8px] md:text-[10px] tracking-[0.2em] uppercase font-medium mb-2" style={{ color: `hsl(${member.colorHsl})` }}>{member.role}</p>
           <p className="text-[9px] md:text-[11px] text-muted-foreground text-center leading-relaxed">{member.desc}</p>
-          <a
-            href={member.linkedin || "https://www.linkedin.com/company/nemi-ai"}
-            target="_blank" rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="mt-2 inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.15em] opacity-80 hover:opacity-100 transition-opacity"
-            style={{ color: `hsl(${member.colorHsl})` }}
-          >
-            <LinkedInIcon /> LinkedIn
-          </a>
+          {member.linkedin && (
+            <a
+              href={member.linkedin}
+              target="_blank" rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="mt-2 inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.15em] opacity-80 hover:opacity-100 transition-opacity"
+              style={{ color: `hsl(${member.colorHsl})` }}
+            >
+              <LinkedInIcon /> LinkedIn
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -264,7 +266,7 @@ const AboutUs = () => {
   const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.75, 0.79));
 
   return (
-    <div className="relative" style={{ height: "2800vh" }}>
+    <div className="relative" style={{ height: "1600vh" }}>
       <Navbar scrollProgress={scrollProgress} />
       <ConstellationCanvas />
 
@@ -917,7 +919,7 @@ const AboutUs = () => {
                 View Open Roles
               </a>
               <div className="mt-6">
-                <a href="mailto:careers@nemi-ai.com" className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors">careers@nemi-ai.com</a>
+                <a href="mailto:info@nemi-ai.com" className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors">info@nemi-ai.com</a>
               </div>
             </div>
           </div>

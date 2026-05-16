@@ -14,10 +14,10 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const values = [
-  { title: "First Principles", body: "Build as if nothing exists. We don't inherit decisions from competitors. We start from the truth and rebuild from there." },
-  { title: "Ownership", body: "Every employee is an owner. Stock options for all, and ideas welcome from anywhere, beyond your domain or title." },
-  { title: "Highest Standards", body: "Raise the bar. Ship products that delight customers and prevent mistakes so the same one never costs us twice." },
-  { title: "Build Trust", body: "Lead with empathy, listen attentively, speak candidly. Safe, honest teams move faster and go further." },
+  { title: "First Principles", body: "We question every assumption and engineer from the ground up, turning complexity into a compounding advantage few can replicate." },
+  { title: "Ownership", body: "Everyone here thinks and acts like a founder, sharing equity, conviction, and the outcomes that define category-leading companies." },
+  { title: "Highest Standards", body: "Quality, reliability, and rigor are non-negotiable, the way we earn lasting trust from customers, partners, and investors alike." },
+  { title: "Build Trust", body: "We move fast because we move together, with candid conversations, honest data, and the deep respect that lets strong teams compound." },
 ];
 
 interface Job {
@@ -170,7 +170,7 @@ const Careers = () => {
   const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.81, 0.88));
 
   return (
-    <div className="bg-background text-foreground relative" style={{ height: "400vh" }}>
+    <div className="bg-background text-foreground relative" style={{ height: "650vh" }}>
       <div className="fixed inset-0 z-0">
         <ConstellationCanvas />
         <div
@@ -228,7 +228,8 @@ const Careers = () => {
           <img
             src="/Images/about us.webp"
             alt="NEMI team"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "center 80%", transform: "scale(1.35)", transformOrigin: "center 80%" }}
             loading="lazy" decoding="async"
           />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.82) 100%)" }} />
@@ -247,7 +248,12 @@ const Careers = () => {
                   <h3 className="font-bold text-xs md:text-sm tracking-[0.12em] md:tracking-[0.15em] uppercase text-white mb-3 group-hover:text-purple-300 transition-colors duration-300 whitespace-nowrap">
                     {val.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-white/70 leading-[1.7] w-full">{val.body}</p>
+                  <p
+                    className="text-xs md:text-sm text-white/70 leading-[1.7] w-full"
+                    style={{ minHeight: "calc(4 * 1.7em)" }}
+                  >
+                    {val.body}
+                  </p>
                 </div>
                 );
               })}
@@ -334,8 +340,8 @@ const Careers = () => {
                 </button>
                 <p className="text-[11px] text-muted-foreground text-center pt-1">
                   Or send your resume to{" "}
-                  <a href="mailto:careers@nemi-ai.com" className="text-primary hover:text-primary/80 transition-colors font-semibold">
-                    careers@nemi-ai.com
+                  <a href="mailto:info@nemi-ai.com" className="text-primary hover:text-primary/80 transition-colors font-semibold">
+                    info@nemi-ai.com
                   </a>
                 </p>
               </form>

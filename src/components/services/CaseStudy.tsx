@@ -42,11 +42,11 @@ const MetricRow = ({ label, before, after, barPercent, color }: MetricBarProps) 
           letterSpacing: "0.2em",
           textTransform: "uppercase",
           color: "rgba(244,242,237,0.45)",
-          width: "3rem",
+          width: "5rem",
           flexShrink: 0,
         }}
       >
-        Before
+        Benchmark
       </span>
       <div style={{ flex: 1, position: "relative", height: 3, background: "rgba(255,255,255,0.08)", borderRadius: 2 }}>
         <div
@@ -87,11 +87,11 @@ const MetricRow = ({ label, before, after, barPercent, color }: MetricBarProps) 
           letterSpacing: "0.2em",
           textTransform: "uppercase",
           color,
-          width: "3rem",
+          width: "5rem",
           flexShrink: 0,
         }}
       >
-        After
+        Nemi
       </span>
       <div style={{ flex: 1, position: "relative", height: 3, background: "rgba(255,255,255,0.08)", borderRadius: 2 }}>
         <div
@@ -192,7 +192,7 @@ const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt
 
   const imageBlock = (
     <ScrollReveal variant="zoom" repeat style={{ height: "100%" }}>
-      <div style={{ height: "100%", minHeight: 290, overflow: "hidden", position: "relative", background: "hsl(230 25% 5%)" }}>
+      <div style={{ height: "100%", minHeight: 290, overflow: "hidden", position: "relative", background: "transparent" }}>
         <img
           src={imageSrc}
           alt={imageAlt}

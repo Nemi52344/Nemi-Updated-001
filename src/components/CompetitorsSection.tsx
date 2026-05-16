@@ -73,7 +73,7 @@ const stats: StyledStat[] = [
   { value: "300K", unit: "sq ft", label: "Facility",  accent: "275 80% 65%", variant: "value" },
   { image: "/Images/certifications/as9100-certification.png", imageAlt: "AS9100 Certified",      label: "Aerospace", imageHeight: 70, accent: "210 85% 65%", variant: "logo" },
   { image: "/Images/certifications/iso-9001.png",             imageAlt: "ISO 9001:2015 Certified", label: "Quality",  imageHeight: 44, accent: "200 90% 70%", variant: "logo" },
-  { value: "40+", unit: "", label: "Patents", accent: "295 80% 70%", variant: "value" },
+  { value: "40+", unit: "", label: "Patents", accent: "275 80% 65%", variant: "value" },
 ];
 
 interface FactoryItem {

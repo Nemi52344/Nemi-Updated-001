@@ -28,7 +28,7 @@ const STEPS: Step[] = [
   { num: "03", label: "CAD",         img: "/Images/lmm-flow/03-cad.png",        tradMonths: 6,    tradLabel: "6+ mo",    lmmFraction: 0.08, lmmLabel: "Weeks" },
   { num: "04", label: "Simulation",  img: "/Images/lmm-flow/04-simulation.png", tradMonths: 2,    tradLabel: "2+ mo",    lmmFraction: 0.03, lmmLabel: "Weeks" },
   { num: "05", label: "Tooling",     img: "/Images/lmm-flow/06-tooling.png",    tradMonths: 6,    tradLabel: "6+ mo",    lmmFraction: 0.17, lmmLabel: "3 mo" },
-  { num: "06", label: "Production",  img: "/Images/lmm-flow/07-production.png", tradMonths: 12,   tradLabel: "Manual Coding",   lmmFraction: 0.08, lmmLabel: "AI Orchestrated" },
+  { num: "06", label: "Production",  img: "/Images/lmm-flow/07-production.png", tradMonths: 12,   tradLabel: "Manual Orchestration",   lmmFraction: 0.08, lmmLabel: "AI Orchestrated" },
 ];
 
 const ROW1 = [STEPS[0], STEPS[1], STEPS[2]];

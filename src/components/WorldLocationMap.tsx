@@ -12,9 +12,7 @@ const ACTIVE_COUNTRIES = new Set<string>([
 
 const UPCOMING_COUNTRIES = new Set<string>([
   "840", // United States
-  "784", // United Arab Emirates
-  // Western Europe
-  "826", // United Kingdom
+  // Western mainland Europe
   "250", // France
   "276", // Germany
   "724", // Spain
@@ -22,16 +20,24 @@ const UPCOMING_COUNTRIES = new Set<string>([
   "528", // Netherlands
   "56",  // Belgium
   "756", // Switzerland
-  "372", // Ireland
-  "620", // Portugal
   "40",  // Austria
-  "208", // Denmark
-  "752", // Sweden
-  "578", // Norway
-  "246", // Finland
-  "352", // Iceland
+  "620", // Portugal
   "442", // Luxembourg
-  "300", // Greece
+  "208", // Denmark
+  // Middle East
+  "784", // United Arab Emirates
+  "682", // Saudi Arabia
+  "634", // Qatar
+  "48",  // Bahrain
+  "414", // Kuwait
+  "512", // Oman
+  "887", // Yemen
+  "368", // Iraq
+  "400", // Jordan
+  "422", // Lebanon
+  "760", // Syria
+  "376", // Israel
+  "275", // Palestine
 ]);
 
 interface MarkerData {
@@ -77,9 +83,17 @@ const WorldLocationMap = ({ visibleProgress }: WorldLocationMapProps) => {
             <stop offset="100%" stopColor="hsl(275 90% 60%)" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="upcoming-marker-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="hsl(200 80% 70%)" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="hsl(200 80% 60%)" stopOpacity="0" />
+            <stop offset="0%" stopColor="hsl(275 80% 80%)" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="hsl(275 80% 75%)" stopOpacity="0" />
           </radialGradient>
+          {/* Clip the US country polygon to the contiguous 48 — drops Alaska & Hawaii from the highlight */}
+          <clipPath id="us-mainland-clip">
+            <rect x="270" y="270" width="210" height="130" />
+          </clipPath>
+          {/* Clip Spain to the Iberian mainland — drops Canary Islands from the highlight */}
+          <clipPath id="spain-mainland-clip">
+            <rect x="570" y="300" width="80" height="65" />
+          </clipPath>
         </defs>
 
         {/* Country geometries */}
@@ -95,16 +109,16 @@ const WorldLocationMap = ({ visibleProgress }: WorldLocationMapProps) => {
               let strokeWidth = 0.4;
 
               if (isActive) {
-                fill = "hsl(275 75% 52%)";
-                stroke = "hsl(275 95% 80%)";
+                fill = "hsl(275 75% 32%)";
+                stroke = "hsl(275 85% 60%)";
                 strokeWidth = 0.8;
               } else if (isUpcoming) {
-                fill = "hsl(275 50% 38%)";
-                stroke = "hsl(275 70% 65%)";
+                fill = "hsl(275 70% 78%)";
+                stroke = "hsl(275 80% 88%)";
                 strokeWidth = 0.6;
               }
 
-              return (
+              const geography = (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
@@ -116,9 +130,9 @@ const WorldLocationMap = ({ visibleProgress }: WorldLocationMapProps) => {
                     hover: {
                       outline: "none",
                       fill: isActive
-                        ? "hsl(275 85% 60%)"
+                        ? "hsl(275 80% 42%)"
                         : isUpcoming
-                          ? "hsl(275 60% 48%)"
+                          ? "hsl(275 75% 72%)"
                           : "hsl(230 20% 16%)",
                     },
                     pressed: { outline: "none" },
@@ -126,18 +140,27 @@ const WorldLocationMap = ({ visibleProgress }: WorldLocationMapProps) => {
                   filter={isActive ? "drop-shadow(0 0 6px hsl(275 80% 60% / 0.6))" : undefined}
                 />
               );
+
+              // Clip US so Alaska/Hawaii don't get highlighted
+              if (id === "840") {
+                return (
+                  <g key={geo.rsmKey} clipPath="url(#us-mainland-clip)">
+                    {geography}
+                  </g>
+                );
+              }
+              // Clip Spain so Canary Islands don't get highlighted
+              if (id === "724") {
+                return (
+                  <g key={geo.rsmKey} clipPath="url(#spain-mainland-clip)">
+                    {geography}
+                  </g>
+                );
+              }
+              return geography;
             })
           }
         </Geographies>
-
-        {/* Kashmir overlay — colored to match India (Natural Earth shows Kashmir as disputed; this paints it as India) */}
-        <Marker coordinates={[76.5, 34.0]}>
-          <g style={{ opacity: mounted ? 0.92 : 0 }}>
-            {/* Approximated polygon over Kashmir region using geo-projected local coordinates is non-trivial;
-                a simple filled ellipse covers the disputed area visually */}
-            <ellipse cx="0" cy="0" rx="22" ry="14" fill="hsl(275 75% 52%)" stroke="hsl(275 95% 80%)" strokeWidth="0.8" />
-          </g>
-        </Marker>
 
         {/* Markers */}
         {MARKERS.map((m, i) => {

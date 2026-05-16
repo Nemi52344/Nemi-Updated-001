@@ -741,23 +741,28 @@ const AboutUs = () => {
               <WorldLocationMap visibleProgress={locMarkersP} />
             </div>
 
-            {/* Legend — Coming Soon */}
+            {/* Legend */}
             <div
-              className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-4"
+              className="flex flex-wrap items-center justify-center gap-3 md:gap-5 mt-4"
               style={{ opacity: locEnter, transform: `translateY(${(1 - locEnter) * 12}px)` }}
             >
-              <span className="text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-bold" style={{ color: "hsl(200 70% 75%)" }}>
+              {/* Active — India */}
+              <div className="flex items-center gap-2">
+                <span
+                  className="inline-block w-3 h-3 rounded-full"
+                  style={{ background: "hsl(275 75% 32%)", border: "1.5px solid hsl(275 85% 60%)" }}
+                />
+                <span className="text-xs md:text-sm font-semibold text-foreground/90">India</span>
+              </div>
+              <span className="w-px h-4" style={{ background: "hsl(275 40% 40% / 0.4)" }} />
+              <span className="text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-bold" style={{ color: "hsl(275 70% 80%)" }}>
                 Coming Soon
               </span>
-              <span className="w-6 h-px" style={{ background: "hsl(200 60% 50% / 0.5)" }} />
-              {["United States", "Western Europe", "UAE"].map((label) => (
+              {["United States", "Western Europe", "Middle East"].map((label) => (
                 <div key={label} className="flex items-center gap-2">
                   <span
                     className="inline-block w-3 h-3 rounded-full"
-                    style={{
-                      border: "1.5px dashed hsl(200 80% 65%)",
-                      background: "hsl(230 25% 6%)",
-                    }}
+                    style={{ background: "hsl(275 70% 78%)", border: "1.5px solid hsl(275 80% 88%)" }}
                   />
                   <span className="text-xs md:text-sm font-semibold text-foreground/85">{label}</span>
                 </div>

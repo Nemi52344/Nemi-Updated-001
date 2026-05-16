@@ -137,9 +137,6 @@ const Services = () => {
           style={{ opacity: heroOp }}
         >
           <div className="max-w-5xl mx-auto w-full pt-16">
-            <p className="text-[10px] md:text-xs tracking-[0.45em] uppercase text-muted-foreground font-semibold mb-6 md:mb-8">
-              Services
-            </p>
             <h1
               className="font-extrabold uppercase leading-[1.02] tracking-tight mb-2 md:mb-3 text-foreground"
               style={{ fontSize: "clamp(2rem, 6vw, 4.25rem)" }}

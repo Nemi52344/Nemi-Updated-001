@@ -43,7 +43,7 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
 
         {/* Title */}
         <h2
-          className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight leading-none mb-4"
+          className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight leading-none mb-4"
           style={{
             opacity: titleP,
             transform: `translateY(${(1 - titleP) * 20}px)`,
@@ -61,7 +61,7 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
 
         {/* Subtitle */}
         <p
-          className="text-lg md:text-xl text-muted-foreground tracking-[0.15em] font-light mb-8"
+          className="text-base sm:text-lg md:text-xl text-muted-foreground tracking-[0.1em] sm:tracking-[0.15em] font-light mb-8"
           style={{
             opacity: subtitleP,
             transform: `translateY(${(1 - subtitleP) * 14}px)`,

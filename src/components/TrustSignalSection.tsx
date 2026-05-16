@@ -41,10 +41,8 @@ const LogoCard = ({ logo, set }: { logo: LogoEntry; set: number }) => {
   return (
     <div
       key={logo.label + set}
-      className="flex items-center justify-center shrink-0 rounded-xl border backdrop-blur-sm"
+      className="flex items-center justify-center shrink-0 rounded-lg sm:rounded-xl border backdrop-blur-sm w-[110px] h-[56px] sm:w-[190px] sm:h-[95px]"
       style={{
-        width: "190px",
-        height: "95px",
         background: "hsl(0 0% 100%)",
         borderColor: "hsl(0 0% 100% / 0.12)",
       }}
@@ -55,10 +53,9 @@ const LogoCard = ({ logo, set }: { logo: LogoEntry; set: number }) => {
         title={logo.label}
         loading="lazy"
         decoding="async"
+        className={isLarger ? "h-[36px] sm:h-[64px] max-w-[92px] sm:max-w-[160px]" : "h-[30px] sm:h-[52px] max-w-[86px] sm:max-w-[150px]"}
         style={{
-          height: isLarger ? "64px" : "52px",
           width: "auto",
-          maxWidth: isLarger ? "160px" : "150px",
           objectFit: "contain",
         }}
       />
@@ -106,7 +103,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
 
         {/* Headline */}
         <h2
-          className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-10 md:mb-14"
+          className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 sm:mb-10 md:mb-14 px-2"
           style={{
             opacity: enterP,
             transform: `translateY(${(1 - enterP) * 24}px)`,

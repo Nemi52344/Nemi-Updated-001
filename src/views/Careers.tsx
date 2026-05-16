@@ -14,10 +14,26 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const values = [
-  { title: "First Principles", body: "We question every assumption and engineer from the ground up, turning complexity into a compounding advantage few can replicate." },
-  { title: "Ownership", body: "Everyone here thinks and acts like a founder, sharing equity, conviction, and the outcomes that define category-leading companies." },
-  { title: "Highest Standards", body: "Quality, reliability, and rigor are non-negotiable, the way we earn lasting trust from customers, partners, and investors alike." },
-  { title: "Build Trust", body: "We move fast because we move together, with candid conversations, honest data, and the deep respect that lets strong teams compound." },
+  {
+    title: "First Principles",
+    tagline: "We don’t accept “the way it’s always been done.”",
+    body: "Break problems down to fundamentals, rebuild from the ground up, and create lasting advantage.",
+  },
+  {
+    title: "Ownership",
+    tagline: "A place for builders, not bystanders.",
+    body: "Take responsibility, think long term, act like an owner. Your ideas and work shape what we build.",
+  },
+  {
+    title: "Highest Standards",
+    tagline: "Exceptional companies are built through exceptional execution.",
+    body: "We hold ourselves to a higher bar — in quality, experience, and rigor — and build things we’re proud of.",
+  },
+  {
+    title: "Build Trust",
+    tagline: "Great teams move fast when trust runs deep.",
+    body: "Honest conversations, clear thinking, mutual respect. Challenge ideas, support each other, do the best work.",
+  },
 ];
 
 interface Job {
@@ -184,7 +200,7 @@ const Careers = () => {
       {/* ── 1. HERO ── */}
       {heroVisible && (
         <div
-          className="fixed inset-0 z-[10] flex items-center justify-center px-6 md:px-12 lg:px-16 overflow-hidden"
+          className="fixed inset-0 z-[10] flex items-center justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-16 lg:pt-0"
           style={{ opacity: heroOp }}
         >
           <div
@@ -224,34 +240,34 @@ const Careers = () => {
 
       {/* ── 2. VALUES ── */}
       {valVisible && (
-        <div className="fixed inset-0 z-[10] w-full overflow-hidden" style={{ opacity: valOp }}>
+        <div className="fixed inset-0 z-[10] w-full overflow-y-auto" style={{ opacity: valOp }}>
           <img
             src="/Images/about us.webp"
             alt="NEMI team"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="fixed inset-0 w-full h-full object-cover"
             style={{ objectPosition: "center 80%", transform: "scale(1.35)", transformOrigin: "center 80%" }}
             loading="lazy" decoding="async"
           />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.82) 100%)" }} />
-          <div className="relative z-10 flex flex-col h-full items-center justify-center px-6 md:px-12 lg:px-16 text-center"
+          <div className="fixed inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.82) 100%)" }} />
+          <div className="relative z-10 flex flex-col min-h-full items-center justify-center px-4 sm:px-6 md:px-12 lg:px-16 text-center py-16 lg:py-0"
             style={{ transform: `translateY(${(1 - valEnter) * 24}px)` }}
           >
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] text-white mb-14 md:mb-16">
+            <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] text-white mb-4 sm:mb-8 lg:mb-14 xl:mb-16">
               Our Values
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-7xl items-start">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6 w-full max-w-7xl items-stretch">
               {values.map((val, i) => {
                 const cardP = easeOut(Math.min(Math.max((valEnter - i * 0.1) / 0.5, 0), 1));
                 return (
-                <div key={val.title} className="p-3 md:p-4 group flex flex-col items-center text-center" style={{ opacity: cardP, transform: `translateY(${(1 - cardP) * 24}px)` }}>
-                  <div className="w-10 h-[2px] mb-5 transition-all duration-300 group-hover:w-16" style={{ background: "linear-gradient(to right, hsl(275 80% 75%), hsl(275 80% 75% / 0.3))" }} />
-                  <h3 className="font-bold text-xs md:text-sm tracking-[0.12em] md:tracking-[0.15em] uppercase text-white mb-3 group-hover:text-purple-300 transition-colors duration-300 whitespace-nowrap">
+                <div key={val.title} className="p-2 sm:p-3 md:p-4 group flex flex-col items-center text-center h-full" style={{ opacity: cardP, transform: `translateY(${(1 - cardP) * 24}px)` }}>
+                  <div className="w-8 sm:w-10 h-[2px] mb-2 sm:mb-5 transition-all duration-300 group-hover:w-16" style={{ background: "linear-gradient(to right, hsl(275 80% 75%), hsl(275 80% 75% / 0.3))" }} />
+                  <h3 className="font-bold text-[10px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.12em] md:tracking-[0.15em] uppercase text-white mb-1.5 sm:mb-3 group-hover:text-purple-300 transition-colors duration-300 whitespace-nowrap">
                     {val.title}
                   </h3>
-                  <p
-                    className="text-xs md:text-sm text-white/70 leading-[1.7] w-full"
-                    style={{ minHeight: "calc(4 * 1.7em)" }}
-                  >
+                  <p className="text-[10.5px] sm:text-xs md:text-sm text-white font-semibold leading-[1.35] sm:leading-[1.55] w-full mb-1.5 sm:mb-2">
+                    {val.tagline}
+                  </p>
+                  <p className="text-[9.5px] sm:text-xs md:text-sm text-white/70 leading-[1.45] sm:leading-[1.7] w-full">
                     {val.body}
                   </p>
                 </div>
@@ -265,10 +281,10 @@ const Careers = () => {
       {/* ── 3. OPEN POSITIONS ── */}
       {posVisible && (
         <div
-          className="fixed inset-0 z-[10] flex flex-col justify-center px-6 md:px-12 lg:px-16"
+          className="fixed inset-0 z-[10] flex flex-col justify-start lg:justify-center px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-8 lg:py-0"
           style={{ opacity: posOp }}
         >
-          <div className="max-w-2xl w-full mx-auto pt-20" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
+          <div className="max-w-2xl w-full mx-auto" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
             <div className="text-center mb-8">
               <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-3" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
                 Apply Now
@@ -376,7 +392,7 @@ const Careers = () => {
               headline="Shape the Future."
               tagline="Join the team building full-stack, end-to-end manufacturing automation with Physical AI."
               buttonText="Get in Touch"
-              buttonHref="mailto:info@nemi-ai.com"
+              buttonHref="/#contact"
             />
           </div>
           <SiteFooter />

@@ -94,7 +94,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
       className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-y-auto"
       style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
     >
-      <div className="max-w-6xl w-full px-4 md:px-6 mx-auto pointer-events-auto flex flex-col items-center py-16 md:py-20 lg:py-24">
+      <div className="max-w-6xl w-full px-4 md:px-6 mx-auto pointer-events-auto flex flex-col items-center py-20 md:py-20 lg:py-24">
         {/* Subtitle */}
         <h2
           className="text-[10px] md:text-sm tracking-[0.4em] uppercase mb-3 md:mb-6"
@@ -171,7 +171,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
         </div>
 
         {/* Vehicles row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-10 lg:gap-16 w-full max-w-5xl mx-auto justify-items-center">
+        <div className="grid grid-cols-3 gap-2 md:gap-10 lg:gap-16 w-full max-w-5xl mx-auto justify-items-center">
           {vehicles.map((v) => {
             const data = vehicleImages[v.key];
             const highlightImg = data.parts[selectedPart];
@@ -179,10 +179,10 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
 
             const isRobotic = v.key === "humanoid";
             return (
-              <div key={v.key} className="flex flex-col items-center gap-2 md:gap-4">
+              <div key={v.key} className="flex flex-col items-center gap-1.5 md:gap-4">
                 <div
-                  className="relative w-[7.5rem] h-[8.5rem] md:w-48 md:h-52 lg:w-60 lg:h-60 flex items-center justify-center"
-                  style={isRobotic ? { position: "relative", top: "12px" } : {}}
+                  className="relative w-20 h-20 sm:w-[7.5rem] sm:h-[8.5rem] md:w-48 md:h-52 lg:w-60 lg:h-60 flex items-center justify-center"
+                  style={isRobotic ? { position: "relative", top: "6px" } : {}}
                 >
                   <img
                     src={data.full}
@@ -202,7 +202,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
                     />
                   )}
                 </div>
-                <span className="text-[9px] md:text-sm tracking-[0.25em] uppercase text-muted-foreground font-medium">
+                <span className="text-[8px] md:text-sm tracking-[0.15em] md:tracking-[0.25em] uppercase text-muted-foreground font-medium text-center">
                   {v.label}
                 </span>
               </div>

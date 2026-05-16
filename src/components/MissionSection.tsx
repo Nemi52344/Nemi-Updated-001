@@ -165,15 +165,16 @@ const MissionSection = ({ scrollProgress }: MissionSectionProps) => {
           <p className="text-base md:text-lg text-muted-foreground tracking-wide mb-8">
             Join us in building the next generation of intelligent manufacturing.
           </p>
-          <div
-            className="inline-block px-8 py-3 rounded-full border border-primary/40 text-primary tracking-widest uppercase text-sm pointer-events-auto cursor-pointer hover:bg-primary/10 transition-colors"
+          <a
+            href="#contact"
+            className="inline-block px-8 py-3 rounded-full border border-primary/40 text-primary tracking-widest uppercase text-sm pointer-events-auto cursor-pointer hover:bg-primary/10 transition-colors no-underline"
             style={{
               boxShadow: "0 0 20px hsl(275 80% 60% / 0.2)",
               animation: ctaP >= 1 ? "text-glow-pulse 3s ease-in-out infinite" : "none",
             }}
           >
             Get in Touch
-          </div>
+          </a>
         </div>
       </div>
     </>

@@ -11,114 +11,42 @@ interface MetricBarProps {
 }
 
 const MetricRow = ({ label, before, after, barPercent, color }: MetricBarProps) => (
-  <div
-    style={{
-      paddingTop: "0.85rem",
-      paddingBottom: "0.85rem",
-      borderTop: "1px solid rgba(255,255,255,0.08)",
-    }}
-  >
+  <div className="case-metric-row">
     {/* Metric label */}
-    <p
-      className="text-foreground"
-      style={{
-        fontFamily: "'Montserrat',sans-serif",
-        fontSize: "0.88rem",
-        fontWeight: 700,
-        letterSpacing: "0.01em",
-        marginBottom: "0.6rem",
-      }}
-    >
-      {label}
-    </p>
+    <p className="case-metric-label text-foreground">{label}</p>
 
     {/* BEFORE row — neutral baseline bar */}
-    <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "0.5rem" }}>
-      <span
-        style={{
-          fontFamily: "'Montserrat',sans-serif",
-          fontSize: "0.6rem",
-          fontWeight: 700,
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          color: "rgba(244,242,237,0.45)",
-          width: "5rem",
-          flexShrink: 0,
-        }}
-      >
+    <div className="case-metric-bar-row">
+      <span className="case-metric-side-label" style={{ color: "rgba(244,242,237,0.45)" }}>
         Benchmark
       </span>
-      <div style={{ flex: 1, position: "relative", height: 3, background: "rgba(255,255,255,0.08)", borderRadius: 2 }}>
+      <div className="case-metric-track">
         <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            height: "100%",
-            width: "100%",
-            background: "rgba(244,242,237,0.25)",
-            borderRadius: 2,
-          }}
+          className="case-metric-fill"
+          style={{ width: "100%", background: "rgba(244,242,237,0.25)" }}
         />
       </div>
-      <span
-        style={{
-          fontFamily: "'Montserrat',sans-serif",
-          fontSize: "0.82rem",
-          fontWeight: 600,
-          color: "rgba(244,242,237,0.7)",
-          width: "5.5rem",
-          textAlign: "right",
-          flexShrink: 0,
-          whiteSpace: "nowrap",
-        }}
-      >
+      <span className="case-metric-value" style={{ color: "rgba(244,242,237,0.7)" }}>
         {before}
       </span>
     </div>
 
     {/* AFTER row — accent-colored progress bar */}
-    <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
-      <span
-        style={{
-          fontFamily: "'Montserrat',sans-serif",
-          fontSize: "0.6rem",
-          fontWeight: 700,
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          color,
-          width: "5rem",
-          flexShrink: 0,
-        }}
-      >
+    <div className="case-metric-bar-row case-metric-bar-row-last">
+      <span className="case-metric-side-label" style={{ color }}>
         Nemi
       </span>
-      <div style={{ flex: 1, position: "relative", height: 3, background: "rgba(255,255,255,0.08)", borderRadius: 2 }}>
+      <div className="case-metric-track">
         <div
+          className="case-metric-fill"
           style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            height: "100%",
             width: `${barPercent}%`,
             background: color,
-            borderRadius: 2,
             boxShadow: `0 0 10px ${color}66`,
           }}
         />
       </div>
-      <span
-        style={{
-          fontFamily: "'Montserrat',sans-serif",
-          fontSize: "0.95rem",
-          fontWeight: 700,
-          color,
-          width: "5.5rem",
-          textAlign: "right",
-          flexShrink: 0,
-          whiteSpace: "nowrap",
-        }}
-      >
+      <span className="case-metric-value-after" style={{ color }}>
         {after}
       </span>
     </div>
@@ -138,52 +66,33 @@ interface CaseStudyProps {
 
 const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt, imageFirst = true }: CaseStudyProps) => {
   const contentBlock = (
-    <div
-      style={{
-        padding: "1.75rem 2.25rem",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
+    <div className="services-case-content case-content-cell">
       <h3
-        className="font-bold text-lg md:text-xl lg:text-2xl uppercase tracking-wider mb-4 leading-tight"
+        className="case-title"
         dangerouslySetInnerHTML={{ __html: title }}
       />
 
       {/* Context */}
-      <div style={{ marginBottom: "0.9rem" }}>
-        <p className="font-bold text-[10px] tracking-[0.22em] uppercase mb-1" style={{ color }}>
-          Context
-        </p>
-        <p className="text-[0.8rem] text-muted-foreground leading-[1.55] tracking-wide">
-          {context}
-        </p>
+      <div className="case-section">
+        <p className="case-section-tag" style={{ color }}>Context</p>
+        <p className="case-section-text text-muted-foreground">{context}</p>
       </div>
 
       {/* Outcome */}
-      <div style={{ marginBottom: "1.1rem" }}>
-        <p className="font-bold text-[10px] tracking-[0.22em] uppercase mb-1" style={{ color }}>
-          Outcome
-        </p>
-        <p className="text-[0.8rem] text-muted-foreground leading-[1.55] tracking-wide">
-          {outcome}
-        </p>
+      <div className="case-section">
+        <p className="case-section-tag" style={{ color }}>Outcome</p>
+        <p className="case-section-text text-muted-foreground">{outcome}</p>
       </div>
 
       {/* Key Metrics */}
       <div>
-        <p className="font-bold text-[10px] tracking-[0.22em] uppercase mb-2" style={{ color }}>
-          Key Metrics
-        </p>
-
+        <p className="case-section-tag" style={{ color, marginBottom: "0.4rem" }}>Key Metrics</p>
         <div style={{ display: "flex", flexDirection: "column" }}>
           {metrics.map((m) => (
             <MetricRow key={m.label} {...m} />
           ))}
         </div>
-
-        <p className="text-[0.65rem] text-muted-foreground/45 italic mt-4 leading-relaxed">
+        <p className="case-disclaimer text-muted-foreground/45">
           Customer name withheld under NDA. Reference available on request during investor diligence.
         </p>
       </div>
@@ -191,18 +100,12 @@ const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt
   );
 
   const imageBlock = (
-    <ScrollReveal variant="zoom" repeat style={{ height: "100%" }}>
-      <div style={{ height: "100%", minHeight: 290, overflow: "hidden", position: "relative", background: "transparent" }}>
+    <ScrollReveal variant="zoom" repeat style={{ height: "100%" }} className="case-image-cell">
+      <div className="services-case-image-wrap">
         <img
           src={imageSrc}
           alt={imageAlt}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-            transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)",
-          }}
-          className="hover:scale-105"
+          className="services-case-image hover:scale-105"
           loading="lazy"
           decoding="async"
         />
@@ -224,6 +127,135 @@ const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt
         {imageFirst ? imageBlock : contentBlock}
         {imageFirst ? contentBlock : imageBlock}
       </div>
+      <style>{`
+        .services-case-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 0.75rem 0.875rem;
+        }
+        .services-case-image-wrap {
+          height: 100%;
+          overflow: hidden;
+          position: relative;
+          background: transparent;
+          min-height: 110px;
+        }
+        .services-case-image {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+        }
+        .case-title {
+          font-weight: 700;
+          font-size: 0.95rem;
+          line-height: 1.15;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          margin-bottom: 0.4rem;
+        }
+        .case-section { margin-bottom: 0.45rem; }
+        .case-section-tag {
+          font-weight: 700;
+          font-size: 8.5px;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          margin-bottom: 0.15rem;
+        }
+        .case-section-text {
+          font-size: 10.5px;
+          line-height: 1.4;
+          letter-spacing: 0.01em;
+        }
+        .case-metric-row {
+          padding: 0.35rem 0;
+          border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .case-metric-label {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          margin-bottom: 0.25rem;
+        }
+        .case-metric-bar-row {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          margin-bottom: 0.2rem;
+        }
+        .case-metric-bar-row-last { margin-bottom: 0; }
+        .case-metric-side-label {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 7.5px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          width: 3.5rem;
+          flex-shrink: 0;
+        }
+        .case-metric-track {
+          flex: 1;
+          position: relative;
+          height: 2px;
+          background: rgba(255,255,255,0.08);
+          border-radius: 2px;
+        }
+        .case-metric-fill {
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          border-radius: 2px;
+        }
+        .case-metric-value {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 10px;
+          font-weight: 600;
+          width: 4rem;
+          text-align: right;
+          flex-shrink: 0;
+          white-space: nowrap;
+        }
+        .case-metric-value-after {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 11.5px;
+          font-weight: 700;
+          width: 4rem;
+          text-align: right;
+          flex-shrink: 0;
+          white-space: nowrap;
+        }
+        .case-disclaimer {
+          font-size: 8px;
+          font-style: italic;
+          margin-top: 0.35rem;
+          line-height: 1.3;
+        }
+        @media (min-width: 768px) {
+          .services-case-content { padding: 1.75rem 2.25rem; }
+          .services-case-image-wrap { min-height: 290px; }
+          .case-title { font-size: 1.5rem; line-height: 1.1; margin-bottom: 1rem; letter-spacing: 0.05em; }
+          .case-section { margin-bottom: 0.9rem; }
+          .case-section-tag { font-size: 10px; margin-bottom: 0.25rem; }
+          .case-section-text { font-size: 0.8rem; line-height: 1.55; }
+          .case-metric-row { padding: 0.85rem 0; }
+          .case-metric-label { font-size: 0.88rem; margin-bottom: 0.6rem; }
+          .case-metric-bar-row { gap: 0.7rem; margin-bottom: 0.5rem; }
+          .case-metric-side-label { font-size: 0.6rem; letter-spacing: 0.2em; width: 5rem; }
+          .case-metric-track { height: 3px; }
+          .case-metric-value { font-size: 0.82rem; width: 5.5rem; }
+          .case-metric-value-after { font-size: 0.95rem; width: 5.5rem; }
+          .case-disclaimer { font-size: 0.65rem; margin-top: 1rem; line-height: 1.5; }
+        }
+        @media (max-width: 900px) {
+          .services-case-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .case-image-cell { order: 0 !important; }
+          .case-content-cell { order: 1 !important; }
+        }
+      `}</style>
     </div>
   );
 };

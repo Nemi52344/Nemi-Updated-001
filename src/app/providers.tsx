@@ -3,6 +3,7 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import InvestorContactGate from "@/components/InvestorContactGate";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -10,6 +11,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <Toaster />
       <Sonner />
       {children}
+      <InvestorContactGate />
     </TooltipProvider>
   );
 }

@@ -690,8 +690,8 @@ const Technology = () => {
         </ScrollReveal>
         <ScrollReveal variant="scale">
           <div className="rounded-xl border border-border/40 overflow-hidden" style={{ background: "hsl(var(--card) / 0.7)" }}>
-            {/* Header Row */}
-            <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-card px-6 py-4 border-b border-border/40">
+            {/* Header Row (desktop / tablet) */}
+            <div className="hidden md:grid grid-cols-[1.2fr_1fr_1fr] bg-card px-6 py-4 border-b border-border/40">
               <span />
               <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-foreground/70">Traditional MES / PLM Vendors</span>
               <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase pl-5" style={{ color: "hsl(275 80% 72%)", textShadow: "0 0 12px hsl(275 80% 60% / 0.4)" }}>NEMI</span>
@@ -700,21 +700,29 @@ const Technology = () => {
             {comparisonRows.map((row, i) => (
               <div
                 key={row.dimension}
-                className={`grid grid-cols-[1.2fr_1fr_1fr] px-6 py-5 ${i < comparisonRows.length - 1 ? "border-b border-border/20" : ""} hover:bg-card/60 transition-colors group`}
+                className={`flex flex-col gap-3 md:grid md:gap-0 md:grid-cols-[1.2fr_1fr_1fr] px-4 sm:px-6 py-4 md:py-5 ${i < comparisonRows.length - 1 ? "border-b border-border/20" : ""} hover:bg-card/60 transition-colors group`}
               >
                 <span className="text-sm md:text-base font-bold tracking-[0.1em] uppercase text-foreground group-hover:text-primary transition-colors">{row.dimension}</span>
-                <span className="flex items-center gap-3 text-sm md:text-base text-foreground/70">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="hsl(0 72% 58%)" strokeWidth="2.5" strokeLinecap="round" className="shrink-0">
-                    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
-                  <span>{row.legacy}</span>
-                </span>
-                <span className="flex items-center gap-3 text-sm md:text-base font-semibold pl-5" style={{ borderLeft: "2px solid hsl(275 80% 60% / 0.35)", color: "hsl(275 80% 78%)" }}>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="hsl(142 71% 50%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  {row.nemi}
-                </span>
+                <div className="grid grid-cols-2 md:contents gap-3 md:gap-0">
+                  <span className="flex items-start gap-2 md:gap-3 text-xs sm:text-sm md:text-base text-foreground/70">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="hsl(0 72% 58%)" strokeWidth="2.5" strokeLinecap="round" className="shrink-0 mt-0.5">
+                      <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                    <span>
+                      <span className="block md:hidden text-[10px] font-bold tracking-[0.18em] uppercase text-foreground/40 mb-0.5">Traditional</span>
+                      {row.legacy}
+                    </span>
+                  </span>
+                  <span className="flex items-start gap-2 md:gap-3 text-xs sm:text-sm md:text-base font-semibold pl-3 md:pl-5" style={{ borderLeft: "2px solid hsl(275 80% 60% / 0.35)", color: "hsl(275 80% 78%)" }}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="hsl(142 71% 50%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>
+                      <span className="block md:hidden text-[10px] font-bold tracking-[0.18em] uppercase text-foreground/40 mb-0.5">NEMI</span>
+                      {row.nemi}
+                    </span>
+                  </span>
+                </div>
               </div>
             ))}
           </div>

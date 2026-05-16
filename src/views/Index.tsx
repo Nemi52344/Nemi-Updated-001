@@ -178,13 +178,13 @@ const Index = () => {
           fetchPriority="high"
         />
         <h1
-          className="mt-0 text-5xl md:text-7xl font-bold tracking-[0.3em] text-foreground"
+          className="mt-0 text-4xl sm:text-5xl md:text-7xl font-bold tracking-[0.2em] sm:tracking-[0.3em] text-foreground text-center px-4"
           style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)" }}
         >
           NEMI AI
         </h1>
         <p
-          className="mt-6 text-sm md:text-base lg:text-lg font-light text-center text-muted-foreground tracking-[0.25em] uppercase mx-4 leading-[1.6]"
+          className="mt-6 text-xs sm:text-sm md:text-base lg:text-lg font-light text-center text-muted-foreground tracking-[0.15em] sm:tracking-[0.25em] uppercase mx-4 leading-[1.6]"
           style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}
         >
           Full-stack, end-to-end manufacturing automation

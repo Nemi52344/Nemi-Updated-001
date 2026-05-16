@@ -140,7 +140,7 @@ const LeaderFlipCard = ({ member }: { member: TeamMember }) => {
 
   return (
     <div
-      className="w-full cursor-pointer h-[140px] md:h-[170px]"
+      className="w-full cursor-pointer h-[96px] sm:h-[140px] md:h-[170px]"
       style={{ perspective: "1000px", contain: "paint" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -151,7 +151,7 @@ const LeaderFlipCard = ({ member }: { member: TeamMember }) => {
       >
         {/* Front */}
         <div
-          className="absolute inset-0 rounded-xl overflow-hidden border flex flex-col items-center justify-center px-3 py-3"
+          className="absolute inset-0 rounded-lg sm:rounded-xl overflow-hidden border flex flex-col items-center justify-center px-2 py-2 sm:px-3 sm:py-3"
           style={{
             backfaceVisibility: "hidden",
             borderColor: `hsl(${member.colorHsl} / 0.3)`,
@@ -159,16 +159,16 @@ const LeaderFlipCard = ({ member }: { member: TeamMember }) => {
           }}
         >
           <div
-            className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden mb-1.5 flex-shrink-0"
+            className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full overflow-hidden mb-1 sm:mb-1.5 flex-shrink-0"
             style={{ border: `1.5px solid hsl(${member.colorHsl} / 0.45)` }}
           >
             <img src={member.photo} alt={member.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
           </div>
-          <h3 className="text-[11px] md:text-sm font-semibold text-foreground text-center leading-tight">
+          <h3 className="text-[9px] sm:text-[11px] md:text-sm font-semibold text-foreground text-center leading-tight">
             <span className="block">{first || last}</span>
             <span className="block">{first ? last : ""}</span>
           </h3>
-          <p className="text-[8px] md:text-[10px] tracking-[0.15em] uppercase font-medium text-center mt-1" style={{ color: `hsl(${member.colorHsl})` }}>
+          <p className="text-[7px] sm:text-[8px] md:text-[10px] tracking-[0.12em] sm:tracking-[0.15em] uppercase font-medium text-center mt-0.5 sm:mt-1" style={{ color: `hsl(${member.colorHsl})` }}>
             {member.role}
           </p>
         </div>
@@ -286,14 +286,14 @@ const AboutUs = () => {
       {/* ═══ 1. HERO ═══ */}
       {heroVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none px-4"
           style={{ zIndex: 10, opacity: heroOp }}
         >
           <div
             className="text-center"
             style={{ transform: `translateY(${heroExit * -80}px)` }}
           >
-            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-tight leading-[1.05] mb-8">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-tight leading-[1.05] mb-6 sm:mb-8">
               <span
                 className="block"
                 style={{
@@ -334,28 +334,28 @@ const AboutUs = () => {
       {/* ═══ 2. SOLUTIONS ═══ */}
       {solVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0"
           style={{ zIndex: 20, opacity: solOp, background: "hsl(230 25% 4%)" }}
         >
-          <div className="max-w-6xl w-full mx-6 pointer-events-auto">
+          <div className="max-w-6xl w-full mx-4 sm:mx-6 pointer-events-auto">
             <div
-              className="text-left mb-8 md:mb-10"
+              className="text-left mb-3 sm:mb-8 md:mb-10"
               style={{ opacity: solEnter, transform: `translateY(${(1 - solEnter) * 20}px)` }}
             >
               <h2
-                className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.08]"
+                className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.08]"
                 style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.35)" }}
               >
                 Manufacturing is deeply fragmented.
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-4">
               {HARDWARE_PHASES.map((ph, i) => {
                 const cardP = easeOut(Math.min(Math.max((solEnter - i * 0.15) / 0.6, 0), 1));
                 return (
                   <div
                     key={ph.label}
-                    className="relative rounded-2xl flex flex-col overflow-hidden"
+                    className="relative rounded-xl sm:rounded-2xl flex flex-col overflow-hidden"
                     style={{
                       opacity: cardP,
                       transform: `translateY(${(1 - cardP) * 40}px)`,
@@ -363,17 +363,17 @@ const AboutUs = () => {
                       background: "hsl(220 20% 7% / 0.8)",
                     }}
                   >
-                    <div className="relative overflow-hidden" style={{ height: "160px", background: "hsl(220 20% 6%)" }}>
+                    <div className="relative overflow-hidden w-full h-[90px] sm:h-[120px] md:h-[160px]" style={{ background: "hsl(220 20% 6%)" }}>
                       <img src={ph.image} alt={ph.imageAlt} loading="lazy" decoding="async" className="w-full h-full object-cover" style={{ filter: "brightness(0.7) saturate(0.85)" }} />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 40%, hsl(220 20% 7%) 100%)" }} />
                     </div>
-                    <div className="flex flex-col px-5 pb-4 pt-3 gap-2">
-                      <span className="text-base tracking-[0.18em] uppercase font-semibold" style={{ color: `hsl(${ph.color})`, lineHeight: 1 }}>{ph.label}</span>
+                    <div className="flex flex-col px-3 sm:px-5 py-2 sm:pb-4 sm:pt-3 gap-1 sm:gap-2 flex-1">
+                      <span className="text-xs sm:text-base tracking-[0.16em] sm:tracking-[0.18em] uppercase font-semibold" style={{ color: `hsl(${ph.color})`, lineHeight: 1 }}>{ph.label}</span>
                       <div className="h-px" style={{ background: `hsl(${ph.color} / 0.12)` }} />
-                      <ul className="flex flex-col gap-1.5 mt-1">
+                      <ul className="flex flex-col gap-0.5 sm:gap-1.5 mt-0.5 sm:mt-1">
                         {ph.points.map((p) => (
-                          <li key={p} className="flex items-center gap-2 text-sm text-foreground/90">
-                            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: `hsl(${ph.color})` }} />
+                          <li key={p} className="flex items-center gap-2 text-[11px] sm:text-sm text-foreground/90 leading-tight">
+                            <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full shrink-0" style={{ background: `hsl(${ph.color})` }} />
                             {p}
                           </li>
                         ))}
@@ -384,7 +384,7 @@ const AboutUs = () => {
               })}
             </div>
             <p
-              className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed w-full mt-8 md:mt-10 text-center"
+              className="text-[11px] sm:text-sm md:text-base lg:text-lg text-muted-foreground leading-snug sm:leading-relaxed w-full mt-3 sm:mt-8 md:mt-10 text-center"
               style={{ opacity: solEnter }}
             >
               Every product restarts from zero, burning capital and losing hard-won knowledge at every handoff. Design, develop and distribute operate in silos with no shared intelligence.
@@ -396,7 +396,7 @@ const AboutUs = () => {
       {/* ═══ 3. JOURNEY ═══ */}
       {jrnVisible && (
         <div
-          className="fixed inset-0 flex flex-col pointer-events-none"
+          className="fixed inset-0 flex flex-col pointer-events-none overflow-y-auto py-16 lg:py-0"
           style={{ zIndex: 20, opacity: jrnOp, background: "hsl(230 25% 4%)" }}
         >
           <div
@@ -406,11 +406,11 @@ const AboutUs = () => {
 
           <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-10 relative z-[2] pointer-events-auto">
             {/* Heading */}
-            <div className="text-center mb-8 md:mb-12" style={{ opacity: jrnEnter, transform: `translateY(${(1 - jrnEnter) * 25}px)` }}>
-              <h2 className="text-2xl md:text-4xl lg:text-[2.8rem] font-extrabold tracking-tight leading-[1.08]">
-                We didn't start with Physical AI.
+            <div className="text-center mb-3 lg:mb-12" style={{ opacity: jrnEnter, transform: `translateY(${(1 - jrnEnter) * 25}px)` }}>
+              <h2 className="text-lg sm:text-2xl md:text-4xl lg:text-[2.8rem] font-extrabold tracking-tight leading-[1.1]">
+                We didn&rsquo;t start with Physical AI.
               </h2>
-              <p className="text-sm md:text-base text-muted-foreground tracking-wide mt-3 max-w-xl mx-auto">
+              <p className="text-[11px] sm:text-sm md:text-base text-muted-foreground tracking-wide mt-1.5 lg:mt-3 max-w-xl mx-auto">
                 We fought our way through the trenches of manufacturing.
               </p>
             </div>
@@ -470,15 +470,15 @@ const AboutUs = () => {
               })}
             </div>
 
-            {/* Mobile: stacked cards */}
-            <div className="w-full flex md:hidden flex-col gap-3">
+            {/* Mobile: compact stacked cards */}
+            <div className="w-full flex md:hidden flex-col gap-2">
               {JOURNEY_STEPS.map((step, i) => {
                 const cardDelay = i * 0.1;
                 const cardP = easeOut(Math.min(Math.max((jrnCardsP - cardDelay) / 0.35, 0), 1));
                 return (
                   <div
                     key={step.tag}
-                    className="rounded-xl px-5 py-5"
+                    className="rounded-lg px-3 py-2.5"
                     style={{
                       opacity: cardP,
                       transform: `translateX(${(1 - cardP) * -20}px)`,
@@ -486,17 +486,19 @@ const AboutUs = () => {
                       border: `1px solid hsl(${step.accent} / 0.28)`,
                     }}
                   >
-                    <span
-                      className="inline-block w-9 h-[3px] mb-3 rounded-full"
-                      style={{ background: `hsl(${step.accent})` }}
-                    />
-                    <p className="text-[11px] tracking-[0.3em] uppercase font-bold mb-2" style={{ color: `hsl(${step.accent})` }}>{step.tag}</p>
-                    <h3 className="text-[16px] font-bold text-foreground leading-snug mb-1">{step.title}</h3>
-                    <p className="text-[12px] font-semibold mb-3" style={{ color: `hsl(${step.accent})` }}>{step.years}</p>
-                    <ul className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span
+                        className="inline-block w-6 h-[2px] rounded-full"
+                        style={{ background: `hsl(${step.accent})` }}
+                      />
+                      <p className="text-[9px] tracking-[0.25em] uppercase font-bold" style={{ color: `hsl(${step.accent})` }}>{step.tag}</p>
+                      <span className="text-[9px] tracking-wide font-semibold ml-auto" style={{ color: `hsl(${step.accent})` }}>{step.years}</span>
+                    </div>
+                    <h3 className="text-[13px] font-bold text-foreground leading-snug mb-1.5">{step.title}</h3>
+                    <ul className="flex flex-col gap-1">
                       {step.points.map((pt) => (
-                        <li key={pt} className="flex items-start gap-2 text-[12.5px] text-foreground/85 leading-relaxed">
-                          <span className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: `hsl(${step.accent})` }} />
+                        <li key={pt} className="flex items-start gap-1.5 text-[10.5px] text-foreground/85 leading-snug">
+                          <span className="w-1 h-1 rounded-full mt-1.5 shrink-0" style={{ background: `hsl(${step.accent})` }} />
                           <span>{pt}</span>
                         </li>
                       ))}
@@ -512,7 +514,7 @@ const AboutUs = () => {
       {/* ═══ 4. OUR GOAL ═══ */}
       {goalVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto px-4 py-16"
           style={{ zIndex: 20, opacity: goalOp, background: "hsl(230 25% 4%)" }}
         >
           <div
@@ -584,7 +586,7 @@ const AboutUs = () => {
       {/* ═══ 5. LMM SYSTEM ARCHITECTURE ═══ */}
       {lmmVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0"
           style={{ zIndex: 20, opacity: lmmOp, background: "hsl(230 25% 4%)" }}
         >
           <div
@@ -709,7 +711,7 @@ const AboutUs = () => {
       {/* ═══ 6. OUR LOCATIONS ═══ */}
       {locVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0"
           style={{ zIndex: 20, opacity: locOp, background: "hsl(230 25% 4%)" }}
         >
           <div
@@ -717,7 +719,7 @@ const AboutUs = () => {
             style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, hsl(275 80% 40% / 0.10) 0%, transparent 65%)" }}
           />
 
-          <div className="max-w-5xl w-full mx-6 pointer-events-auto relative z-[2] flex flex-col items-center" style={{ maxHeight: "90vh", marginTop: "40px" }}>
+          <div className="max-w-5xl w-full mx-6 pointer-events-auto relative z-[2] flex flex-col items-center" style={{ maxHeight: "90vh" }}>
             {/* Heading */}
             <div className="text-center mb-3 md:mb-4" style={{ opacity: locEnter, transform: `translateY(${(1 - locEnter) * 20}px)` }}>
               <h2 className="text-xl md:text-3xl lg:text-[2rem] font-extrabold tracking-tight">
@@ -778,19 +780,19 @@ const AboutUs = () => {
       {/* ═══ 7. TEAM (Core + Extended) ═══ */}
       {tcVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0"
           style={{ zIndex: 20, opacity: tcOp, background: "hsl(230 25% 4%)" }}
         >
-          <div className="max-w-6xl w-full mx-6 pointer-events-auto text-center">
+          <div className="max-w-6xl w-full mx-4 sm:mx-6 pointer-events-auto text-center">
             <div style={{ opacity: tcEnter, transform: `translateY(${(1 - tcEnter) * 20}px)` }}>
-              <h2 className="text-xl md:text-3xl font-bold tracking-wider mb-1" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Team</h2>
-              <p className="text-[11px] md:text-xs text-muted-foreground tracking-wide mb-4 max-w-2xl mx-auto">
+              <h2 className="text-lg sm:text-xl md:text-3xl font-bold tracking-wider mb-1" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Team</h2>
+              <p className="text-[10px] sm:text-[11px] md:text-xs text-muted-foreground tracking-wide mb-2 sm:mb-4 max-w-2xl mx-auto leading-snug">
                 Leadership team that built manufacturing at scale and AI systems at scale, now combining both.
               </p>
             </div>
 
             {/* Core Team grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-4">
               {CORE_TEAM.map((m, i) => {
                 const cp = easeOut(Math.min(Math.max((tcEnter - i * 0.08) / 0.5, 0), 1));
                 return (
@@ -802,12 +804,12 @@ const AboutUs = () => {
             </div>
 
             {/* Extended Leadership subheading */}
-            <div className="mb-2" style={{ opacity: tcExtP, transform: `translateY(${(1 - tcExtP) * 15}px)` }}>
-              <p className="text-[10px] md:text-xs tracking-[0.35em] uppercase text-muted-foreground font-bold">Extended Leadership</p>
+            <div className="mb-1.5 sm:mb-2" style={{ opacity: tcExtP, transform: `translateY(${(1 - tcExtP) * 15}px)` }}>
+              <p className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.25em] sm:tracking-[0.35em] uppercase text-muted-foreground font-bold">Extended Leadership</p>
             </div>
 
             {/* Extended Team grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
               {EXTENDED_TEAM.map((m, i) => {
                 const cp = easeOut(Math.min(Math.max((tcExtP - i * 0.08) / 0.5, 0), 1));
                 return (
@@ -824,32 +826,32 @@ const AboutUs = () => {
       {/* ═══ 6. BOARD & ADVISORS ═══ */}
       {baVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0"
           style={{ zIndex: 20, opacity: baOp, background: "hsl(230 25% 4%)" }}
         >
-          <div className="max-w-5xl w-full mx-6 pointer-events-auto">
-            <div className="text-center mb-8" style={{ opacity: baEnter, transform: `translateY(${(1 - baEnter) * 20}px)` }}>
-              <h2 className="text-2xl md:text-3xl font-bold tracking-wider mb-2" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Board & Advisors</h2>
-              <p className="text-sm text-muted-foreground">Guided by operators who scaled global enterprises.</p>
+          <div className="max-w-5xl w-full mx-4 sm:mx-6 pointer-events-auto">
+            <div className="text-center mb-3 sm:mb-8" style={{ opacity: baEnter, transform: `translateY(${(1 - baEnter) * 20}px)` }}>
+              <h2 className="text-lg sm:text-2xl md:text-3xl font-bold tracking-wider mb-1 sm:mb-2" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Board &amp; Advisors</h2>
+              <p className="text-[11px] sm:text-sm text-muted-foreground">Guided by operators who scaled global enterprises.</p>
             </div>
 
             {/* Board */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-6">
               {BOARD.map((m, i) => {
                 const cp = easeOut(Math.min(Math.max((baEnter - i * 0.1) / 0.6, 0), 1));
                 return (
                   <div
                     key={m.name}
-                    className="rounded-xl p-4 flex items-start gap-4"
+                    className="rounded-lg sm:rounded-xl p-2 sm:p-4 flex items-start gap-2 sm:gap-4"
                     style={{ opacity: cp, transform: `translateY(${(1 - cp) * 20}px)`, background: "hsl(230 20% 8% / 0.6)", border: `1px solid hsl(${m.color} / 0.2)` }}
                   >
-                    <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1px solid hsl(${m.color} / 0.3)` }}>
+                    <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1px solid hsl(${m.color} / 0.3)` }}>
                       <img src={m.photo} alt={m.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                     </div>
-                    <div>
-                      <p className="font-bold text-sm text-foreground">{m.name}</p>
-                      <p className="text-[9px] tracking-[0.12em] uppercase font-semibold mb-1" style={{ color: `hsl(${m.color})` }}>{m.title}</p>
-                      <p className="text-[11px] text-muted-foreground leading-relaxed">{m.desc}</p>
+                    <div className="min-w-0">
+                      <p className="font-bold text-[12px] sm:text-sm text-foreground leading-tight">{m.name}</p>
+                      <p className="text-[8px] sm:text-[9px] tracking-[0.12em] uppercase font-semibold mb-1" style={{ color: `hsl(${m.color})` }}>{m.title}</p>
+                      <p className="text-[10px] sm:text-[11px] text-muted-foreground leading-snug">{m.desc}</p>
                     </div>
                   </div>
                 );
@@ -857,28 +859,28 @@ const AboutUs = () => {
             </div>
 
             {/* Advisors */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-3">
               {ADVISORS.map((a, i) => {
                 const cp = easeOut(Math.min(Math.max((baEnter - (i + 2) * 0.08) / 0.5, 0), 1));
                 return (
                   <div
                     key={a.name}
-                    className="rounded-xl p-4 flex flex-col"
+                    className="rounded-lg sm:rounded-xl p-2 sm:p-4 flex flex-col"
                     style={{ opacity: cp, transform: `translateY(${(1 - cp) * 20}px)`, background: "hsl(230 20% 8% / 0.6)", border: `1px solid hsl(${a.color} / 0.2)` }}
                   >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1px solid hsl(${a.color} / 0.3)` }}>
+                    <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1px solid hsl(${a.color} / 0.3)` }}>
                         <img src={a.photo} alt={a.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                       </div>
-                      <div>
-                        <p className="font-bold text-xs text-foreground">{a.name}</p>
-                        <p className="text-[8px] tracking-[0.12em] uppercase font-semibold" style={{ color: `hsl(${a.color})` }}>{a.title}</p>
+                      <div className="min-w-0">
+                        <p className="font-bold text-[11px] sm:text-xs text-foreground leading-tight">{a.name}</p>
+                        <p className="text-[7.5px] sm:text-[8px] tracking-[0.12em] uppercase font-semibold" style={{ color: `hsl(${a.color})` }}>{a.title}</p>
                       </div>
                     </div>
-                    <ul className="flex flex-col gap-1">
+                    <ul className="flex flex-col gap-0.5 sm:gap-1">
                       {a.highlights.map((h) => (
-                        <li key={h} className="flex items-start gap-1.5 text-[10px] text-muted-foreground leading-relaxed">
-                          <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: `hsl(${a.color})` }} />
+                        <li key={h} className="flex items-start gap-1.5 text-[9px] sm:text-[10px] text-muted-foreground leading-snug">
+                          <span className="mt-1 sm:mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: `hsl(${a.color})` }} />
                           {h}
                         </li>
                       ))}

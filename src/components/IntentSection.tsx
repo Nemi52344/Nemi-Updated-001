@@ -60,7 +60,7 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
 
         {/* Heading - manufacturing reimagined with AI, NEMI is leading */}
         <h2
-          className="text-2xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.25] md:leading-[1.2] text-foreground/95"
+          className="text-lg sm:text-2xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.35] sm:leading-[1.25] md:leading-[1.2] text-foreground/95 px-2"
           style={{ textShadow: "0 0 24px hsl(275 60% 50% / 0.18)" }}
         >
           Manufacturing is being reimagined{" "}
@@ -78,8 +78,7 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
               }}
             />
           </span>
-          <br />
-          and{" "}
+          {" "}and{" "}
           <span
             className="relative inline-block font-extrabold"
             style={{ color: "hsl(275 55% 78%)" }}

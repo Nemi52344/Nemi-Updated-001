@@ -92,7 +92,7 @@ const FactoryFlipCard = ({
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="cursor-pointer w-full h-24 md:h-36 lg:h-40"
+      className="cursor-pointer w-full h-[72px] sm:h-24 md:h-36 lg:h-40"
       style={{ perspective: "1000px", ...style }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -168,19 +168,19 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center pointer-events-none"
+      className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto pt-16 pb-4 sm:py-6"
       style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
     >
-      <div className="max-w-6xl w-full mx-6 pointer-events-auto">
-        <div className="text-center mb-6" style={{ opacity: enterP }}>
+      <div className="max-w-6xl w-full mx-3 sm:mx-6 pointer-events-auto">
+        <div className="text-center mb-3 sm:mb-6" style={{ opacity: enterP }}>
           <p
-            className="text-[0.6rem] md:text-xs tracking-[0.4em] uppercase font-medium mb-2"
+            className="text-[0.55rem] sm:text-[0.6rem] md:text-xs tracking-[0.35em] sm:tracking-[0.4em] uppercase font-medium mb-1.5 sm:mb-2"
             style={{ color: "hsl(275 60% 65%)" }}
           >
             Fortress Factories
           </p>
           <h2
-            className="text-xl md:text-3xl lg:text-4xl font-bold tracking-tight"
+            className="text-base sm:text-xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight"
             style={{
               letterSpacing: "-0.02em",
               color: "hsl(275 80% 80%)",
@@ -191,7 +191,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           </h2>
         </div>
         {/* Factory photo cards, 4x2 grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 sm:gap-2 md:gap-4 mb-3 sm:mb-8">
         {factoryImages.map((item, i) => {
             const cardDelay = i * 0.08;
             const cardP = easeOut(Math.min(Math.max((cardsP - cardDelay) / 0.35, 0), 1));
@@ -212,7 +212,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
 
         {/* Stats - individually styled cards */}
         <div
-          className="flex flex-wrap items-stretch justify-center gap-3 md:gap-4 mx-auto w-fit"
+          className="grid grid-cols-4 sm:flex sm:flex-wrap items-stretch justify-center gap-1.5 sm:gap-3 md:gap-4 mx-auto sm:w-fit"
           style={{
             opacity: statsP,
             transform: `translateY(${(1 - statsP) * 25}px)`,
@@ -221,10 +221,8 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="relative rounded-2xl px-5 md:px-6 py-3 flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-0.5"
+              className="relative rounded-lg sm:rounded-2xl px-2 sm:px-5 md:px-6 py-2 sm:py-3 flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-0.5 min-h-[78px] sm:min-h-[110px] sm:min-w-[140px]"
               style={{
-                minHeight: "110px",
-                minWidth: "140px",
                 border: `1px solid hsl(${stat.accent} / 0.28)`,
                 background: `linear-gradient(135deg, hsl(${stat.accent} / 0.10), hsl(220 25% 6% / 0.7))`,
                 boxShadow: `0 0 24px hsl(${stat.accent} / 0.12), inset 0 0 20px hsl(${stat.accent} / 0.04)`,
@@ -241,12 +239,12 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
               />
 
               {stat.variant === "logo" ? (
-                <div className="flex items-center justify-center" style={{ height: "60px" }}>
+                <div className="flex items-center justify-center h-9 sm:h-[60px]">
                   <img
                     src={stat.image}
                     alt={stat.imageAlt || stat.label}
+                    className="h-6 sm:h-auto"
                     style={{
-                      height: `${stat.imageHeight ?? 44}px`,
                       width: "auto",
                       display: "block",
                       filter: `drop-shadow(0 0 16px hsl(${stat.accent} / 0.55))`,
@@ -256,9 +254,9 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   />
                 </div>
               ) : (
-                <div className="flex items-baseline justify-center gap-1" style={{ height: "60px" }}>
+                <div className="flex items-baseline justify-center gap-0.5 sm:gap-1 h-9 sm:h-[60px]">
                   <span
-                    className="text-3xl md:text-4xl font-bold leading-none self-center"
+                    className="text-lg sm:text-3xl md:text-4xl font-bold leading-none self-center"
                     style={{
                       color: `hsl(${stat.accent})`,
                       textShadow: `0 0 18px hsl(${stat.accent} / 0.55), 0 0 36px hsl(${stat.accent} / 0.20)`,
@@ -268,7 +266,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   </span>
                   {stat.unit && (
                     <span
-                      className="text-xs md:text-sm font-semibold leading-none self-center"
+                      className="text-[9px] sm:text-xs md:text-sm font-semibold leading-none self-center"
                       style={{
                         color: `hsl(${stat.accent} / 0.85)`,
                         textShadow: `0 0 12px hsl(${stat.accent} / 0.35)`,
@@ -281,7 +279,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
               )}
 
               <span
-                className="text-[10px] md:text-[11px] tracking-[0.25em] uppercase mt-2 block font-semibold"
+                className="text-[7.5px] sm:text-[10px] md:text-[11px] tracking-[0.15em] sm:tracking-[0.25em] uppercase mt-1 sm:mt-2 block font-semibold text-center leading-tight"
                 style={{ color: `hsl(${stat.accent} / 0.85)` }}
               >
                 {stat.label}

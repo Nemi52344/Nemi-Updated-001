@@ -107,8 +107,6 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
           style={{
             opacity: enterP,
             transform: `translateY(${(1 - enterP) * 24}px)`,
-            textShadow:
-              "0 0 30px hsl(275 80% 60% / 0.4), 0 0 60px hsl(270 70% 50% / 0.2)",
           }}
         >
           Trusted by leading industrial companies

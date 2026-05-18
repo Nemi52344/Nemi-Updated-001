@@ -408,7 +408,7 @@ const AboutUs = () => {
             {/* Heading */}
             <div className="text-center mb-3 lg:mb-12" style={{ opacity: jrnEnter, transform: `translateY(${(1 - jrnEnter) * 25}px)` }}>
               <h2 className="text-lg sm:text-2xl md:text-4xl lg:text-[2.8rem] font-extrabold tracking-tight leading-[1.1]">
-                We didn&rsquo;t start with Physical AI.
+                We didn’t start with Physical AI.
               </h2>
               <p className="text-[11px] sm:text-sm md:text-base text-muted-foreground tracking-wide mt-1.5 lg:mt-3 max-w-xl mx-auto">
                 We fought our way through the trenches of manufacturing.
@@ -441,7 +441,7 @@ const AboutUs = () => {
                       background: `linear-gradient(155deg, hsl(${step.accent} / 0.14), hsl(230 22% 8% / 0.95))`,
                       border: `1px solid hsl(${step.accent} / 0.32)`,
                       boxShadow: `0 0 28px hsl(${step.accent} / 0.12), inset 0 1px 0 hsl(0 0% 100% / 0.05)`,
-                      minHeight: "340px",
+                      minHeight: "160px",
                     }}
                   >
                     <span
@@ -455,15 +455,7 @@ const AboutUs = () => {
                       {step.tag}
                     </p>
                     <h3 className="text-[16px] lg:text-[17px] font-bold text-foreground leading-snug mb-1.5">{step.title}</h3>
-                    <p className="text-[12px] lg:text-[13px] font-semibold mb-4" style={{ color: `hsl(${step.accent})` }}>{step.years}</p>
-                    <ul className="flex flex-col gap-2.5">
-                      {step.points.map((pt) => (
-                        <li key={pt} className="flex items-start gap-2 text-[13px] lg:text-[14px] text-foreground/85 leading-relaxed">
-                          <span className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: `hsl(${step.accent})` }} />
-                          <span>{pt}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="text-[12px] lg:text-[13px] font-semibold" style={{ color: `hsl(${step.accent})` }}>{step.years}</p>
                   </div>
                   </React.Fragment>
                 );
@@ -494,15 +486,7 @@ const AboutUs = () => {
                       <p className="text-[9px] tracking-[0.25em] uppercase font-bold" style={{ color: `hsl(${step.accent})` }}>{step.tag}</p>
                       <span className="text-[9px] tracking-wide font-semibold ml-auto" style={{ color: `hsl(${step.accent})` }}>{step.years}</span>
                     </div>
-                    <h3 className="text-[13px] font-bold text-foreground leading-snug mb-1.5">{step.title}</h3>
-                    <ul className="flex flex-col gap-1">
-                      {step.points.map((pt) => (
-                        <li key={pt} className="flex items-start gap-1.5 text-[10.5px] text-foreground/85 leading-snug">
-                          <span className="w-1 h-1 rounded-full mt-1.5 shrink-0" style={{ background: `hsl(${step.accent})` }} />
-                          <span>{pt}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <h3 className="text-[13px] font-bold text-foreground leading-snug">{step.title}</h3>
                   </div>
                 );
               })}

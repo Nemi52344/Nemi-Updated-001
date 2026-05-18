@@ -1,79 +1,53 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, Send } from "lucide-react";
+import { X, Send, Mail, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 
-const investorSchema = z.object({
+const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Please enter a valid email").max(255),
-  firm: z.string().trim().min(1, "Firm or fund name is required").max(150),
-  role: z.string().trim().max(100).optional(),
-  stage: z.string().trim().max(50).optional(),
-  checkSize: z.string().trim().max(50).optional(),
-  location: z.string().trim().max(100).optional(),
-  website: z.string().trim().max(255).optional(),
-  message: z.string().trim().min(1, "Please share what interests you about NEMI").max(1500),
+  phone: z.string().trim().max(40).optional(),
+  company: z.string().trim().max(150).optional(),
+  message: z.string().trim().min(1, "Please tell us a bit about your needs").max(1500),
 });
 
-type InvestorForm = z.infer<typeof investorSchema>;
+type ContactForm = z.infer<typeof contactSchema>;
 
-const emptyForm: InvestorForm = {
+const emptyForm: ContactForm = {
   name: "",
   email: "",
-  firm: "",
-  role: "",
-  stage: "",
-  checkSize: "",
-  location: "",
-  website: "",
+  phone: "",
+  company: "",
   message: "",
 };
 
-const STAGES = [
-  "Pre-Seed",
-  "Seed",
-  "Series A",
-  "Series B",
-  "Series C+",
-  "Growth / Late-stage",
-  "Strategic / Corporate",
-];
-
-const CHECK_SIZES = [
-  "Under $500K",
-  "$500K – $2M",
-  "$2M – $10M",
-  "$10M – $50M",
-  "$50M+",
-];
-
-interface InvestorContactModalProps {
+interface ContactModalProps {
   open: boolean;
   onClose: () => void;
 }
 
-const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
-  const [form, setForm] = useState<InvestorForm>(emptyForm);
-  const [errors, setErrors] = useState<Partial<Record<keyof InvestorForm, string>>>({});
-  const [submitted, setSubmitted] = useState(false);
+type OtpStage = "idle" | "sending" | "sent" | "verifying" | "verified";
 
-  // Lock body scroll while modal is open
+const ContactModal = ({ open, onClose }: ContactModalProps) => {
+  const [form, setForm] = useState<ContactForm>(emptyForm);
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactForm, string>>>({});
+  const [submitted, setSubmitted] = useState(false);
+  const [otpStage, setOtpStage] = useState<OtpStage>("idle");
+  const [otpCode, setOtpCode] = useState("");
+  const [otpError, setOtpError] = useState<string | null>(null);
+  const [verifiedEmail, setVerifiedEmail] = useState<string | null>(null);
+
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
+    return () => { document.body.style.overflow = prev; };
   }, [open]);
 
-  // Close on Escape
   useEffect(() => {
     if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") handleClose();
-    };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") handleClose(); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,43 +55,94 @@ const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
 
   if (!open) return null;
 
-  const handleChange = <K extends keyof InvestorForm>(field: K, value: InvestorForm[K]) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
-    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
+  const handleChange = <K extends keyof ContactForm>(field: K, value: ContactForm[K]) => {
+    setForm((p) => ({ ...p, [field]: value }));
+    setErrors((p) => ({ ...p, [field]: undefined }));
+    if (field === "email" && verifiedEmail && value !== verifiedEmail) {
+      // Email changed after verification — reset state
+      setOtpStage("idle");
+      setOtpCode("");
+      setVerifiedEmail(null);
+    }
+  };
+
+  const sendOtp = async () => {
+    setOtpError(null);
+    const emailResult = contactSchema.shape.email.safeParse(form.email);
+    if (!emailResult.success) {
+      setOtpError("Enter a valid email first");
+      return;
+    }
+    setOtpStage("sending");
+    try {
+      const res = await fetch("/api/otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: form.email }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || "Failed to send code");
+      setOtpStage("sent");
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Could not send code";
+      setOtpError(msg);
+      setOtpStage("idle");
+    }
+  };
+
+  const verifyOtp = async () => {
+    setOtpError(null);
+    if (!otpCode || otpCode.length < 4) {
+      setOtpError("Enter the code we emailed you");
+      return;
+    }
+    setOtpStage("verifying");
+    try {
+      const res = await fetch("/api/otp/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: form.email, code: otpCode }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || "Invalid code");
+      setOtpStage("verified");
+      setVerifiedEmail(form.email);
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Invalid code";
+      setOtpError(msg);
+      setOtpStage("sent");
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const result = investorSchema.safeParse(form);
+    const result = contactSchema.safeParse(form);
     if (!result.success) {
-      const fieldErrors: Partial<Record<keyof InvestorForm, string>> = {};
-      result.error.errors.forEach((err) => {
-        const key = err.path[0] as keyof InvestorForm;
+      const fieldErrors: Partial<Record<keyof ContactForm, string>> = {};
+      for (const err of result.error.issues) {
+        const key = err.path[0] as keyof ContactForm;
         if (!fieldErrors[key]) fieldErrors[key] = err.message;
-      });
+      }
       setErrors(fieldErrors);
       return;
     }
-
+    if (otpStage !== "verified" || verifiedEmail !== form.email) {
+      setOtpError("Please verify your email first");
+      return;
+    }
     const d = result.data;
-    const subject = encodeURIComponent(`Investor Inquiry from ${d.firm}`);
+    const subject = encodeURIComponent(`Contact from ${d.name}`);
     const body = encodeURIComponent(
       [
         `Name: ${d.name}`,
-        `Email: ${d.email}`,
-        `Firm / Fund: ${d.firm}`,
-        d.role ? `Role: ${d.role}` : null,
-        d.stage ? `Stage focus: ${d.stage}` : null,
-        d.checkSize ? `Typical check size: ${d.checkSize}` : null,
-        d.location ? `Location: ${d.location}` : null,
-        d.website ? `Website / LinkedIn: ${d.website}` : null,
+        `Email: ${d.email} (verified)`,
+        d.phone ? `Phone: ${d.phone}` : null,
+        d.company ? `Company: ${d.company}` : null,
         "",
         d.message,
-      ]
-        .filter(Boolean)
-        .join("\n")
+      ].filter(Boolean).join("\n"),
     );
-    window.location.href = `mailto:investors@nemi-ai.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:info@nemi-ai.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
 
@@ -125,7 +150,10 @@ const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
     setForm(emptyForm);
     setErrors({});
     setSubmitted(false);
-    // Strip the #contact hash so reload doesn't re-open the modal
+    setOtpStage("idle");
+    setOtpCode("");
+    setOtpError(null);
+    setVerifiedEmail(null);
     if (typeof window !== "undefined" && window.location.hash === "#contact") {
       const { pathname, search } = window.location;
       window.history.replaceState(null, "", pathname + search);
@@ -137,9 +165,10 @@ const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
     background: "hsl(230 20% 10% / 0.8)",
     border: "1px solid hsl(275 80% 55% / 0.22)",
   };
-
   const inputClass =
     "w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all";
+
+  const isVerified = otpStage === "verified" && verifiedEmail === form.email;
 
   return (
     <div
@@ -148,7 +177,7 @@ const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
       onClick={handleClose}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="investor-form-title"
+      aria-labelledby="contact-form-title"
     >
       <div
         className="relative w-full sm:max-w-xl rounded-t-3xl sm:rounded-2xl p-5 sm:p-7 my-0 sm:my-6 max-h-[95vh] overflow-y-auto"
@@ -159,7 +188,6 @@ const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close */}
         <button
           onClick={handleClose}
           className="absolute top-3 right-3 w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
@@ -177,50 +205,38 @@ const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
             >
               <Send className="w-7 h-7 text-primary" />
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Inquiry ready to send</h3>
+            <h3 className="text-xl font-bold text-foreground mb-2">Message ready to send</h3>
             <p className="text-sm text-muted-foreground max-w-sm mx-auto">
-              Your email client should open with your inquiry pre-filled. If it doesn&rsquo;t, email us
-              directly at{" "}
-              <a className="text-primary hover:underline" href="mailto:investors@nemi-ai.com">
-                investors@nemi-ai.com
-              </a>
-              .
+              Your email client should open with your message pre-filled. If it doesn&rsquo;t, email us at{" "}
+              <a className="text-primary hover:underline" href="mailto:info@nemi-ai.com">info@nemi-ai.com</a>.
             </p>
             <button
               onClick={handleClose}
               className="mt-7 px-6 py-2.5 rounded-xl text-xs font-semibold tracking-[0.2em] uppercase transition-all duration-300 hover:scale-105 text-white"
-              style={{
-                background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))",
-              }}
+              style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
             >
               Close
             </button>
           </div>
         ) : (
           <>
-            <p
-              className="text-[10px] sm:text-xs tracking-[0.35em] uppercase font-semibold mb-1.5"
-              style={{ color: "hsl(275 60% 65%)" }}
-            >
-              Investor Inquiry
+            <p className="text-[10px] sm:text-xs tracking-[0.35em] uppercase font-semibold mb-1.5" style={{ color: "hsl(275 60% 65%)" }}>
+              Contact Us
             </p>
             <h3
-              id="investor-form-title"
+              id="contact-form-title"
               className="text-xl sm:text-2xl font-bold text-foreground mb-1"
               style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}
             >
-              Let&rsquo;s talk.
+              Let&rsquo;s build together.
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground mb-5">
-              We&rsquo;re building Physical AI for manufacturing. Tell us a bit about your fund and
-              what you&rsquo;d like to explore.
+              Tell us about your product or program. We&rsquo;ll get back to you within a business day.
             </p>
 
             <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  Full Name *
-                </label>
+                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Full Name *</label>
                 <input
                   type="text"
                   value={form.name}
@@ -230,129 +246,101 @@ const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
                   maxLength={100}
                   placeholder="Jane Doe"
                 />
-                {errors.name && (
-                  <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{errors.name}</p>
-                )}
+                {errors.name && <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{errors.name}</p>}
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  Work Email *
-                </label>
-                <input
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => handleChange("email", e.target.value)}
-                  className={inputClass}
-                  style={inputStyle}
-                  maxLength={255}
-                  placeholder="jane@fund.com"
-                />
-                {errors.email && (
-                  <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{errors.email}</p>
-                )}
-              </div>
-
-              <div className="sm:col-span-2">
-                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  Firm / Fund Name *
-                </label>
+                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Company</label>
                 <input
                   type="text"
-                  value={form.firm}
-                  onChange={(e) => handleChange("firm", e.target.value)}
+                  value={form.company}
+                  onChange={(e) => handleChange("company", e.target.value)}
                   className={inputClass}
                   style={inputStyle}
                   maxLength={150}
-                  placeholder="Acme Ventures"
+                  placeholder="Acme Industries"
                 />
-                {errors.firm && (
-                  <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{errors.firm}</p>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
+                  Email * {isVerified && (<span className="ml-1 text-[9px] text-emerald-400 normal-case tracking-normal">(verified)</span>)}
+                </label>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="email"
+                    value={form.email}
+                    onChange={(e) => handleChange("email", e.target.value)}
+                    className={inputClass + " flex-1"}
+                    style={inputStyle}
+                    maxLength={255}
+                    placeholder="jane@company.com"
+                    disabled={isVerified}
+                  />
+                  {!isVerified && (
+                    <button
+                      type="button"
+                      onClick={sendOtp}
+                      disabled={otpStage === "sending" || otpStage === "verifying"}
+                      className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all duration-200 hover:opacity-90 disabled:opacity-60"
+                      style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
+                    >
+                      <Mail className="w-3.5 h-3.5 inline mr-1.5 -mt-0.5" />
+                      {otpStage === "sending" ? "Sending…" : otpStage === "sent" || otpStage === "verifying" ? "Resend code" : "Verify email"}
+                    </button>
+                  )}
+                  {isVerified && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-lg text-xs font-semibold text-emerald-400" style={{ background: "hsl(150 60% 20% / 0.4)" }}>
+                      <CheckCircle2 className="w-4 h-4" /> Verified
+                    </span>
+                  )}
+                </div>
+                {errors.email && <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{errors.email}</p>}
+
+                {(otpStage === "sent" || otpStage === "verifying") && !isVerified && (
+                  <div className="mt-2 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={otpCode}
+                      onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                      className={inputClass + " flex-1 tracking-[0.4em] text-center"}
+                      style={inputStyle}
+                      placeholder="Enter 6-digit code"
+                    />
+                    <button
+                      type="button"
+                      onClick={verifyOtp}
+                      disabled={otpStage === "verifying"}
+                      className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all hover:opacity-90 disabled:opacity-60"
+                      style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
+                    >
+                      {otpStage === "verifying" ? "Verifying…" : "Confirm"}
+                    </button>
+                  </div>
                 )}
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  Role / Title
-                </label>
-                <input
-                  type="text"
-                  value={form.role}
-                  onChange={(e) => handleChange("role", e.target.value)}
-                  className={inputClass}
-                  style={inputStyle}
-                  maxLength={100}
-                  placeholder="Partner"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  value={form.location}
-                  onChange={(e) => handleChange("location", e.target.value)}
-                  className={inputClass}
-                  style={inputStyle}
-                  maxLength={100}
-                  placeholder="City, Country"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  Stage Focus
-                </label>
-                <select
-                  value={form.stage}
-                  onChange={(e) => handleChange("stage", e.target.value)}
-                  className={inputClass + " appearance-none cursor-pointer"}
-                  style={inputStyle}
-                >
-                  <option value="">Select stage</option>
-                  {STAGES.map((s) => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  Typical Check Size
-                </label>
-                <select
-                  value={form.checkSize}
-                  onChange={(e) => handleChange("checkSize", e.target.value)}
-                  className={inputClass + " appearance-none cursor-pointer"}
-                  style={inputStyle}
-                >
-                  <option value="">Select range</option>
-                  {CHECK_SIZES.map((s) => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </select>
+                {otpStage === "sent" && !otpError && (
+                  <p className="text-[11px] mt-1.5 text-muted-foreground">We&rsquo;ve sent a code to <span className="text-foreground">{form.email}</span>. Check your inbox.</p>
+                )}
+                {otpError && <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{otpError}</p>}
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  Website / LinkedIn
-                </label>
+                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Phone (optional)</label>
                 <input
-                  type="url"
-                  value={form.website}
-                  onChange={(e) => handleChange("website", e.target.value)}
+                  type="tel"
+                  value={form.phone}
+                  onChange={(e) => handleChange("phone", e.target.value)}
                   className={inputClass}
                   style={inputStyle}
-                  maxLength={255}
-                  placeholder="https://"
+                  maxLength={40}
+                  placeholder="+1 555 123 4567"
                 />
               </div>
 
               <div className="sm:col-span-2">
                 <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  What interests you about NEMI? *
+                  How can we help? *
                 </label>
                 <textarea
                   value={form.message}
@@ -361,29 +349,27 @@ const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
                   className={inputClass + " resize-none"}
                   style={inputStyle}
                   maxLength={1500}
-                  placeholder="Thesis areas, portfolio overlap, questions on the platform…"
+                  placeholder="Tell us about your product, volumes, timelines, or any questions you have."
                 />
-                {errors.message && (
-                  <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{errors.message}</p>
-                )}
+                {errors.message && <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{errors.message}</p>}
               </div>
 
               <div className="sm:col-span-2 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pt-1">
                 <p className="text-[11px] text-muted-foreground/80">
-                  Prefer email? Reach us at{" "}
-                  <a className="text-primary hover:underline" href="mailto:investors@nemi-ai.com">
-                    investors@nemi-ai.com
-                  </a>
+                  Or email us at{" "}
+                  <a className="text-primary hover:underline" href="mailto:info@nemi-ai.com">info@nemi-ai.com</a>
                 </p>
                 <button
                   type="submit"
-                  className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] text-white"
+                  disabled={!isVerified}
+                  className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   style={{
                     background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))",
                     boxShadow: "0 4px 25px hsl(275 80% 55% / 0.3)",
                   }}
+                  title={!isVerified ? "Verify your email to send" : undefined}
                 >
-                  Send Inquiry
+                  Send Message
                 </button>
               </div>
             </form>
@@ -394,4 +380,4 @@ const InvestorContactModal = ({ open, onClose }: InvestorContactModalProps) => {
   );
 };
 
-export default InvestorContactModal;
+export default ContactModal;

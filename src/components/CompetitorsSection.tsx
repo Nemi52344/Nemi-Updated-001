@@ -243,8 +243,9 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
                   <img
                     src={stat.image}
                     alt={stat.imageAlt || stat.label}
-                    className="h-6 sm:h-auto"
                     style={{
+                      height: `${stat.imageHeight ?? 44}px`,
+                      maxHeight: "100%",
                       width: "auto",
                       display: "block",
                       filter: `drop-shadow(0 0 16px hsl(${stat.accent} / 0.55))`,

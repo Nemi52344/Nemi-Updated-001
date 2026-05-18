@@ -17,7 +17,7 @@ const values = [
   {
     title: "First Principles",
     tagline: "We don’t accept “the way it’s always been done.”",
-    body: "Break problems down to fundamentals, rebuild from the ground up, and create lasting advantage.",
+    body: "Break problems to fundamentals, rebuild from the ground up, create lasting advantage.",
   },
   {
     title: "Ownership",
@@ -27,7 +27,7 @@ const values = [
   {
     title: "Highest Standards",
     tagline: "Exceptional companies are built through exceptional execution.",
-    body: "We hold ourselves to a higher bar — in quality, experience, and rigor — and build things we’re proud of.",
+    body: "We hold ourselves to a higher bar in quality, experience, and rigor, and build things we’re proud of.",
   },
   {
     title: "Build Trust",
@@ -62,6 +62,59 @@ const Careers = () => {
   const [dropFileSize, setDropFileSize] = useState<number>(0);
   const [isDragOver, setIsDragOver] = useState(false);
   const [pickedFile, setPickedFile] = useState<File | null>(null);
+  const [dropEmail, setDropEmail] = useState("");
+  const [dropOtpStage, setDropOtpStage] = useState<"idle" | "sending" | "sent" | "verifying" | "verified">("idle");
+  const [dropOtpCode, setDropOtpCode] = useState("");
+  const [dropOtpError, setDropOtpError] = useState<string | null>(null);
+  const [dropVerifiedEmail, setDropVerifiedEmail] = useState<string | null>(null);
+  const [dropAbout, setDropAbout] = useState("");
+
+  const sendDropOtp = async () => {
+    setDropOtpError(null);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dropEmail)) {
+      setDropOtpError("Enter a valid email first");
+      return;
+    }
+    setDropOtpStage("sending");
+    try {
+      const res = await fetch("/api/otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: dropEmail }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || "Failed to send code");
+      setDropOtpStage("sent");
+    } catch (e) {
+      setDropOtpError(e instanceof Error ? e.message : "Could not send code");
+      setDropOtpStage("idle");
+    }
+  };
+
+  const verifyDropOtp = async () => {
+    setDropOtpError(null);
+    if (!dropOtpCode || dropOtpCode.length < 4) {
+      setDropOtpError("Enter the code we emailed you");
+      return;
+    }
+    setDropOtpStage("verifying");
+    try {
+      const res = await fetch("/api/otp/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: dropEmail, code: dropOtpCode }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || "Invalid code");
+      setDropOtpStage("verified");
+      setDropVerifiedEmail(dropEmail);
+    } catch (e) {
+      setDropOtpError(e instanceof Error ? e.message : "Invalid code");
+      setDropOtpStage("sent");
+    }
+  };
+
+  const isDropVerified = dropOtpStage === "verified" && dropVerifiedEmail === dropEmail;
 
   const handleFilePick = (file: File | null) => {
     if (!file) {
@@ -92,6 +145,10 @@ const Careers = () => {
 
   const handleResumeDrop = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!isDropVerified) {
+      setDropOtpError("Please verify your email first");
+      return;
+    }
     setDropState("submitting");
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -106,19 +163,24 @@ const Careers = () => {
         role: "General Application",
         department: "AI Screening",
         full_name: data.get("fullName") as string,
-        email: data.get("email") as string,
+        email: dropEmail,
         phone: (data.get("phone") as string) || null,
         location: null,
         experience: null,
         linkedin: null,
         portfolio: null,
-        cover_letter: null,
+        cover_letter: dropAbout || null,
         resume_path: filePath,
       });
       if (insertErr) throw insertErr;
       setDropState("success");
       form.reset();
       handleFilePick(null);
+      setDropEmail("");
+      setDropOtpStage("idle");
+      setDropOtpCode("");
+      setDropVerifiedEmail(null);
+      setDropAbout("");
     } catch (err) {
       console.error("Resume drop error:", err);
       setDropState("error");
@@ -264,10 +326,16 @@ const Careers = () => {
                   <h3 className="font-bold text-[10px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.12em] md:tracking-[0.15em] uppercase text-white mb-1.5 sm:mb-3 group-hover:text-purple-300 transition-colors duration-300 whitespace-nowrap">
                     {val.title}
                   </h3>
-                  <p className="text-[10.5px] sm:text-xs md:text-sm text-white font-semibold leading-[1.35] sm:leading-[1.55] w-full mb-1.5 sm:mb-2">
+                  <p
+                    className="text-[10.5px] sm:text-xs md:text-sm text-white font-semibold leading-[1.35] sm:leading-[1.55] w-full mb-1.5 sm:mb-2"
+                    style={{ minHeight: "calc(3 * 1.55em)" }}
+                  >
                     {val.tagline}
                   </p>
-                  <p className="text-[9.5px] sm:text-xs md:text-sm text-white/70 leading-[1.45] sm:leading-[1.7] w-full">
+                  <p
+                    className="text-[9.5px] sm:text-xs md:text-sm text-white/70 leading-[1.45] sm:leading-[1.7] w-full"
+                    style={{ minHeight: "calc(5 * 1.7em)" }}
+                  >
                     {val.body}
                   </p>
                 </div>
@@ -313,13 +381,83 @@ const Careers = () => {
                     <input required name="fullName" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                   <div>
-                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Email *</label>
-                    <input required name="email" type="email" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">
+                      Email * {isDropVerified && <span className="ml-1 text-[9px] text-emerald-400 normal-case tracking-normal">(verified)</span>}
+                    </label>
+                    <input
+                      required
+                      type="email"
+                      value={dropEmail}
+                      onChange={(e) => {
+                        setDropEmail(e.target.value);
+                        if (dropVerifiedEmail && e.target.value !== dropVerifiedEmail) {
+                          setDropOtpStage("idle");
+                          setDropOtpCode("");
+                          setDropVerifiedEmail(null);
+                        }
+                      }}
+                      disabled={isDropVerified}
+                      className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 disabled:opacity-70"
+                    />
                   </div>
                 </div>
+
+                {/* Email OTP verification */}
+                {!isDropVerified ? (
+                  <div className="space-y-2">
+                    <button
+                      type="button"
+                      onClick={sendDropOtp}
+                      disabled={dropOtpStage === "sending" || dropOtpStage === "verifying"}
+                      className="w-full text-xs font-semibold tracking-[0.15em] uppercase px-4 py-2.5 rounded-md text-white transition-all hover:opacity-90 disabled:opacity-60"
+                      style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
+                    >
+                      {dropOtpStage === "sending" ? "Sending code…" : dropOtpStage === "sent" || dropOtpStage === "verifying" ? "Resend verification code" : "Verify Email"}
+                    </button>
+                    {(dropOtpStage === "sent" || dropOtpStage === "verifying") && (
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          value={dropOtpCode}
+                          onChange={(e) => setDropOtpCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                          placeholder="Enter code"
+                          className="flex-1 bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-center tracking-[0.4em] text-foreground focus:outline-none focus:border-primary/60"
+                        />
+                        <button
+                          type="button"
+                          onClick={verifyDropOtp}
+                          disabled={dropOtpStage === "verifying"}
+                          className="px-4 py-2.5 rounded-md text-xs font-semibold tracking-[0.15em] uppercase text-white transition-all hover:opacity-90 disabled:opacity-60"
+                          style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
+                        >
+                          {dropOtpStage === "verifying" ? "Verifying…" : "Confirm"}
+                        </button>
+                      </div>
+                    )}
+                    {dropOtpStage === "sent" && !dropOtpError && (
+                      <p className="text-[11px] text-muted-foreground">Code sent to {dropEmail}. Check your inbox.</p>
+                    )}
+                    {dropOtpError && <p className="text-xs text-red-400">{dropOtpError}</p>}
+                  </div>
+                ) : (
+                  <p className="text-xs text-emerald-400 font-semibold">✓ Email verified</p>
+                )}
+
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Phone</label>
                   <input name="phone" type="tel" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                </div>
+                <div>
+                  <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Tell us about yourself *</label>
+                  <textarea
+                    required
+                    value={dropAbout}
+                    onChange={(e) => setDropAbout(e.target.value)}
+                    rows={4}
+                    placeholder="Your interests, what you'd like to work on, and anything else you want us to know."
+                    className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 resize-none"
+                  />
                 </div>
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Resume * (PDF or DOC, max 5MB)</label>
@@ -348,9 +486,10 @@ const Careers = () => {
                 )}
                 <button
                   type="submit"
-                  disabled={dropState === "submitting"}
-                  className="w-full font-bold text-xs tracking-[0.2em] uppercase px-6 py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] text-primary-foreground disabled:opacity-60 disabled:cursor-not-allowed"
+                  disabled={dropState === "submitting" || !isDropVerified}
+                  className="w-full font-bold text-xs tracking-[0.2em] uppercase px-6 py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   style={{ background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))", boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)" }}
+                  title={!isDropVerified ? "Verify your email to submit" : undefined}
                 >
                   {dropState === "submitting" ? "Submitting…" : "Submit Resume"}
                 </button>

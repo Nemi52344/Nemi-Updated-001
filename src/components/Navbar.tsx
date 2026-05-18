@@ -73,7 +73,7 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
             href="/#contact"
             className="font-montserrat font-bold text-[0.65rem] tracking-[0.12em] uppercase bg-accent text-accent-foreground px-5 py-2.5 no-underline transition-opacity duration-200 hover:opacity-80"
           >
-            Request Demo
+            Contact Us
           </Link>
         </div>
 

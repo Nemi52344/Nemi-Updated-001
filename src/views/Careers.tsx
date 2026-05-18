@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, Mail, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import PageCTAFooter from "@/components/PageCTAFooter";
+import PhoneInput from "@/components/PhoneInput";
 import SiteFooter from "@/components/SiteFooter";
 import useScrollProgress from "@/hooks/useScrollProgress";
 import { supabase } from "@/lib/supabase";
@@ -21,7 +22,7 @@ const values = [
   },
   {
     title: "Ownership",
-    tagline: "A place for builders, not bystanders.",
+    tagline: "A place for builders,\nnot bystanders.",
     body: "Take responsibility, think long term, act like an owner. Your ideas and work shape what we build.",
   },
   {
@@ -68,6 +69,8 @@ const Careers = () => {
   const [dropOtpError, setDropOtpError] = useState<string | null>(null);
   const [dropVerifiedEmail, setDropVerifiedEmail] = useState<string | null>(null);
   const [dropAbout, setDropAbout] = useState("");
+  const [dropInterests, setDropInterests] = useState("");
+  const [dropWorkOn, setDropWorkOn] = useState("");
 
   const sendDropOtp = async () => {
     setDropOtpError(null);
@@ -169,7 +172,14 @@ const Careers = () => {
         experience: null,
         linkedin: null,
         portfolio: null,
-        cover_letter: dropAbout || null,
+        cover_letter:
+          [
+            dropAbout && `About:\n${dropAbout}`,
+            dropInterests && `Interests:\n${dropInterests}`,
+            dropWorkOn && `Wants to work on:\n${dropWorkOn}`,
+          ]
+            .filter(Boolean)
+            .join("\n\n") || null,
         resume_path: filePath,
       });
       if (insertErr) throw insertErr;
@@ -181,6 +191,8 @@ const Careers = () => {
       setDropOtpCode("");
       setDropVerifiedEmail(null);
       setDropAbout("");
+      setDropInterests("");
+      setDropWorkOn("");
     } catch (err) {
       console.error("Resume drop error:", err);
       setDropState("error");
@@ -327,8 +339,8 @@ const Careers = () => {
                     {val.title}
                   </h3>
                   <p
-                    className="text-[10.5px] sm:text-xs md:text-sm text-white font-semibold leading-[1.35] sm:leading-[1.55] w-full mb-1.5 sm:mb-2"
-                    style={{ minHeight: "calc(3 * 1.55em)" }}
+                    className="text-[10.5px] sm:text-xs md:text-sm text-white font-semibold leading-[1.35] sm:leading-[1.55] w-full mb-0.5 whitespace-pre-line"
+                    style={{ minHeight: "calc(2.5 * 1.55em)" }}
                   >
                     {val.tagline}
                   </p>
@@ -349,18 +361,18 @@ const Careers = () => {
       {/* ── 3. OPEN POSITIONS ── */}
       {posVisible && (
         <div
-          className="fixed inset-0 z-[10] flex flex-col justify-start lg:justify-center px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-8 lg:py-0"
+          className="fixed inset-0 z-[10] flex flex-col justify-start px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-6 lg:pt-24 lg:pb-6"
           style={{ opacity: posOp }}
         >
-          <div className="max-w-2xl w-full mx-auto" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
-            <div className="text-center mb-8">
-              <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-3" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
+          <div className="max-w-3xl w-full mx-auto" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
+            <div className="text-center mb-2 md:mb-3">
+              <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-primary mb-1" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
                 Apply Now
               </p>
-              <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-3">
+              <h2 className="text-base md:text-xl lg:text-2xl font-bold tracking-wider leading-[1.1] mb-1">
                 Drop Your Resume
               </h2>
-              <p className="text-xs md:text-sm text-muted-foreground tracking-wide max-w-xl mx-auto leading-relaxed">
+              <p className="text-[10px] md:text-[11px] text-muted-foreground tracking-wide max-w-xl mx-auto leading-relaxed">
                 Join the team building Physical AI for manufacturing. We review every resume and reach out when there's a fit.
               </p>
             </div>
@@ -368,22 +380,39 @@ const Careers = () => {
             {dropState !== "success" ? (
               <form
                 onSubmit={handleResumeDrop}
-                className="rounded-2xl p-6 md:p-8 space-y-4"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 rounded-2xl p-5 sm:p-6"
                 style={{
-                  background: "linear-gradient(145deg, hsl(230 20% 10% / 0.9), hsl(230 25% 6% / 0.9))",
-                  border: "1px solid hsl(275 80% 55% / 0.25)",
-                  boxShadow: "0 0 40px hsl(275 80% 55% / 0.10), 0 20px 40px hsl(230 25% 4% / 0.4)",
+                  background: "linear-gradient(145deg, hsl(230 20% 10%), hsl(230 25% 6%))",
+                  border: "1px solid hsl(275 80% 55% / 0.22)",
+                  boxShadow: "0 0 60px hsl(275 80% 55% / 0.12), 0 25px 50px hsl(230 25% 4% / 0.6)",
                 }}
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Full Name *</label>
-                    <input required name="fullName" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
-                  </div>
-                  <div>
-                    <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">
-                      Email * {isDropVerified && <span className="ml-1 text-[9px] text-emerald-400 normal-case tracking-normal">(verified)</span>}
-                    </label>
+                <div>
+                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Full Name *</label>
+                  <input
+                    required
+                    name="fullName"
+                    type="text"
+                    placeholder="Jane Doe"
+                    className="w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all"
+                    style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Phone (optional)</label>
+                  <PhoneInput
+                    name="phone"
+                    placeholder="555 123 4567"
+                    inputStyle={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
+                    Email * {isDropVerified && <span className="ml-1 text-[9px] text-emerald-400 normal-case tracking-normal">(verified)</span>}
+                  </label>
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <input
                       required
                       type="email"
@@ -397,78 +426,105 @@ const Careers = () => {
                         }
                       }}
                       disabled={isDropVerified}
-                      className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 disabled:opacity-70"
+                      placeholder="jane@company.com"
+                      className="flex-1 px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all disabled:opacity-70"
+                      style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                    />
+                    {!isDropVerified ? (
+                      <button
+                        type="button"
+                        onClick={sendDropOtp}
+                        disabled={dropOtpStage === "sending" || dropOtpStage === "verifying" || !dropEmail}
+                        className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all duration-200 hover:opacity-90 disabled:opacity-60"
+                        style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
+                      >
+                        <Mail className="w-3.5 h-3.5 inline mr-1.5 -mt-0.5" />
+                        {dropOtpStage === "sending" ? "Sending…" : dropOtpStage === "sent" || dropOtpStage === "verifying" ? "Resend code" : "Verify email"}
+                      </button>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-lg text-xs font-semibold text-emerald-400" style={{ background: "hsl(150 60% 20% / 0.4)" }}>
+                        <CheckCircle2 className="w-4 h-4" /> Verified
+                      </span>
+                    )}
+                  </div>
+
+                  {(dropOtpStage === "sent" || dropOtpStage === "verifying") && !isDropVerified && (
+                    <div className="mt-2 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        value={dropOtpCode}
+                        onChange={(e) => setDropOtpCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                        placeholder="Enter 6-digit code"
+                        className="flex-1 px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all tracking-[0.4em] text-center"
+                        style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                      />
+                      <button
+                        type="button"
+                        onClick={verifyDropOtp}
+                        disabled={dropOtpStage === "verifying"}
+                        className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all hover:opacity-90 disabled:opacity-60"
+                        style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
+                      >
+                        {dropOtpStage === "verifying" ? "Verifying…" : "Confirm"}
+                      </button>
+                    </div>
+                  )}
+                  {dropOtpStage === "sent" && !dropOtpError && (
+                    <p className="text-[11px] mt-1.5 text-muted-foreground">We&rsquo;ve sent a code to <span className="text-foreground">{dropEmail}</span>. Check your inbox.</p>
+                  )}
+                  {dropOtpError && <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{dropOtpError}</p>}
+                </div>
+
+                <div className="sm:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">About you *</label>
+                    <textarea
+                      required
+                      value={dropAbout}
+                      onChange={(e) => setDropAbout(e.target.value)}
+                      rows={2}
+                      placeholder="A quick intro."
+                      className="w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+                      style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Interests *</label>
+                    <textarea
+                      required
+                      value={dropInterests}
+                      onChange={(e) => setDropInterests(e.target.value)}
+                      rows={2}
+                      placeholder="Fields, technologies."
+                      className="w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+                      style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Wants to work on *</label>
+                    <textarea
+                      required
+                      value={dropWorkOn}
+                      onChange={(e) => setDropWorkOn(e.target.value)}
+                      rows={2}
+                      placeholder="Role or projects."
+                      className="w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+                      style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
                     />
                   </div>
                 </div>
 
-                {/* Email OTP verification */}
-                {!isDropVerified ? (
-                  <div className="space-y-2">
-                    <button
-                      type="button"
-                      onClick={sendDropOtp}
-                      disabled={dropOtpStage === "sending" || dropOtpStage === "verifying"}
-                      className="w-full text-xs font-semibold tracking-[0.15em] uppercase px-4 py-2.5 rounded-md text-white transition-all hover:opacity-90 disabled:opacity-60"
-                      style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
-                    >
-                      {dropOtpStage === "sending" ? "Sending code…" : dropOtpStage === "sent" || dropOtpStage === "verifying" ? "Resend verification code" : "Verify Email"}
-                    </button>
-                    {(dropOtpStage === "sent" || dropOtpStage === "verifying") && (
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          inputMode="numeric"
-                          value={dropOtpCode}
-                          onChange={(e) => setDropOtpCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
-                          placeholder="Enter code"
-                          className="flex-1 bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-center tracking-[0.4em] text-foreground focus:outline-none focus:border-primary/60"
-                        />
-                        <button
-                          type="button"
-                          onClick={verifyDropOtp}
-                          disabled={dropOtpStage === "verifying"}
-                          className="px-4 py-2.5 rounded-md text-xs font-semibold tracking-[0.15em] uppercase text-white transition-all hover:opacity-90 disabled:opacity-60"
-                          style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
-                        >
-                          {dropOtpStage === "verifying" ? "Verifying…" : "Confirm"}
-                        </button>
-                      </div>
-                    )}
-                    {dropOtpStage === "sent" && !dropOtpError && (
-                      <p className="text-[11px] text-muted-foreground">Code sent to {dropEmail}. Check your inbox.</p>
-                    )}
-                    {dropOtpError && <p className="text-xs text-red-400">{dropOtpError}</p>}
-                  </div>
-                ) : (
-                  <p className="text-xs text-emerald-400 font-semibold">✓ Email verified</p>
-                )}
-
-                <div>
-                  <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Phone</label>
-                  <input name="phone" type="tel" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
-                </div>
-                <div>
-                  <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Tell us about yourself *</label>
-                  <textarea
-                    required
-                    value={dropAbout}
-                    onChange={(e) => setDropAbout(e.target.value)}
-                    rows={4}
-                    placeholder="Your interests, what you'd like to work on, and anything else you want us to know."
-                    className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 resize-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Resume * (PDF or DOC, max 5MB)</label>
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Resume * (PDF or DOC, max 5MB)</label>
                   <label
-                    className="flex items-center gap-3 rounded-md border border-dashed border-border/50 px-4 py-5 cursor-pointer transition-all duration-200 hover:border-primary/60 hover:bg-primary/5"
-                    style={{ background: "hsl(0 0% 100% / 0.02)" }}
+                    className="flex items-center gap-3 rounded-lg border border-dashed px-4 py-2.5 cursor-pointer transition-all duration-200 hover:border-primary/60 hover:bg-primary/5"
+                    style={{ background: "hsl(230 20% 10% / 0.5)", borderColor: "hsl(275 80% 55% / 0.3)" }}
                   >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="shrink-0">
                       <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="hsl(275 70% 70%)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <span className="text-xs md:text-sm flex-1" style={{ color: dropFileName ? "hsl(0 0% 90%)" : "hsl(0 0% 55%)" }}>
+                    <span className="text-xs sm:text-sm flex-1" style={{ color: dropFileName ? "hsl(0 0% 90%)" : "hsl(0 0% 55%)" }}>
                       {dropFileName || "Click to upload your resume"}
                     </span>
                     <input
@@ -481,24 +537,29 @@ const Careers = () => {
                     />
                   </label>
                 </div>
+
                 {dropState === "error" && (
-                  <p className="text-xs text-red-400">Something went wrong. Please email info@nemi-ai.com directly.</p>
+                  <p className="sm:col-span-2 text-xs" style={{ color: "hsl(0 70% 60%)" }}>Something went wrong. Please email info@nemi-ai.com directly.</p>
                 )}
-                <button
-                  type="submit"
-                  disabled={dropState === "submitting" || !isDropVerified}
-                  className="w-full font-bold text-xs tracking-[0.2em] uppercase px-6 py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                  style={{ background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))", boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)" }}
-                  title={!isDropVerified ? "Verify your email to submit" : undefined}
-                >
-                  {dropState === "submitting" ? "Submitting…" : "Submit Resume"}
-                </button>
-                <p className="text-[11px] text-muted-foreground text-center pt-1">
-                  Or send your resume to{" "}
-                  <a href="mailto:info@nemi-ai.com" className="text-primary hover:text-primary/80 transition-colors font-semibold">
-                    info@nemi-ai.com
-                  </a>
-                </p>
+
+                <div className="sm:col-span-2 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pt-1">
+                  <p className="text-[11px] text-muted-foreground/80">
+                    Or send your resume to{" "}
+                    <a className="text-primary hover:underline" href="mailto:info@nemi-ai.com">info@nemi-ai.com</a>
+                  </p>
+                  <button
+                    type="submit"
+                    disabled={dropState === "submitting" || !isDropVerified}
+                    className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    style={{
+                      background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))",
+                      boxShadow: "0 4px 25px hsl(275 80% 55% / 0.3)",
+                    }}
+                    title={!isDropVerified ? "Verify your email to submit" : undefined}
+                  >
+                    {dropState === "submitting" ? "Submitting…" : "Submit Resume"}
+                  </button>
+                </div>
               </form>
             ) : (
               <div
@@ -595,32 +656,37 @@ const Careers = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Full Name *</label>
-                    <input required name="fullName" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input required name="fullName" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Email *</label>
-                    <input required name="email" type="email" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input required name="email" type="email" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Phone *</label>
-                    <input required name="phone" type="tel" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <PhoneInput
+                      name="phone"
+                      placeholder="555 123 4567"
+                      inputClassName="!py-2 text-sm"
+                      inputStyle={{ background: "hsl(var(--background) / 0.4)", border: "1px solid hsl(var(--border) / 0.4)" }}
+                    />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Location</label>
-                    <input name="location" type="text" placeholder="City, Country" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input name="location" type="text" placeholder="City, Country" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Years of Experience *</label>
-                    <input required name="experience" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input required name="experience" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">LinkedIn</label>
-                    <input name="linkedin" type="url" placeholder="https://linkedin.com/in/..." className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input name="linkedin" type="url" placeholder="https://linkedin.com/in/..." className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Portfolio (optional)</label>
-                  <input name="portfolio" type="url" placeholder="https://" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  <input name="portfolio" type="url" placeholder="https://" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                 </div>
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Resume * (PDF or DOC, max 5MB)</label>

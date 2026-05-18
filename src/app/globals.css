@@ -293,3 +293,136 @@
 .problem-step-wrapper:has(+ .problem-step-wrapper:hover) .problem-step-chevron {
   opacity: 0.18;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Landscape phone / very-short viewports (e.g. iPhone 14 Pro landscape 844×390)
+ * Compresses the scroll-driven fixed sections so their content fits in ~390px
+ * of vertical space instead of being clipped by overflow-hidden.
+ * ───────────────────────────────────────────────────────────────────────── */
+@media (max-height: 500px) and (min-width: 700px) {
+  /* Headlines — drop a couple sizes */
+  .fixed h1, .fixed h2 {
+    font-size: clamp(1rem, 3.8vh, 1.5rem) !important;
+    line-height: 1.1 !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .fixed h3 { font-size: 0.95rem !important; line-height: 1.2 !important; }
+  .fixed p { font-size: 0.72rem !important; line-height: 1.35 !important; }
+
+  /* Section padding — tighten top/bottom on the fixed full-viewport panels */
+  .fixed.inset-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+
+  /* Default to enabling vertical scroll within sections so users can reach
+     content beyond the 390px viewport. Sections with their own internal
+     animation/scroll-snap can opt out via a more specific selector. */
+  .fixed.inset-0[class*="overflow-hidden"] { overflow-y: auto !important; }
+
+  /* LMM Flow specifically — 6 cards in 3x2 grid need way less space */
+  .fixed.inset-0 .grid img { max-height: 60px !important; object-fit: cover; }
+
+  /* Drop card image heights site-wide on landscape phone */
+  [class*="services-card-img-wrap"] { height: 50px !important; }
+
+  /* Card padding tighter */
+  .fixed [class*="rounded-2xl"][class*="p-"],
+  .fixed [class*="rounded-xl"][class*="p-"] {
+    padding: 0.5rem !important;
+  }
+
+  /* Reduce the top kicker tag margins so they don't eat half the viewport */
+  .fixed .uppercase[class*="tracking-[0.4em]"] { margin-bottom: 0.25rem !important; }
+}
+
+/* Tighter landscape phone rules — applied after the base set above.
+   Target: 700-1023px width, ≤500px height. */
+@media (max-height: 500px) and (min-width: 700px) and (max-width: 1023px) {
+  /* Even tighter card images so 2-row grids fit */
+  .fixed.inset-0 .grid img,
+  .fixed.inset-0 picture img {
+    max-height: 50px !important;
+  }
+  /* Aggressive heading shrink so they don't dominate */
+  .fixed.inset-0 h1,
+  .fixed.inset-0 h2 {
+    font-size: clamp(0.9rem, 3.2vh, 1.25rem) !important;
+    line-height: 1.05 !important;
+    margin-bottom: 0.2rem !important;
+  }
+  /* Huge "300K sqft" style stat numbers — cap them so cards fit */
+  .fixed.inset-0 [class*="text-7xl"],
+  .fixed.inset-0 [class*="text-6xl"],
+  .fixed.inset-0 [class*="text-5xl"] {
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+  }
+  .fixed.inset-0 [class*="text-4xl"] {
+    font-size: 1.1rem !important;
+    line-height: 1.05 !important;
+  }
+  /* Drop gaps between cards */
+  .fixed.inset-0 [class*="gap-y-"],
+  .fixed.inset-0 [class*="gap-"] {
+    row-gap: 0.4rem !important;
+  }
+  /* Card padding even tighter */
+  .fixed [class*="rounded-2xl"],
+  .fixed [class*="rounded-xl"] {
+    padding: 0.5rem !important;
+  }
+  /* Compact the kicker label margin */
+  .fixed .uppercase[class*="tracking"] {
+    margin-bottom: 0.15rem !important;
+    font-size: 9px !important;
+  }
+  /* Allow scroll within any fixed section that might overflow */
+  .fixed.inset-0 {
+    overflow-y: auto !important;
+  }
+  .fixed.inset-0 > * {
+    flex-shrink: 0;
+  }
+}
+
+/* LMM Flow specific — collapse card image wrapper on landscape phone so both
+   rows of cards fit in 390px height. */
+@media (max-height: 500px) and (min-width: 700px) {
+  .lmm-flow-card-img {
+    aspect-ratio: auto !important;
+    max-height: 48px !important;
+    height: 48px !important;
+  }
+}
+
+/* Capabilities Section ("Full-stack MaaS") — landscape phone */
+@media (max-height: 500px) and (min-width: 700px) {
+  .capabilities-inner {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .capabilities-inner h2 { margin-bottom: 0.4rem !important; font-size: 9px !important; }
+  .capabilities-inner h3 { font-size: 0.9rem !important; line-height: 1.15 !important; margin-bottom: 0.5rem !important; }
+  /* Tighten the pill row */
+  .capabilities-inner button {
+    padding: 0.25rem 0.6rem !important;
+  }
+  .capabilities-inner button span { font-size: 9.5px !important; }
+  .capabilities-inner [class*="grid-cols-3"] {
+    margin-top: 0.25rem !important;
+  }
+  /* Shrink the vehicle image wrapper to fit landscape phone */
+  .capabilities-inner [class*="grid-cols-3"] > div > div:first-child {
+    width: 9rem !important;
+    height: 5.5rem !important;
+  }
+  /* Vehicle images must fill their wrapper — undo the global 50px max-height.
+     Needs higher specificity than .fixed.inset-0 .grid img (0,3,1). */
+  .fixed.inset-0 .capabilities-inner [class*="grid-cols-3"] img,
+  .capabilities-inner .grid img {
+    max-height: 100% !important;
+    height: 100% !important;
+    width: 100% !important;
+    /* Strong brightness boost so dark motorcycle / robot images don't blend
+       into the dark page background. */
+    filter: brightness(2.2) contrast(1.1) !important;
+  }
+}

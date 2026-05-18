@@ -94,7 +94,7 @@ const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
       className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-y-auto"
       style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
     >
-      <div className="max-w-6xl w-full px-4 md:px-6 mx-auto pointer-events-auto flex flex-col items-center py-20 md:py-20 lg:py-24">
+      <div className="capabilities-inner max-w-6xl w-full px-4 md:px-6 mx-auto pointer-events-auto flex flex-col items-center py-20 md:py-20 lg:py-24">
         {/* Subtitle */}
         <h2
           className="text-[10px] md:text-sm tracking-[0.4em] uppercase mb-3 md:mb-6"

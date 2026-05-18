@@ -14,6 +14,7 @@ const getTransporter = (): nodemailer.Transporter | null => {
     port,
     secure: port === 465,
     auth: { user, pass },
+    requireTLS: port === 587,
   });
   return cached;
 };

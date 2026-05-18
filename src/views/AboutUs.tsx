@@ -462,32 +462,50 @@ const AboutUs = () => {
               })}
             </div>
 
-            {/* Mobile: compact stacked cards */}
-            <div className="w-full flex md:hidden flex-col gap-2">
+            {/* Mobile: compact stacked cards with down-chevron between them */}
+            <div className="w-full flex md:hidden flex-col gap-1.5">
               {JOURNEY_STEPS.map((step, i) => {
                 const cardDelay = i * 0.1;
                 const cardP = easeOut(Math.min(Math.max((jrnCardsP - cardDelay) / 0.35, 0), 1));
                 return (
-                  <div
-                    key={step.tag}
-                    className="rounded-lg px-3 py-2.5"
-                    style={{
-                      opacity: cardP,
-                      transform: `translateX(${(1 - cardP) * -20}px)`,
-                      background: `linear-gradient(155deg, hsl(${step.accent} / 0.14), hsl(230 22% 8%))`,
-                      border: `1px solid hsl(${step.accent} / 0.28)`,
-                    }}
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <span
-                        className="inline-block w-6 h-[2px] rounded-full"
-                        style={{ background: `hsl(${step.accent})` }}
-                      />
-                      <p className="text-[9px] tracking-[0.25em] uppercase font-bold" style={{ color: `hsl(${step.accent})` }}>{step.tag}</p>
-                      <span className="text-[9px] tracking-wide font-semibold ml-auto" style={{ color: `hsl(${step.accent})` }}>{step.years}</span>
+                  <React.Fragment key={step.tag}>
+                    <div
+                      className="rounded-lg px-3 py-2.5"
+                      style={{
+                        opacity: cardP,
+                        transform: `translateX(${(1 - cardP) * -20}px)`,
+                        background: `linear-gradient(155deg, hsl(${step.accent} / 0.14), hsl(230 22% 8%))`,
+                        border: `1px solid hsl(${step.accent} / 0.28)`,
+                      }}
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <span
+                          className="inline-block w-6 h-[2px] rounded-full"
+                          style={{ background: `hsl(${step.accent})` }}
+                        />
+                        <p className="text-[9px] tracking-[0.25em] uppercase font-bold" style={{ color: `hsl(${step.accent})` }}>{step.tag}</p>
+                        <span className="text-[9px] tracking-wide font-semibold ml-auto" style={{ color: `hsl(${step.accent})` }}>{step.years}</span>
+                      </div>
+                      <h3 className="text-[13px] font-bold text-foreground leading-snug">{step.title}</h3>
                     </div>
-                    <h3 className="text-[13px] font-bold text-foreground leading-snug">{step.title}</h3>
-                  </div>
+                    {i < JOURNEY_STEPS.length - 1 && (
+                      <div
+                        className="flex items-center justify-center py-0.5"
+                        style={{ opacity: cardP }}
+                        aria-hidden="true"
+                      >
+                        <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
+                          <path
+                            d="M3 3 L11 11 L19 3"
+                            stroke={`hsl(${step.accent})`}
+                            strokeWidth="2.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    )}
+                  </React.Fragment>
                 );
               })}
             </div>

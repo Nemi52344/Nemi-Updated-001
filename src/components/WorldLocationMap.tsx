@@ -174,6 +174,26 @@ const WorldLocationMap = ({ visibleProgress }: WorldLocationMapProps) => {
           }
         </Geographies>
 
+        {/* India internal state boundaries — drawn on top of the country fill */}
+        <Geographies geography="/data/india-states.json">
+          {({ geographies }) =>
+            geographies.map((geo) => (
+              <Geography
+                key={geo.rsmKey}
+                geography={geo}
+                fill="hsl(275 75% 32%)"
+                stroke="none"
+                strokeWidth={0}
+                style={{
+                  default: { outline: "none", pointerEvents: "none" },
+                  hover: { outline: "none", pointerEvents: "none" },
+                  pressed: { outline: "none", pointerEvents: "none" },
+                }}
+              />
+            ))
+          }
+        </Geographies>
+
       </ComposableMap>
     </div>
   );

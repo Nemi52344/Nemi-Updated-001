@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { X, Send, Mail, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
+import PhoneInput from "@/components/PhoneInput";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -180,7 +181,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
       aria-labelledby="contact-form-title"
     >
       <div
-        className="relative w-full sm:max-w-xl rounded-t-3xl sm:rounded-2xl p-5 sm:p-7 my-0 sm:my-6 max-h-[95vh] overflow-y-auto"
+        className="relative w-full sm:max-w-xl rounded-t-3xl sm:rounded-2xl px-5 pt-5 pb-14 sm:p-7 my-0 sm:my-6 max-h-[95vh] overflow-y-auto"
         style={{
           background: "linear-gradient(145deg, hsl(230 20% 10%), hsl(230 25% 6%))",
           border: "1px solid hsl(275 80% 55% / 0.22)",
@@ -327,14 +328,11 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
 
               <div className="sm:col-span-2">
                 <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Phone (optional)</label>
-                <input
-                  type="tel"
+                <PhoneInput
                   value={form.phone}
-                  onChange={(e) => handleChange("phone", e.target.value)}
-                  className={inputClass}
-                  style={inputStyle}
-                  maxLength={40}
-                  placeholder="+1 555 123 4567"
+                  onChange={(val) => handleChange("phone", val)}
+                  placeholder="555 123 4567"
+                  inputStyle={inputStyle}
                 />
               </div>
 

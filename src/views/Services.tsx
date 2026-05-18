@@ -147,66 +147,95 @@ const Services = () => {
       )}
 
       {/* ── 2. SERVICES GRID ── */}
-      {gridVisible && (
-        <div
-          className="fixed inset-0 z-[10] flex flex-col justify-start lg:justify-center overflow-y-auto pt-20 pb-8 lg:py-0"
-          style={{ opacity: gridOp }}
-        >
-          <div className="w-full mx-auto px-6 md:px-10 lg:px-14" style={{ maxWidth: "1600px" }}>
-            <div className="mb-4 md:mb-5">
-              <p className="font-bold text-sm md:text-base tracking-[0.35em] uppercase mb-2" style={{ color: henry, textShadow: `0 0 18px ${henry}55` }}>
-                Services
-              </p>
-              <div style={{ height: 2, background: henry, width: "4rem" }} />
-            </div>
+      {gridVisible && (() => {
+        const renderCard = (s: ServiceItem, i: number) => {
+          const cardP = easeOut(Math.min(Math.max((gridEnter - i * 0.08) / 0.5, 0), 1));
+          return (
             <div
-              className="services-card-grid border border-border"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "1px",
-                background: "hsl(var(--border))",
-              }}
+              key={s.title}
+              className="bg-background transition-colors duration-300 cursor-default h-full services-card"
+              style={{ padding: "0.75rem", opacity: cardP, transform: `translateY(${(1 - cardP) * 24}px)` }}
             >
-              {henryServices.map((s, i) => {
-                const cardP = easeOut(Math.min(Math.max((gridEnter - i * 0.08) / 0.5, 0), 1));
-                return (
-                <div
-                  key={s.title}
-                  className="bg-background hover:bg-card transition-colors duration-300 cursor-default h-full"
-                  style={{ padding: "1rem", opacity: cardP, transform: `translateY(${(1 - cardP) * 24}px)` }}
-                >
-                  <div
-                    className="bg-card"
-                    style={{ height: 90, marginBottom: "0.75rem", overflow: "hidden", borderLeft: `2px solid ${henry}` }}
-                  >
-                    <img
-                      src={s.img}
-                      alt={s.title}
-                      style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.65, transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }}
-                      className="hover:scale-105"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div style={{ width: "2rem", height: 2, background: henry, marginBottom: "0.6rem" }} />
-                  <h3 className="text-foreground font-bold text-xs md:text-sm tracking-wider uppercase mb-1.5">{s.title}</h3>
-                  <p className="text-muted-foreground text-[11px] md:text-xs leading-[1.5] tracking-wide">{s.desc}</p>
+              <div
+                className="bg-card services-card-img-wrap"
+                style={{ height: 75, marginBottom: "0.6rem", overflow: "hidden", borderLeft: `2px solid ${henry}` }}
+              >
+                <img
+                  src={s.img}
+                  alt={s.title}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.65 }}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div style={{ width: "2rem", height: 2, background: henry, marginBottom: "0.6rem" }} className="services-card-rule" />
+              <h3 className="text-foreground font-bold text-xs md:text-sm tracking-wider uppercase mb-1.5">{s.title}</h3>
+              <p className="text-muted-foreground text-[11px] md:text-xs leading-[1.5] tracking-wide">{s.desc}</p>
+            </div>
+          );
+        };
+
+        // On mobile we split into 3 distinct sub-pages (3 + 3 + 3) driven by raw section progress:
+        // sub-progress is divided in thirds.
+        const mobileSubProgress = rangeProgress(scrollProgress, 0.16, 0.28);
+        const mobilePageIndex = mobileSubProgress < 1 / 3 ? 0 : mobileSubProgress < 2 / 3 ? 1 : 2;
+        const mobileCards = henryServices.slice(mobilePageIndex * 3, mobilePageIndex * 3 + 3);
+        const mobilePageLabel = `${mobilePageIndex + 1} / 3`;
+
+        return (
+          <div
+            className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto pt-20 pb-6 lg:pt-24 lg:pb-6"
+            style={{ opacity: gridOp }}
+          >
+            <div className="w-full mx-auto px-6 md:px-10 lg:px-12 xl:px-14" style={{ maxWidth: "1680px" }}>
+              <div className="mb-4 md:mb-5 flex items-end justify-between">
+                <div>
+                  <p className="font-bold text-sm md:text-base tracking-[0.35em] uppercase mb-2" style={{ color: henry, textShadow: `0 0 18px ${henry}55` }}>
+                    Services
+                  </p>
+                  <div style={{ height: 2, background: henry, width: "4rem" }} />
                 </div>
-                );
-              })}
+                <span className="md:hidden text-[10px] tracking-[0.3em] uppercase font-bold" style={{ color: henry }}>
+                  {mobilePageLabel}
+                </span>
+              </div>
+
+              {/* Mobile: single column of 3 cards, paginated 3 pages by scroll progress.
+                  NOTE: no inline `display` style here — that would override `md:hidden`. */}
+              <div
+                className="services-card-grid grid md:!hidden border border-border"
+                style={{
+                  gridTemplateColumns: "1fr",
+                  gap: "1px",
+                  background: "hsl(var(--border))",
+                }}
+              >
+                {mobileCards.map((s, i) => renderCard(s, i))}
+              </div>
+
+              {/* Desktop / tablet: full 3-col grid showing all 9 services. */}
+              <div
+                className="services-card-grid hidden md:grid border border-border"
+                style={{
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gap: "1px",
+                  background: "hsl(var(--border))",
+                }}
+              >
+                {henryServices.map((s, i) => renderCard(s, i))}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* ── 3. INDUSTRIES ── */}
       {indVisible && (
         <div
-          className="fixed inset-0 z-[10] flex flex-col justify-start lg:justify-center px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-8 lg:py-0"
+          className="fixed inset-0 z-[10] flex flex-col justify-center items-center px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-8 lg:py-0"
           style={{ opacity: indOp }}
         >
-          <div className="w-full mx-auto pt-0 lg:pt-16 px-0 md:px-10" style={{ maxWidth: "1600px" }}>
+          <div className="w-full mx-auto lg:pt-16 px-0 md:px-10" style={{ maxWidth: "1280px" }}>
             <div className="text-center mb-6">
               <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-wider" style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}>
                 Industries we serve
@@ -391,8 +420,21 @@ const Services = () => {
       )}
 
       <style>{`
-        @media (max-width: 900px) {
+        @media (max-width: 767px) {
           .services-card-grid { grid-template-columns: 1fr !important; }
+          .services-card-grid .services-card { padding: 0.75rem !important; }
+          .services-card-grid .services-card-img-wrap { height: 130px !important; margin-bottom: 0.55rem !important; }
+          .services-card-grid .services-card-img-wrap img { opacity: 0.95 !important; }
+          .services-card-grid h3 { font-size: 14px !important; margin-bottom: 0.25rem !important; }
+          .services-card-grid p { font-size: 11.5px !important; line-height: 1.45 !important; }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+          /* Phone landscape / small tablet: keep 3-col desktop layout but compact */
+          .services-card-grid { grid-template-columns: repeat(3, 1fr) !important; }
+          .services-card-grid .services-card { padding: 0.5rem !important; }
+          .services-card-grid .services-card-img-wrap { height: 60px !important; margin-bottom: 0.4rem !important; }
+          .services-card-grid h3 { font-size: 10.5px !important; margin-bottom: 0.2rem !important; }
+          .services-card-grid p { font-size: 9.5px !important; line-height: 1.3 !important; }
         }
       `}</style>
     </div>

@@ -57,7 +57,7 @@ const Card = ({ step, p }: { step: Step; p: number }) => {
 
       {/* Image - compact, fits single viewport */}
       <div
-        className="relative w-full overflow-hidden rounded-lg"
+        className="relative w-full overflow-hidden rounded-lg lmm-flow-card-img"
         style={{
           aspectRatio: "16 / 9",
           maxHeight: "140px",

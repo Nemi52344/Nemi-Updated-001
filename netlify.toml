@@ -1,9 +1,12 @@
 [build]
   command = "npm run build"
-  publish = "out"
 
-# Next.js static export writes per-route index.html files (e.g. out/about/index.html).
-# No SPA fallback redirect needed - each route has its own real HTML file.
+# Server-rendered Next.js (with /api/otp/* routes). The Netlify Next.js plugin
+# (@netlify/plugin-nextjs, declared in package.json) auto-detects the right
+# publish directory and wires up Functions + edge handlers — do NOT set
+# `publish = "out"` here, that's for static-export builds only.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 # Security & performance headers for all routes
 [[headers]]

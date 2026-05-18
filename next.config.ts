@@ -1,14 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Export as a fully static site (plain HTML/CSS/JS in out/).
-  // All routes are already ○ Static so no server runtime is needed.
-  // This lets Netlify (or any static host) serve the site with zero plugins.
-  output: "export",
+  // Server-rendered (not static export). Required because we ship API routes
+  // under /api/otp/* that need to run on the server (OTP send/verify). On
+  // Netlify this is handled by @netlify/plugin-nextjs (already in deps); on
+  // Vercel it works natively with zero config.
 
   images: {
-    // Required when using output: "export" - Next.js Image Optimization
-    // needs a server; since we export statically we use plain <img> tags.
+    // Keep unoptimized to preserve existing <img> usage from the Vite-era code.
+    // Components import images as URL strings, not Next.js StaticImageData.
     unoptimized: true,
   },
 

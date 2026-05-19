@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { X, Send, Mail, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import PhoneInput from "@/components/PhoneInput";
+import { sendOtp as sendOtpRequest, verifyOtp as verifyOtpRequest } from "@/lib/otpClient";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -76,13 +77,8 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     }
     setOtpStage("sending");
     try {
-      const res = await fetch("/api/otp/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: form.email }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error || "Failed to send code");
+      const result = await sendOtpRequest(form.email);
+      if (!result.ok) throw new Error(result.error || "Failed to send code");
       setOtpStage("sent");
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Could not send code";
@@ -99,13 +95,8 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     }
     setOtpStage("verifying");
     try {
-      const res = await fetch("/api/otp/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: form.email, code: otpCode }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error || "Invalid code");
+      const result = await verifyOtpRequest(form.email, otpCode);
+      if (!result.ok) throw new Error(result.error || "Invalid code");
       setOtpStage("verified");
       setVerifiedEmail(form.email);
     } catch (e: unknown) {

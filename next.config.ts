@@ -1,14 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Server-rendered (not static export). Required because we ship API routes
-  // under /api/otp/* that need to run on the server (OTP send/verify). On
-  // Netlify this is handled by @netlify/plugin-nextjs (already in deps); on
-  // Vercel it works natively with zero config.
+  // Export as a fully static site (plain HTML/CSS/JS in out/).
+  // OTP send/verify previously lived under /api/otp/* (Next.js routes) but
+  // are now Supabase Edge Functions, so there's no server runtime needed and
+  // the AWS + nginx deploy can serve the static `out/` folder as-is.
+  output: "export",
 
   images: {
-    // Keep unoptimized to preserve existing <img> usage from the Vite-era code.
-    // Components import images as URL strings, not Next.js StaticImageData.
+    // Required when output: "export" - Next.js Image Optimization
+    // needs a server; we use plain <img> tags everywhere.
     unoptimized: true,
   },
 

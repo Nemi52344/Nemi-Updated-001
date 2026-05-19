@@ -7,6 +7,7 @@ import ConstellationCanvas from "@/components/ConstellationCanvas";
 import PageCTAFooter from "@/components/PageCTAFooter";
 import PhoneInput from "@/components/PhoneInput";
 import SiteFooter from "@/components/SiteFooter";
+import { sendOtp, verifyOtp } from "@/lib/otpClient";
 import useScrollProgress from "@/hooks/useScrollProgress";
 import { supabase } from "@/lib/supabase";
 
@@ -80,13 +81,8 @@ const Careers = () => {
     }
     setDropOtpStage("sending");
     try {
-      const res = await fetch("/api/otp/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: dropEmail }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error || "Failed to send code");
+      const result = await sendOtp(dropEmail);
+      if (!result.ok) throw new Error(result.error || "Failed to send code");
       setDropOtpStage("sent");
     } catch (e) {
       setDropOtpError(e instanceof Error ? e.message : "Could not send code");
@@ -102,13 +98,8 @@ const Careers = () => {
     }
     setDropOtpStage("verifying");
     try {
-      const res = await fetch("/api/otp/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: dropEmail, code: dropOtpCode }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error || "Invalid code");
+      const result = await verifyOtp(dropEmail, dropOtpCode);
+      if (!result.ok) throw new Error(result.error || "Invalid code");
       setDropOtpStage("verified");
       setDropVerifiedEmail(dropEmail);
     } catch (e) {

@@ -3,14 +3,14 @@
 const SiteFooter = () => {
   return (
     <footer
-      className="pt-6 pb-4 px-6 md:px-12 lg:px-16 border-t border-border/30 relative z-[1]"
+      className="pt-6 pb-4 px-6 md:px-12 lg:px-16 [@media(max-width:900px)and(orientation:landscape)]:!pt-2 [@media(max-width:900px)and(orientation:landscape)]:!pb-2 [@media(max-width:900px)and(orientation:landscape)]:!px-6 border-t border-border/30 relative z-[1]"
       aria-labelledby="site-footer-heading"
     >
       <h2 id="site-footer-heading" className="sr-only">
         Site footer
       </h2>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 [@media(max-width:900px)and(orientation:landscape)]:!grid-cols-2 gap-4 md:gap-8 [@media(max-width:900px)and(orientation:landscape)]:!gap-2 items-start">
         {/* Brand band */}
         <div>
           <p className="font-bold text-base tracking-[0.15em] uppercase text-foreground mb-1">
@@ -43,7 +43,7 @@ const SiteFooter = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-4 pt-3 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div className="max-w-6xl mx-auto mt-4 pt-3 [@media(max-width:900px)and(orientation:landscape)]:!mt-1.5 [@media(max-width:900px)and(orientation:landscape)]:!pt-1.5 border-t border-border/20 flex flex-col sm:flex-row items-center justify-between gap-2">
         <p className="text-[11px] text-muted-foreground">
           &copy; 2026 NEMI AI. All rights reserved.
         </p>

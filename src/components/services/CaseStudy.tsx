@@ -255,6 +255,25 @@ const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt
           .case-image-cell { order: 0 !important; }
           .case-content-cell { order: 1 !important; }
         }
+        /* Landscape phone — keep side-by-side image | content so the case study fits one viewport */
+        @media (max-width: 900px) and (orientation: landscape), (max-height: 700px) and (orientation: landscape) {
+          .services-case-grid { grid-template-columns: 1.1fr 1fr !important; }
+          .services-case-content { padding: 4px 8px !important; }
+          .services-case-image-wrap { min-height: 0 !important; height: 100% !important; max-height: 240px !important; }
+          .services-case-image { object-fit: contain !important; height: 100% !important; }
+          .case-title { font-size: 12px !important; margin-bottom: 4px !important; letter-spacing: 0.03em !important; }
+          .case-section { margin-bottom: 3px !important; }
+          .case-section-tag { font-size: 7.5px !important; margin-bottom: 0 !important; letter-spacing: 0.18em !important; }
+          .case-section-text { font-size: 9px !important; line-height: 1.25 !important; }
+          .case-metric-row { padding: 2px 0 !important; }
+          .case-metric-label { font-size: 9px !important; margin-bottom: 2px !important; }
+          .case-metric-bar-row { gap: 4px !important; margin-bottom: 1px !important; }
+          .case-metric-side-label { font-size: 6.5px !important; width: 2.4rem !important; letter-spacing: 0.14em !important; }
+          .case-metric-track { height: 2px !important; }
+          .case-metric-value { font-size: 8.5px !important; width: 2.8rem !important; }
+          .case-metric-value-after { font-size: 9.5px !important; width: 2.8rem !important; }
+          .case-disclaimer { font-size: 7px !important; margin-top: 2px !important; line-height: 1.2 !important; }
+        }
       `}</style>
     </div>
   );

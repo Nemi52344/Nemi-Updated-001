@@ -265,7 +265,7 @@ const Careers = () => {
       {/* ── 1. HERO ── */}
       {heroVisible && (
         <div
-          className="fixed inset-0 z-[10] flex items-center justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-16 lg:pt-0"
+          className="fixed inset-0 z-[10] flex items-center justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-16 lg:pt-0 careers-hero"
           style={{ opacity: heroOp }}
         >
           <div
@@ -305,7 +305,7 @@ const Careers = () => {
 
       {/* ── 2. VALUES ── */}
       {valVisible && (
-        <div className="fixed inset-0 z-[10] w-full overflow-y-auto" style={{ opacity: valOp }}>
+        <div className="fixed inset-0 z-[10] w-full overflow-y-auto careers-values-section careers-values" style={{ opacity: valOp }}>
           <img
             src="/Images/about us.webp"
             alt="NEMI team"
@@ -352,7 +352,7 @@ const Careers = () => {
       {/* ── 3. OPEN POSITIONS ── */}
       {posVisible && (
         <div
-          className="fixed inset-0 z-[10] flex flex-col justify-start px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-6 lg:pt-24 lg:pb-6"
+          className="fixed inset-0 z-[10] flex flex-col justify-start px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-6 lg:pt-24 lg:pb-6 careers-positions-section ls-allow-scroll"
           style={{ opacity: posOp }}
         >
           <div className="max-w-3xl w-full mx-auto" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
@@ -371,7 +371,7 @@ const Careers = () => {
             {dropState !== "success" ? (
               <form
                 onSubmit={handleResumeDrop}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 rounded-2xl p-5 sm:p-6"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 rounded-2xl p-5 sm:p-6 careers-form"
                 style={{
                   background: "linear-gradient(145deg, hsl(230 20% 10%), hsl(230 25% 6%))",
                   border: "1px solid hsl(275 80% 55% / 0.22)",
@@ -577,7 +577,7 @@ const Careers = () => {
 
       {/* ── 4. CTA + FOOTER ── */}
       {ctaVisible && (
-        <div className="fixed inset-0 z-[10] flex flex-col" style={{ opacity: ctaEnter }}>
+        <div className="fixed inset-0 z-[10] flex flex-col careers-cta-section" style={{ opacity: ctaEnter }}>
           <div className="flex-1 flex items-center justify-center">
             <PageCTAFooter
               headline="Shape the Future."

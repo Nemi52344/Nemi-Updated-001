@@ -73,7 +73,7 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
+      className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-hidden trust-signal-inner"
       style={{ zIndex: 42, opacity, background: "hsl(230 25% 4%)" }}
       aria-label="Trusted by industry leaders"
     >

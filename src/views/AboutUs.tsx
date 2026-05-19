@@ -89,7 +89,7 @@ const BOARD = [
 
 const ADVISORS = [
   { photo: "/Images/team/Sampath%20Ravi%20Narayanan.webp", name: "Dr. Sampath Ravinarayanan", title: "Board Advisor", color: "275 30% 38%", highlights: ["Chairman & MD, Axis CADES", "Fmr. Board: Air India, Airbus India, KPTCL"] },
-  { photo: "/Images/team/Vinod%20K%20Dasari.webp", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%", highlights: ["Senior Partner Emeritus, McKinsey & Company (30 yrs)", "Co-led Industrials Practice, India & Asia"] },
+  { photo: "/Images/team/Vinod%20K%20Dasari.webp", name: "Ramesh Mangaleshwaran", title: "Advisor", color: "268 28% 36%", highlights: ["Senior Partner Emeritus, McKinsey & Company", "Co-led Industrials Practice, India & Asia"] },
   { photo: "/Images/team/Ramesh%20Mangaleshwaran.webp", name: "Vinod K. Dasari", title: "Advisor", color: "282 26% 35%", highlights: ["Fmr. MD & CEO, Ashok Leyland & Royal Enfield", "Led global innovation & international expansion"] },
 ];
 
@@ -140,7 +140,7 @@ const LeaderFlipCard = ({ member }: { member: TeamMember }) => {
 
   return (
     <div
-      className="w-full cursor-pointer h-[96px] sm:h-[140px] md:h-[170px]"
+      className="w-full cursor-pointer h-[96px] sm:h-[140px] md:h-[170px] [@media(max-height:650px)]:!h-[92px]"
       style={{ perspective: "1000px", contain: "paint" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -159,16 +159,16 @@ const LeaderFlipCard = ({ member }: { member: TeamMember }) => {
           }}
         >
           <div
-            className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full overflow-hidden mb-1 sm:mb-1.5 flex-shrink-0"
+            className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 [@media(max-height:650px)]:!w-7 [@media(max-height:650px)]:!h-7 rounded-full overflow-hidden mb-1 sm:mb-1.5 [@media(max-height:650px)]:!mb-0.5 flex-shrink-0"
             style={{ border: `1.5px solid hsl(${member.colorHsl} / 0.45)` }}
           >
             <img src={member.photo} alt={member.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
           </div>
-          <h3 className="text-[9px] sm:text-[11px] md:text-sm font-semibold text-foreground text-center leading-tight">
+          <h3 className="text-[9px] sm:text-[11px] md:text-sm [@media(max-height:650px)]:!text-[10px] font-semibold text-foreground text-center leading-tight">
             <span className="block">{first || last}</span>
             <span className="block">{first ? last : ""}</span>
           </h3>
-          <p className="text-[7px] sm:text-[8px] md:text-[10px] tracking-[0.12em] sm:tracking-[0.15em] uppercase font-medium text-center mt-0.5 sm:mt-1" style={{ color: `hsl(${member.colorHsl})` }}>
+          <p className="text-[7px] sm:text-[8px] md:text-[10px] [@media(max-height:650px)]:!text-[7.5px] tracking-[0.12em] sm:tracking-[0.15em] uppercase font-medium text-center mt-0.5 sm:mt-1 [@media(max-height:650px)]:!mt-0.5" style={{ color: `hsl(${member.colorHsl})` }}>
             {member.role}
           </p>
         </div>
@@ -334,7 +334,7 @@ const AboutUs = () => {
       {/* ═══ 2. SOLUTIONS ═══ */}
       {solVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0 solutions-inner"
           style={{ zIndex: 20, opacity: solOp, background: "hsl(230 25% 4%)" }}
         >
           <div className="max-w-6xl w-full mx-4 sm:mx-6 pointer-events-auto">
@@ -713,7 +713,7 @@ const AboutUs = () => {
       {/* ═══ 6. OUR LOCATIONS ═══ */}
       {locVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0 locations-inner"
           style={{ zIndex: 20, opacity: locOp, background: "hsl(230 25% 4%)" }}
         >
           <div
@@ -782,19 +782,19 @@ const AboutUs = () => {
       {/* ═══ 7. TEAM (Core + Extended) ═══ */}
       {tcVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0 [@media(max-height:650px)]:!pt-[60px] [@media(max-height:650px)]:!pb-[10px] [@media(max-height:650px)]:!px-[30px]"
           style={{ zIndex: 20, opacity: tcOp, background: "hsl(230 25% 4%)" }}
         >
           <div className="max-w-6xl w-full mx-4 sm:mx-6 pointer-events-auto text-center">
             <div style={{ opacity: tcEnter, transform: `translateY(${(1 - tcEnter) * 20}px)` }}>
-              <h2 className="text-lg sm:text-xl md:text-3xl font-bold tracking-wider mb-1" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Team</h2>
-              <p className="text-[10px] sm:text-[11px] md:text-xs text-muted-foreground tracking-wide mb-2 sm:mb-4 max-w-2xl mx-auto leading-snug">
+              <h2 className="text-lg sm:text-xl md:text-3xl [@media(max-height:650px)]:!text-base font-bold tracking-wider mb-1 [@media(max-height:650px)]:!mb-0.5" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Team</h2>
+              <p className="text-[10px] sm:text-[11px] md:text-xs [@media(max-height:650px)]:!text-[9px] text-muted-foreground tracking-wide mb-2 sm:mb-4 [@media(max-height:650px)]:!mb-1.5 max-w-2xl mx-auto leading-snug">
                 Leadership team that built manufacturing at scale and AI systems at scale, now combining both.
               </p>
             </div>
 
             {/* Core Team grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 [@media(max-height:650px)]:!grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-4 [@media(max-height:650px)]:!mb-1.5">
               {CORE_TEAM.map((m, i) => {
                 const cp = easeOut(Math.min(Math.max((tcEnter - i * 0.08) / 0.5, 0), 1));
                 return (
@@ -806,12 +806,12 @@ const AboutUs = () => {
             </div>
 
             {/* Extended Leadership subheading */}
-            <div className="mb-1.5 sm:mb-2" style={{ opacity: tcExtP, transform: `translateY(${(1 - tcExtP) * 15}px)` }}>
-              <p className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.25em] sm:tracking-[0.35em] uppercase text-muted-foreground font-bold">Extended Leadership</p>
+            <div className="mb-1.5 sm:mb-2 [@media(max-height:650px)]:!mb-1 text-center" style={{ opacity: tcExtP, transform: `translateY(${(1 - tcExtP) * 15}px)` }}>
+              <p className="text-[9px] sm:text-[10px] md:text-xs [@media(max-height:650px)]:!text-[8.5px] tracking-[0.25em] sm:tracking-[0.35em] uppercase text-muted-foreground font-bold">Extended Leadership</p>
             </div>
 
             {/* Extended Team grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 [@media(max-height:650px)]:!grid-cols-4 gap-2 sm:gap-3 md:gap-4">
               {EXTENDED_TEAM.map((m, i) => {
                 const cp = easeOut(Math.min(Math.max((tcExtP - i * 0.08) / 0.5, 0), 1));
                 return (
@@ -828,32 +828,32 @@ const AboutUs = () => {
       {/* ═══ 6. BOARD & ADVISORS ═══ */}
       {baVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-16 lg:py-0 [@media(max-height:650px)]:!pt-[60px] [@media(max-height:650px)]:!pb-[10px] [@media(max-height:650px)]:!px-[30px]"
           style={{ zIndex: 20, opacity: baOp, background: "hsl(230 25% 4%)" }}
         >
           <div className="max-w-5xl w-full mx-4 sm:mx-6 pointer-events-auto">
-            <div className="text-center mb-3 sm:mb-8" style={{ opacity: baEnter, transform: `translateY(${(1 - baEnter) * 20}px)` }}>
-              <h2 className="text-lg sm:text-2xl md:text-3xl font-bold tracking-wider mb-1 sm:mb-2" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Board &amp; Advisors</h2>
-              <p className="text-[11px] sm:text-sm text-muted-foreground">Guided by operators who scaled global enterprises.</p>
+            <div className="text-center mb-3 sm:mb-8 [@media(max-height:650px)]:!mb-2" style={{ opacity: baEnter, transform: `translateY(${(1 - baEnter) * 20}px)` }}>
+              <h2 className="text-lg sm:text-2xl md:text-3xl [@media(max-height:650px)]:!text-base font-bold tracking-wider mb-1 sm:mb-2 [@media(max-height:650px)]:!mb-0.5" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>Board &amp; Advisors</h2>
+              <p className="text-[11px] sm:text-sm [@media(max-height:650px)]:!text-[9px] text-muted-foreground">Guided by operators who scaled global enterprises.</p>
             </div>
 
             {/* Board */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 [@media(max-height:650px)]:!grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-6 [@media(max-height:650px)]:!mb-2">
               {BOARD.map((m, i) => {
                 const cp = easeOut(Math.min(Math.max((baEnter - i * 0.1) / 0.6, 0), 1));
                 return (
                   <div
                     key={m.name}
-                    className="rounded-lg sm:rounded-xl p-2 sm:p-4 flex items-start gap-2 sm:gap-4"
+                    className="rounded-lg sm:rounded-xl p-2 sm:p-4 [@media(max-height:650px)]:!p-1.5 flex items-start gap-2 sm:gap-4 [@media(max-height:650px)]:!gap-1.5"
                     style={{ opacity: cp, transform: `translateY(${(1 - cp) * 20}px)`, background: "hsl(230 20% 8% / 0.6)", border: `1px solid hsl(${m.color} / 0.2)` }}
                   >
-                    <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1px solid hsl(${m.color} / 0.3)` }}>
+                    <div className="w-9 h-9 sm:w-12 sm:h-12 [@media(max-height:650px)]:!w-7 [@media(max-height:650px)]:!h-7 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1px solid hsl(${m.color} / 0.3)` }}>
                       <img src={m.photo} alt={m.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                     </div>
                     <div className="min-w-0">
-                      <p className="font-bold text-[12px] sm:text-sm text-foreground leading-tight">{m.name}</p>
-                      <p className="text-[8px] sm:text-[9px] tracking-[0.12em] uppercase font-semibold mb-1" style={{ color: `hsl(${m.color})` }}>{m.title}</p>
-                      <p className="text-[10px] sm:text-[11px] text-muted-foreground leading-snug">{m.desc}</p>
+                      <p className="font-bold text-[12px] sm:text-sm [@media(max-height:650px)]:!text-[10px] text-foreground leading-tight">{m.name}</p>
+                      <p className="text-[8px] sm:text-[9px] [@media(max-height:650px)]:!text-[7px] tracking-[0.12em] uppercase font-semibold mb-1 [@media(max-height:650px)]:!mb-0" style={{ color: `hsl(${m.color})` }}>{m.title}</p>
+                      <p className="text-[10px] sm:text-[11px] [@media(max-height:650px)]:!text-[8.5px] text-muted-foreground leading-snug">{m.desc}</p>
                     </div>
                   </div>
                 );
@@ -861,27 +861,27 @@ const AboutUs = () => {
             </div>
 
             {/* Advisors */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 [@media(max-height:650px)]:!grid-cols-3 gap-2 sm:gap-3">
               {ADVISORS.map((a, i) => {
                 const cp = easeOut(Math.min(Math.max((baEnter - (i + 2) * 0.08) / 0.5, 0), 1));
                 return (
                   <div
                     key={a.name}
-                    className="rounded-lg sm:rounded-xl p-2 sm:p-4 flex flex-col"
+                    className="rounded-lg sm:rounded-xl p-2 sm:p-4 [@media(max-height:650px)]:!p-1.5 flex flex-col"
                     style={{ opacity: cp, transform: `translateY(${(1 - cp) * 20}px)`, background: "hsl(230 20% 8% / 0.6)", border: `1px solid hsl(${a.color} / 0.2)` }}
                   >
-                    <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-3">
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1px solid hsl(${a.color} / 0.3)` }}>
+                    <div className="flex items-center gap-2 sm:gap-3 [@media(max-height:650px)]:!gap-1.5 mb-1.5 sm:mb-3 [@media(max-height:650px)]:!mb-1">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 [@media(max-height:650px)]:!w-6 [@media(max-height:650px)]:!h-6 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1px solid hsl(${a.color} / 0.3)` }}>
                         <img src={a.photo} alt={a.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                       </div>
                       <div className="min-w-0">
-                        <p className="font-bold text-[11px] sm:text-xs text-foreground leading-tight">{a.name}</p>
-                        <p className="text-[7.5px] sm:text-[8px] tracking-[0.12em] uppercase font-semibold" style={{ color: `hsl(${a.color})` }}>{a.title}</p>
+                        <p className="font-bold text-[11px] sm:text-xs [@media(max-height:650px)]:!text-[9.5px] text-foreground leading-tight">{a.name}</p>
+                        <p className="text-[7.5px] sm:text-[8px] [@media(max-height:650px)]:!text-[6.5px] tracking-[0.12em] uppercase font-semibold" style={{ color: `hsl(${a.color})` }}>{a.title}</p>
                       </div>
                     </div>
                     <ul className="flex flex-col gap-0.5 sm:gap-1">
                       {a.highlights.map((h) => (
-                        <li key={h} className="flex items-start gap-1.5 text-[9px] sm:text-[10px] text-muted-foreground leading-snug">
+                        <li key={h} className="flex items-start gap-1.5 text-[9px] sm:text-[10px] [@media(max-height:650px)]:!text-[8px] text-muted-foreground leading-snug">
                           <span className="mt-1 sm:mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: `hsl(${a.color})` }} />
                           {h}
                         </li>
@@ -898,10 +898,10 @@ const AboutUs = () => {
       {/* ═══ 9. CTA + FOOTER ═══ */}
       {ctaVisible && (
         <div
-          className="fixed inset-0 flex flex-col pointer-events-auto overflow-y-auto"
+          className="fixed inset-0 flex flex-col pointer-events-auto overflow-y-auto [@media(max-height:650px)]:!pt-[50px]"
           style={{ zIndex: 45, opacity: ctaEnter, background: "hsl(230 25% 4%)" }}
         >
-          <div className="flex-1 flex flex-col items-center justify-center relative px-6">
+          <div className="flex-1 flex flex-col items-center justify-center relative px-6 [@media(max-height:650px)]:!py-2">
             <div
               className="absolute inset-0 pointer-events-none"
               style={{ background: "radial-gradient(ellipse 45% 50% at 50% 45%, hsl(275 80% 40% / 0.2) 0%, transparent 60%)" }}
@@ -909,21 +909,21 @@ const AboutUs = () => {
 
             {/* CTA */}
             <div className="text-center relative z-[2] max-w-2xl">
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6" style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5)" }}>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl [@media(max-height:650px)]:!text-xl font-extrabold tracking-tight mb-6 [@media(max-height:650px)]:!mb-2" style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5)" }}>
                 Join Our Team.
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed">
+              <p className="text-base md:text-lg [@media(max-height:650px)]:!text-[11px] text-muted-foreground mb-10 [@media(max-height:650px)]:!mb-3 max-w-xl mx-auto leading-relaxed">
                 We're hiring across engineering, manufacturing and AI. Build the future of Physical AI with us.
               </p>
               <a
                 href="/careers"
-                className="inline-block font-bold text-sm tracking-[0.2em] uppercase px-12 py-4 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
+                className="inline-block font-bold text-sm [@media(max-height:650px)]:!text-[11px] tracking-[0.2em] uppercase px-12 py-4 [@media(max-height:650px)]:!px-6 [@media(max-height:650px)]:!py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
                 style={{ background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))", boxShadow: "0 4px 30px hsl(275 80% 60% / 0.4)" }}
               >
                 View Open Roles
               </a>
-              <div className="mt-6">
-                <a href="mailto:info@nemi-ai.com" className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors">info@nemi-ai.com</a>
+              <div className="mt-6 [@media(max-height:650px)]:!mt-2">
+                <a href="mailto:info@nemi-ai.com" className="text-sm [@media(max-height:650px)]:!text-[11px] tracking-wider text-muted-foreground hover:text-foreground transition-colors">info@nemi-ai.com</a>
               </div>
             </div>
           </div>

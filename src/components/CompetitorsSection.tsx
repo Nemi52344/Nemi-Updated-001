@@ -168,7 +168,7 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto pt-16 pb-4 sm:py-6"
+      className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto pt-16 pb-4 sm:py-6 competitors-inner"
       style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
     >
       <div className="max-w-6xl w-full mx-3 sm:mx-6 pointer-events-auto">

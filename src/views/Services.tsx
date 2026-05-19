@@ -118,7 +118,7 @@ const Services = () => {
       {/* ── 1. HERO ── */}
       {heroVisible && (
         <div
-          className="fixed inset-0 z-[10] flex flex-col items-center justify-center px-6 md:px-12 lg:px-16 text-center"
+          className="fixed inset-0 z-[10] flex flex-col items-center justify-center px-6 md:px-12 lg:px-16 text-center services-hero ls-allow-scroll"
           style={{ opacity: heroOp }}
         >
           <div className="max-w-5xl mx-auto w-full pt-16">
@@ -184,7 +184,7 @@ const Services = () => {
 
         return (
           <div
-            className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto pt-20 pb-6 lg:pt-24 lg:pb-6"
+            className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto pt-20 pb-6 lg:pt-24 lg:pb-6 services-grid-section"
             style={{ opacity: gridOp }}
           >
             <div className="w-full mx-auto px-6 md:px-10 lg:px-12 xl:px-14" style={{ maxWidth: "1680px" }}>
@@ -232,10 +232,10 @@ const Services = () => {
       {/* ── 3. INDUSTRIES ── */}
       {indVisible && (
         <div
-          className="fixed inset-0 z-[10] flex flex-col justify-center items-center px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-8 lg:py-0"
+          className="fixed inset-0 z-[10] flex flex-col justify-center items-center px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-8 lg:py-0 industries-section"
           style={{ opacity: indOp }}
         >
-          <div className="w-full mx-auto lg:pt-16 px-0 md:px-10" style={{ maxWidth: "1280px" }}>
+          <div className="w-full mx-auto lg:pt-16 px-0 md:px-10 industries-inner" style={{ maxWidth: "1280px" }}>
             <div className="text-center mb-6">
               <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-wider" style={{ textShadow: "0 0 20px hsl(275 80% 60% / 0.3)" }}>
                 Industries we serve
@@ -302,7 +302,7 @@ const Services = () => {
 
       {/* ── 4. CASE STUDY 1 ── */}
       {cs1Visible && (
-        <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px]" style={{ opacity: cs1Op }}>
+        <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-1" style={{ opacity: cs1Op }}>
           <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
             <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">NEMI&rsquo;s LMM in Real World Application</p>
             <div style={{ height: 2, background: akio, width: "3rem" }} />
@@ -326,7 +326,7 @@ const Services = () => {
 
       {/* ── 5. CASE STUDY 2 ── */}
       {cs2Visible && (
-        <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px]" style={{ opacity: cs2Op }}>
+        <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-2" style={{ opacity: cs2Op }}>
           <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
             <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">NEMI&rsquo;s LMM in Real World Application</p>
             <div style={{ height: 2, background: henry, width: "3rem" }} />
@@ -351,7 +351,7 @@ const Services = () => {
 
       {/* ── 6. CASE STUDY 3 ── */}
       {cs3Visible && (
-        <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px]" style={{ opacity: cs3Op }}>
+        <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-3" style={{ opacity: cs3Op }}>
           <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
             <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">NEMI&rsquo;s LMM in Real World Application</p>
             <div style={{ height: 2, background: henry, width: "3rem" }} />
@@ -375,7 +375,7 @@ const Services = () => {
 
       {/* ── 7. CTA + FOOTER ── */}
       {ctaVisible && (
-        <div className="fixed inset-0 z-[10] flex flex-col" style={{ opacity: ctaEnter }}>
+        <div className="fixed inset-0 z-[10] flex flex-col services-cta-section" style={{ opacity: ctaEnter }}>
         <section className="relative z-[5] flex-1 flex items-center justify-center py-16 px-6 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -435,6 +435,18 @@ const Services = () => {
           .services-card-grid .services-card-img-wrap { height: 60px !important; margin-bottom: 0.4rem !important; }
           .services-card-grid h3 { font-size: 10.5px !important; margin-bottom: 0.2rem !important; }
           .services-card-grid p { font-size: 9.5px !important; line-height: 1.3 !important; }
+        }
+        /* Landscape phone — image + title only, descriptions hidden so 3×3 fits */
+        @media (max-width: 900px) and (orientation: landscape),
+               (max-height: 700px) and (orientation: landscape) {
+          .services-card-grid { grid-template-columns: repeat(3, 1fr) !important; display: grid !important; }
+          .services-card-grid .services-card { padding: 0.5rem !important; }
+          .services-card-grid .services-card-img-wrap { height: 55px !important; min-height: 0 !important; margin-bottom: 0.4rem !important; }
+          .services-card-grid .services-card-rule { width: 1.5rem !important; height: 2px !important; margin-bottom: 0.35rem !important; display: block !important; }
+          .services-card-grid h3 { font-size: 10px !important; margin-bottom: 0 !important; line-height: 1.15 !important; letter-spacing: 0.05em !important; font-weight: 700 !important; }
+          .services-card-grid p { display: none !important; }
+          .services-card-grid[class*="md:!hidden"] { display: none !important; }
+          .services-card-grid[class*="md:grid"] { display: grid !important; }
         }
       `}</style>
     </div>

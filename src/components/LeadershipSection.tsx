@@ -1,6 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// Hook that returns true if viewport height is short (landscape phone).
+function useShortViewport() {
+  const [isShort, setIsShort] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-height: 650px)");
+    const update = () => setIsShort(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return isShort;
+}
 
 interface LeadershipSectionProps {
   scrollProgress: number;
@@ -38,11 +51,12 @@ const LinkedInIcon = () => (
 
 const CoreCard = ({ member }: { member: CoreMember }) => {
   const [hovered, setHovered] = useState(false);
+  const isShort = useShortViewport();
 
   return (
     <div
-      className="w-full cursor-pointer"
-      style={{ perspective: "1000px", height: "245px" }}
+      className="w-full cursor-pointer leadership-core-card"
+      style={{ perspective: "1000px", height: isShort ? "100px" : "245px" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -60,12 +74,12 @@ const CoreCard = ({ member }: { member: CoreMember }) => {
           }}
         >
           <div
-            className="rounded-full mb-2 flex items-center justify-center shrink-0"
-            style={{ width: "4.2rem", height: "4.2rem", background: `radial-gradient(circle, hsl(${member.colorHsl} / 0.2) 50%, transparent 72%)` }}
+            className="rounded-full mb-1 sm:mb-2 flex items-center justify-center shrink-0 w-[2.2rem] h-[2.2rem] sm:w-[2.8rem] sm:h-[2.8rem] lg:w-[4.2rem] lg:h-[4.2rem]"
+            style={{ background: `radial-gradient(circle, hsl(${member.colorHsl} / 0.2) 50%, transparent 72%)` }}
           >
             <div
-              className="rounded-full overflow-hidden flex items-center justify-center"
-              style={{ width: "3.4rem", height: "3.4rem", border: `1.5px solid hsl(${member.colorHsl} / 0.45)`, background: member.photo ? "transparent" : `hsl(${member.colorHsl} / 0.15)` }}
+              className="rounded-full overflow-hidden flex items-center justify-center w-[1.8rem] h-[1.8rem] sm:w-[2.3rem] sm:h-[2.3rem] lg:w-[3.4rem] lg:h-[3.4rem]"
+              style={{ border: `1.5px solid hsl(${member.colorHsl} / 0.45)`, background: member.photo ? "transparent" : `hsl(${member.colorHsl} / 0.15)` }}
             >
               {member.photo ? (
                 <img src={member.photo} alt={member.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
@@ -75,18 +89,18 @@ const CoreCard = ({ member }: { member: CoreMember }) => {
             </div>
           </div>
           <h3
-            className="text-sm font-semibold text-foreground tracking-wide text-center leading-tight"
+            className="text-[10px] sm:text-xs lg:text-sm font-semibold text-foreground tracking-wide text-center leading-tight"
             style={{ textShadow: `0 0 12px hsl(${member.colorHsl} / 0.4)` }}
           >
             {member.name}
           </h3>
           <p
-            className="text-[10px] tracking-[0.15em] uppercase font-medium text-center mt-1"
-            style={{ color: `hsl(${member.colorHsl})`, lineHeight: "1.4" }}
+            className="text-[7.5px] sm:text-[9px] lg:text-[10px] tracking-[0.1em] sm:tracking-[0.15em] uppercase font-medium text-center mt-0.5 sm:mt-1"
+            style={{ color: `hsl(${member.colorHsl})`, lineHeight: "1.3" }}
           >
             {member.role}
           </p>
-          <p className="text-[11px] leading-snug text-muted-foreground text-center mt-2 px-1 line-clamp-4">
+          <p className="hidden lg:block text-[11px] leading-snug text-muted-foreground text-center mt-2 px-1 line-clamp-4">
             {member.desc}
           </p>
         </div>
@@ -121,26 +135,26 @@ const CoreCard = ({ member }: { member: CoreMember }) => {
 
 const CompactCard = ({ member }: { member: CompactMember }) => (
   <div
-    className="rounded-lg border p-3 flex gap-2.5 items-start"
+    className="rounded-lg border p-1.5 sm:p-3 flex flex-col sm:flex-row gap-1 sm:gap-2.5 items-center sm:items-start"
     style={{
       borderColor: `hsl(${member.color} / 0.25)`,
       background: `linear-gradient(135deg, hsl(${member.color} / 0.06), hsl(var(--card) / 0.6))`,
     }}
   >
     <div
-      className="w-11 h-11 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
+      className="w-7 h-7 sm:w-11 sm:h-11 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
       style={{ background: `hsl(${member.color} / 0.12)`, border: `1px solid hsl(${member.color} / 0.3)` }}
     >
       {member.photo ? (
         <img src={member.photo} alt={member.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
       ) : (
-        <span className="font-black text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
+        <span className="font-black text-[9px] sm:text-xs" style={{ color: `hsl(${member.color})` }}>{member.initials}</span>
       )}
     </div>
-    <div className="min-w-0">
-      <p className="font-bold text-[13px] tracking-wide text-foreground leading-tight">{member.name}</p>
-      <p className="text-[10px] tracking-[0.12em] uppercase font-semibold mt-1" style={{ color: `hsl(${member.color})` }}>{member.role}</p>
-      <p className="text-[11px] text-muted-foreground leading-snug mt-1.5">{member.desc}</p>
+    <div className="min-w-0 text-center sm:text-left">
+      <p className="font-bold text-[9px] sm:text-[13px] tracking-wide text-foreground leading-tight">{member.name}</p>
+      <p className="text-[7px] sm:text-[10px] tracking-[0.1em] sm:tracking-[0.12em] uppercase font-semibold mt-0.5 sm:mt-1" style={{ color: `hsl(${member.color})` }}>{member.role}</p>
+      <p className="hidden sm:block text-[11px] text-muted-foreground leading-snug mt-1.5">{member.desc}</p>
     </div>
   </div>
 );
@@ -241,9 +255,11 @@ const LeadershipSection = ({ scrollProgress }: LeadershipSectionProps) => {
 
   if (!sectionVisible) return null;
 
+  const isShort = useShortViewport();
+
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
+      className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-hidden leadership-inner"
       style={{ zIndex: 42, opacity, background: "hsl(230 25% 4%)" }}
       aria-label="Leadership and Board"
     >
@@ -258,16 +274,21 @@ const LeadershipSection = ({ scrollProgress }: LeadershipSectionProps) => {
       />
 
       <div
-        className="relative z-[2] w-full max-w-[1380px] mx-auto px-3 md:px-6 py-3 pointer-events-auto overflow-y-auto max-h-screen"
-        style={{ opacity: enterP, transform: `translateY(${(1 - enterP) * 16}px)` }}
+        className="relative z-[2] w-full max-w-[1380px] mx-auto px-2 sm:px-3 md:px-6 pointer-events-auto overflow-y-auto max-h-screen"
+        style={{
+          opacity: enterP,
+          transform: `translateY(${(1 - enterP) * 16}px)`,
+          paddingTop: isShort ? 52 : undefined,
+          paddingBottom: isShort ? 6 : undefined,
+        }}
       >
         {/* Header */}
-        <div className="text-center mb-3 md:mb-4">
-          <p className="text-[0.6rem] md:text-[0.7rem] tracking-[0.3em] uppercase text-primary font-semibold mb-1">
+        <div className="text-center mb-1.5 sm:mb-3 md:mb-4">
+          <p className="text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] tracking-[0.25em] sm:tracking-[0.3em] uppercase text-primary font-semibold mb-0.5 sm:mb-1">
             Who We Are
           </p>
           <h2
-            className="text-xl md:text-3xl lg:text-4xl font-extrabold tracking-tight"
+            className="text-sm sm:text-xl md:text-3xl lg:text-4xl font-extrabold tracking-tight"
             style={{ textShadow: "0 0 30px hsl(275 80% 60% / 0.4), 0 0 60px hsl(270 70% 50% / 0.2)" }}
           >
             Leadership &amp; Board
@@ -275,22 +296,31 @@ const LeadershipSection = ({ scrollProgress }: LeadershipSectionProps) => {
         </div>
 
         {/* Core team */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 md:gap-3 mb-4">
+        <div
+          className="gap-1.5 sm:gap-2.5 md:gap-3 mb-2 sm:mb-4"
+          style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}
+        >
           {CORE_TEAM.map((m) => <CoreCard key={m.name} member={m} />)}
         </div>
 
         {/* Extended Leadership */}
-        <div className="mb-3">
-          <p className="text-[0.7rem] tracking-[0.3em] uppercase text-primary mb-2 font-bold">Extended Leadership</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="mb-2 sm:mb-3">
+          <p className="text-[0.55rem] sm:text-[0.7rem] tracking-[0.2em] sm:tracking-[0.3em] uppercase text-primary mb-1 sm:mb-2 font-bold">Extended Leadership</p>
+          <div
+            className="gap-1.5 sm:gap-2"
+            style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}
+          >
             {EXTENDED.map((m) => <CompactCard key={m.name} member={m} />)}
           </div>
         </div>
 
         {/* Board of Directors */}
         <div>
-          <p className="text-[0.7rem] tracking-[0.3em] uppercase text-primary mb-2 font-bold">Board of Directors</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <p className="text-[0.55rem] sm:text-[0.7rem] tracking-[0.2em] sm:tracking-[0.3em] uppercase text-primary mb-1 sm:mb-2 font-bold">Board of Directors</p>
+          <div
+            className="gap-1.5 sm:gap-2"
+            style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}
+          >
             {BOARD.map((m) => <CompactCard key={m.name} member={m} />)}
           </div>
         </div>

@@ -301,14 +301,14 @@
  * ───────────────────────────────────────────────────────────────────────── */
 @media (max-height: 650px) and (min-width: 700px) {
   /* Headlines — drop a couple sizes */
-  .fixed:not(.careers-hero):not(.services-hero) h1,
-  .fixed:not(.careers-hero):not(.services-hero) h2 {
+  .fixed:not(.careers-hero):not(.services-hero):not(.aboutus-hero) h1,
+  .fixed:not(.careers-hero):not(.services-hero):not(.aboutus-hero) h2 {
     font-size: clamp(1rem, 3.8vh, 1.5rem) !important;
     line-height: 1.1 !important;
     margin-bottom: 0.25rem !important;
   }
-  .fixed:not(.careers-hero):not(.services-hero) h3 { font-size: 0.95rem !important; line-height: 1.2 !important; }
-  .fixed:not(.careers-hero):not(.services-hero) p { font-size: 0.72rem !important; line-height: 1.35 !important; }
+  .fixed:not(.careers-hero):not(.services-hero):not(.aboutus-hero) h3 { font-size: 0.95rem !important; line-height: 1.2 !important; }
+  .fixed:not(.careers-hero):not(.services-hero):not(.aboutus-hero) p { font-size: 0.72rem !important; line-height: 1.35 !important; }
 
   /* Section padding — tighten top/bottom on the fixed full-viewport panels */
   .fixed.inset-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
@@ -341,16 +341,16 @@
     max-height: 50px !important;
   }
   /* Aggressive heading shrink so they don't dominate */
-  .fixed.inset-0:not(.careers-hero):not(.services-hero) h1,
-  .fixed.inset-0:not(.careers-hero):not(.services-hero) h2 {
+  .fixed.inset-0:not(.careers-hero):not(.services-hero):not(.aboutus-hero) h1,
+  .fixed.inset-0:not(.careers-hero):not(.services-hero):not(.aboutus-hero) h2 {
     font-size: clamp(0.9rem, 3.2vh, 1.25rem) !important;
     line-height: 1.05 !important;
     margin-bottom: 0.2rem !important;
   }
   /* Huge "300K sqft" style stat numbers — cap them so cards fit */
-  .fixed.inset-0:not(.careers-hero):not(.services-hero) [class*="text-7xl"],
-  .fixed.inset-0:not(.careers-hero):not(.services-hero) [class*="text-6xl"],
-  .fixed.inset-0:not(.careers-hero):not(.services-hero) [class*="text-5xl"] {
+  .fixed.inset-0:not(.careers-hero):not(.services-hero):not(.aboutus-hero) [class*="text-7xl"],
+  .fixed.inset-0:not(.careers-hero):not(.services-hero):not(.aboutus-hero) [class*="text-6xl"],
+  .fixed.inset-0:not(.careers-hero):not(.services-hero):not(.aboutus-hero) [class*="text-5xl"] {
     font-size: 1.5rem !important;
     line-height: 1 !important;
   }
@@ -545,10 +545,10 @@
     overflow: hidden !important;
   }
   /* Universal text size clamps (Tailwind landscape arbitrary variants override per-element) */
-  .fixed.inset-0:not(.services-hero):not(.careers-hero):not(.careers-form) h1 { font-size: clamp(0.95rem, 3.4vh, 1.35rem) !important; line-height: 1.05 !important; margin: 0 0 4px !important; }
-  .fixed.inset-0:not(.services-hero):not(.careers-hero):not(.careers-form) h2 { font-size: clamp(0.85rem, 3vh, 1.15rem) !important; line-height: 1.1 !important; margin: 0 0 3px !important; }
-  .fixed.inset-0:not(.services-hero):not(.careers-hero):not(.careers-form) h3 { font-size: clamp(0.75rem, 2.4vh, 1rem) !important; line-height: 1.1 !important; margin: 0 0 2px !important; }
-  .fixed.inset-0:not(.services-hero):not(.careers-hero) p { font-size: clamp(0.65rem, 1.9vh, 0.78rem) !important; line-height: 1.25 !important; margin: 0 0 4px !important; }
+  .fixed.inset-0:not(.services-hero):not(.careers-hero):not(.careers-form):not(.aboutus-hero) h1 { font-size: clamp(0.95rem, 3.4vh, 1.35rem) !important; line-height: 1.05 !important; margin: 0 0 4px !important; }
+  .fixed.inset-0:not(.services-hero):not(.careers-hero):not(.careers-form):not(.aboutus-hero) h2 { font-size: clamp(0.85rem, 3vh, 1.15rem) !important; line-height: 1.1 !important; margin: 0 0 3px !important; }
+  .fixed.inset-0:not(.services-hero):not(.careers-hero):not(.careers-form):not(.aboutus-hero) h3 { font-size: clamp(0.75rem, 2.4vh, 1rem) !important; line-height: 1.1 !important; margin: 0 0 2px !important; }
+  .fixed.inset-0:not(.services-hero):not(.careers-hero):not(.aboutus-hero) p { font-size: clamp(0.65rem, 1.9vh, 0.78rem) !important; line-height: 1.25 !important; margin: 0 0 4px !important; }
   /* Buttons / pills */
   .fixed.inset-0 button { padding: 0.3rem 0.7rem !important; font-size: 10px !important; }
   /* Big stat numbers */
@@ -819,46 +819,50 @@
  * All rules scoped to mobile landscape — desktop and portrait untouched.
  * ───────────────────────────────────────────────────────────────────────── */
 @media (max-width: 900px) and (orientation: landscape), (max-height: 700px) and (orientation: landscape) {
-  /* Services Hero — visible & centered with proper sizes */
+  /* Services Hero — "We deliver on what matters." h1 at 44px (matches About Us) */
   .services-hero { padding-top: 56px !important; padding-bottom: 12px !important; justify-content: center !important; }
   .services-hero .max-w-5xl { padding-top: 0 !important; }
-  .services-hero h1 { font-size: 22px !important; line-height: 1.05 !important; margin-bottom: 6px !important; }
-  .services-hero p.font-extrabold { font-size: 32px !important; line-height: 1.05 !important; margin-bottom: 12px !important; }
-  .services-hero p.text-muted-foreground { font-size: 11px !important; line-height: 1.45 !important; max-width: 560px !important; }
+  .services-hero h1,
+  .services-hero h1 span { font-size: 44px !important; line-height: 1.05 !important; }
+  .services-hero h1 { margin-bottom: 10px !important; }
+  .services-hero p.font-extrabold,
+  .services-hero p.font-extrabold span { font-size: 44px !important; line-height: 1.05 !important; }
+  .services-hero p.font-extrabold { margin-bottom: 14px !important; }
+  .services-hero p.text-muted-foreground { font-size: 13px !important; line-height: 1.45 !important; max-width: 560px !important; }
 
-  /* Services Grid — heading clears nav + 3×3 grid in one viewport */
-  .services-grid-section { padding-top: 70px !important; padding-bottom: 8px !important; justify-content: flex-start !important; }
-  .services-grid-section .mb-4 { margin-bottom: 4px !important; }
+  /* Services Grid — content centered between nav clearance and bottom */
+  .services-grid-section { padding-top: 80px !important; padding-bottom: 8px !important; justify-content: center !important; }
+  .services-grid-section .mb-4 { margin-bottom: 3px !important; }
   .services-grid-section p[class*="tracking-[0.35em]"] {
-    font-size: 10px !important;
+    font-size: 9px !important;
     margin-bottom: 2px !important;
     letter-spacing: 0.3em !important;
     font-weight: 500 !important;
   }
-  /* High-specificity card sizing — exact desktop layout scaled down */
+  /* Compact card sizing — image + title only, 3×3 fits one page */
   .services-grid-section .services-card-grid {
     grid-template-columns: repeat(3, 1fr) !important;
     display: grid !important;
   }
   .services-grid-section .services-card-grid .services-card {
-    padding: 0.5rem !important;
+    padding: 0.3rem !important;
   }
   .services-grid-section .services-card-grid .services-card-img-wrap {
-    height: 55px !important;
+    height: 38px !important;
     min-height: 0 !important;
-    margin-bottom: 0.4rem !important;
+    margin-bottom: 3px !important;
   }
   .services-grid-section .services-card-grid .services-card-rule {
-    width: 1.5rem !important;
-    height: 2px !important;
-    margin-bottom: 0.35rem !important;
+    width: 1.2rem !important;
+    height: 1.5px !important;
+    margin-bottom: 3px !important;
     display: block !important;
   }
   .services-grid-section .services-card-grid h3 {
-    font-size: 10px !important;
+    font-size: 9px !important;
     margin-bottom: 0 !important;
-    line-height: 1.15 !important;
-    letter-spacing: 0.05em !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0.04em !important;
     font-weight: 700 !important;
   }
   .services-grid-section .services-card-grid p {
@@ -877,12 +881,13 @@
     display: grid !important;
   }
 
-  /* Case Study (Services) — image + content side-by-side, vertically centered */
-  .case-study-section { padding-top: 56px !important; padding-bottom: 12px !important; justify-content: center !important; overflow: hidden !important; }
-  .case-study-section > div:first-child { margin-bottom: 4px !important; padding-top: 0 !important; padding-bottom: 0 !important; }
-  .case-study-section p[class*="tracking-[0.25em]"] { font-size: 9px !important; margin-bottom: 2px !important; letter-spacing: 0.18em !important; }
-  .case-study-section .services-case-grid { grid-template-columns: 1fr 1.1fr !important; gap: 8px !important; max-height: 300px !important; align-items: stretch !important; }
-  .case-study-section .services-case-image-wrap { min-height: 0 !important; max-height: 300px !important; height: 100% !important; }
+  /* Case Study (Services) — content centered below the nav header */
+  div.case-study-section,
+  .case-study-section { padding-top: 150px !important; padding-bottom: 16px !important; margin-top: 20px !important; justify-content: center !important; overflow: hidden !important; }
+  .case-study-section > div:first-child { margin-bottom: 6px !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  .case-study-section p[class*="tracking-[0.25em]"] { font-size: 11px !important; margin-bottom: 4px !important; letter-spacing: 0.2em !important; font-weight: 600 !important; }
+  .case-study-section .services-case-grid { grid-template-columns: 1fr 1.1fr !important; gap: 8px !important; max-height: 250px !important; align-items: stretch !important; }
+  .case-study-section .services-case-image-wrap { min-height: 0 !important; max-height: 250px !important; height: 100% !important; }
   .case-study-section .services-case-image { object-fit: contain !important; height: 100% !important; width: 100% !important; }
   .case-study-section .services-case-content { padding: 4px 10px !important; justify-content: center !important; }
 
@@ -894,15 +899,23 @@
   .services-cta-section a.inline-block { padding: 6px 16px !important; font-size: 9.5px !important; }
   .services-cta-section .mt-5 { margin-top: 6px !important; }
 
+  /* About Us Hero — "Hardware Remains Hard." 44px */
+  .aboutus-hero h1,
+  .aboutus-hero h1 span { font-size: 44px !important; line-height: 1.05 !important; }
+  .aboutus-hero h1 { margin-bottom: 10px !important; }
+  .aboutus-hero p { font-size: 13px !important; line-height: 1.4 !important; letter-spacing: 0.15em !important; }
+
   /* Careers Hero — bigger font, centered */
   .careers-hero { padding-top: 0 !important; align-items: center !important; justify-content: center !important; }
-  .careers-hero h1 { font-size: 38px !important; line-height: 0.95 !important; margin-bottom: 10px !important; letter-spacing: -0.01em !important; }
-  .careers-hero p { font-size: 12px !important; line-height: 1.4 !important; letter-spacing: 0.18em !important; }
+  .careers-hero h1,
+  .careers-hero h1 span { font-size: 42px !important; line-height: 0.95 !important; letter-spacing: -0.01em !important; }
+  .careers-hero h1 { margin-bottom: 10px !important; }
+  .careers-hero p { font-size: 13px !important; line-height: 1.4 !important; letter-spacing: 0.18em !important; }
 
   /* Careers Values — heading visible at top, 4 cards centered in single row */
   .careers-values-section { overflow: hidden !important; }
   .careers-values-section > div.relative {
-    padding-top: 56px !important;
+    padding-top: 110px !important;
     padding-bottom: 8px !important;
     min-height: 100vh !important;
     justify-content: flex-start !important;
@@ -923,18 +936,19 @@
 
   /* Careers Open Positions (Drop Resume) — heading + form aligned & visible */
   .careers-positions-section {
-    padding-top: 56px !important;
+    padding-top: 90px !important;
     padding-bottom: 8px !important;
     justify-content: flex-start !important;
     align-items: center !important;
   }
   .careers-positions-section > .max-w-3xl,
   .careers-positions-section > div[class*="max-w-3xl"] { margin-left: auto !important; margin-right: auto !important; }
-  .careers-positions-section .text-center.mb-2 { margin-bottom: 6px !important; }
-  .careers-positions-section h2 { font-size: 16px !important; margin-bottom: 2px !important; line-height: 1.05 !important; }
-  .careers-positions-section .text-center.mb-2 > p:first-child { font-size: 9px !important; letter-spacing: 0.3em !important; margin-bottom: 2px !important; }
-  .careers-positions-section .text-center.mb-2 > p:last-child { font-size: 10px !important; line-height: 1.35 !important; }
-  .careers-positions-section form.grid { padding: 10px 12px !important; gap: 8px !important; border-radius: 12px !important; }
+  /* Heading wrapper: "Apply Now / Drop Your Resume / subtitle" */
+  .careers-positions-section .text-center { margin-bottom: 8px !important; display: block !important; }
+  .careers-positions-section h2 { font-size: 18px !important; margin-bottom: 2px !important; line-height: 1.05 !important; font-weight: 700 !important; }
+  .careers-positions-section .text-center > p:first-child { font-size: 9px !important; letter-spacing: 0.3em !important; margin-bottom: 3px !important; color: hsl(275 80% 70%) !important; }
+  .careers-positions-section .text-center > p:last-child { font-size: 9.5px !important; line-height: 1.3 !important; margin-top: 2px !important; }
+  .careers-positions-section form.grid { padding: 10px 12px !important; gap: 8px !important; border-radius: 12px !important; margin-top: 6px !important; }
 
   /* Careers CTA + Footer */
   .careers-cta-section > div:first-child { padding-top: 50px !important; padding-bottom: 0 !important; }

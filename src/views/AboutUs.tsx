@@ -286,7 +286,7 @@ const AboutUs = () => {
       {/* ═══ 1. HERO ═══ */}
       {heroVisible && (
         <div
-          className="fixed inset-0 flex items-center justify-center pointer-events-none px-4"
+          className="fixed inset-0 flex items-center justify-center pointer-events-none px-4 aboutus-hero"
           style={{ zIndex: 10, opacity: heroOp }}
         >
           <div

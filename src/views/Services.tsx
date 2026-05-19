@@ -436,14 +436,14 @@ const Services = () => {
           .services-card-grid h3 { font-size: 10.5px !important; margin-bottom: 0.2rem !important; }
           .services-card-grid p { font-size: 9.5px !important; line-height: 1.3 !important; }
         }
-        /* Landscape phone — image + title only, descriptions hidden so 3×3 fits */
+        /* Landscape phone — image + title only, fits 3×3 in 390px viewport */
         @media (max-width: 900px) and (orientation: landscape),
                (max-height: 700px) and (orientation: landscape) {
           .services-card-grid { grid-template-columns: repeat(3, 1fr) !important; display: grid !important; }
-          .services-card-grid .services-card { padding: 0.5rem !important; }
-          .services-card-grid .services-card-img-wrap { height: 55px !important; min-height: 0 !important; margin-bottom: 0.4rem !important; }
-          .services-card-grid .services-card-rule { width: 1.5rem !important; height: 2px !important; margin-bottom: 0.35rem !important; display: block !important; }
-          .services-card-grid h3 { font-size: 10px !important; margin-bottom: 0 !important; line-height: 1.15 !important; letter-spacing: 0.05em !important; font-weight: 700 !important; }
+          .services-card-grid .services-card { padding: 0.3rem !important; }
+          .services-card-grid .services-card-img-wrap { height: 38px !important; min-height: 0 !important; margin-bottom: 3px !important; }
+          .services-card-grid .services-card-rule { width: 1.2rem !important; height: 1.5px !important; margin-bottom: 3px !important; display: block !important; }
+          .services-card-grid h3 { font-size: 9px !important; margin-bottom: 0 !important; line-height: 1.1 !important; letter-spacing: 0.04em !important; font-weight: 700 !important; }
           .services-card-grid p { display: none !important; }
           .services-card-grid[class*="md:!hidden"] { display: none !important; }
           .services-card-grid[class*="md:grid"] { display: grid !important; }

@@ -7,7 +7,7 @@ import ConstellationCanvas from "@/components/ConstellationCanvas";
 import PageCTAFooter from "@/components/PageCTAFooter";
 import PhoneInput from "@/components/PhoneInput";
 import SiteFooter from "@/components/SiteFooter";
-import { sendOtp, verifyOtp } from "@/lib/otpClient";
+import { sendOtp, verifyOtp, submitApplication, fileToBase64 } from "@/lib/otpClient";
 import useScrollProgress from "@/hooks/useScrollProgress";
 import { supabase } from "@/lib/supabase";
 
@@ -149,31 +149,25 @@ const Careers = () => {
     const resumeFile = pickedFile || (data.get("resume") as File | null);
     try {
       if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
-      const safeName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const filePath = `${Date.now()}_${safeName}`;
-      const { error: uploadErr } = await supabase.storage.from("resumes").upload(filePath, resumeFile, { contentType: resumeFile.type, upsert: false });
-      if (uploadErr) throw uploadErr;
-      const { error: insertErr } = await supabase.from("applications").insert({
+      // Encode the resume to base64 and post the whole submission to the
+      // submit-application Edge Function. The function handles Storage upload,
+      // applications row insert, and email notification to info@nemi-ai.com
+      // using the service role key (bypasses RLS).
+      const resume_base64 = await fileToBase64(resumeFile);
+      const res = await submitApplication({
+        full_name: (data.get("fullName") as string) || "",
+        email: dropEmail,
+        phone: (data.get("phone") as string) || "",
+        about: dropAbout,
+        interests: dropInterests,
+        wants_to_work_on: dropWorkOn,
+        resume_name: resumeFile.name,
+        resume_type: resumeFile.type || "application/octet-stream",
+        resume_base64,
         role: "General Application",
         department: "AI Screening",
-        full_name: data.get("fullName") as string,
-        email: dropEmail,
-        phone: (data.get("phone") as string) || null,
-        location: null,
-        experience: null,
-        linkedin: null,
-        portfolio: null,
-        cover_letter:
-          [
-            dropAbout && `About:\n${dropAbout}`,
-            dropInterests && `Interests:\n${dropInterests}`,
-            dropWorkOn && `Wants to work on:\n${dropWorkOn}`,
-          ]
-            .filter(Boolean)
-            .join("\n\n") || null,
-        resume_path: filePath,
       });
-      if (insertErr) throw insertErr;
+      if (!res.ok) throw new Error(res.error || "Submission failed");
       setDropState("success");
       form.reset();
       handleFilePick(null);

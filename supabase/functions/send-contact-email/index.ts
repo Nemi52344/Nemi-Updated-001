@@ -148,6 +148,35 @@ serve(async (req) => {
       );
     }
 
+    // Auto-confirmation back to the submitter
+    const firstName = name.split(/\s+/)[0];
+    const confirmHtml = `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:560px;margin:0 auto;padding:36px 28px;color:#1a1a1a;background:#ffffff">
+  <div style="text-align:center;margin-bottom:28px">
+    <div style="display:inline-block;background:linear-gradient(135deg,#6b22c4,#9333ea);width:56px;height:56px;border-radius:14px;line-height:56px;color:#fff;font-size:24px;font-weight:700">✓</div>
+  </div>
+  <h1 style="margin:0 0 14px;font-size:22px;font-weight:700;text-align:center;color:#111">Thank you for getting in touch, ${escapeHtml(firstName)}.</h1>
+  <p style="font-size:15px;line-height:1.65;color:#444;margin:0 0 20px;text-align:center">We've received your message at the NEMI AI team and someone will be in touch shortly.</p>
+  <div style="background:#f7f4ff;border-left:3px solid #6b22c4;padding:16px 20px;border-radius:8px;margin:0 0 24px">
+    <p style="font-size:14px;line-height:1.6;color:#333;margin:0 0 8px"><strong>What happens next?</strong></p>
+    <p style="font-size:14px;line-height:1.6;color:#444;margin:0">We'll get back to you at <strong>${escapeHtml(email)}</strong> within one business day with the right next step — whether that's a quick call, a tailored deck, or a direct intro.</p>
+  </div>
+  <p style="font-size:14px;line-height:1.6;color:#444;margin:0 0 20px">If you'd like to read more about what we're building in the meantime, head over to <a href="https://nemi-ai.com" style="color:#6b22c4;font-weight:600;text-decoration:none">nemi-ai.com</a>.</p>
+  <p style="font-size:14px;color:#6b22c4;font-weight:600;margin:0">— The NEMI AI Team</p>
+  <hr style="border:none;border-top:1px solid #eee;margin:28px 0 16px"/>
+  <p style="font-size:11px;color:#999;margin:0;text-align:center">NEMI AI · Full-stack manufacturing automation with Physical AI</p>
+</div>`;
+
+    fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: `${FROM_NAME} <${FROM_EMAIL}>`,
+        to: [email],
+        subject: `Thank you for contacting NEMI AI, ${firstName}`,
+        html: confirmHtml,
+      }),
+    }).catch((err) => console.error("Resend confirm error:", err));
+
     return json({ ok: true });
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);

@@ -396,17 +396,19 @@ const Careers = () => {
           style={{ opacity: posOp }}
         >
           <div className="max-w-3xl w-full mx-auto" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
-            <div className="text-center mb-2 md:mb-3">
-              <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-primary mb-1" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-                Apply Now
-              </p>
-              <h2 className="text-base md:text-xl lg:text-2xl font-bold tracking-wider leading-[1.1] mb-1">
-                Drop Your Resume
-              </h2>
-              <p className="text-[10px] md:text-[11px] text-muted-foreground tracking-wide max-w-xl mx-auto leading-relaxed">
-                Join the team building Physical AI for manufacturing. We review every resume and reach out when there's a fit.
-              </p>
-            </div>
+            {dropState !== "success" && (
+              <div className="text-center mb-2 md:mb-3">
+                <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-primary mb-1" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
+                  Apply Now
+                </p>
+                <h2 className="text-base md:text-xl lg:text-2xl font-bold tracking-wider leading-[1.1] mb-1">
+                  Drop Your Resume
+                </h2>
+                <p className="text-[10px] md:text-[11px] text-muted-foreground tracking-wide max-w-xl mx-auto leading-relaxed">
+                  Join the team building Physical AI for manufacturing. We review every resume and reach out when there's a fit.
+                </p>
+              </div>
+            )}
 
             {dropState !== "success" ? (
               <form
@@ -604,8 +606,9 @@ const Careers = () => {
                   border: "1px solid hsl(275 80% 55% / 0.25)",
                 }}
               >
-                <h4 className="text-lg font-bold text-foreground mb-2">Resume received.</h4>
-                <p className="text-sm text-muted-foreground mb-6">Our AI will screen it and route it to the right team. We&apos;ll be in touch at the email you provided.</p>
+                <h4 className="text-2xl font-bold text-foreground mb-3">Thank you for applying!</h4>
+                <p className="text-sm text-muted-foreground mb-2">Your resume has reached the NEMI AI team.</p>
+                <p className="text-sm text-muted-foreground mb-6">We review every application personally and will be in touch at the email you provided if there&apos;s a fit.</p>
                 <button
                   type="button"
                   onClick={() => setDropState("idle")}

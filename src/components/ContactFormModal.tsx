@@ -36,6 +36,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
   const [form, setForm] = useState<ContactForm>(emptyForm);
   const [errors, setErrors] = useState<Partial<Record<keyof ContactForm, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [otpStage, setOtpStage] = useState<OtpStage>("idle");
   const [otpCode, setOtpCode] = useState("");
   const [otpError, setOtpError] = useState<string | null>(null);
@@ -109,6 +110,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting || submitted) return; // prevent double-fire
     const result = contactSchema.safeParse(form);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof ContactForm, string>> = {};
@@ -124,25 +126,11 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
       return;
     }
     const d = result.data;
+    setSubmitting(true);
 
-    // 1) Always persist the submission to Supabase so the team sees it in the
-    //    dashboard immediately, regardless of whether email sending succeeds.
-    const { error: dbErr } = await supabase.from("contact_submissions").insert({
-      full_name: d.name,
-      email: d.email,
-      phone: d.phone || null,
-      company: d.company || null,
-      message: d.message,
-    });
-    if (dbErr) {
-      console.error("contact submission DB error:", dbErr);
-      setOtpError(`Couldn't save: ${dbErr.message}`);
-      return;
-    }
-
-    // 2) Best-effort: trigger the server-side email so info@nemi-ai.com gets
-    //    notified instantly. If the Edge Function isn't deployed yet, the
-    //    submission is still safely in Supabase.
+    // The Edge Function handles BOTH the DB insert AND the email notification
+    // (it has service-role access). Calling it alone keeps the submission
+    // single-source so we don't get duplicate inboxes for one form fill.
     try {
       const res = await sendContactEmail({
         name: d.name,
@@ -157,6 +145,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     }
 
     setSubmitted(true);
+    setSubmitting(false);
   };
 
   const handleClose = () => {
@@ -370,7 +359,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                 </p>
                 <button
                   type="submit"
-                  disabled={!isVerified}
+                  disabled={!isVerified || submitting || submitted}
                   className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   style={{
                     background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))",
@@ -378,7 +367,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                   }}
                   title={!isVerified ? "Verify your email to send" : undefined}
                 >
-                  Send Message
+                  {submitting ? "Sending…" : "Send Message"}
                 </button>
               </div>
             </form>

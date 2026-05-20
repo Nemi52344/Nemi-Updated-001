@@ -174,7 +174,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto"
+      className="fixed inset-0 flex items-center justify-center p-3 sm:p-4 overflow-y-auto"
       style={{ zIndex: 200, background: "hsl(230 25% 4% / 0.85)", backdropFilter: "blur(12px)" }}
       onClick={handleClose}
       role="dialog"
@@ -182,7 +182,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
       aria-labelledby="contact-form-title"
     >
       <div
-        className="relative w-full sm:max-w-xl rounded-t-3xl sm:rounded-2xl px-5 pt-5 pb-14 sm:p-7 my-0 sm:my-6 max-h-[95vh] overflow-y-auto"
+        className="relative w-full sm:max-w-xl rounded-2xl px-5 pt-5 pb-6 sm:p-7 my-0 sm:my-6 max-h-[92vh] overflow-y-auto"
         style={{
           background: "linear-gradient(145deg, hsl(230 20% 10%), hsl(230 25% 6%))",
           border: "1px solid hsl(275 80% 55% / 0.22)",

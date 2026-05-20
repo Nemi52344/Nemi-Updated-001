@@ -13,6 +13,7 @@ const FUNCTIONS_BASE = `${SUPABASE_URL}/functions/v1`;
 
 export const OTP_SEND_URL = `${FUNCTIONS_BASE}/otp-send`;
 export const OTP_VERIFY_URL = `${FUNCTIONS_BASE}/otp-verify`;
+export const CONTACT_EMAIL_URL = `${FUNCTIONS_BASE}/send-contact-email`;
 
 export interface OtpResponse {
   ok: boolean;
@@ -38,6 +39,27 @@ export async function verifyOtp(email: string, code: string): Promise<OtpRespons
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, code }),
+  });
+  const data = (await res.json().catch(() => ({}))) as Partial<OtpResponse>;
+  if (!res.ok || !data.ok) {
+    return { ok: false, error: data.error || `Failed (${res.status})` };
+  }
+  return { ok: true };
+}
+
+export interface ContactPayload {
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  message: string;
+}
+
+export async function sendContactEmail(payload: ContactPayload): Promise<OtpResponse> {
+  const res = await fetch(CONTACT_EMAIL_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
   });
   const data = (await res.json().catch(() => ({}))) as Partial<OtpResponse>;
   if (!res.ok || !data.ok) {

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { X, Send, Mail, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import PhoneInput from "@/components/PhoneInput";
-import { sendOtp as sendOtpRequest, verifyOtp as verifyOtpRequest } from "@/lib/otpClient";
+import { sendOtp as sendOtpRequest, verifyOtp as verifyOtpRequest, sendContactEmail } from "@/lib/otpClient";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -106,7 +106,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = contactSchema.safeParse(form);
     if (!result.success) {
@@ -123,18 +123,17 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
       return;
     }
     const d = result.data;
-    const subject = encodeURIComponent(`Contact from ${d.name}`);
-    const body = encodeURIComponent(
-      [
-        `Name: ${d.name}`,
-        `Email: ${d.email} (verified)`,
-        d.phone ? `Phone: ${d.phone}` : null,
-        d.company ? `Company: ${d.company}` : null,
-        "",
-        d.message,
-      ].filter(Boolean).join("\n"),
-    );
-    window.location.href = `mailto:info@nemi-ai.com?subject=${subject}&body=${body}`;
+    const res = await sendContactEmail({
+      name: d.name,
+      email: d.email,
+      phone: d.phone,
+      company: d.company,
+      message: d.message,
+    });
+    if (!res.ok) {
+      setOtpError(res.error || "Failed to send. Please try again.");
+      return;
+    }
     setSubmitted(true);
   };
 

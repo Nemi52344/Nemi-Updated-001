@@ -5,6 +5,7 @@ import { X, Send, Mail, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import PhoneInput from "@/components/PhoneInput";
 import { sendOtp as sendOtpRequest, verifyOtp as verifyOtpRequest, sendContactEmail } from "@/lib/otpClient";
+import { supabase } from "@/lib/supabase";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -123,17 +124,38 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
       return;
     }
     const d = result.data;
-    const res = await sendContactEmail({
-      name: d.name,
+
+    // 1) Always persist the submission to Supabase so the team sees it in the
+    //    dashboard immediately, regardless of whether email sending succeeds.
+    const { error: dbErr } = await supabase.from("contact_submissions").insert({
+      full_name: d.name,
       email: d.email,
-      phone: d.phone,
-      company: d.company,
+      phone: d.phone || null,
+      company: d.company || null,
       message: d.message,
     });
-    if (!res.ok) {
-      setOtpError(res.error || "Failed to send. Please try again.");
+    if (dbErr) {
+      console.error("contact submission DB error:", dbErr);
+      setOtpError(`Couldn't save: ${dbErr.message}`);
       return;
     }
+
+    // 2) Best-effort: trigger the server-side email so info@nemi-ai.com gets
+    //    notified instantly. If the Edge Function isn't deployed yet, the
+    //    submission is still safely in Supabase.
+    try {
+      const res = await sendContactEmail({
+        name: d.name,
+        email: d.email,
+        phone: d.phone,
+        company: d.company,
+        message: d.message,
+      });
+      if (!res.ok) console.warn("send-contact-email edge:", res.error);
+    } catch (err) {
+      console.warn("send-contact-email call failed:", err);
+    }
+
     setSubmitted(true);
   };
 
@@ -196,10 +218,9 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
             >
               <Send className="w-7 h-7 text-primary" />
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Message ready to send</h3>
+            <h3 className="text-xl font-bold text-foreground mb-2">Thank you for contacting us</h3>
             <p className="text-sm text-muted-foreground max-w-sm mx-auto">
-              Your email client should open with your message pre-filled. If it doesn&rsquo;t, email us at{" "}
-              <a className="text-primary hover:underline" href="mailto:info@nemi-ai.com">info@nemi-ai.com</a>.
+              Our team will get back to you soon.
             </p>
             <button
               onClick={handleClose}

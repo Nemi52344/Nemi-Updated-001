@@ -68,6 +68,7 @@ const Careers = () => {
   const [dropOtpStage, setDropOtpStage] = useState<"idle" | "sending" | "sent" | "verifying" | "verified">("idle");
   const [dropOtpCode, setDropOtpCode] = useState("");
   const [dropOtpError, setDropOtpError] = useState<string | null>(null);
+  const [dropErrorMsg, setDropErrorMsg] = useState<string | null>(null);
   const [dropVerifiedEmail, setDropVerifiedEmail] = useState<string | null>(null);
   const [dropAbout, setDropAbout] = useState("");
   const [dropInterests, setDropInterests] = useState("");
@@ -144,31 +145,74 @@ const Careers = () => {
       return;
     }
     setDropState("submitting");
+    setDropErrorMsg(null);
     const form = e.currentTarget;
     const data = new FormData(form);
     const resumeFile = pickedFile || (data.get("resume") as File | null);
     try {
       if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
-      // Encode the resume to base64 and post the whole submission to the
-      // submit-application Edge Function. The function handles Storage upload,
-      // applications row insert, and email notification to info@nemi-ai.com
-      // using the service role key (bypasses RLS).
-      const resume_base64 = await fileToBase64(resumeFile);
-      const res = await submitApplication({
-        full_name: (data.get("fullName") as string) || "",
-        email: dropEmail,
-        phone: (data.get("phone") as string) || "",
-        about: dropAbout,
-        interests: dropInterests,
-        wants_to_work_on: dropWorkOn,
-        resume_name: resumeFile.name,
-        resume_type: resumeFile.type || "application/octet-stream",
-        resume_base64,
-        role: "General Application",
-        department: "AI Screening",
-      });
-      if (!res.ok) throw new Error(res.error || "Submission failed");
+      const fullName = (data.get("fullName") as string) || "";
+      const phone = (data.get("phone") as string) || "";
+
+      // Try the server-side Edge Function first. It runs with service-role and
+      // handles storage upload + DB insert + email to info@nemi-ai.com in one
+      // call (works even when anon RLS blocks storage uploads).
+      let edgeOk = false;
+      try {
+        const resume_base64 = await fileToBase64(resumeFile);
+        const res = await submitApplication({
+          full_name: fullName,
+          email: dropEmail,
+          phone,
+          about: dropAbout,
+          interests: dropInterests,
+          wants_to_work_on: dropWorkOn,
+          resume_name: resumeFile.name,
+          resume_type: resumeFile.type || "application/octet-stream",
+          resume_base64,
+          role: "General Application",
+          department: "AI Screening",
+        });
+        edgeOk = res.ok;
+        if (!edgeOk) console.warn("submit-application edge:", res.error);
+      } catch (edgeErr) {
+        console.warn("submit-application edge call failed:", edgeErr);
+      }
+
+      // Fallback: direct Supabase client upload + insert (requires the
+      // resumes bucket + applications RLS to permit anon).
+      if (!edgeOk) {
+        const safeName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+        const filePath = `${Date.now()}_${safeName}`;
+        const { error: uploadErr } = await supabase.storage
+          .from("resumes")
+          .upload(filePath, resumeFile, { contentType: resumeFile.type, upsert: false });
+        if (uploadErr) throw new Error(`Storage: ${uploadErr.message}`);
+        const { error: insertErr } = await supabase.from("applications").insert({
+          role: "General Application",
+          department: "AI Screening",
+          full_name: fullName,
+          email: dropEmail,
+          phone: phone || "",
+          location: "",
+          experience: "",
+          linkedin: "",
+          portfolio: "",
+          cover_letter:
+            [
+              dropAbout && `About:\n${dropAbout}`,
+              dropInterests && `Interests:\n${dropInterests}`,
+              dropWorkOn && `Wants to work on:\n${dropWorkOn}`,
+            ]
+              .filter(Boolean)
+              .join("\n\n") || "",
+          resume_path: filePath,
+        });
+        if (insertErr) throw new Error(`Database: ${insertErr.message}`);
+      }
+
       setDropState("success");
+      setDropErrorMsg(null);
       form.reset();
       handleFilePick(null);
       setDropEmail("");
@@ -179,7 +223,9 @@ const Careers = () => {
       setDropInterests("");
       setDropWorkOn("");
     } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
       console.error("Resume drop error:", err);
+      setDropErrorMsg(msg);
       setDropState("error");
     }
   };
@@ -524,7 +570,11 @@ const Careers = () => {
                 </div>
 
                 {dropState === "error" && (
-                  <p className="sm:col-span-2 text-xs" style={{ color: "hsl(0 70% 60%)" }}>Something went wrong. Please email info@nemi-ai.com directly.</p>
+                  <p className="sm:col-span-2 text-xs" style={{ color: "hsl(0 70% 60%)" }}>
+                    {dropErrorMsg
+                      ? `Couldn't submit: ${dropErrorMsg}. Please email info@nemi-ai.com directly.`
+                      : "Something went wrong. Please email info@nemi-ai.com directly."}
+                  </p>
                 )}
 
                 <div className="sm:col-span-2 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pt-1">

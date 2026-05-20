@@ -130,12 +130,12 @@ serve(async (req) => {
       department,
       full_name: fullName,
       email,
-      phone: phone || null,
-      location: null,
-      experience: null,
-      linkedin: null,
-      portfolio: null,
-      cover_letter: coverLetter || null,
+      phone: phone || "",
+      location: "",
+      experience: "",
+      linkedin: "",
+      portfolio: "",
+      cover_letter: coverLetter || "",
       resume_path: filePath,
     });
     if (insertErr) {

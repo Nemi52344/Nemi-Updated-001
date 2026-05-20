@@ -13,6 +13,7 @@
 //   NOTIFY_TO   defaults to info@nemi-ai.com
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
@@ -25,6 +26,14 @@ const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 const FROM_EMAIL = Deno.env.get("FROM_EMAIL") ?? "info@nemi-ai.com";
 const FROM_NAME = Deno.env.get("FROM_NAME") ?? "NEMI AI Contact";
 const NOTIFY_TO = Deno.env.get("NOTIFY_TO") ?? "info@nemi-ai.com";
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
+const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+
+const supabase = SUPABASE_URL && SERVICE_ROLE
+  ? createClient(SUPABASE_URL, SERVICE_ROLE, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    })
+  : null;
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -66,6 +75,21 @@ serve(async (req) => {
 
     if (!name || !email || !message) {
       return json({ ok: false, error: "Missing required fields" }, 400);
+    }
+
+    // 1) Persist to DB (service-role bypasses RLS). Logs row even if email fails.
+    if (supabase) {
+      const { error: dbErr } = await supabase.from("contact_submissions").insert({
+        full_name: name,
+        email,
+        phone: phone || null,
+        company: company || null,
+        message,
+      });
+      if (dbErr) {
+        console.error("contact_submissions insert error:", dbErr);
+        // Continue — we still try to send email so the team is notified.
+      }
     }
 
     const html = `

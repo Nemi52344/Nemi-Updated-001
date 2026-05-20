@@ -191,12 +191,21 @@ serve(async (req) => {
 
       // Auto-confirm email to the applicant
       const firstName = fullName.split(/\s+/)[0];
-      const confirmHtml = `
-<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:520px;margin:0 auto;padding:32px 24px;color:#1a1a1a">
-  <h2 style="margin:0 0 16px;font-size:20px">Thanks, ${escapeHtml(firstName)}!</h2>
-  <p style="font-size:14px;line-height:1.6;color:#333;margin:0 0 16px">We've received your resume for NEMI AI. Our team will review it and reach out at <strong>${escapeHtml(email)}</strong> if there's a fit.</p>
-  <p style="font-size:14px;line-height:1.6;color:#333;margin:0 0 24px">In the meantime, feel free to explore what we're building at <a href="https://nemi-ai.com" style="color:#6b22c4">nemi-ai.com</a>.</p>
-  <p style="font-size:12px;color:#888;margin:0">— The NEMI AI team</p>
+      const confirmHtml = `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:560px;margin:0 auto;padding:36px 28px;color:#1a1a1a;background:#ffffff">
+  <div style="text-align:center;margin-bottom:28px">
+    <div style="display:inline-block;background:linear-gradient(135deg,#6b22c4,#9333ea);width:56px;height:56px;border-radius:14px;line-height:56px;color:#fff;font-size:24px;font-weight:700">✓</div>
+  </div>
+  <h1 style="margin:0 0 14px;font-size:22px;font-weight:700;text-align:center;color:#111">Thank you for applying, ${escapeHtml(firstName)}.</h1>
+  <p style="font-size:15px;line-height:1.65;color:#444;margin:0 0 20px;text-align:center">Your application has reached the NEMI AI team. We're excited to learn more about you.</p>
+  <div style="background:#f7f4ff;border-left:3px solid #6b22c4;padding:16px 20px;border-radius:8px;margin:0 0 24px">
+    <p style="font-size:14px;line-height:1.6;color:#333;margin:0 0 8px"><strong>What happens next?</strong></p>
+    <p style="font-size:14px;line-height:1.6;color:#444;margin:0">Our team reviews every resume personally. If your background aligns with what we're building, we'll reach out to <strong>${escapeHtml(email)}</strong> within the next few business days to set up a conversation.</p>
+  </div>
+  <p style="font-size:14px;line-height:1.6;color:#444;margin:0 0 20px">In the meantime, get a deeper look at what we're building at <a href="https://nemi-ai.com" style="color:#6b22c4;font-weight:600;text-decoration:none">nemi-ai.com</a>.</p>
+  <p style="font-size:14px;line-height:1.6;color:#444;margin:0 0 8px">Welcome to the future of Physical AI manufacturing.</p>
+  <p style="font-size:14px;color:#6b22c4;font-weight:600;margin:0">— The NEMI AI Team</p>
+  <hr style="border:none;border-top:1px solid #eee;margin:28px 0 16px"/>
+  <p style="font-size:11px;color:#999;margin:0;text-align:center">NEMI AI · Full-stack manufacturing automation with Physical AI</p>
 </div>`;
       await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -207,7 +216,7 @@ serve(async (req) => {
         body: JSON.stringify({
           from: `${FROM_NAME} <${FROM_EMAIL}>`,
           to: [email],
-          subject: `We received your NEMI AI application`,
+          subject: `Thank you for applying to NEMI AI, ${firstName}`,
           html: confirmHtml,
         }),
       }).catch((err) => console.error("Resend confirm error:", err));

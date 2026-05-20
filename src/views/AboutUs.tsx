@@ -266,7 +266,7 @@ const AboutUs = () => {
   const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.75, 0.79));
 
   return (
-    <div className="relative" style={{ height: "1600vh" }}>
+    <div className="relative scroll-page" style={{ height: "1600vh" }}>
       <Navbar scrollProgress={scrollProgress} />
       <ConstellationCanvas />
 

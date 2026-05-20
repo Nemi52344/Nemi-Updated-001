@@ -100,7 +100,7 @@ const Services = () => {
   const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.86, 0.92));
 
   return (
-    <div className="bg-background text-foreground font-['Montserrat',sans-serif] font-light relative" style={{ height: "1100vh" }}>
+    <div className="bg-background text-foreground font-['Montserrat',sans-serif] font-light relative scroll-page" style={{ height: "1100vh" }}>
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <ConstellationCanvas />

@@ -291,7 +291,7 @@ const Careers = () => {
   const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.81, 0.88));
 
   return (
-    <div className="bg-background text-foreground relative" style={{ height: "650vh" }}>
+    <div className="bg-background text-foreground relative scroll-page" style={{ height: "650vh" }}>
       <div className="fixed inset-0 z-0">
         <ConstellationCanvas />
         <div

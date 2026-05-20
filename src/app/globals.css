@@ -953,3 +953,17 @@
   /* Careers CTA + Footer */
   .careers-cta-section > div:first-child { padding-top: 50px !important; padding-bottom: 0 !important; }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Mobile scroll compression
+ * On phones, each scroll-driven page (Home/About/Services/Careers) was
+ * 1100vh+ tall, meaning the user had to scroll through dozens of viewports
+ * to walk through the sections. Compress the total scroll so each section
+ * transition takes roughly one swipe.
+ * ───────────────────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .scroll-page { height: 350vh !important; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .scroll-page { height: 500vh !important; }
+}

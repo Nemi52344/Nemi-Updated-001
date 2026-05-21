@@ -3,7 +3,21 @@ import Script from "next/script";
 import "./globals.css";
 import Providers from "./providers";
 
-const GA_MEASUREMENT_ID = "G-RLBK1DLVN7";
+// Marketing / analytics IDs — all sourced from env so staging vs prod can differ
+// and so marketing tag IDs don't live in source control.
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;       // e.g. "G-RLBK1DLVN7"
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;                  // e.g. "GTM-XXXXXXX"
+const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
+const BING_VERIFICATION = process.env.NEXT_PUBLIC_BING_VERIFICATION;
+const FB_VERIFICATION = process.env.NEXT_PUBLIC_FB_VERIFICATION;
+const LINKEDIN_VERIFICATION = process.env.NEXT_PUBLIC_LINKEDIN_VERIFICATION;
+
+// Build the `other` map only with non-empty entries so we don't ship empty
+// <meta> tags for platforms that aren't configured yet.
+const verificationOther: Record<string, string> = {};
+if (BING_VERIFICATION) verificationOther["msvalidate.01"] = BING_VERIFICATION;
+if (FB_VERIFICATION) verificationOther["facebook-domain-verification"] = FB_VERIFICATION;
+if (LINKEDIN_VERIFICATION) verificationOther["linkedin-verification"] = LINKEDIN_VERIFICATION;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nemi-ai.com"),
@@ -13,6 +27,10 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/favicon.ico",
+  },
+  verification: {
+    ...(GSC_VERIFICATION ? { google: GSC_VERIFICATION } : {}),
+    ...(Object.keys(verificationOther).length > 0 ? { other: verificationOther } : {}),
   },
   openGraph: {
     type: "website",
@@ -134,6 +152,19 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Google Tag Manager noscript fallback — must be the first thing
+            inside <body> per GTM's install recipe. */}
+        {GTM_ID && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
+
         {/*
           <noscript> fallback, shown only when JavaScript is disabled.
           Gives search engines without JS + assistive tools a complete,
@@ -185,19 +216,39 @@ export default function RootLayout({
           </div>
         </noscript>
 
-        {/* Google Analytics 4, loads after interactive so it never blocks LCP */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
+        {/*
+          Google Tag Manager — single hook that lets marketing add more tags
+          (LinkedIn Insight, Meta Pixel, conversion pixels, etc.) without code
+          deploys. Loaded after interactive so it never blocks LCP.
+        */}
+        {GTM_ID && (
+          <Script id="gtm" strategy="afterInteractive">
+            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`}
+          </Script>
+        )}
+
+        {/*
+          Google Analytics 4 — loaded directly (in addition to GTM) so we
+          continue to receive baseline pageview data even if the GTM container
+          is paused or misconfigured. If you migrate GA4 fully into GTM, set
+          NEXT_PUBLIC_GA_ID empty to disable this block.
+        */}
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
 
         <Providers>{children}</Providers>
       </body>

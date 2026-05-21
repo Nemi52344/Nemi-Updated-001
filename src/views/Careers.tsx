@@ -10,6 +10,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { sendOtp, verifyOtp, submitApplication, fileToBase64 } from "@/lib/otpClient";
 import useScrollProgress from "@/hooks/useScrollProgress";
 import { supabase } from "@/lib/supabase";
+import { track } from "@/lib/analytics";
 
 const rangeProgress = (scroll: number, start: number, end: number) =>
   Math.min(Math.max((scroll - start) / (end - start), 0), 1);
@@ -213,6 +214,15 @@ const Careers = () => {
 
       setDropState("success");
       setDropErrorMsg(null);
+
+      // Conversion event — recruiting funnel measurement. Configure
+      // 'resume_submit' as a conversion in GA4 → Admin → Events.
+      track("resume_submit", {
+        role: "General Application",
+        department: "AI Screening",
+        delivery: edgeOk ? "edge" : "supabase_fallback",
+      });
+
       form.reset();
       handleFilePick(null);
       setDropEmail("");

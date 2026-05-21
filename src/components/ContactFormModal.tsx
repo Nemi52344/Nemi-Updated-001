@@ -6,6 +6,7 @@ import { z } from "zod";
 import PhoneInput from "@/components/PhoneInput";
 import { sendOtp as sendOtpRequest, verifyOtp as verifyOtpRequest, sendContactEmail } from "@/lib/otpClient";
 import { supabase } from "@/lib/supabase";
+import { track } from "@/lib/analytics";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -146,6 +147,13 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
 
     setSubmitted(true);
     setSubmitting(false);
+
+    // Conversion event — picked up by GTM and forwarded to GA4 (configure
+    // 'contact_form_submit' as a conversion in GA4 → Admin → Events).
+    track("contact_form_submit", {
+      has_company: Boolean(d.company),
+      has_phone: Boolean(d.phone),
+    });
   };
 
   const handleClose = () => {

@@ -42,7 +42,33 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "attestation_required" }, { status: 400 });
   }
 
-  const { token, jti, exp } = await issueGateToken(offering);
+  let token: string;
+  let jti: string;
+  let exp: number;
+  try {
+    ({ token, jti, exp } = await issueGateToken(offering));
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "unknown_error";
+    const misconfigured = /GATE_TOKEN_SECRET/.test(message);
+    // eslint-disable-next-line no-console
+    console.error(
+      JSON.stringify({
+        event: "gate_error",
+        offering,
+        ts: new Date().toISOString(),
+        message
+      })
+    );
+    return NextResponse.json(
+      {
+        error: misconfigured ? "server_misconfigured" : "token_issue_failed",
+        detail: misconfigured
+          ? "Server is missing GATE_TOKEN_SECRET. Configure it in the hosting environment (e.g., Vercel Project → Settings → Environment Variables) and redeploy."
+          : "Unable to issue the access token. Try again, and contact invest@nemi-ai.com if the problem persists."
+      },
+      { status: misconfigured ? 503 : 500 }
+    );
+  }
 
   // Structured log line for analytics ingestion (per spec section 3.4).
   // Geographic soft-signal: warn if Reg S clicked from a US IP.

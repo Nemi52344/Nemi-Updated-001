@@ -967,3 +967,13 @@
 @media (min-width: 768px) and (max-width: 1023px) {
   .scroll-page { height: 500vh !important; }
 }
+
+/* ────────────────────────────────────────────────────────────────────
+ * Careers Drop Resume form — hide "Wants to work on" on mobile portrait
+ * so the whole form fits in one viewport without scrolling. Field stays
+ * visible on tablets, desktop, and landscape phones (the data side already
+ * accepts empty, so submission still works).
+ * ──────────────────────────────────────────────────────────────────── */
+@media (max-width: 767px) and (orientation: portrait) {
+  .careers-work-on-field { display: none !important; }
+}

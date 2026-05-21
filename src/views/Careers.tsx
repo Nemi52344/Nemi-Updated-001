@@ -544,10 +544,9 @@ const Careers = () => {
                       style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
                     />
                   </div>
-                  <div>
+                  <div className="careers-work-on-field">
                     <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Wants to work on *</label>
                     <textarea
-                      required
                       value={dropWorkOn}
                       onChange={(e) => setDropWorkOn(e.target.value)}
                       rows={2}

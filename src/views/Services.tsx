@@ -337,7 +337,7 @@ const Services = () => {
               context="Mass production of aluminium 6061-T651 machined parts with tight tolerances < 2 micron."
               outcome="Created fixturing and innovative methods to manufacture part in standard 3-axis instead of 5-axis."
               color={henry}
-              imageSrc="/Images/Aerospace%20machined%20parts.png"
+              imageSrc="/Images/Aerospace%20machined%20parts.webp"
               imageAlt="Aerospace Machined Parts"
               imageFirst={false}
               metrics={[

@@ -23,12 +23,12 @@ interface Step {
 const MAX_MONTHS = 12;
 
 const STEPS: Step[] = [
-  { num: "01", label: "Sketch",      img: "/Images/lmm-flow/01-sketch.png",     tradMonths: 1,    tradLabel: "1 mo",     lmmFraction: 0.02, lmmLabel: "Days" },
-  { num: "02", label: "Render",      img: "/Images/lmm-flow/02-render.png",     tradMonths: 1,    tradLabel: "1 mo",     lmmFraction: 0.02, lmmLabel: "Days" },
-  { num: "03", label: "CAD",         img: "/Images/lmm-flow/03-cad.png",        tradMonths: 6,    tradLabel: "6+ mo",    lmmFraction: 0.08, lmmLabel: "Weeks" },
-  { num: "04", label: "Simulation",  img: "/Images/lmm-flow/04-simulation.png", tradMonths: 2,    tradLabel: "2+ mo",    lmmFraction: 0.03, lmmLabel: "Weeks" },
-  { num: "05", label: "Tooling",     img: "/Images/lmm-flow/06-tooling.png",    tradMonths: 6,    tradLabel: "6+ mo",    lmmFraction: 0.17, lmmLabel: "3 mo" },
-  { num: "06", label: "Production",  img: "/Images/lmm-flow/07-production.png", tradMonths: 12,   tradLabel: "Manual Orchestration",   lmmFraction: 0.08, lmmLabel: "AI Orchestrated" },
+  { num: "01", label: "Sketch",      img: "/Images/lmm-flow/01-sketch.webp",     tradMonths: 1,    tradLabel: "1 mo",     lmmFraction: 0.02, lmmLabel: "Days" },
+  { num: "02", label: "Render",      img: "/Images/lmm-flow/02-render.webp",     tradMonths: 1,    tradLabel: "1 mo",     lmmFraction: 0.02, lmmLabel: "Days" },
+  { num: "03", label: "CAD",         img: "/Images/lmm-flow/03-cad.webp",        tradMonths: 6,    tradLabel: "6+ mo",    lmmFraction: 0.08, lmmLabel: "Weeks" },
+  { num: "04", label: "Simulation",  img: "/Images/lmm-flow/04-simulation.webp", tradMonths: 2,    tradLabel: "2+ mo",    lmmFraction: 0.03, lmmLabel: "Weeks" },
+  { num: "05", label: "Tooling",     img: "/Images/lmm-flow/06-tooling.webp",    tradMonths: 6,    tradLabel: "6+ mo",    lmmFraction: 0.17, lmmLabel: "3 mo" },
+  { num: "06", label: "Production",  img: "/Images/lmm-flow/07-production.webp", tradMonths: 12,   tradLabel: "Manual Orchestration",   lmmFraction: 0.08, lmmLabel: "AI Orchestrated" },
 ];
 
 const ROW1 = [STEPS[0], STEPS[1], STEPS[2]];

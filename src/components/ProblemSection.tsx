@@ -15,14 +15,14 @@ const TEXT_LIGHT   = "hsl(240, 8%, 91%)";     // #E6E6E9
 const PURPLE_TINT  = "hsl(258, 60%, 85%)";    // #CEC3EC
 
 const IMG = {
-  sketch:     "/Images/lmm-flow/01-sketch.png",
-  render:     "/Images/lmm-flow/02-render.png",
-  cad:        "/Images/lmm-flow/03-cad.png",
-  simulation: "/Images/lmm-flow/04-simulation.png",
-  bom:        "/Images/lmm-flow/05-bom.png",
-  tooling:    "/Images/lmm-flow/06-tooling.png",
-  production: "/Images/lmm-flow/07-production.png",
-  dashboard:  "/Images/lmm-flow/08-dashboard.png",
+  sketch:     "/Images/lmm-flow/01-sketch.webp",
+  render:     "/Images/lmm-flow/02-render.webp",
+  cad:        "/Images/lmm-flow/03-cad.webp",
+  simulation: "/Images/lmm-flow/04-simulation.webp",
+  bom:        "/Images/lmm-flow/05-bom.webp",
+  tooling:    "/Images/lmm-flow/06-tooling.webp",
+  production: "/Images/lmm-flow/07-production.webp",
+  dashboard:  "/Images/lmm-flow/08-dashboard.webp",
 };
 
 // Image height in the snake-flow rows

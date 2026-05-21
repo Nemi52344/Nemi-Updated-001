@@ -155,12 +155,16 @@ const FactoryFlipCard = ({
 };
 
 const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
-  // Why Us - placed between Dual Revenue and Why Now
-  const sectionVisible = scrollProgress > 0.860 && scrollProgress < 0.910;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.866, 0.880));
-  const cardsP = rangeProgress(scrollProgress, 0.872, 0.895);
-  const statsP = easeOut(rangeProgress(scrollProgress, 0.882, 0.898));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.900, 0.910));
+  // Why Us / Fortress Factories. Animation thresholds were originally packed
+  // into 0.866→0.910 (span 0.044), which made the whole section flash by on
+  // mobile in about 27vh. Spread the same animation order across 0.860→0.935
+  // (span 0.075) so the user has time to actually read the section.
+  // Must stay in sync with the matching SEGS entry in src/views/Index.tsx.
+  const sectionVisible = scrollProgress > 0.855 && scrollProgress < 0.935;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.860, 0.880));
+  const cardsP = rangeProgress(scrollProgress, 0.870, 0.910);
+  const statsP = easeOut(rangeProgress(scrollProgress, 0.890, 0.920));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.925, 0.935));
 
   if (!sectionVisible) return null;
 

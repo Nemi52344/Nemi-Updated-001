@@ -28,12 +28,21 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const Index = () => {
   const raw = useScrollProgress();
   // Remap scroll to skip removed sections (CoreTech, CaseStudies, DualRevenue, WhyNow, Leadership).
+  // Each segment must fully cover the inner `rangeProgress` thresholds of the section
+  // it represents — if the segment is shorter than the animation window, the user
+  // either misses part of the animation or scrolls past the section in a flash.
+  // Segments are non-overlapping so scrollProgress never jumps backwards at a boundary.
+  // Component thresholds (do not edit segments without touching these too):
+  //   Capabilities (CapabilitiesSection.tsx):    0.758 → 0.815
+  //   Competitors  (CompetitorsSection.tsx):     0.860 → 0.935  — "Fortress Factories" (stretched)
+  //   TrustSignal  (TrustSignalSection.tsx):     0.940 → 0.996  — "Industrial Partners" (shifted later)
+  //   CTA          (CTASection.tsx):             0.994 → 0.998
   const SEGS = [
     [0, 0.155],      // hero → IntentSection
     [0.315, 0.61],   // LMMIntro → LMMFlow
-    [0.75, 0.812],   // Capabilities
-    [0.860, 0.905],  // Competitors
-    [0.975, 1.0],    // TrustSignal → CTA
+    [0.75, 0.820],   // Capabilities — was 0.75-0.812
+    [0.855, 0.935],  // Competitors (Fortress Factories) — was 0.860-0.905, now 0.080 wide (+78%)
+    [0.935, 1.0],    // TrustSignal → CTA (Industrial Partners + CTA) — was 0.975-1.0, now 0.065 wide (+160%)
   ];
   const TOTAL = SEGS.reduce((s, [a, b]) => s + (b - a), 0);
   const scrollProgress = (() => {
@@ -89,7 +98,13 @@ const Index = () => {
       {/* Navbar */}
       <Navbar scrollProgress={scrollProgress} />
 
-      {/* Scroll-synced video background, hands zoom toward viewer */}
+      {/* Scroll-synced video background, hands zoom toward viewer.
+          `filter` neutralises the warm/yellow color grade baked into the
+          source MP4 so the metallic hand sheen reads as silver/cool against
+          the purple nebula above. Tweak knobs (in order of impact):
+            saturate(<1)  — lowers warm tint AND every other color
+            hue-rotate    — small positive nudge moves yellow toward green
+            brightness    — slight bump to compensate for desaturation */}
       <video
         ref={videoRef}
         muted
@@ -102,6 +117,7 @@ const Index = () => {
           transform: `scale(${handsScale})`,
           objectPosition: "center 60%",
           transition: "transform 0.05s linear",
+          filter: "saturate(0.65) hue-rotate(8deg) brightness(1.05)",
         }}
       >
         <source src="/videos/HQ_updated_2.mp4" type="video/mp4" />

@@ -64,8 +64,14 @@ const LogoCard = ({ logo, set }: { logo: LogoEntry; set: number }) => {
 };
 
 const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
-  const sectionVisible = scrollProgress > 0.910 && scrollProgress < 0.996;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.915, 0.940));
+  // Industrial Partners. Originally the segment in Index.tsx didn't start
+  // visiting this section until scrollProgress 0.975, so the user was dropped
+  // in 75% of the way through the intro animation — looked like a flash.
+  // Pushed enter window from 0.915-0.940 → 0.940-0.965 to follow the
+  // (now stretched) Competitors section, and widened sectionVisible to match.
+  // Must stay in sync with the matching SEGS entry in src/views/Index.tsx.
+  const sectionVisible = scrollProgress > 0.935 && scrollProgress < 0.996;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.940, 0.965));
   const exitP = easeOut(rangeProgress(scrollProgress, 0.993, 0.996));
   const opacity = Math.min(enterP, 1 - exitP);
 

@@ -24,34 +24,12 @@ export function JurisdictionCard({
   const [open, setOpen] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const checkboxId = useId();
   const dialogId = useId();
 
-  async function submit() {
+  function submit() {
     setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/gate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          offering,
-          attestation: true,
-          ts: Date.now()
-        })
-      });
-      if (!res.ok) {
-        const data = (await res.json().catch(() => ({}))) as { error?: string };
-        throw new Error(data.error ?? "Request failed");
-      }
-      const data = (await res.json()) as { redirect: string };
-      window.location.href = data.redirect;
-    } catch (e) {
-      const message = e instanceof Error ? e.message : "Unknown error";
-      setError(message);
-      setLoading(false);
-    }
+    window.location.href = `/${offering}`;
   }
 
   return (
@@ -70,7 +48,6 @@ export function JurisdictionCard({
             type="button"
             onClick={() => {
               setOpen(true);
-              setError(null);
               setAgreed(false);
             }}
             className="nemi-btn-primary w-full whitespace-nowrap px-4 text-[0.7rem] tracking-nemi md:text-xs"
@@ -116,15 +93,6 @@ export function JurisdictionCard({
               </span>
             </label>
 
-            {error && (
-              <p
-                role="alert"
-                className="rounded-lg border border-red-400/30 bg-red-500/10 p-3 text-xs text-red-200"
-              >
-                {error}
-              </p>
-            )}
-
             <div className="flex flex-col gap-3 pt-2 md:flex-row md:justify-end">
               <button
                 type="button"
@@ -140,7 +108,7 @@ export function JurisdictionCard({
                 disabled={!agreed || loading}
                 className="nemi-btn-primary order-1 md:order-2"
               >
-                <span>{loading ? "Verifying…" : "Continue"}</span>
+                <span>{loading ? "Loading…" : "Continue"}</span>
                 <span aria-hidden className="ml-1">→</span>
               </button>
             </div>

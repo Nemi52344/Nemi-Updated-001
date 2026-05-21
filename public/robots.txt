@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /reg-d
+Disallow: /reg-s
+Disallow: /api/
+
+Sitemap: https://invest.nemi-ai.com/sitemap.xml

@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+@keyframes nebula-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+html,
+body {
+  background-color: #07060b;
+  color: #e6e6e9;
+}
+
+::selection {
+  background-color: #513a9f;
+  color: #ffffff;
+}
+
+@layer components {
+  .nemi-heading {
+    @apply font-sans font-bold uppercase tracking-nemi text-white;
+  }
+
+  .nemi-eyebrow {
+    @apply font-sans font-medium uppercase tracking-nemi-wide text-violet-300 text-xs;
+  }
+
+  .nemi-body {
+    @apply font-sans font-normal text-soft-grey leading-body;
+  }
+
+  .nemi-surface {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm;
+  }
+
+  .nemi-banner {
+    @apply rounded-xl border border-violet-500/40 bg-violet-900/30 px-6 py-5;
+  }
+
+  .nemi-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3
+           font-sans font-semibold uppercase tracking-nemi-wide text-sm
+           transition focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-offset-2 focus-visible:outline-violet-300
+           disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .nemi-btn-primary {
+    @apply nemi-btn bg-violet-500 text-white hover:bg-violet-700;
+  }
+
+  .nemi-btn-ghost {
+    @apply nemi-btn border border-white/20 text-soft-grey hover:border-violet-300 hover:text-white;
+  }
+
+  .nemi-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent;
+  }
+}

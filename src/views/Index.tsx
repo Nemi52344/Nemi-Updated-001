@@ -219,9 +219,8 @@ const Index = () => {
         <nav>
           <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/services">Services (AKIO, HENRY, SAM)</a></li>
-            <li><a href="/technology">Technology (Large Manufacturing Model)</a></li>
             <li><a href="/about">About NEMI AI</a></li>
+            <li><a href="/services">Services</a></li>
             <li><a href="/careers">Careers</a></li>
             <li><a href="/sitemap.xml">Sitemap</a></li>
             <li><a href="mailto:info@nemi-ai.com">info@nemi-ai.com</a></li>

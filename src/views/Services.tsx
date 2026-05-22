@@ -11,9 +11,7 @@ import industryAutomotive from "@/assets/industry-automotive.webp";
 import industryElectronics from "@/assets/industry-electronics.webp";
 import industryRobotics from "@/assets/industry-robotics.webp";
 
-const akio = "hsl(275, 80%, 65%)";
-const henry = "hsl(275, 80%, 65%)";
-const sam = "hsl(275, 80%, 65%)";
+const accentPurple = "hsl(275, 80%, 65%)";
 
 const rangeProgress = (scroll: number, start: number, end: number) =>
   Math.min(Math.max((scroll - start) / (end - start), 0), 1);
@@ -25,7 +23,7 @@ interface ServiceItem {
   img: string;
 }
 
-const henryServices: ServiceItem[] = [
+const services: ServiceItem[] = [
   { title: "Tooling & Fixturing", desc: "Injection moulding, die casting, press tools, fixtures", img: "/Images/tooling-cnc.webp" },
   { title: "SPMs", desc: "Special purpose machinery & robotic automation for production", img: "/Images/spms-robotic-welding.webp" },
   { title: "Metal Parts Manufacturing", desc: "Cutting, bending, forming, welding, machining, casting, forging", img: "/Images/Pipe%20bending.webp" },
@@ -132,11 +130,11 @@ const Services = () => {
               className="font-extrabold uppercase leading-[1.05] tracking-tight mb-6 md:mb-10 whitespace-nowrap"
               style={{ fontSize: "clamp(1.4rem, 7vw, 5rem)" }}
             >
-              <span style={{ color: akio }}>Cost</span>
+              <span style={{ color: accentPurple }}>Cost</span>
               <span className="text-muted-foreground/50">{" · "}</span>
-              <span style={{ color: henry }}>Quality</span>
+              <span style={{ color: accentPurple }}>Quality</span>
               <span className="text-muted-foreground/50">{" · "}</span>
-              <span style={{ color: sam }}>Speed</span>
+              <span style={{ color: accentPurple }}>Speed</span>
             </p>
             <p className="text-muted-foreground text-sm md:text-base lg:text-lg leading-[1.8] max-w-2xl mx-auto tracking-wide">
               <span className="text-foreground font-semibold">Cost unmatched. Quality par excellence. Speed never before seen.</span>{" "}
@@ -158,7 +156,7 @@ const Services = () => {
             >
               <div
                 className="bg-card services-card-img-wrap"
-                style={{ height: 75, marginBottom: "0.6rem", overflow: "hidden", borderLeft: `2px solid ${henry}` }}
+                style={{ height: 75, marginBottom: "0.6rem", overflow: "hidden", borderLeft: `2px solid ${accentPurple}` }}
               >
                 <img
                   src={s.img}
@@ -168,7 +166,7 @@ const Services = () => {
                   decoding="async"
                 />
               </div>
-              <div style={{ width: "2rem", height: 2, background: henry, marginBottom: "0.6rem" }} className="services-card-rule" />
+              <div style={{ width: "2rem", height: 2, background: accentPurple, marginBottom: "0.6rem" }} className="services-card-rule" />
               <h3 className="text-foreground font-bold text-xs md:text-sm tracking-wider uppercase mb-1.5">{s.title}</h3>
               <p className="text-muted-foreground text-[11px] md:text-xs leading-[1.5] tracking-wide">{s.desc}</p>
             </div>
@@ -179,7 +177,7 @@ const Services = () => {
         // sub-progress is divided in thirds.
         const mobileSubProgress = rangeProgress(scrollProgress, 0.16, 0.28);
         const mobilePageIndex = mobileSubProgress < 1 / 3 ? 0 : mobileSubProgress < 2 / 3 ? 1 : 2;
-        const mobileCards = henryServices.slice(mobilePageIndex * 3, mobilePageIndex * 3 + 3);
+        const mobileCards = services.slice(mobilePageIndex * 3, mobilePageIndex * 3 + 3);
         const mobilePageLabel = `${mobilePageIndex + 1} / 3`;
 
         return (
@@ -190,12 +188,12 @@ const Services = () => {
             <div className="w-full mx-auto px-6 md:px-10 lg:px-12 xl:px-14" style={{ maxWidth: "1680px" }}>
               <div className="mb-4 md:mb-5 flex items-end justify-between">
                 <div>
-                  <p className="font-bold text-sm md:text-base tracking-[0.35em] uppercase mb-2" style={{ color: henry, textShadow: `0 0 18px ${henry}55` }}>
+                  <p className="font-bold text-sm md:text-base tracking-[0.35em] uppercase mb-2" style={{ color: accentPurple, textShadow: `0 0 18px ${accentPurple}55` }}>
                     Services
                   </p>
-                  <div style={{ height: 2, background: henry, width: "4rem" }} />
+                  <div style={{ height: 2, background: accentPurple, width: "4rem" }} />
                 </div>
-                <span className="md:hidden text-[10px] tracking-[0.3em] uppercase font-bold" style={{ color: henry }}>
+                <span className="md:hidden text-[10px] tracking-[0.3em] uppercase font-bold" style={{ color: accentPurple }}>
                   {mobilePageLabel}
                 </span>
               </div>
@@ -222,7 +220,7 @@ const Services = () => {
                   background: "hsl(var(--border))",
                 }}
               >
-                {henryServices.map((s, i) => renderCard(s, i))}
+                {services.map((s, i) => renderCard(s, i))}
               </div>
             </div>
           </div>
@@ -305,19 +303,19 @@ const Services = () => {
         <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-1" style={{ opacity: cs1Op }}>
           <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
             <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">NEMI&rsquo;s LMM in Real World Application</p>
-            <div style={{ height: 2, background: akio, width: "3rem" }} />
+            <div style={{ height: 2, background: accentPurple, width: "3rem" }} />
           </div>
           <div className="w-full">
             <CaseStudy
               title="Electric Motorcycle for Africa"
               context="Ruggedised electric motorcycle design required for African road conditions and bike taxi use cases."
               outcome="PRD to production-ready in 6 months, delivering full CAD and component designs. Tooling and fixture designs, and supplier base all delivered in additional 3 months."
-              color={akio}
+              color={accentPurple}
               imageSrc="/Images/Messenger.webp"
               imageAlt="Electric Motorcycle for Africa"
               metrics={[
-                { label: "Design time", before: "24 months", beforeDetail: "Traditional CAD-to-production cycle", after: "9 months", afterDetail: "Concept to production-ready with NEMI", barPercent: 37, color: akio },
-                { label: "Development cost", before: "Baseline", beforeDetail: "Industry-standard tooling + supplier spend", after: "1/10th", afterDetail: "Integrated stack, no supply chain juggling", barPercent: 10, color: akio },
+                { label: "Design time", before: "24 months", beforeDetail: "Traditional CAD-to-production cycle", after: "9 months", afterDetail: "Concept to production-ready with NEMI", barPercent: 37, color: accentPurple },
+                { label: "Development cost", before: "Baseline", beforeDetail: "Industry-standard tooling + supplier spend", after: "1/10th", afterDetail: "Integrated stack, no supply chain juggling", barPercent: 10, color: accentPurple },
               ]}
             />
           </div>
@@ -329,20 +327,20 @@ const Services = () => {
         <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-2" style={{ opacity: cs2Op }}>
           <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
             <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">NEMI&rsquo;s LMM in Real World Application</p>
-            <div style={{ height: 2, background: henry, width: "3rem" }} />
+            <div style={{ height: 2, background: accentPurple, width: "3rem" }} />
           </div>
           <div className="w-full">
             <CaseStudy
               title="Aerospace Machined Parts"
               context="Mass production of aluminium 6061-T651 machined parts with tight tolerances < 2 micron."
               outcome="Created fixturing and innovative methods to manufacture part in standard 3-axis instead of 5-axis."
-              color={henry}
+              color={accentPurple}
               imageSrc="/Images/Aerospace%20machined%20parts.webp"
               imageAlt="Aerospace Machined Parts"
               imageFirst={false}
               metrics={[
-                { label: "Machining time", before: "9 hrs/part", beforeDetail: "5-axis precision setup per part", after: "3 hrs/part", afterDetail: "Standard 3-axis with custom fixturing", barPercent: 33, color: henry },
-                { label: "Cost reduction", before: "Baseline", beforeDetail: "Industry-standard aerospace machining cost", after: ">50%", afterDetail: "Lower tooling + faster cycle time", barPercent: 50, color: henry },
+                { label: "Machining time", before: "9 hrs/part", beforeDetail: "5-axis precision setup per part", after: "3 hrs/part", afterDetail: "Standard 3-axis with custom fixturing", barPercent: 33, color: accentPurple },
+                { label: "Cost reduction", before: "Baseline", beforeDetail: "Industry-standard aerospace machining cost", after: ">50%", afterDetail: "Lower tooling + faster cycle time", barPercent: 50, color: accentPurple },
               ]}
             />
           </div>
@@ -354,19 +352,19 @@ const Services = () => {
         <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-3" style={{ opacity: cs3Op }}>
           <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
             <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">NEMI&rsquo;s LMM in Real World Application</p>
-            <div style={{ height: 2, background: henry, width: "3rem" }} />
+            <div style={{ height: 2, background: accentPurple, width: "3rem" }} />
           </div>
           <div className="w-full">
             <CaseStudy
               title="Complex Assembly Production"
               context="Mass production of automated coffee machine."
               outcome="End-to-end manufacturing from fabrication, machining, electronics, wiring harnesses to complete assembly."
-              color={henry}
+              color={accentPurple}
               imageSrc="/Images/COffee%20mfg.webp"
               imageAlt="Complex Assembly Production"
               metrics={[
-                { label: "Initial setup lead time", before: "Benchmark", beforeDetail: "Typical multi-supplier coordination cycle", after: "<6 weeks", afterDetail: "End-to-end NEMI setup with in-house tooling", barPercent: 40, color: henry },
-                { label: "Cost reduction", before: "Baseline", beforeDetail: "Traditional outsourced assembly cost", after: ">30%", afterDetail: "Vertically integrated machining + assembly", barPercent: 70, color: henry },
+                { label: "Initial setup lead time", before: "Benchmark", beforeDetail: "Typical multi-supplier coordination cycle", after: "<6 weeks", afterDetail: "End-to-end NEMI setup with in-house tooling", barPercent: 40, color: accentPurple },
+                { label: "Cost reduction", before: "Baseline", beforeDetail: "Traditional outsourced assembly cost", after: ">30%", afterDetail: "Vertically integrated machining + assembly", barPercent: 70, color: accentPurple },
               ]}
             />
           </div>

@@ -937,7 +937,6 @@ const AboutUs = () => {
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/services">Services</a></li>
-            <li><a href="/technology">Technology</a></li>
             <li><a href="/about">About NEMI AI</a></li>
             <li><a href="/careers">Careers</a></li>
           </ul>

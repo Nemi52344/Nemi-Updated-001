@@ -1,19 +1,42 @@
 "use client";
 
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, Mail, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
-import ScrollReveal from "@/hooks/ScrollReveal";
 import PageCTAFooter from "@/components/PageCTAFooter";
+import PhoneInput from "@/components/PhoneInput";
 import SiteFooter from "@/components/SiteFooter";
+import { sendOtp, verifyOtp, submitApplication, fileToBase64 } from "@/lib/otpClient";
+import useScrollProgress from "@/hooks/useScrollProgress";
 import { supabase } from "@/lib/supabase";
+import { track } from "@/lib/analytics";
+
+const rangeProgress = (scroll: number, start: number, end: number) =>
+  Math.min(Math.max((scroll - start) / (end - start), 0), 1);
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const values = [
-  { title: "Team Player", body: "We make parts, run machines, and learn in the real world, not just simulations.", img: "https://images.unsplash.com/photo-1696446702183-cbd13d78e1e7?w=800&h=500&fit=crop&q=80" },
-  { title: "Capital Discipline", body: "We build more with less. The 10× cost advantage is a culture, not just a metric.", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=500&fit=crop&q=80" },
-  { title: "End-to-End Thinking", body: "From design intent to deployed product, we own the full loop, not just tasks.", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=500&fit=crop&q=80" },
-  { title: "Data First", body: "Ground-truth manufacturing data drives our AI, not assumptions.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop&q=80" },
+  {
+    title: "First Principles",
+    tagline: "We don’t accept “the way it’s always been done.”",
+    body: "Break problems to fundamentals, rebuild from the ground up, create lasting advantage.",
+  },
+  {
+    title: "Ownership",
+    tagline: "A place for builders,\nnot bystanders.",
+    body: "Take responsibility, think long term, act like an owner. Your ideas and work shape what we build.",
+  },
+  {
+    title: "Highest Standards",
+    tagline: "Exceptional companies are built through exceptional execution.",
+    body: "We hold ourselves to a higher bar in quality, experience, and rigor, and build things we’re proud of.",
+  },
+  {
+    title: "Build Trust",
+    tagline: "Great teams move fast when trust runs deep.",
+    body: "Honest conversations, clear thinking, mutual respect. Challenge ideas, support each other, do the best work.",
+  },
 ];
 
 interface Job {
@@ -23,13 +46,199 @@ interface Job {
   jd: string;
 }
 
-// No open positions at the moment. The empty list renders the empty state below.
-const jobs: Job[] = [];
+const jobs: Job[] = [
+  { dept: "Engineering, AI/ML", title: "LMM Research Engineer", meta: "Bangalore · Full-time · Hybrid", jd: "We are building the Large Manufacturing Model, a foundation model trained on real CAD geometries, sensor streams, quality outcomes, and process parameters. As an LMM Research Engineer, you will design training objectives, curate multi-modal industrial datasets, and evaluate the model against field outcomes on our production floors. You will publish internally, iterate quickly, and ship your work into live programs across aerospace, defense, EV, and precision tooling. You should have strong intuition for deep learning, comfort with distributed training, and a bias towards reality over benchmarks. Prior exposure to any subset of computer vision, graph neural networks, reinforcement learning, or physics-informed ML is a plus. You will work alongside mechanical, electrical, and manufacturing engineers, so the ability to explain tradeoffs to non-ML colleagues matters." },
+  { dept: "Engineering, Manufacturing", title: "Mechanical Design Engineer", meta: "Bangalore · Full-time · On-site", jd: "Our design platform compresses concept-to-production cycles from months to weeks. As a Mechanical Design Engineer, you will own the CAD, DFM, and simulation loop for real hardware programs, drones, EV subsystems, precision tooling, consumer electronics. You will work alongside AI engineers who augment your workflow with generative design, simulation automation, and PLM integration. You should bring 3-7 years of production design experience, fluency in SolidWorks / NX / CATIA (one is fine), and a portfolio of parts that actually shipped. Familiarity with structural FEA, thermal analysis, or tolerance stack-up is a strong plus. You will iterate with a tight manufacturing team on the floor, so on-site presence matters. This is a shipping role, not a research role." },
+  { dept: "Engineering, Manufacturing", title: "Process Engineer", meta: "Bangalore · Full-time · On-site", jd: "Our manufacturing platform is the full-stack layer for tooling, CNC, injection moulding, electronics, batteries, motors, complex assemblies. As a Process Engineer, you will own the translation from design intent to running production, including tooling specification, cycle-time optimisation, yield improvement, and quality sign-off. You will work with sensor-instrumented lines that feed data back into the LMM, so you will be closer to the model than most process engineers ever get. Bring 4-8 years of process engineering experience, hands-on comfort across at least two of CNC / injection moulding / battery assembly / PCBA, and a track record of driving measurable yield or cost improvements. AS9100 or ISO 9001 familiarity is helpful. This is an on-site role because real production demands real presence." },
+  { dept: "Operations", title: "Fleet Operations Manager", meta: "Africa / Remote · Full-time", jd: "Our deployment layer is where NEMI's hardware meets the real world, thousands of units operating across India and Africa. As Fleet Operations Manager, you will own uptime, last-mile logistics, maintenance cadence, and the feedback loop from field telemetry back to design and manufacturing. You will scale playbooks for deployment, training local operators, financing tie-ups, and after-sales service. Bring 5+ years in fleet ops, logistics, or deployed-hardware support (EV, drones, heavy equipment, or similar). You should be comfortable travelling across Africa and India, building teams on the ground, and running operations against tight margins. Data fluency matters, you will work with live telemetry dashboards every day." },
+  { dept: "Business Development", title: "Strategic Partnerships Lead", meta: "Bangalore / London · Full-time", jd: "We land with design compression, expand into full-stack manufacturing, and dominate inside each account with deployed fleet data. The Strategic Partnerships Lead runs the expand-and-dominate motion with enterprise customers across aerospace, defense, automotive, and industrial. You will map accounts, structure multi-year program deals, and work closely with the founders on institutional wins. You should bring 7+ years in complex B2B sales or strategic partnerships, fluency in hardware / manufacturing / aerospace buying cycles, and a track record of program-sized deals ($5M+). Comfort with NDA-heavy sales cycles, defense procurement, and institutional diligence is required. You will split time between Bangalore and London, with customer travel across EU and India." },
+  { dept: "Engineering, Software", title: "Manufacturing OS Platform Engineer", meta: "Bangalore · Full-time · Hybrid", jd: "NEMI M-OS is the operating system for our factories, scheduling, inference routing, telemetry, quality prediction, and the feedback loop back into the LMM. As a Platform Engineer, you will design and ship the backbone services that every application across design, manufacturing and deployment runs on. You will own latency, reliability, observability, and developer experience for our internal engineering teams. Bring 5+ years of distributed systems experience, fluency in TypeScript / Go / Rust (pick two), and comfort with Kubernetes, event streaming (Kafka / NATS), and time-series data. Any exposure to edge compute, industrial protocols (OPC-UA, Modbus), or real-time scheduling is a plus. Hybrid from Bangalore, with periodic on-site time at our factories." },
+];
 
 const Careers = () => {
+  const scrollProgress = useScrollProgress();
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showApplyForm, setShowApplyForm] = useState(false);
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [dropState, setDropState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [dropFileName, setDropFileName] = useState<string>("");
+  const [dropFileSize, setDropFileSize] = useState<number>(0);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [pickedFile, setPickedFile] = useState<File | null>(null);
+  const [dropEmail, setDropEmail] = useState("");
+  const [dropOtpStage, setDropOtpStage] = useState<"idle" | "sending" | "sent" | "verifying" | "verified">("idle");
+  const [dropOtpCode, setDropOtpCode] = useState("");
+  const [dropOtpError, setDropOtpError] = useState<string | null>(null);
+  const [dropErrorMsg, setDropErrorMsg] = useState<string | null>(null);
+  const [dropVerifiedEmail, setDropVerifiedEmail] = useState<string | null>(null);
+  const [dropAbout, setDropAbout] = useState("");
+  const [dropInterests, setDropInterests] = useState("");
+  const [dropWorkOn, setDropWorkOn] = useState("");
+
+  const sendDropOtp = async () => {
+    setDropOtpError(null);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dropEmail)) {
+      setDropOtpError("Enter a valid email first");
+      return;
+    }
+    setDropOtpStage("sending");
+    try {
+      const result = await sendOtp(dropEmail);
+      if (!result.ok) throw new Error(result.error || "Failed to send code");
+      setDropOtpStage("sent");
+    } catch (e) {
+      setDropOtpError(e instanceof Error ? e.message : "Could not send code");
+      setDropOtpStage("idle");
+    }
+  };
+
+  const verifyDropOtp = async () => {
+    setDropOtpError(null);
+    if (!dropOtpCode || dropOtpCode.length < 4) {
+      setDropOtpError("Enter the code we emailed you");
+      return;
+    }
+    setDropOtpStage("verifying");
+    try {
+      const result = await verifyOtp(dropEmail, dropOtpCode);
+      if (!result.ok) throw new Error(result.error || "Invalid code");
+      setDropOtpStage("verified");
+      setDropVerifiedEmail(dropEmail);
+    } catch (e) {
+      setDropOtpError(e instanceof Error ? e.message : "Invalid code");
+      setDropOtpStage("sent");
+    }
+  };
+
+  const isDropVerified = dropOtpStage === "verified" && dropVerifiedEmail === dropEmail;
+
+  const handleFilePick = (file: File | null) => {
+    if (!file) {
+      setPickedFile(null);
+      setDropFileName("");
+      setDropFileSize(0);
+      return;
+    }
+    setPickedFile(file);
+    setDropFileName(file.name);
+    setDropFileSize(file.size);
+  };
+
+  const formatBytes = (b: number) => {
+    if (b < 1024) return `${b} B`;
+    if (b < 1024 * 1024) return `${(b / 1024).toFixed(1)} KB`;
+    return `${(b / 1024 / 1024).toFixed(2)} MB`;
+  };
+
+  const ROUTING_CHIPS = [
+    "Engineering",
+    "AI / ML Research",
+    "Manufacturing",
+    "Operations",
+    "Business Development",
+    "Design",
+  ];
+
+  const handleResumeDrop = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!isDropVerified) {
+      setDropOtpError("Please verify your email first");
+      return;
+    }
+    setDropState("submitting");
+    setDropErrorMsg(null);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const resumeFile = pickedFile || (data.get("resume") as File | null);
+    try {
+      if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
+      const fullName = (data.get("fullName") as string) || "";
+      const phone = (data.get("phone") as string) || "";
+
+      // Try the server-side Edge Function first. It runs with service-role and
+      // handles storage upload + DB insert + email to info@nemi-ai.com in one
+      // call (works even when anon RLS blocks storage uploads).
+      let edgeOk = false;
+      try {
+        const resume_base64 = await fileToBase64(resumeFile);
+        const res = await submitApplication({
+          full_name: fullName,
+          email: dropEmail,
+          phone,
+          about: dropAbout,
+          interests: dropInterests,
+          wants_to_work_on: dropWorkOn,
+          resume_name: resumeFile.name,
+          resume_type: resumeFile.type || "application/octet-stream",
+          resume_base64,
+          role: "General Application",
+          department: "AI Screening",
+        });
+        edgeOk = res.ok;
+        if (!edgeOk) console.warn("submit-application edge:", res.error);
+      } catch (edgeErr) {
+        console.warn("submit-application edge call failed:", edgeErr);
+      }
+
+      // Fallback: direct Supabase client upload + insert (requires the
+      // resumes bucket + applications RLS to permit anon).
+      if (!edgeOk) {
+        const safeName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+        const filePath = `${Date.now()}_${safeName}`;
+        const { error: uploadErr } = await supabase.storage
+          .from("resumes")
+          .upload(filePath, resumeFile, { contentType: resumeFile.type, upsert: false });
+        if (uploadErr) throw new Error(`Storage: ${uploadErr.message}`);
+        const { error: insertErr } = await supabase.from("applications").insert({
+          role: "General Application",
+          department: "AI Screening",
+          full_name: fullName,
+          email: dropEmail,
+          phone: phone || "",
+          location: "",
+          experience: "",
+          linkedin: "",
+          portfolio: "",
+          cover_letter:
+            [
+              dropAbout && `About:\n${dropAbout}`,
+              dropInterests && `Interests:\n${dropInterests}`,
+              dropWorkOn && `Wants to work on:\n${dropWorkOn}`,
+            ]
+              .filter(Boolean)
+              .join("\n\n") || "",
+          resume_path: filePath,
+        });
+        if (insertErr) throw new Error(`Database: ${insertErr.message}`);
+      }
+
+      setDropState("success");
+      setDropErrorMsg(null);
+
+      // Conversion event — recruiting funnel measurement. Configure
+      // 'resume_submit' as a conversion in GA4 → Admin → Events.
+      track("resume_submit", {
+        role: "General Application",
+        department: "AI Screening",
+        delivery: edgeOk ? "edge" : "supabase_fallback",
+      });
+
+      form.reset();
+      handleFilePick(null);
+      setDropEmail("");
+      setDropOtpStage("idle");
+      setDropOtpCode("");
+      setDropVerifiedEmail(null);
+      setDropAbout("");
+      setDropInterests("");
+      setDropWorkOn("");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error("Resume drop error:", err);
+      setDropErrorMsg(msg);
+      setDropState("error");
+    }
+  };
 
   const closeModal = () => {
     setSelectedJob(null);
@@ -47,18 +256,10 @@ const Careers = () => {
 
     try {
       if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
-
       const safeName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
       const filePath = `${Date.now()}_${safeName}`;
-
-      const { error: uploadErr } = await supabase.storage
-        .from("resumes")
-        .upload(filePath, resumeFile, {
-          contentType: resumeFile.type,
-          upsert: false,
-        });
+      const { error: uploadErr } = await supabase.storage.from("resumes").upload(filePath, resumeFile, { contentType: resumeFile.type, upsert: false });
       if (uploadErr) throw uploadErr;
-
       const { error: insertErr } = await supabase.from("applications").insert({
         role: selectedJob.title,
         department: selectedJob.dept,
@@ -73,7 +274,6 @@ const Careers = () => {
         resume_path: filePath,
       });
       if (insertErr) throw insertErr;
-
       setSubmitState("success");
       form.reset();
     } catch (err) {
@@ -82,8 +282,26 @@ const Careers = () => {
     }
   };
 
+  // 4 panels: Hero, Values, Positions, CTA+Footer
+  const heroVisible = scrollProgress < 0.29;
+  const heroExit = easeOut(rangeProgress(scrollProgress, 0.24, 0.29));
+  const heroOp = 1 - heroExit;
+
+  const valVisible = scrollProgress > 0.27 && scrollProgress < 0.55;
+  const valEnter = easeOut(rangeProgress(scrollProgress, 0.28, 0.34));
+  const valExit = easeOut(rangeProgress(scrollProgress, 0.50, 0.55));
+  const valOp = valEnter * (1 - valExit);
+
+  const posVisible = scrollProgress > 0.53 && scrollProgress < 0.82;
+  const posEnter = easeOut(rangeProgress(scrollProgress, 0.54, 0.60));
+  const posExit = easeOut(rangeProgress(scrollProgress, 0.77, 0.82));
+  const posOp = posEnter * (1 - posExit);
+
+  const ctaVisible = scrollProgress > 0.80;
+  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.81, 0.88));
+
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+    <div className="bg-background text-foreground relative scroll-page" style={{ height: "650vh" }}>
       <div className="fixed inset-0 z-0">
         <ConstellationCanvas />
         <div
@@ -94,164 +312,339 @@ const Careers = () => {
 
       <Navbar scrollProgress={1} />
 
-      {/* HERO, Full screen (matches About page style) */}
-      <section className="min-h-screen flex items-center justify-center relative z-[1] overflow-hidden pt-32 pb-16 px-6 md:px-12 lg:px-16">
+      {/* ── 1. HERO ── */}
+      {heroVisible && (
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `
-              radial-gradient(ellipse 40% 35% at 50% 45%, hsl(275 80% 40% / 0.15) 0%, transparent 60%),
-              radial-gradient(ellipse 55% 45% at 50% 50%, hsl(260 70% 30% / 0.1) 0%, transparent 55%)
-            `,
-          }}
-        />
-        <div className="text-center relative z-[3] max-w-4xl mx-auto">
-          <h1
-            className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
-            style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
-          >
-            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}>
-              Engineer the
-            </span>
-            <br />
-            <span
-              className="bg-clip-text text-transparent inline-block"
-              style={{
-                backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary) / 0.8))",
-                backgroundSize: "200% 200%",
-                animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s both, hero-gradient-shift 6s ease-in-out infinite 1.4s",
-              }}
+          className="fixed inset-0 z-[10] flex items-center justify-center px-6 md:px-12 lg:px-16 overflow-hidden pt-16 lg:pt-0 careers-hero"
+          style={{ opacity: heroOp }}
+        >
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `
+                radial-gradient(ellipse 40% 35% at 50% 45%, hsl(275 80% 40% / 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 55% 45% at 50% 50%, hsl(260 70% 30% / 0.1) 0%, transparent 55%)
+              `,
+            }}
+          />
+          <div className="text-center relative z-[3] max-w-4xl mx-auto">
+            <h1
+              className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight uppercase leading-[0.95] mb-8"
+              style={{ textShadow: "0 0 25px hsl(275 80% 60% / 0.2), 0 0 50px hsl(270 70% 50% / 0.1)" }}
             >
-              Physical
-            </span>
-            <br />
-            <span style={{ display: "inline-block", animation: "hero-word-reveal 0.9s cubic-bezier(0.16,1,0.3,1) 0.7s both" }}>
-              Future.
-            </span>
-          </h1>
-          <p
-            className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[600px] mx-auto"
-            style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1s forwards" }}
-          >
-            The next era of manufacturing runs on Physical AI. Join to be part of it.
-          </p>
+              <span style={{ display: "inline-block" }}>Engineer the</span>
+              <br />
+              <span
+                className="bg-clip-text text-transparent inline-block"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary) / 0.8))",
+                  backgroundSize: "200% 200%",
+                }}
+              >
+                Physical
+              </span>
+              <br />
+              <span style={{ display: "inline-block" }}>Future.</span>
+            </h1>
+            <p className="text-sm md:text-lg font-light text-muted-foreground leading-relaxed tracking-[0.15em] uppercase max-w-[600px] mx-auto">
+              The next era of manufacturing runs on Physical AI. Join to be part of it.
+            </p>
+          </div>
         </div>
-      </section>
+      )}
 
-      {/* OUR TEAM + VALUES, Team image background with purple shade & values overlay */}
-      <section className="relative z-[1] w-full">
-        <div className="relative min-h-[70vh] overflow-hidden flex flex-col">
-          {/* Team background image */}
+      {/* ── 2. VALUES ── */}
+      {valVisible && (
+        <div className="fixed inset-0 z-[10] w-full overflow-y-auto careers-values-section careers-values" style={{ opacity: valOp }}>
           <img
             src="/Images/about us.webp"
             alt="NEMI team"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="fixed inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "center 80%", transform: "scale(1.35)", transformOrigin: "center 80%" }}
             loading="lazy" decoding="async"
           />
-          {/* Tinted black overlay */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.82) 100%)" }} />
-
-          {/* Content, centered vertically */}
-          <div className="relative z-10 flex flex-col flex-1 min-h-[70vh] items-center justify-center px-6 md:px-12 lg:px-16 text-center">
-            {/* Section heading */}
-            <ScrollReveal>
-              <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] text-white mb-14 md:mb-16">
-                Our Values
-              </h2>
-            </ScrollReveal>
-
-            {/* Values grid - wider columns + tighter padding so each body fits in 3 lines */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-7xl items-start">
-              {values.map((val, i) => (
-                <ScrollReveal key={val.title} delay={i * 100}>
-                  <div className="p-3 md:p-4 group flex flex-col items-center text-center">
-                    <div className="w-10 h-[2px] mb-5 transition-all duration-300 group-hover:w-16" style={{ background: "linear-gradient(to right, hsl(275 80% 75%), hsl(275 80% 75% / 0.3))" }} />
-                    <h3 className="font-bold text-xs md:text-sm tracking-[0.12em] md:tracking-[0.15em] uppercase text-white mb-3 group-hover:text-purple-300 transition-colors duration-300 whitespace-nowrap">
-                      {val.title}
-                    </h3>
-                    <p
-                      className="text-xs md:text-sm text-white/60 leading-[1.7] w-full"
-                      style={{
-                        display: "-webkit-box",
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: "vertical" as const,
-                        overflow: "hidden",
-                        minHeight: "calc(3 * 1.7em)",
-                      }}
-                    >
-                      {val.body}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ))}
+          <div className="fixed inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.82) 100%)" }} />
+          <div className="relative z-10 flex flex-col min-h-full items-center justify-center px-4 sm:px-6 md:px-12 lg:px-16 text-center py-16 lg:py-0"
+            style={{ transform: `translateY(${(1 - valEnter) * 24}px)` }}
+          >
+            <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold tracking-wider leading-[1.1] text-white mb-4 sm:mb-8 lg:mb-14 xl:mb-16">
+              Our Values
+            </h2>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6 w-full max-w-7xl items-stretch">
+              {values.map((val, i) => {
+                const cardP = easeOut(Math.min(Math.max((valEnter - i * 0.1) / 0.5, 0), 1));
+                return (
+                <div key={val.title} className="p-2 sm:p-3 md:p-4 group flex flex-col items-center text-center h-full" style={{ opacity: cardP, transform: `translateY(${(1 - cardP) * 24}px)` }}>
+                  <div className="w-8 sm:w-10 h-[2px] mb-2 sm:mb-5 transition-all duration-300 group-hover:w-16" style={{ background: "linear-gradient(to right, hsl(275 80% 75%), hsl(275 80% 75% / 0.3))" }} />
+                  <h3 className="font-bold text-[10px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.12em] md:tracking-[0.15em] uppercase text-white mb-1.5 sm:mb-3 group-hover:text-purple-300 transition-colors duration-300 whitespace-nowrap">
+                    {val.title}
+                  </h3>
+                  <p
+                    className="text-[10.5px] sm:text-xs md:text-sm text-white font-semibold leading-[1.35] sm:leading-[1.55] w-full mb-0.5 whitespace-pre-line"
+                    style={{ minHeight: "calc(2.5 * 1.55em)" }}
+                  >
+                    {val.tagline}
+                  </p>
+                  <p
+                    className="text-[9.5px] sm:text-xs md:text-sm text-white/70 leading-[1.45] sm:leading-[1.7] w-full"
+                    style={{ minHeight: "calc(5 * 1.7em)" }}
+                  >
+                    {val.body}
+                  </p>
+                </div>
+                );
+              })}
             </div>
           </div>
         </div>
-      </section>
+      )}
 
-      {/* OPEN POSITIONS */}
-      <section className="py-16 pb-24 px-6 md:px-12 lg:px-16 relative z-[1]">
-        <ScrollReveal>
-          <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-primary mb-4" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
-            Open Positions
-          </p>
-          <h2 className="text-xl md:text-3xl lg:text-4xl font-bold tracking-wider leading-[1.1] mb-10">
-            Join the Team
-          </h2>
-        </ScrollReveal>
-        {jobs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/30">
-            {jobs.map((job, i) => (
-              <ScrollReveal key={job.title} delay={i * 80}>
-                <button
-                  type="button"
-                  onClick={() => setSelectedJob(job)}
-                  className="bg-background p-6 md:p-8 w-full text-left cursor-pointer transition-colors duration-200 hover:bg-card/80 group"
-                >
-                  <p className="font-bold text-[0.58rem] tracking-[0.15em] uppercase text-primary mb-2">{job.dept}</p>
-                  <h3 className="font-bold text-sm md:text-base tracking-[0.05em] uppercase text-foreground mb-2">{job.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-4">{job.meta}</p>
-                  <span className="inline-flex items-center gap-1 text-[0.65rem] font-bold tracking-[0.18em] uppercase text-primary group-hover:gap-2 transition-all">
-                    View Role <span aria-hidden="true">&rarr;</span>
-                  </span>
-                </button>
-              </ScrollReveal>
-            ))}
-          </div>
-        ) : (
-          <ScrollReveal>
-            <div
-              className="rounded-2xl border px-8 py-14 md:py-16 text-center"
-              style={{
-                borderColor: "hsl(275 80% 60% / 0.25)",
-                background:
-                  "linear-gradient(135deg, hsl(275 80% 22% / 0.18), hsl(230 25% 6% / 0.6))",
-                boxShadow: "0 0 40px hsl(275 80% 50% / 0.08)",
-              }}
-            >
-              <p className="text-[0.65rem] md:text-xs tracking-[0.35em] uppercase text-primary/80 font-bold mb-3">
-                No Open Positions
-              </p>
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-wide text-foreground mb-4">
-                We&rsquo;re not actively hiring right now.
-              </h3>
-              <p className="text-sm md:text-base text-muted-foreground leading-[1.8] max-w-[520px] mx-auto mb-6">
-                We still want to hear from exceptional engineers, designers and operators who believe Physical AI is the next era of manufacturing. Send your resume and we&rsquo;ll keep you in mind when roles open.
-              </p>
-              <a
-                href="mailto:info@nemi-ai.com?subject=Future%20opportunities%20at%20NEMI"
-                className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-lg transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 text-primary-foreground"
+      {/* ── 3. OPEN POSITIONS ── */}
+      {posVisible && (
+        <div
+          className="fixed inset-0 z-[10] flex flex-col justify-start px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-6 lg:pt-24 lg:pb-6 careers-positions-section ls-allow-scroll"
+          style={{ opacity: posOp }}
+        >
+          <div className="max-w-3xl w-full mx-auto" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
+            {dropState !== "success" && (
+              <div className="text-center mb-2 md:mb-3">
+                <p className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-primary mb-1" style={{ textShadow: "0 0 15px hsl(275 80% 60% / 0.3)" }}>
+                  Apply Now
+                </p>
+                <h2 className="text-base md:text-xl lg:text-2xl font-bold tracking-wider leading-[1.1] mb-1">
+                  Drop Your Resume
+                </h2>
+                <p className="text-[10px] md:text-[11px] text-muted-foreground tracking-wide max-w-xl mx-auto leading-relaxed">
+                  Join the team building Physical AI for manufacturing. We review every resume and reach out when there's a fit.
+                </p>
+              </div>
+            )}
+
+            {dropState !== "success" ? (
+              <form
+                onSubmit={handleResumeDrop}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 rounded-2xl p-5 sm:p-6 careers-form"
                 style={{
-                  background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                  boxShadow: "0 4px 20px hsl(var(--primary) / 0.3)",
+                  background: "linear-gradient(145deg, hsl(230 20% 10%), hsl(230 25% 6%))",
+                  border: "1px solid hsl(275 80% 55% / 0.22)",
+                  boxShadow: "0 0 60px hsl(275 80% 55% / 0.12), 0 25px 50px hsl(230 25% 4% / 0.6)",
                 }}
               >
-                Stay in Touch
-              </a>
-            </div>
-          </ScrollReveal>
-        )}
-      </section>
+                <div>
+                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Full Name *</label>
+                  <input
+                    required
+                    name="fullName"
+                    type="text"
+                    placeholder="Jane Doe"
+                    className="w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all"
+                    style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Phone (optional)</label>
+                  <PhoneInput
+                    name="phone"
+                    placeholder="555 123 4567"
+                    inputStyle={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
+                    Email * {isDropVerified && <span className="ml-1 text-[9px] text-emerald-400 normal-case tracking-normal">(verified)</span>}
+                  </label>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <input
+                      required
+                      type="email"
+                      value={dropEmail}
+                      onChange={(e) => {
+                        setDropEmail(e.target.value);
+                        if (dropVerifiedEmail && e.target.value !== dropVerifiedEmail) {
+                          setDropOtpStage("idle");
+                          setDropOtpCode("");
+                          setDropVerifiedEmail(null);
+                        }
+                      }}
+                      disabled={isDropVerified}
+                      placeholder="jane@company.com"
+                      className="flex-1 px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all disabled:opacity-70"
+                      style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                    />
+                    {!isDropVerified ? (
+                      <button
+                        type="button"
+                        onClick={sendDropOtp}
+                        disabled={dropOtpStage === "sending" || dropOtpStage === "verifying" || !dropEmail}
+                        className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all duration-200 hover:opacity-90 disabled:opacity-60"
+                        style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
+                      >
+                        <Mail className="w-3.5 h-3.5 inline mr-1.5 -mt-0.5" />
+                        {dropOtpStage === "sending" ? "Sending…" : dropOtpStage === "sent" || dropOtpStage === "verifying" ? "Resend code" : "Verify email"}
+                      </button>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-lg text-xs font-semibold text-emerald-400" style={{ background: "hsl(150 60% 20% / 0.4)" }}>
+                        <CheckCircle2 className="w-4 h-4" /> Verified
+                      </span>
+                    )}
+                  </div>
+
+                  {(dropOtpStage === "sent" || dropOtpStage === "verifying") && !isDropVerified && (
+                    <div className="mt-2 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        value={dropOtpCode}
+                        onChange={(e) => setDropOtpCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                        placeholder="Enter 6-digit code"
+                        className="flex-1 px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all tracking-[0.4em] text-center"
+                        style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                      />
+                      <button
+                        type="button"
+                        onClick={verifyDropOtp}
+                        disabled={dropOtpStage === "verifying"}
+                        className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all hover:opacity-90 disabled:opacity-60"
+                        style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
+                      >
+                        {dropOtpStage === "verifying" ? "Verifying…" : "Confirm"}
+                      </button>
+                    </div>
+                  )}
+                  {dropOtpStage === "sent" && !dropOtpError && (
+                    <p className="text-[11px] mt-1.5 text-muted-foreground">We&rsquo;ve sent a code to <span className="text-foreground">{dropEmail}</span>. Check your inbox.</p>
+                  )}
+                  {dropOtpError && <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{dropOtpError}</p>}
+                </div>
+
+                <div className="sm:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">About you *</label>
+                    <textarea
+                      required
+                      value={dropAbout}
+                      onChange={(e) => setDropAbout(e.target.value)}
+                      rows={2}
+                      placeholder="A quick intro."
+                      className="w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+                      style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Interests *</label>
+                    <textarea
+                      required
+                      value={dropInterests}
+                      onChange={(e) => setDropInterests(e.target.value)}
+                      rows={2}
+                      placeholder="Fields, technologies."
+                      className="w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+                      style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                    />
+                  </div>
+                  <div className="careers-work-on-field">
+                    <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Wants to work on *</label>
+                    <textarea
+                      value={dropWorkOn}
+                      onChange={(e) => setDropWorkOn(e.target.value)}
+                      rows={2}
+                      placeholder="Role or projects."
+                      className="w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+                      style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                    />
+                  </div>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Resume * (PDF or DOC, max 5MB)</label>
+                  <label
+                    className="flex items-center gap-3 rounded-lg border border-dashed px-4 py-2.5 cursor-pointer transition-all duration-200 hover:border-primary/60 hover:bg-primary/5"
+                    style={{ background: "hsl(230 20% 10% / 0.5)", borderColor: "hsl(275 80% 55% / 0.3)" }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="hsl(275 70% 70%)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span className="text-xs sm:text-sm flex-1" style={{ color: dropFileName ? "hsl(0 0% 90%)" : "hsl(0 0% 55%)" }}>
+                      {dropFileName || "Click to upload your resume"}
+                    </span>
+                    <input
+                      required
+                      name="resume"
+                      type="file"
+                      accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                      className="hidden"
+                      onChange={(e) => handleFilePick(e.target.files?.[0] || null)}
+                    />
+                  </label>
+                </div>
+
+                {dropState === "error" && (
+                  <p className="sm:col-span-2 text-xs" style={{ color: "hsl(0 70% 60%)" }}>
+                    {dropErrorMsg
+                      ? `Couldn't submit: ${dropErrorMsg}. Please email info@nemi-ai.com directly.`
+                      : "Something went wrong. Please email info@nemi-ai.com directly."}
+                  </p>
+                )}
+
+                <div className="sm:col-span-2 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pt-1">
+                  <p className="text-[11px] text-muted-foreground/80">
+                    Or send your resume to{" "}
+                    <a className="text-primary hover:underline" href="mailto:info@nemi-ai.com">info@nemi-ai.com</a>
+                  </p>
+                  <button
+                    type="submit"
+                    disabled={dropState === "submitting" || !isDropVerified}
+                    className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    style={{
+                      background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))",
+                      boxShadow: "0 4px 25px hsl(275 80% 55% / 0.3)",
+                    }}
+                    title={!isDropVerified ? "Verify your email to submit" : undefined}
+                  >
+                    {dropState === "submitting" ? "Submitting…" : "Submit Resume"}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div
+                className="rounded-2xl p-8 text-center"
+                style={{
+                  background: "linear-gradient(145deg, hsl(230 20% 10% / 0.9), hsl(230 25% 6% / 0.9))",
+                  border: "1px solid hsl(275 80% 55% / 0.25)",
+                }}
+              >
+                <h4 className="text-2xl font-bold text-foreground mb-3">Thank you for applying!</h4>
+                <p className="text-sm text-muted-foreground mb-2">Your resume has reached the NEMI AI team.</p>
+                <p className="text-sm text-muted-foreground mb-6">We review every application personally and will be in touch at the email you provided if there&apos;s a fit.</p>
+                <button
+                  type="button"
+                  onClick={() => setDropState("idle")}
+                  className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-lg border border-border/40 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Submit Another
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ── 4. CTA + FOOTER ── */}
+      {ctaVisible && (
+        <div className="fixed inset-0 z-[10] flex flex-col careers-cta-section" style={{ opacity: ctaEnter }}>
+          <div className="flex-1 flex items-center justify-center">
+            <PageCTAFooter
+              headline="Shape the Future."
+              tagline="Join the team building full-stack, end-to-end manufacturing automation with Physical AI."
+              buttonText="Get in Touch"
+              buttonHref="/#contact"
+            />
+          </div>
+          <SiteFooter />
+        </div>
+      )}
 
       {/* ── JD MODAL ── */}
       {selectedJob && (
@@ -261,7 +654,7 @@ const Careers = () => {
           onClick={closeModal}
         >
           <div
-            className="relative w-full max-w-2xl rounded-2xl p-6 md:p-10 overflow-y-auto max-h-[85vh] animate-in fade-in zoom-in-95 duration-200"
+            className="relative w-full max-w-2xl rounded-2xl p-6 md:p-10 overflow-y-auto max-h-[85vh]"
             style={{
               background: "linear-gradient(145deg, hsl(230 20% 10%), hsl(230 25% 6%))",
               border: "1px solid hsl(275 80% 55% / 0.25)",
@@ -294,15 +687,11 @@ const Careers = () => {
                 <p className="text-sm text-muted-foreground leading-[1.8] mb-8 whitespace-pre-line">
                   {selectedJob.jd}
                 </p>
-
                 <button
                   type="button"
                   onClick={() => setShowApplyForm(true)}
                   className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 text-primary-foreground"
-                  style={{
-                    background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                    boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-                  }}
+                  style={{ background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))", boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)" }}
                 >
                   Apply for this Role
                 </button>
@@ -310,71 +699,59 @@ const Careers = () => {
             )}
 
             {showApplyForm && submitState !== "success" && (
-              <form
-                onSubmit={handleApplySubmit}
-                className="space-y-4"
-              >
+              <form onSubmit={handleApplySubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Full Name *</label>
-                    <input required name="fullName" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input required name="fullName" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Email *</label>
-                    <input required name="email" type="email" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input required name="email" type="email" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Phone *</label>
-                    <input required name="phone" type="tel" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <PhoneInput
+                      name="phone"
+                      placeholder="555 123 4567"
+                      inputClassName="!py-2 text-sm"
+                      inputStyle={{ background: "hsl(var(--background) / 0.4)", border: "1px solid hsl(var(--border) / 0.4)" }}
+                    />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Location</label>
-                    <input name="location" type="text" placeholder="City, Country" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input name="location" type="text" placeholder="City, Country" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Years of Experience *</label>
-                    <input required name="experience" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input required name="experience" type="text" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                   <div>
                     <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">LinkedIn</label>
-                    <input name="linkedin" type="url" placeholder="https://linkedin.com/in/..." className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                    <input name="linkedin" type="url" placeholder="https://linkedin.com/in/..." className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                   </div>
                 </div>
-
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Portfolio (optional)</label>
-                  <input name="portfolio" type="url" placeholder="https://" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60" />
+                  <input name="portfolio" type="url" placeholder="https://" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground focus:outline-none focus:border-primary/60" />
                 </div>
-
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Resume * (PDF or DOC, max 5MB)</label>
-                  <input
-                    required
-                    name="resume"
-                    type="file"
-                    accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-wider file:bg-primary/20 file:text-primary hover:file:bg-primary/30 file:cursor-pointer"
-                  />
+                  <input required name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:uppercase file:tracking-wider file:bg-primary/20 file:text-primary hover:file:bg-primary/30 file:cursor-pointer" />
                 </div>
-
                 <div>
                   <label className="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Why this role? *</label>
                   <textarea required name="coverLetter" rows={4} className="w-full bg-background/40 border border-border/40 rounded-md px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/60 resize-none" />
                 </div>
-
                 {submitState === "error" && (
                   <p className="text-xs text-red-400">Something went wrong. Please email info@nemi-ai.com directly.</p>
                 )}
-
                 <div className="flex gap-3 pt-2">
                   <button
                     type="submit"
                     disabled={submitState === "submitting"}
                     className="flex-1 font-bold text-xs tracking-[0.2em] uppercase px-6 py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] text-primary-foreground disabled:opacity-60 disabled:cursor-not-allowed"
-                    style={{
-                      background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-                      boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-                    }}
+                    style={{ background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))", boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)" }}
                   >
                     {submitState === "submitting" ? "Submitting…" : "Submit Application"}
                   </button>
@@ -405,14 +782,6 @@ const Careers = () => {
           </div>
         </div>
       )}
-
-      <PageCTAFooter
-        headline="Shape the Future."
-        tagline="Join the team building full-stack, end-to-end manufacturing automation with Physical AI."
-        buttonText="Get in Touch"
-        buttonHref="mailto:info@nemi-ai.com"
-      />
-      <SiteFooter />
     </div>
   );
 };

@@ -103,26 +103,17 @@ export default function HomePage() {
             </p>
           </section>
 
-          <section aria-label="NEMI AI Products">
-            <h2>AKIO, Design Intelligence Suite</h2>
+          <section aria-label="NEMI manufacturing services">
+            <h2>Full-Stack Manufacturing Services</h2>
             <p>
-              AI-powered product and component design. From idea to production-ready validated
-              design in weeks, not months. AKIO handles concept design, CAD generation,
-              simulation, prototyping, and PLM integration.
-            </p>
-
-            <h2>HENRY, AI-Driven Manufacturing</h2>
-            <p>
-              Full-stack manufacturing partner. HENRY covers metal parts, CNC machining,
-              injection moulding, tooling &amp; fixturing, electronics production, battery
-              manufacturing, motor production, and complex assemblies.
-            </p>
-
-            <h2>SAM, Deployment &amp; Lifecycle Management</h2>
-            <p>
-              Fleet deployment, last-mile logistics, leasing, financing, and field monitoring.
-              Real-world performance data from SAM feeds back into AKIO for continuous
-              improvement of future designs.
+              Tooling and fixturing, injection moulding, die casting, press tools.
+              Metal parts manufacturing: cutting, bending, forming, welding, machining, casting, forging.
+              Plastics, rubbers, composites: injection moulding, extrusion, blow moulding, thermoforming.
+              Battery manufacturing for portable chargers, drones, EVs, industrial energy storage.
+              Motor manufacturing including BLDC, Axial Flux and other motor types.
+              Electronics production: PCB assemblies, box builds, system integration, and testing.
+              Speedshop for rapid response production with fast turnaround.
+              Complex assemblies including EVs, drones, and robotics.
             </p>
           </section>
 

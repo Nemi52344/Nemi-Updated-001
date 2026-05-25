@@ -3,20 +3,20 @@ import { Suspense } from "react";
 import Services from "@/views/Services";
 
 export const metadata: Metadata = {
-  title: "NEMI Services, AKIO, HENRY & SAM | Physical AI Platform",
+  title: "Services | NEMI AI, Full-Stack Manufacturing Automation",
   description:
-    "Explore NEMI's three integrated AI systems: AKIO for design intelligence, HENRY for full-stack manufacturing, and SAM for deployment and lifecycle management.",
+    "Cost unmatched. Quality par excellence. Speed never before seen. Tooling, metal parts, plastics, batteries, motors, electronics, complex assemblies, all under one Physical AI platform.",
   alternates: { canonical: "https://nemi-ai.com/services" },
   openGraph: {
-    title: "NEMI Services, AKIO, HENRY & SAM",
+    title: "Services | NEMI AI",
     description:
-      "Three integrated AI systems. One platform. Design with AKIO, manufacture with HENRY, deploy with SAM.",
+      "Tooling, metal parts, plastics, batteries, motors, electronics, complex assemblies. Full-stack manufacturing under one Physical AI platform.",
     url: "https://nemi-ai.com/services",
   },
   twitter: {
-    title: "NEMI Services, AKIO, HENRY & SAM",
+    title: "Services | NEMI AI",
     description:
-      "Three integrated AI systems. One platform. Design with AKIO, manufacture with HENRY, deploy with SAM.",
+      "Tooling, metal parts, plastics, batteries, motors, electronics, complex assemblies. Full-stack manufacturing under one Physical AI platform.",
   },
 };
 
@@ -26,9 +26,9 @@ export default function ServicesPage() {
     "@type": "WebPage",
     "@id": "https://nemi-ai.com/services#webpage",
     url: "https://nemi-ai.com/services",
-    name: "NEMI Services, AKIO, HENRY & SAM | Physical AI Platform",
+    name: "Services | NEMI AI, Full-Stack Manufacturing Automation",
     description:
-      "Explore NEMI's three integrated AI systems: AKIO for design intelligence, HENRY for full-stack manufacturing, and SAM for deployment and lifecycle management.",
+      "Tooling, metal parts, plastics, batteries, motors, electronics, complex assemblies, all delivered under one Physical AI platform.",
     isPartOf: { "@id": "https://nemi-ai.com/#website" },
     breadcrumb: {
       "@type": "BreadcrumbList",

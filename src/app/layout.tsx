@@ -58,7 +58,7 @@ export default function RootLayout({
       height: 630,
     },
     description:
-      "NEMI AI is an end-to-end Physical AI platform. Design with AKIO, manufacture with HENRY, deploy with SAM, powered by the Large Manufacturing Model (LMM).",
+      "NEMI AI is a full-stack, end-to-end manufacturing automation platform powered by Physical AI. Design, manufacture, and deploy physical products under one Large Manufacturing Model (LMM).",
     foundingLocation: { "@type": "Place", name: "Bangalore, India" },
     contactPoint: {
       "@type": "ContactPoint",
@@ -68,27 +68,42 @@ export default function RootLayout({
     sameAs: ["https://www.linkedin.com/company/nemi-ai"],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "NEMI Platform Services",
+      name: "NEMI Manufacturing Services",
       itemListElement: [
         {
           "@type": "Offer",
-          name: "AKIO, Design Intelligence Suite",
-          description:
-            "AI-powered product and component design. From idea to production-ready validated design in weeks, not months.",
+          name: "Tooling & Fixturing",
+          description: "Injection moulding, die casting, press tools, fixtures.",
           url: "https://nemi-ai.com/services",
         },
         {
           "@type": "Offer",
-          name: "HENRY, AI-Driven Manufacturing",
-          description:
-            "Full-stack manufacturing: tooling, metal parts, battery, motor, electronics, and complex assemblies.",
+          name: "Metal Parts Manufacturing",
+          description: "Cutting, bending, forming, welding, machining, casting, forging.",
           url: "https://nemi-ai.com/services",
         },
         {
           "@type": "Offer",
-          name: "SAM, Deployment & Lifecycle",
-          description:
-            "Deploy, monitor, and improve every unit. Real-world performance data feeds back into design.",
+          name: "Battery Manufacturing",
+          description: "Portable chargers to drones to EVs to industrial energy storage.",
+          url: "https://nemi-ai.com/services",
+        },
+        {
+          "@type": "Offer",
+          name: "Motor Manufacturing",
+          description: "Design and manufacturing of BLDC, Axial Flux and other motors.",
+          url: "https://nemi-ai.com/services",
+        },
+        {
+          "@type": "Offer",
+          name: "Electronics Production",
+          description: "PCB assemblies, box builds, system integration and testing.",
+          url: "https://nemi-ai.com/services",
+        },
+        {
+          "@type": "Offer",
+          name: "Complex Assemblies",
+          description: "Multiple part types into complex assemblies, EVs, drones, robotics.",
           url: "https://nemi-ai.com/services",
         },
       ],
@@ -159,18 +174,14 @@ export default function RootLayout({
             </p>
             <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Platform</h2>
             <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
-              <li><strong>AKIO</strong>, Design Intelligence Suite</li>
-              <li><strong>HENRY</strong>, AI-Driven Manufacturing</li>
-              <li><strong>SAM</strong>, Deployment &amp; Lifecycle</li>
-              <li>
-                Powered by the <strong>Large Manufacturing Model (LMM)</strong>
-              </li>
+              <li>Full-stack manufacturing automation: design, manufacture, deploy</li>
+              <li>Powered by the <strong>Large Manufacturing Model (LMM)</strong></li>
+              <li>From months to hours, days, and weeks</li>
             </ul>
             <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Explore</h2>
             <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
-              <li><a href="/services" style={{ color: "hsl(275 80% 65%)" }}>Services (AKIO, HENRY, SAM)</a></li>
-              <li><a href="/technology" style={{ color: "hsl(275 80% 65%)" }}>Technology (Large Manufacturing Model)</a></li>
               <li><a href="/about" style={{ color: "hsl(275 80% 65%)" }}>About NEMI AI</a></li>
+              <li><a href="/services" style={{ color: "hsl(275 80% 65%)" }}>Services</a></li>
               <li><a href="/careers" style={{ color: "hsl(275 80% 65%)" }}>Careers</a></li>
             </ul>
             <p style={{ margin: "1.5rem 0 0", opacity: 0.8 }}>

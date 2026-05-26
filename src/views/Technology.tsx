@@ -7,16 +7,16 @@ import SiteFooter from "@/components/SiteFooter";
 import MOSAccordion from "@/components/MOSAccordion";
 
 const accent = "hsl(var(--accent))";
-const akio = "hsl(0, 72%, 52%)";
-const henry = "hsl(217, 91%, 60%)";
-const sam = "hsl(142, 71%, 45%)";
+const colorDesign = "hsl(0, 72%, 52%)";
+const colorManufacture = "hsl(217, 91%, 60%)";
+const colorDeploy = "hsl(142, 71%, 45%)";
 
-type AIService = "AKIO" | "HENRY" | "SAM";
+type AIService = "Design" | "Manufacture" | "Deploy";
 
 const aiColor: Record<AIService, string> = {
-  AKIO: akio,
-  HENRY: henry,
-  SAM: sam,
+  Design: colorDesign,
+  Manufacture: colorManufacture,
+  Deploy: colorDeploy,
 };
 
 const lmmLayers: {
@@ -31,51 +31,51 @@ const lmmLayers: {
     agent: "Taskmaster",
     desc: "Routes every task to the right sub-model. The central nervous system of the platform.",
     img: "/Images/Image in technology/Screenshot 2026-04-06 141717.webp",
-    serves: ["AKIO", "HENRY", "SAM"],
+    serves: ["Design", "Manufacture", "Deploy"],
   },
   {
     name: "Simulation Optimization",
     agent: "Far-seer",
     desc: "Predicts optimal speed, temperature, and tooling, before a single cut is made.",
     img: "/Images/Image in technology/freepik__clean-this-image-more-brit-should-look-very-neat-a__60512.webp",
-    serves: ["AKIO", "HENRY"],
+    serves: ["Design", "Manufacture"],
   },
   {
     name: "Quality Prediction",
     agent: "Sommelier",
     desc: "Catches defects before they happen. Eliminates scrap. Kills rework.",
     img: "/Images/Image in technology/freepik__this-chassis-and-everything-is-fine-brbut-the-bacg__75353.webp",
-    serves: ["HENRY"],
+    serves: ["Manufacture"],
   },
   {
     name: "Design-to-Product Bridge",
     agent: "Craftsman",
     desc: "Turns CAD files into production-ready process plans in minutes, not weeks.",
     img: "/Images/Image in technology/freepik__i-want-a-image-ehener-thsi-img2-is-on-the-left-sid__60508.webp",
-    serves: ["AKIO", "HENRY"],
+    serves: ["Design", "Manufacture"],
   },
   {
     name: "Supply Chain Optimization",
     agent: "Dispatcher",
     desc: "Dynamically routes work across suppliers for lowest cost and fastest delivery.",
     img: "/Images/Image in technology/Screenshot 2026-04-07 093826.webp",
-    serves: ["HENRY"],
+    serves: ["Manufacture"],
   },
   {
     name: "Lifecycle Intelligence",
     agent: "Trainer",
     desc: "Field data flows back into design. Every failure makes the next build better.",
     img: "/Images/Image in technology/Feeback loop .webp",
-    serves: ["SAM"],
+    serves: ["Deploy"],
   },
 ];
 
 // Three vertices on the wheel circumference, equilateral. LMM lives at the hub
 // and learns from all three. IMPROVE runs along the rim as curved text.
 const flywheelVertices = [
-  { label: "DESIGN", sub: "AKIO generates data", color: akio, angleDeg: -90 }, // top
-  { label: "DEVELOP", sub: "HENRY captures process data", color: henry, angleDeg: 30 }, // bottom-right
-  { label: "DEPLOY", sub: "SAM collects field data", color: sam, angleDeg: 150 }, // bottom-left
+  { label: "DESIGN", sub: "Design generates data", color: colorDesign, angleDeg: -90 }, // top
+  { label: "DEVELOP", sub: "Manufacture captures process data", color: colorManufacture, angleDeg: 30 }, // bottom-right
+  { label: "DEPLOY", sub: "Deploy collects field data", color: colorDeploy, angleDeg: 150 }, // bottom-left
 ] as const;
 
 const strategySteps = [
@@ -166,7 +166,7 @@ const Technology = () => {
             className="text-[0.65rem] md:text-xs text-muted-foreground/55 italic leading-relaxed max-w-[640px] mx-auto mt-6 px-4"
             style={{ opacity: 0, animation: "hero-fade-up 0.7s ease-out 1.4s forwards" }}
           >
-            10&times; and 80% figures reflect outcomes across published AKIO case studies
+            10&times; and 80% figures reflect outcomes across published Design case studies
             (Refrigerator Design, Drone Powertrain, EV Motorcycle). Methodology available
             under NDA.
           </p>
@@ -250,9 +250,9 @@ const Technology = () => {
                 };
 
                 const arcSegments = [
-                  { a1: -90, a2: 30,  c1: akio,  c2: henry, id: "arc-ah" },
-                  { a1: 30,  a2: 150, c1: henry, c2: sam,   id: "arc-hs" },
-                  { a1: 150, a2: 270, c1: sam,   c2: akio,  id: "arc-sa" },
+                  { a1: -90, a2: 30,  c1: colorDesign,  c2: colorManufacture, id: "arc-ah" },
+                  { a1: 30,  a2: 150, c1: colorManufacture, c2: colorDeploy,   id: "arc-hs" },
+                  { a1: 150, a2: 270, c1: colorDeploy,   c2: colorDesign,  id: "arc-sa" },
                 ];
 
                 return (
@@ -421,13 +421,13 @@ const Technology = () => {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5 w-full max-w-4xl">
               {[
-                { name: "AKIO",  role: "Design",  color: akio,  tab: "akio",  img: "/Images/AKIO.webp"  },
-                { name: "HENRY", role: "Develop", color: henry, tab: "henry", img: "/Images/Henry.webp" },
-                { name: "SAM",   role: "Deploy",  color: sam,   tab: "sam",   img: "/Images/SAM.webp"   },
+                { name: "Design",      role: "Design",  color: colorDesign,      img: "/Images/AKIO.webp"  },
+                { name: "Manufacture", role: "Develop", color: colorManufacture, img: "/Images/Henry.webp" },
+                { name: "Deploy",      role: "Deploy",  color: colorDeploy,      img: "/Images/SAM.webp"   },
               ].map((v) => (
                 <Link
                   key={v.name}
-                  href={`/services?tab=${v.tab}`}
+                  href="/services"
                   className="group rounded-xl border overflow-hidden transition-all duration-300 hover:-translate-y-1"
                   style={{
                     borderColor: v.color.replace(")", " / 0.55)"),
@@ -565,15 +565,15 @@ const Technology = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 w-full">
               {[
-                { name: "Lumos",         vertical: "AKIO",  color: akio,  desc: "Ideation partner",                       img: "/Images/Design%20and%20Development.webp" },
-                { name: "Manvil",        vertical: "AKIO",  color: akio,  desc: "Mechanical generative CAD + simulation", img: "/Images/Parts%20Manufacturing.webp" },
-                { name: "Envil",         vertical: "AKIO",  color: akio,  desc: "Electronics generative CAD + simulation", img: "/Images/Validation.webp" },
-                { name: "Nemi OS",       vertical: "HENRY", color: henry, desc: "Digital twin + orchestrator",            img: "/Images/Nemi%20parking.webp" },
-                { name: "Legion",        vertical: "HENRY", color: henry, desc: "Industrial robotics suite",              img: "/Images/SPMS.webp" },
-                { name: "Hawkeye",       vertical: "HENRY", color: henry, desc: "Factory data acquisition",               img: "/Images/Nemi%20Testing%20components.webp" },
-                { name: "Quartermaster", vertical: "SAM",   color: sam,   desc: "Warehouse management",                   img: "/Images/Nemi%20stores.webp" },
-                { name: "Atom",          vertical: "SAM",   color: sam,   desc: "Post-sales data tracking",               img: "/Images/Usage%20tracking.webp" },
-                { name: "Exchequer",     vertical: "SAM",   color: sam,   desc: "Leasing and financing",                  img: "/Images/Predictive%20Maintenance.webp" },
+                { name: "Lumos",         vertical: "Design",  color: colorDesign,  desc: "Ideation partner",                       img: "/Images/Design%20and%20Development.webp" },
+                { name: "Manvil",        vertical: "Design",  color: colorDesign,  desc: "Mechanical generative CAD + simulation", img: "/Images/Parts%20Manufacturing.webp" },
+                { name: "Envil",         vertical: "Design",  color: colorDesign,  desc: "Electronics generative CAD + simulation", img: "/Images/Validation.webp" },
+                { name: "Nemi OS",       vertical: "Manufacture", color: colorManufacture, desc: "Digital twin + orchestrator",            img: "/Images/Nemi%20parking.webp" },
+                { name: "Legion",        vertical: "Manufacture", color: colorManufacture, desc: "Industrial robotics suite",              img: "/Images/SPMS.webp" },
+                { name: "Hawkeye",       vertical: "Manufacture", color: colorManufacture, desc: "Factory data acquisition",               img: "/Images/Nemi%20Testing%20components.webp" },
+                { name: "Quartermaster", vertical: "Deploy",   color: colorDeploy,   desc: "Warehouse management",                   img: "/Images/Nemi%20stores.webp" },
+                { name: "Atom",          vertical: "Deploy",   color: colorDeploy,   desc: "Post-sales data tracking",               img: "/Images/Usage%20tracking.webp" },
+                { name: "Exchequer",     vertical: "Deploy",   color: colorDeploy,   desc: "Leasing and financing",                  img: "/Images/Predictive%20Maintenance.webp" },
               ].map((p) => (
                 <div
                   key={p.name}

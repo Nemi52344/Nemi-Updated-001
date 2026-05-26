@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const akio = "hsl(0, 72%, 52%)";
-const henry = "hsl(217, 91%, 60%)";
-const sam = "hsl(142, 71%, 45%)";
+const colorDesign = "hsl(0, 72%, 52%)";
+const colorManufacture = "hsl(217, 91%, 60%)";
+const colorDeploy = "hsl(142, 71%, 45%)";
 
 interface LayerRow {
   key: string;
@@ -19,27 +19,27 @@ interface LayerRow {
 const ApplicationsDesc = () => (
   <span>
     <Link
-      href="/services?tab=akio"
+      href="/services"
       className="hover:underline"
       onClick={(e) => e.stopPropagation()}
     >
-      AKIO
+      Design
     </Link>
     {" · "}
     <Link
-      href="/services?tab=henry"
+      href="/services"
       className="hover:underline"
       onClick={(e) => e.stopPropagation()}
     >
-      HENRY
+      Manufacture
     </Link>
     {" · "}
     <Link
-      href="/services?tab=sam"
+      href="/services"
       className="hover:underline"
       onClick={(e) => e.stopPropagation()}
     >
-      SAM
+      Deploy
     </Link>
     {", the user-facing systems that run on top of the OS"}
   </span>
@@ -48,9 +48,9 @@ const ApplicationsDesc = () => (
 const ApplicationsBody = () => (
   <div className="grid grid-cols-3 gap-3 md:gap-4">
     {[
-      { name: "AKIO", role: "Design", color: akio, href: "/services?tab=akio" },
-      { name: "HENRY", role: "Develop", color: henry, href: "/services?tab=henry" },
-      { name: "SAM", role: "Deploy", color: sam, href: "/services?tab=sam" },
+      { name: "DESIGN", role: "Concept to CAD", color: colorDesign, href: "/services" },
+      { name: "MANUFACTURE", role: "Full-stack production", color: colorManufacture, href: "/services" },
+      { name: "DEPLOY", role: "Field & lifecycle", color: colorDeploy, href: "/services" },
     ].map((app) => (
       <Link
         key={app.name}
@@ -82,12 +82,12 @@ const ApplicationsBody = () => (
 
 const LMMBody = () => {
   const agents = [
-    { name: "Far-seer", role: "Simulation", lean: [akio, henry] },
-    { name: "Craftsman", role: "Design-to-Product", lean: [akio, henry] },
-    { name: "Taskmaster", role: "Inference CNS", lean: [akio, henry, sam] },
-    { name: "Sommelier", role: "Quality", lean: [henry] },
-    { name: "Dispatcher", role: "Supply chain", lean: [henry] },
-    { name: "Trainer", role: "Lifecycle", lean: [sam] },
+    { name: "Far-seer", role: "Simulation", lean: [colorDesign, colorManufacture] },
+    { name: "Craftsman", role: "Design-to-Product", lean: [colorDesign, colorManufacture] },
+    { name: "Taskmaster", role: "Inference CNS", lean: [colorDesign, colorManufacture, colorDeploy] },
+    { name: "Sommelier", role: "Quality", lean: [colorManufacture] },
+    { name: "Dispatcher", role: "Supply chain", lean: [colorManufacture] },
+    { name: "Trainer", role: "Lifecycle", lean: [colorDeploy] },
   ];
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-3">

@@ -103,27 +103,22 @@ export default function HomePage() {
             </p>
           </section>
 
-          <section aria-label="NEMI AI Products">
-            <h2>AKIO, Design Intelligence Suite</h2>
+          <section aria-label="From Months to Hours">
+            <h2>From Months to Hours</h2>
             <p>
-              AI-powered product and component design. From idea to production-ready validated
-              design in weeks, not months. AKIO handles concept design, CAD generation,
-              simulation, prototyping, and PLM integration.
+              A unified manufacturing system that learns faster every cycle, connecting every
+              stage from design to delivery. Six stages traditionally taking months, compressed
+              by the NEMI LMM:
             </p>
-
-            <h2>HENRY, AI-Driven Manufacturing</h2>
-            <p>
-              Full-stack manufacturing partner. HENRY covers metal parts, CNC machining,
-              injection moulding, tooling &amp; fixturing, electronics production, battery
-              manufacturing, motor production, and complex assemblies.
-            </p>
-
-            <h2>SAM, Deployment &amp; Lifecycle Management</h2>
-            <p>
-              Fleet deployment, last-mile logistics, leasing, financing, and field monitoring.
-              Real-world performance data from SAM feeds back into AKIO for continuous
-              improvement of future designs.
-            </p>
+            <ul>
+              <li>Sketch, traditional 1 month, NEMI LMM days</li>
+              <li>Render, traditional 1 month, NEMI LMM days</li>
+              <li>CAD, traditional 6+ months, NEMI LMM weeks</li>
+              <li>Simulation, traditional 2+ months, NEMI LMM weeks</li>
+              <li>Tooling, traditional 6+ months, NEMI LMM 3 months</li>
+              <li>Production, traditional manual orchestration, NEMI LMM AI orchestrated</li>
+            </ul>
+            <p>Every cycle compounds knowledge, precision, speed, and cost reduction.</p>
           </section>
 
           <section aria-label="Capabilities">

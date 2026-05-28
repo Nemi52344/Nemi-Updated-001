@@ -77,7 +77,7 @@ export default function RootLayout({
     },
     description:
       "NEMI AI is a full-stack, end-to-end manufacturing automation platform powered by Physical AI. Design, manufacture, and deploy physical products under one Large Manufacturing Model (LMM).",
-    foundingLocation: { "@type": "Place", name: "Bangalore, India" },
+    foundingLocation: { "@type": "Place", name: "Coimbatore, India" },
     contactPoint: {
       "@type": "ContactPoint",
       email: "info@nemi-ai.com",

@@ -6,7 +6,7 @@
 Name: NEMI AI
 URL: https://nemi-ai.com
 Tagline: Full-stack, end-to-end manufacturing automation with Physical AI
-Founded: Bangalore, India
+Founded: Coimbatore, India
 Entity: Texas C-Corporation
 
 ## What We Do
@@ -43,7 +43,7 @@ Every cycle compounds knowledge, precision, speed, and cost reduction.
 - Programs shipped with 2x-10x improvements in speed and cost vs benchmarks
 
 ## Strategic Advantages
-- 10x capital efficiency via Bangalore R&D hub vs Western competitors
+- 10x capital efficiency via Coimbatore R&D hub vs Western competitors
 - End-to-end integration eliminates supply chain gaps
 - Sovereign manufacturing capability keeps AI processing within national borders
 - Owned manufacturing: competitors simulate, NEMI executes in owned factories

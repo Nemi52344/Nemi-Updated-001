@@ -58,7 +58,7 @@ export default function HomePage() {
             NEMI AI is an end-to-end Physical AI platform for design,
             development, and distribution of physical products. Powered by the Large
             Manufacturing Model (LMM), NEMI enables hardware companies to build 10× faster
-            at a fraction of Western costs, all from Bangalore, India.
+            at a fraction of Western costs, all from Coimbatore, India.
           </p>
 
           <section aria-label="Hardware challenges">
@@ -176,7 +176,7 @@ export default function HomePage() {
           <section aria-label="Capital efficiency by design">
             <h2>Capital Efficiency by Design</h2>
             <p>
-              NEMI operates from Bangalore, India, giving clients 10&times; capital
+              NEMI operates from Coimbatore, India, giving clients 10&times; capital
               efficiency versus Western competitors. Engineering talent, manufacturing
               infrastructure, and operational costs combine into an aerospace-grade
               cost-quality-speed profile.

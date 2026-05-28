@@ -4,18 +4,18 @@ import Careers from "@/views/Careers";
 export const metadata: Metadata = {
   title: "Careers at NEMI AI, Join the Physical AI Revolution",
   description:
-    "Build the Physical Internet. Join NEMI AI's world-class engineering team in Bangalore. Open roles in AI/ML, mechanical design, manufacturing, and operations.",
+    "Build the Physical Internet. Join NEMI AI's world-class engineering team in Coimbatore. Open roles in AI/ML, mechanical design, manufacturing, and operations.",
   alternates: { canonical: "https://nemi-ai.com/careers" },
   openGraph: {
     title: "Careers at NEMI AI, Join the Physical AI Revolution",
     description:
-      "Open roles in LMM Research, Mechanical Design, Process Engineering, Fleet Operations and more. Based in Bangalore.",
+      "Open roles in LMM Research, Mechanical Design, Process Engineering, Fleet Operations and more. Based in Coimbatore.",
     url: "https://nemi-ai.com/careers",
   },
   twitter: {
     title: "Careers at NEMI AI, Join the Physical AI Revolution",
     description:
-      "Open roles in LMM Research, Mechanical Design, Process Engineering, Fleet Operations and more. Based in Bangalore.",
+      "Open roles in LMM Research, Mechanical Design, Process Engineering, Fleet Operations and more. Based in Coimbatore.",
   },
 };
 
@@ -27,7 +27,7 @@ export default function CareersPage() {
     url: "https://nemi-ai.com/careers",
     name: "Careers at NEMI AI, Join the Physical AI Revolution",
     description:
-      "Build the Physical Internet. Join NEMI AI's world-class engineering team in Bangalore. Open roles in AI/ML, mechanical design, manufacturing, and operations.",
+      "Build the Physical Internet. Join NEMI AI's world-class engineering team in Coimbatore. Open roles in AI/ML, mechanical design, manufacturing, and operations.",
     isPartOf: { "@id": "https://nemi-ai.com/#website" },
     breadcrumb: {
       "@type": "BreadcrumbList",

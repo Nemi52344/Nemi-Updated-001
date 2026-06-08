@@ -80,9 +80,10 @@ const vehicles = [
 const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
   const [selectedPart, setSelectedPart] = useState<PartKey>("complex_parts");
 
-  // Section: 0.755–0.815 (Full-stack MaaS)
+  // Section: 0.750–0.815 (Full-stack MaaS). Entry begins right at the
+  // SEGS-segment-3 boundary (0.75) so there's no blink when crossing in.
   const sectionVisible = scrollProgress > 0.750 && scrollProgress < 0.815;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.758, 0.775));
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.751, 0.770));
   const exitP = easeOut(rangeProgress(scrollProgress, 0.802, 0.815));
 
   if (!sectionVisible) return null;

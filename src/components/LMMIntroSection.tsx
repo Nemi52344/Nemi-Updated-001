@@ -10,15 +10,18 @@ const rangeProgress = (scroll: number, start: number, end: number) =>
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
+  // Entry begins at the SEGS-segment-2 boundary (0.315) so there's no
+  // tiny blink between IntentSection exiting and LMMIntroSection starting
+  // to fade in. Exit and other timings unchanged.
   const sectionVisible = scrollProgress > 0.315 && scrollProgress < 0.46;
-  const enterP  = easeOut(rangeProgress(scrollProgress, 0.325, 0.37));
+  const enterP  = easeOut(rangeProgress(scrollProgress, 0.317, 0.36));
   const exitP   = easeOut(rangeProgress(scrollProgress, 0.43, 0.455));
   const opacity = enterP * (1 - exitP);
 
-  const tagP      = easeOut(rangeProgress(scrollProgress, 0.33, 0.37));
-  const titleP    = easeOut(rangeProgress(scrollProgress, 0.35, 0.39));
-  const subtitleP = easeOut(rangeProgress(scrollProgress, 0.37, 0.41));
-  const lineP     = easeOut(rangeProgress(scrollProgress, 0.38, 0.42));
+  const tagP      = easeOut(rangeProgress(scrollProgress, 0.32, 0.36));
+  const titleP    = easeOut(rangeProgress(scrollProgress, 0.34, 0.38));
+  const subtitleP = easeOut(rangeProgress(scrollProgress, 0.36, 0.40));
+  const lineP     = easeOut(rangeProgress(scrollProgress, 0.37, 0.41));
 
   if (!sectionVisible) return null;
 

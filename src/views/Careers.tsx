@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, Mail, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
@@ -57,6 +57,13 @@ const jobs: Job[] = [
 
 const Careers = () => {
   const scrollProgress = useScrollProgress();
+
+  // Always start at the top on mount (fixes "page opens mid-scroll" after
+  // browser back/refresh on this scroll-driven page).
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showApplyForm, setShowApplyForm] = useState(false);
   const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");

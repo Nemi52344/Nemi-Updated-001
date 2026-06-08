@@ -70,8 +70,10 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
   // Pushed enter window from 0.915-0.940 → 0.940-0.965 to follow the
   // (now stretched) Competitors section, and widened sectionVisible to match.
   // Must stay in sync with the matching SEGS entry in src/views/Index.tsx.
+  // Entry begins right at SEGS-segment-5 boundary (0.935) so there's no
+  // blink when crossing in.
   const sectionVisible = scrollProgress > 0.935 && scrollProgress < 0.996;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.940, 0.965));
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.936, 0.962));
   const exitP = easeOut(rangeProgress(scrollProgress, 0.993, 0.996));
   const opacity = Math.min(enterP, 1 - exitP);
 

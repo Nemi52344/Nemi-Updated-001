@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
@@ -205,6 +205,12 @@ const LeaderFlipCard = ({ member }: { member: TeamMember }) => {
 
 const AboutUs = () => {
   const scrollProgress = useScrollProgress();
+
+  // Always start at the top on mount (fixes "page opens mid-scroll" after
+  // browser back/refresh on this scroll-driven page).
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   /* ── Section visibility & animation ── */
 

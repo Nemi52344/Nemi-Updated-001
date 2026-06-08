@@ -57,6 +57,12 @@ const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Always start at the top on mount (fixes "page opens mid-scroll" after
+  // browser back/refresh on scroll-driven pages).
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Sync video playback to scroll progress (hands come closer)
   useEffect(() => {
     const video = videoRef.current;

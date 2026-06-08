@@ -11,11 +11,20 @@ export const metadata: Metadata = {
     description:
       "Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs. One partner. The full stack.",
     url: "https://nemi-ai.com/",
+    images: [
+      {
+        url: "https://nemi-ai.com/Images/nemi%2001.png",
+        width: 1200,
+        height: 630,
+        alt: "NEMI AI, End-to-End Physical AI Platform for Manufacturing",
+      },
+    ],
   },
-  twitter: {
+  twitter: { card: "summary_large_image",
     title: "NEMI AI, End-to-End Physical AI Platform for Manufacturing",
     description:
       "Design, manufacture, and deploy physical products 10× faster at a fraction of Western costs. One partner. The full stack.",
+    images: ["https://nemi-ai.com/Images/nemi%2001.png"],
   },
 };
 
@@ -53,7 +62,7 @@ export default function HomePage() {
       */}
       <div className="sr-only" aria-hidden="false">
         <main>
-          <h1>NEMI AI, End-to-End Physical AI Platform for Manufacturing</h1>
+          <h2>NEMI AI, End-to-End Physical AI Platform for Manufacturing</h2>
           <p>
             NEMI AI is an end-to-end Physical AI platform for design,
             development, and distribution of physical products. Powered by the Large

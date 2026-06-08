@@ -43,7 +43,7 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
             We'll show you how NEMI compresses your product development cycle.
           </p>
           <a
-            href="#contact"
+            href="mailto:info@nemi-ai.com"
             className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
             style={{
               background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",

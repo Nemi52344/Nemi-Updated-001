@@ -169,7 +169,7 @@ export default function RootLayout({
         */}
         <noscript>
           <div style={{
-            maxWidth: "800px",
+            maxWidth: "900px",
             margin: "0 auto",
             padding: "2rem",
             color: "hsl(0 0% 95%)",
@@ -177,20 +177,79 @@ export default function RootLayout({
             fontFamily: "system-ui, -apple-system, sans-serif",
             lineHeight: 1.6,
           }}>
-            <h1 style={{ fontSize: "2rem", margin: "0 0 0.5rem" }}>NEMI AI</h1>
+            {/* Brand — styled like a heading but kept as <p> so each page's
+                real <h1> remains the single top-level heading. */}
+            <p style={{ fontSize: "2rem", fontWeight: 700, margin: "0 0 0.5rem" }} role="heading" aria-level={1}>NEMI AI</p>
             <p style={{ fontSize: "1.25rem", fontWeight: 600, margin: "0 0 1rem" }}>
               Full-stack, end-to-end manufacturing automation with Physical AI.
             </p>
-            <p style={{ margin: "0 0 1rem", opacity: 0.85 }}>
-              Design, manufacture, and deploy physical products, 10&times; faster,
-              at aerospace-grade quality. AS9100D and ISO 9001 certified.
+            <p style={{ margin: "0 0 1.5rem", opacity: 0.85 }}>
+              Design, manufacture, and deploy physical products under one Large
+              Manufacturing Model (LMM), compressing traditional months of work into
+              hours, days, and weeks. Headquartered in Coimbatore, India. AS9100D and
+              ISO 9001 certified.
             </p>
-            <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Platform</h2>
+
+            {/* From Months to Hours */}
+            <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>From Months to Hours</h2>
             <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
-              <li>Full-stack manufacturing automation: design, manufacture, deploy</li>
-              <li>Powered by the <strong>Large Manufacturing Model (LMM)</strong></li>
-              <li>From months to hours, days, and weeks</li>
+              <li>Sketch, traditional 1 month, NEMI LMM days</li>
+              <li>Render, traditional 1 month, NEMI LMM days</li>
+              <li>CAD, traditional 6+ months, NEMI LMM weeks</li>
+              <li>Simulation, traditional 2+ months, NEMI LMM weeks</li>
+              <li>Tooling, traditional 6+ months, NEMI LMM 3 months</li>
+              <li>Production, traditional manual orchestration, NEMI LMM AI orchestrated</li>
             </ul>
+
+            {/* Services */}
+            <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Manufacturing Services</h2>
+            <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+              <li>Tooling &amp; Fixturing — injection moulding, die casting, press tools, fixtures</li>
+              <li>SPMs — special purpose machinery and robotic automation</li>
+              <li>Metal Parts Manufacturing — cutting, bending, forming, welding, machining, casting, forging</li>
+              <li>Plastics, Rubbers, Composites — injection moulding, extrusion, blow moulding, thermoforming</li>
+              <li>Battery Manufacturing — portable chargers to drones to EVs to industrial energy storage</li>
+              <li>Motor Manufacturing — BLDC, Axial Flux and other motors</li>
+              <li>Electronics Production — PCB assemblies, box builds, system integration and testing</li>
+              <li>Speedshop — rapid response production for fast turnaround</li>
+              <li>Complex Assemblies — EVs, drones, robotics</li>
+            </ul>
+
+            {/* Industries */}
+            <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Industries We Serve</h2>
+            <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+              <li>Aerospace &amp; Defense</li>
+              <li>Automotive</li>
+              <li>Appliance &amp; Consumer Hardware</li>
+              <li>Robotics &amp; AI</li>
+            </ul>
+
+            {/* Proof points */}
+            <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Proof Points</h2>
+            <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+              <li>300K+ sq ft of owned manufacturing footprint across India.</li>
+              <li>2,500+ EV units deployed across India and Africa.</li>
+              <li>EV development cycle reduced from 18 months to 9 months (2&times; faster).</li>
+              <li>Programs shipped with 2&times; to 10&times; improvements in speed and cost.</li>
+            </ul>
+
+            {/* Leadership */}
+            <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Leadership</h2>
+            <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+              <li>Anirudh Ravi Narayanan, CEO (BS ECE Rose-Hulman, MBA Yale; ex-McKinsey)</li>
+              <li>Gokul Madhavan, CFO (Harvard A.B./PhD, Yale MBA)</li>
+              <li>Shreerith Seshadri, CTO (ex-eightfold.AI; CS, UIUC)</li>
+              <li>Vinoth Thiruvenkatasamy, COO (20+ years automotive manufacturing)</li>
+            </ul>
+
+            {/* Locations */}
+            <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Locations</h2>
+            <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+              <li>Active: Coimbatore, Chennai (India)</li>
+              <li>Coming Soon (2026): United States, Western Europe, UAE</li>
+            </ul>
+
+            {/* Explore */}
             <h2 style={{ fontSize: "1.1rem", margin: "1.5rem 0 0.5rem" }}>Explore</h2>
             <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
               <li><a href="/" style={{ color: "hsl(275 80% 65%)" }}>Home</a></li>
@@ -198,10 +257,16 @@ export default function RootLayout({
               <li><a href="/services" style={{ color: "hsl(275 80% 65%)" }}>Services</a></li>
               <li><a href="/careers" style={{ color: "hsl(275 80% 65%)" }}>Careers</a></li>
             </ul>
+
+            {/* Contact */}
             <p style={{ margin: "1.5rem 0 0", opacity: 0.8 }}>
-              Certifications: AS9100D &middot; ISO 9001.
+              Certifications: AS9100D &middot; ISO 9001 &middot; DRDO Cleared &middot; ISRO Cleared.
               <br />
-              Contact: <a href="mailto:info@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>info@nemi-ai.com</a>
+              General: <a href="mailto:info@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>info@nemi-ai.com</a>
+              {" "}&middot;{" "}
+              Careers: <a href="mailto:careers@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>careers@nemi-ai.com</a>
+              <br />
+              <a href="https://www.linkedin.com/company/nemi-ai" style={{ color: "hsl(275 80% 65%)" }}>LinkedIn</a>
             </p>
             <p style={{ margin: "1rem 0 0", fontSize: "0.85rem", opacity: 0.6 }}>
               This page uses JavaScript for its interactive scroll experience.

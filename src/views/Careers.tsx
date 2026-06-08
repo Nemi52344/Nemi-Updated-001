@@ -299,13 +299,17 @@ const Careers = () => {
   const valExit = easeOut(rangeProgress(scrollProgress, 0.50, 0.55));
   const valOp = valEnter * (1 - valExit);
 
-  const posVisible = scrollProgress > 0.53 && scrollProgress < 0.82;
-  const posEnter = easeOut(rangeProgress(scrollProgress, 0.54, 0.60));
+  // Positions — enter window synced to values exit window for clean cross-fade.
+  // Previously enter started at 0.54 (val exit 0.50-0.55), creating a tiny
+  // blank moment around 0.535 where both opacities tended to ~0.
+  const posVisible = scrollProgress > 0.50 && scrollProgress < 0.82;
+  const posEnter = easeOut(rangeProgress(scrollProgress, 0.50, 0.55));
   const posExit = easeOut(rangeProgress(scrollProgress, 0.77, 0.82));
   const posOp = posEnter * (1 - posExit);
 
-  const ctaVisible = scrollProgress > 0.80;
-  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.81, 0.88));
+  // CTA + Footer — enter synced to positions exit window.
+  const ctaVisible = scrollProgress > 0.77;
+  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.77, 0.82));
 
   return (
     <div className="bg-background text-foreground relative scroll-page" style={{ height: "650vh" }}>

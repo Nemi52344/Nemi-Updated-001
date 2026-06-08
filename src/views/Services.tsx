@@ -81,21 +81,23 @@ const Services = () => {
   const cs1Exit = easeOut(rangeProgress(scrollProgress, 0.55, 0.59));
   const cs1Op = cs1Enter * (1 - cs1Exit);
 
-  // Case Study 2
-  const cs2Visible = scrollProgress > 0.57 && scrollProgress < 0.73;
-  const cs2Enter = easeOut(rangeProgress(scrollProgress, 0.58, 0.62));
+  // Case Study 2 — enter window synced to cs1 exit window for a clean
+  // cross-fade. Previously enter started at 0.58 (cs1 exit 0.55-0.59),
+  // creating a ~45px blank moment around 0.58 where both opacities were ~0.
+  const cs2Visible = scrollProgress > 0.55 && scrollProgress < 0.73;
+  const cs2Enter = easeOut(rangeProgress(scrollProgress, 0.55, 0.59));
   const cs2Exit = easeOut(rangeProgress(scrollProgress, 0.69, 0.73));
   const cs2Op = cs2Enter * (1 - cs2Exit);
 
-  // Case Study 3
-  const cs3Visible = scrollProgress > 0.71 && scrollProgress < 0.87;
-  const cs3Enter = easeOut(rangeProgress(scrollProgress, 0.72, 0.76));
+  // Case Study 3 — enter window synced to cs2 exit window.
+  const cs3Visible = scrollProgress > 0.69 && scrollProgress < 0.87;
+  const cs3Enter = easeOut(rangeProgress(scrollProgress, 0.69, 0.73));
   const cs3Exit = easeOut(rangeProgress(scrollProgress, 0.83, 0.87));
   const cs3Op = cs3Enter * (1 - cs3Exit);
 
-  // CTA + Footer
-  const ctaVisible = scrollProgress > 0.85;
-  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.86, 0.92));
+  // CTA + Footer — enter synced to cs3 exit window.
+  const ctaVisible = scrollProgress > 0.83;
+  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.83, 0.87));
 
   return (
     <div className="bg-background text-foreground font-['Montserrat',sans-serif] font-light relative scroll-page" style={{ height: "1100vh" }}>

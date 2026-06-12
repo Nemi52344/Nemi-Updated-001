@@ -162,8 +162,11 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
   // Must stay in sync with the matching SEGS entry in src/views/Index.tsx.
   // Entry begins right at SEGS-segment-4 boundary (0.855) so there's no
   // blink when crossing in.
+  // Section: 0.855 → 0.935 (Fortress Factories). Enter window tightened to
+  // 0.855 → 0.862 so the section fades in fast right after the SEGS-boundary
+  // jump (0.820 → 0.855) — no blank moment between Capabilities and this.
   const sectionVisible = scrollProgress > 0.855 && scrollProgress < 0.935;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.856, 0.878));
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.855, 0.862));
   const cardsP = rangeProgress(scrollProgress, 0.866, 0.908);
   const statsP = easeOut(rangeProgress(scrollProgress, 0.886, 0.918));
   const exitP = easeOut(rangeProgress(scrollProgress, 0.925, 0.935));
@@ -171,11 +174,12 @@ const CompetitorsSection = ({ scrollProgress }: CompetitorsSectionProps) => {
   if (!sectionVisible) return null;
 
   const opacity = enterP * (1 - exitP);
+  const slideVh = (1 - enterP) * 100 + exitP * -80;
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto pt-16 pb-4 sm:py-6 competitors-inner"
-      style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
+      className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-y-auto py-6 competitors-inner"
+      style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)", transform: `translateY(${slideVh}vh)` }}
     >
       <div className="max-w-6xl w-full mx-3 sm:mx-6 pointer-events-auto">
         <div className="text-center mb-3 sm:mb-6" style={{ opacity: enterP }}>

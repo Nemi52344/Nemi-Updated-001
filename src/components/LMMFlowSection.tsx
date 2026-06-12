@@ -258,10 +258,17 @@ const MobileCard = ({ step, p }: { step: Step; p: number }) => {
 };
 
 const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
-  const sectionVisible = scrollProgress > 0.455 && scrollProgress < 0.61;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.465, 0.50));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.585, 0.61));
+  // Enter window synced to LMMIntroSection's exit window (0.43 → 0.455) so the
+  // crossfade has no blank moment. sectionVisible extends back to 0.43 so this
+  // section is mounted during the crossfade.
+  // Exit is tightened to 0.598 → 0.61 (12ms wide) so the section stays at full
+  // opacity right up to the SEGS-boundary jump (0.61 → 0.75) — prevents a
+  // dim/blank zone in raw scroll while the user is still in segment 2.
+  const sectionVisible = scrollProgress > 0.43 && scrollProgress < 0.61;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.43, 0.475));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.607, 0.61));
   const opacity = enterP * (1 - exitP);
+  const slideVh = (1 - enterP) * 100 + exitP * -80;
 
   const headP = easeOut(rangeProgress(scrollProgress, 0.47, 0.50));
 
@@ -278,7 +285,7 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
   return (
     <div
       className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-hidden"
-      style={{ zIndex: 42, opacity, background: "hsl(0 0% 2%)" }}
+      style={{ zIndex: 42, opacity, background: "hsl(0 0% 2%)", transform: `translateY(${slideVh}vh)` }}
     >
       <div className="w-full max-w-[1380px] mx-auto px-3 sm:px-4 md:px-8 max-h-full" style={{ marginTop: "12px" }}>
         {/* Header */}

@@ -94,10 +94,10 @@ const StreamlinedHome = () => {
             className="w-32 h-32 md:w-48 md:h-48 lg:w-60 lg:h-60 object-contain mb-4"
             style={{ filter: "drop-shadow(0 0 30px hsl(275 80% 60% / 0.5)) drop-shadow(0 0 60px hsl(270 70% 50% / 0.3))" }}
           />
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.3em] text-foreground mb-6" style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5)" }}>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.15em] sm:tracking-[0.3em] text-foreground mb-6 w-full" style={{ textShadow: "0 0 40px hsl(275 80% 60% / 0.5)" }}>
             NEMI AI
           </h1>
-          <p className="text-sm md:text-lg font-light text-muted-foreground tracking-[0.25em] uppercase max-w-lg leading-[1.6]">
+          <p className="text-xs sm:text-sm md:text-lg font-light text-muted-foreground tracking-[0.15em] sm:tracking-[0.25em] uppercase max-w-xs sm:max-w-lg leading-[1.6] px-2 sm:px-0">
             Full-stack, end-to-end manufacturing automation
             <br />with Physical AI
           </p>

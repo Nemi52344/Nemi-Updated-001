@@ -72,17 +72,25 @@ const TrustSignalSection = ({ scrollProgress }: TrustSignalSectionProps) => {
   // Must stay in sync with the matching SEGS entry in src/views/Index.tsx.
   // Entry begins right at SEGS-segment-5 boundary (0.935) so there's no
   // blink when crossing in.
-  const sectionVisible = scrollProgress > 0.935 && scrollProgress < 0.996;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.936, 0.962));
+  // Enter window synced to CompetitorsSection's exit (0.925 → 0.935) so the
+  // crossfade has no blank moment. sectionVisible extends back to 0.925 so this
+  // section is mounted during the crossfade — without it, Competitors and
+  // TrustSignal would both be near-zero opacity for ~5% of total scroll.
+  // Enter window synced to CompetitorsSection's exit (0.925 → 0.935). Tighter
+  // 0.925 → 0.940 so this section reaches full opacity quickly after the
+  // crossfade — earlier 0.925 → 0.955 left it at 0.63 opacity at raw 0.90.
+  const sectionVisible = scrollProgress > 0.925 && scrollProgress < 0.996;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.925, 0.940));
   const exitP = easeOut(rangeProgress(scrollProgress, 0.993, 0.996));
   const opacity = Math.min(enterP, 1 - exitP);
+  const slideVh = (1 - enterP) * 100 + exitP * -80;
 
   if (!sectionVisible) return null;
 
   return (
     <div
       className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-hidden trust-signal-inner"
-      style={{ zIndex: 42, opacity, background: "hsl(230 25% 4%)" }}
+      style={{ zIndex: 42, opacity, background: "hsl(230 25% 4%)", transform: `translateY(${slideVh}vh)` }}
       aria-label="Trusted by industry leaders"
     >
       {/* Purple nebula glow backdrop */}

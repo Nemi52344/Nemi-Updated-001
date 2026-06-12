@@ -268,8 +268,11 @@ const AboutUs = () => {
   const baOp = baEnter * (1 - baExit);
 
   // 9. CTA + Footer
-  const ctaVisible = scrollProgress > 0.74;
-  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.75, 0.79));
+  // CTA enter synced to Board & Advisors exit window (0.725 → 0.76) so the
+  // crossfade has no blank moment. Earlier 0.75 → 0.79 left a gap at sp 0.75
+  // where Board had fully exited but CTA hadn't started fading in.
+  const ctaVisible = scrollProgress > 0.725;
+  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.725, 0.755));
 
   return (
     <div className="relative scroll-page" style={{ height: "1600vh" }}>
@@ -327,12 +330,6 @@ const AboutUs = () => {
             <p className="text-lg md:text-xl tracking-[0.15em] font-light" style={{ color: "hsl(275 40% 75% / 0.8)" }}>
               We are changing this.
             </p>
-          </div>
-          {/* Down indicator */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-              <path d="M6 9l6 6 6-6" stroke="hsl(275 60% 65%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
           </div>
         </div>
       )}
@@ -901,13 +898,16 @@ const AboutUs = () => {
         </div>
       )}
 
-      {/* ═══ 9. CTA + FOOTER ═══ */}
+      {/* ═══ 9. CTA + FOOTER ═══
+          CTA fills exactly one viewport (min-h-screen); SiteFooter sits below
+          the fold inside this scrollable overlay and arrives on the next
+          scroll — same two-screen ending as the Careers page. */}
       {ctaVisible && (
         <div
-          className="fixed inset-0 flex flex-col pointer-events-auto overflow-y-auto [@media(max-height:650px)]:!pt-[50px]"
-          style={{ zIndex: 45, opacity: ctaEnter, background: "hsl(230 25% 4%)" }}
+          className="fixed inset-0 pointer-events-auto overflow-y-auto [@media(max-height:650px)]:!pt-[50px]"
+          style={{ zIndex: 45, background: "hsl(230 25% 4%)" }}
         >
-          <div className="flex-1 flex flex-col items-center justify-center relative px-6 [@media(max-height:650px)]:!py-2">
+          <div className="min-h-screen flex flex-col items-center justify-center relative px-6 [@media(max-height:650px)]:!py-2" style={{ opacity: ctaEnter }}>
             <div
               className="absolute inset-0 pointer-events-none"
               style={{ background: "radial-gradient(ellipse 45% 50% at 50% 45%, hsl(275 80% 40% / 0.2) 0%, transparent 60%)" }}

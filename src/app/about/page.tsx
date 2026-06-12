@@ -270,7 +270,7 @@ export default function AboutPage() {
               We&rsquo;re hiring across engineering, manufacturing and AI. Build the
               future of Physical AI with us.
               {" "}<a href="/careers">View Open Roles</a> or email
-              {" "}<a href="mailto:careers@nemi-ai.com">careers@nemi-ai.com</a>.
+              {" "}<a href="mailto:info@nemi-ai.com">info@nemi-ai.com</a>.
             </p>
           </section>
         </main>

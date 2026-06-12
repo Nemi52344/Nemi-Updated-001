@@ -15,12 +15,14 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
 
   if (!sectionVisible) return null;
 
+  const slideVh = (1 - enterP) * 100;
+
   return (
     <div
-      className="fixed inset-0 flex flex-col pointer-events-auto overflow-y-auto"
-      style={{ zIndex: 45, opacity: enterP, background: "hsl(230 25% 4%)" }}
+      className="fixed inset-0 pointer-events-auto overflow-y-auto"
+      style={{ zIndex: 45, opacity: enterP, background: "hsl(230 25% 4%)", transform: `translateY(${slideVh}vh)` }}
     >
-      <div className="flex-1 flex items-center justify-center relative px-6">
+      <div className="min-h-screen flex items-center justify-center relative px-6">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -42,24 +44,37 @@ const CTASection = ({ scrollProgress }: CTASectionProps) => {
           <p className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[500px] mx-auto mb-8">
             We'll show you how NEMI compresses your product development cycle.
           </p>
-          <a
-            href="mailto:info@nemi-ai.com"
-            className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
-            style={{
-              background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-              boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-            }}
-          >
-            Get in Touch
-          </a>
-          <div className="mt-5">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-5">
             <a
-              href="mailto:info@nemi-ai.com"
-              className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors"
+              href="https://calendly.com/nemi-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
+              style={{
+                background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
+                boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
+              }}
             >
-              info@nemi-ai.com
+              Book a Demo
+            </a>
+            <a
+              href="/contact"
+              className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg border transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
+              style={{
+                borderColor: "hsl(var(--primary) / 0.4)",
+                color: "hsl(var(--primary))",
+                background: "hsl(var(--primary) / 0.06)",
+              }}
+            >
+              Get in Touch
             </a>
           </div>
+          <a
+            href="mailto:info@nemi-ai.com"
+            className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors"
+          >
+            info@nemi-ai.com
+          </a>
         </div>
       </div>
 

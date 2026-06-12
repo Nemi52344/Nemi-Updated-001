@@ -80,20 +80,26 @@ const vehicles = [
 const CapabilitiesSection = ({ scrollProgress }: CapabilitiesSectionProps) => {
   const [selectedPart, setSelectedPart] = useState<PartKey>("complex_parts");
 
-  // Section: 0.750–0.815 (Full-stack MaaS). Entry begins right at the
-  // SEGS-segment-3 boundary (0.75) so there's no blink when crossing in.
-  const sectionVisible = scrollProgress > 0.750 && scrollProgress < 0.815;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.751, 0.770));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.802, 0.815));
+  // Section: 0.750–0.820 (Full-stack MaaS). Visibility spans the FULL segment 3
+  // so no internal scrollProgress in [0.75, 0.820] leaves this unmounted.
+  // Enter window starts at 0.750 (right at the SEGS-boundary jump) and finishes
+  // fast (0.005 wide) so the section is fully opaque immediately after the jump.
+  // Exit window pushes to the segment end (0.815 → 0.820) so the section stays
+  // visible right up to the next SEGS jump (0.820 → 0.855).
+  const sectionVisible = scrollProgress > 0.750 && scrollProgress < 0.820;
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.750, 0.755));
+  // Widened exit from 0.819→0.820 to 0.808→0.820 so the slide-up has room
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.808, 0.820));
 
   if (!sectionVisible) return null;
 
   const opacity = enterP * (1 - exitP);
+  const slideVh = (1 - enterP) * 100 + exitP * -80;
 
   return (
     <div
       className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-y-auto"
-      style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)" }}
+      style={{ zIndex: 40, opacity, background: "hsl(230 25% 4%)", transform: `translateY(${slideVh}vh)` }}
     >
       <div className="capabilities-inner max-w-6xl w-full px-4 md:px-6 mx-auto pointer-events-auto flex flex-col items-center py-20 md:py-20 lg:py-24">
         {/* Subtitle */}

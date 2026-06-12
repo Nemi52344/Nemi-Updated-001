@@ -2,8 +2,18 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { Linkedin, Twitter, Instagram, Youtube, Facebook, Phone, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
+import { SOCIAL_LINKS, CONTACT_INFO } from "@/lib/socialLinks";
+
+const SOCIAL_ICONS: Record<string, typeof Linkedin> = {
+  LinkedIn: Linkedin,
+  X: Twitter,
+  Instagram: Instagram,
+  YouTube: Youtube,
+  Facebook: Facebook,
+};
 
 interface ContactChannel {
   id: string;
@@ -27,7 +37,7 @@ const channels: ContactChannel[] = [
     title: "Careers",
     description:
       "Open roles across engineering, AI/ML, manufacturing, and operations.",
-    email: "careers@nemi-ai.com",
+    email: "info@nemi-ai.com",
     accent: "210 85% 65%",
   },
   {
@@ -207,54 +217,142 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* Social row */}
-        <section className="max-w-6xl mx-auto mt-16 md:mt-20 text-center" aria-label="Follow NEMI">
-          <p className="text-[10px] tracking-[0.3em] uppercase font-semibold text-muted-foreground mb-3">
-            Follow NEMI
-          </p>
-          <div className="flex justify-center items-center gap-3">
+        {/* Quick contact — phone + email side by side */}
+        <section className="max-w-6xl mx-auto mt-16 md:mt-20" aria-label="Quick contact">
+          <div className="grid sm:grid-cols-2 gap-3 md:gap-4 max-w-2xl mx-auto">
             <a
-              href="https://www.linkedin.com/company/nemi-ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:scale-105"
+              href={`tel:${CONTACT_INFO.phoneTel}`}
+              className="flex items-center gap-3 rounded-xl px-5 py-4 transition-all duration-200 hover:scale-[1.02]"
               style={{
-                color: "hsl(0 0% 95%)",
-                border: "1px solid hsl(275 80% 60% / 0.35)",
-                background: "hsl(275 80% 30% / 0.08)",
-                minHeight: 44,
+                border: "1px solid hsl(275 80% 60% / 0.3)",
+                background: "hsl(275 80% 30% / 0.06)",
+                minHeight: 56,
               }}
             >
-              LinkedIn <span aria-hidden>&rarr;</span>
+              <span
+                className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
+                style={{
+                  background: "hsl(275 80% 55% / 0.18)",
+                  color: "hsl(275 80% 80%)",
+                }}
+                aria-hidden
+              >
+                <Phone className="w-4 h-4" />
+              </span>
+              <div>
+                <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-muted-foreground">
+                  Phone
+                </p>
+                <p className="text-sm font-semibold text-foreground">{CONTACT_INFO.phoneDisplay}</p>
+              </div>
+            </a>
+
+            <a
+              href={`mailto:${CONTACT_INFO.email}`}
+              className="flex items-center gap-3 rounded-xl px-5 py-4 transition-all duration-200 hover:scale-[1.02]"
+              style={{
+                border: "1px solid hsl(210 85% 60% / 0.3)",
+                background: "hsl(210 85% 30% / 0.06)",
+                minHeight: 56,
+              }}
+            >
+              <span
+                className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
+                style={{
+                  background: "hsl(210 85% 55% / 0.18)",
+                  color: "hsl(210 85% 80%)",
+                }}
+                aria-hidden
+              >
+                <Mail className="w-4 h-4" />
+              </span>
+              <div>
+                <p className="text-[10px] tracking-[0.2em] uppercase font-bold text-muted-foreground">
+                  Email
+                </p>
+                <p className="text-sm font-semibold text-foreground">{CONTACT_INFO.email}</p>
+              </div>
             </a>
           </div>
         </section>
 
-        {/* Bottom CTA */}
-        <section className="max-w-3xl mx-auto mt-16 md:mt-24 text-center">
+        {/* Social row — all 5 platforms */}
+        <section className="max-w-6xl mx-auto mt-12 md:mt-16 text-center" aria-label="Follow NEMI">
+          <p className="text-[10px] tracking-[0.3em] uppercase font-semibold text-muted-foreground mb-4">
+            Follow NEMI
+          </p>
+          <ul className="flex justify-center items-center gap-3 flex-wrap">
+            {SOCIAL_LINKS.map((s) => {
+              const Icon = SOCIAL_ICONS[s.label] || Linkedin;
+              return (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`NEMI on ${s.label}`}
+                    title={s.label}
+                    className="inline-flex items-center justify-center transition-all duration-200 hover:scale-110"
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: "50%",
+                      background: "hsl(275 80% 55% / 0.10)",
+                      border: "1px solid hsl(275 80% 60% / 0.30)",
+                      color: "hsl(0 0% 90%)",
+                    }}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+      </main>
+
+      {/* Bottom CTA — its own full-viewport section so it sits before the footer in the scroll */}
+      <section
+        className="min-h-screen flex flex-col items-center justify-center px-6 md:px-12 lg:px-16 text-center relative overflow-hidden py-16"
+        aria-labelledby="contact-cta-heading"
+      >
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden
+          style={{
+            background:
+              "radial-gradient(ellipse 40% 50% at 50% 50%, hsl(275 80% 40% / 0.25) 0%, transparent 60%)",
+          }}
+        />
+        <div className="relative max-w-3xl mx-auto">
           <h2
-            className="text-2xl md:text-4xl font-extrabold tracking-tight mb-4"
-            style={{ color: "hsl(0 0% 98%)" }}
+            id="contact-cta-heading"
+            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase mb-5"
+            style={{
+              color: "hsl(0 0% 98%)",
+              textShadow: "0 0 40px hsl(275 80% 60% / 0.5), 0 0 80px hsl(270 70% 50% / 0.3)",
+            }}
           >
             Ready to start?
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-xl mx-auto">
+          <p className="text-sm md:text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
             Tell us about your product, volumes, and timelines. We&rsquo;ll come back with a
             scoped response and a path forward.
           </p>
           <Link
             href="/contact#contact"
-            className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-xl text-white transition-all duration-300 hover:scale-[1.02]"
+            className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-4 rounded-lg text-white transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
             style={{
               background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))",
-              boxShadow: "0 4px 24px hsl(275 80% 55% / 0.3)",
+              boxShadow: "0 4px 25px hsl(275 80% 55% / 0.3)",
               minHeight: 48,
             }}
           >
             Open the Form
           </Link>
-        </section>
-      </main>
+        </div>
+      </section>
 
       <SiteFooter />
     </div>

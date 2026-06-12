@@ -94,6 +94,69 @@
 
   body {
     @apply bg-background text-foreground;
+    /* Prevent rubber-band scroll chaining when fixed-overlay sections trigger
+       at end-of-page (Home/About/Services CTA panels). Without this, iOS
+       bounces the document while the overlay is meant to be sticky. */
+    overscroll-behavior-y: contain;
+    /* iOS Safari momentum scrolling. */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent text auto-scaling when the device rotates between portrait and
+       landscape — keeps our carefully tuned mobile font sizes stable. */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Anchor jumps should clear the fixed 64px navbar so the target heading
+     isn't hidden behind it. Applies to all in-page anchor links. */
+  html {
+    scroll-padding-top: 5rem;
+  }
+}
+
+/* Every section centers its content both horizontally and vertically, on
+   phone and laptop alike. The sticky "Talk to Us" bar auto-hides while the
+   user scrolls down (reading), so no bottom padding reserve is needed and
+   sections keep true symmetric centering. */
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Glassmorphism header
+ * Real frosted-glass: translucent dark tint + heavy blur with saturation
+ * boost (so colors behind the glass pop through), hairline light edge on
+ * the bottom, soft inner highlight on top, and a gentle drop shadow for
+ * depth. -webkit- prefix covers iOS Safari.
+ * ───────────────────────────────────────────────────────────────────────── */
+.glass-header {
+  background: linear-gradient(
+    to bottom,
+    hsl(230 25% 10% / 0.38),
+    hsl(230 25% 6% / 0.26)
+  );
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  /* Floating island: hairline light border all the way around. */
+  border: 1px solid hsl(0 0% 100% / 0.10);
+  box-shadow:
+    inset 0 1px 0 hsl(0 0% 100% / 0.06),
+    0 8px 32px hsl(230 25% 2% / 0.45);
+}
+
+/* Graceful fallback for browsers without backdrop-filter: go more opaque so
+   text stays readable over page content. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-header {
+    background: hsl(230 25% 5% / 0.94);
+  }
+}
+
+/* Full-screen mobile menu gets the same glass treatment, slightly more
+   opaque for readability of the tall link list. */
+.glass-menu {
+  background: hsl(230 25% 4% / 0.82);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  backdrop-filter: blur(28px) saturate(160%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-menu {
+    background: hsl(230 25% 4% / 0.98);
   }
 }
 
@@ -976,4 +1039,8 @@
  * ──────────────────────────────────────────────────────────────────── */
 @media (max-width: 767px) and (orientation: portrait) {
   .careers-work-on-field { display: none !important; }
+  /* Also hide "About you" on mobile portrait — keeps the Drop Resume form to a
+     single viewport. Both fields are optional on the data side, so submission
+     still works with them empty. */
+  .careers-about-field { display: none !important; }
 }

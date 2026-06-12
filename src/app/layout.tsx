@@ -1,7 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import Providers from "./providers";
+import { liveSocialUrls, CONTACT_INFO } from "@/lib/socialLinks";
+
+// viewport-fit=cover unlocks env(safe-area-inset-*) so the sticky mobile CTA
+// bar and footer don't get hidden behind iPhone notch / home-bar areas.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0a0d1a",
+};
 
 // Marketing / analytics IDs — all sourced from env so staging vs prod can differ
 // and so marketing tag IDs don't live in source control.
@@ -78,12 +88,27 @@ export default function RootLayout({
     description:
       "NEMI AI is a full-stack, end-to-end manufacturing automation platform powered by Physical AI. Design, manufacture, and deploy physical products under one Large Manufacturing Model (LMM).",
     foundingLocation: { "@type": "Place", name: "Coimbatore, India" },
-    contactPoint: {
-      "@type": "ContactPoint",
-      email: "info@nemi-ai.com",
-      contactType: "customer support",
-    },
-    sameAs: ["https://www.linkedin.com/company/nemi-ai"],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        email: CONTACT_INFO.email,
+        contactType: "customer support",
+        areaServed: "Worldwide",
+        availableLanguage: ["English"],
+        // Telephone is omitted when phonePlaceholder is true so Google's
+        // Knowledge Graph doesn't index a fake number.
+        ...(CONTACT_INFO.phonePlaceholder ? {} : { telephone: CONTACT_INFO.phoneTel }),
+      },
+      {
+        "@type": "ContactPoint",
+        email: CONTACT_INFO.careersEmail,
+        contactType: "Human Resources",
+        areaServed: "Worldwide",
+      },
+    ],
+    // sameAs only contains *live* social URLs (placeholders are filtered out)
+    // so Google's entity graph is never linked to a dead profile.
+    sameAs: liveSocialUrls(),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "NEMI Manufacturing Services",
@@ -264,13 +289,9 @@ export default function RootLayout({
               <br />
               General: <a href="mailto:info@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>info@nemi-ai.com</a>
               {" "}&middot;{" "}
-              Careers: <a href="mailto:careers@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>careers@nemi-ai.com</a>
+              Careers: <a href="mailto:info@nemi-ai.com" style={{ color: "hsl(275 80% 65%)" }}>info@nemi-ai.com</a>
               <br />
               <a href="https://www.linkedin.com/company/nemi-ai" style={{ color: "hsl(275 80% 65%)" }}>LinkedIn</a>
-            </p>
-            <p style={{ margin: "1rem 0 0", fontSize: "0.85rem", opacity: 0.6 }}>
-              This page uses JavaScript for its interactive scroll experience.
-              You can still access the full site via the links above.
             </p>
           </div>
         </noscript>

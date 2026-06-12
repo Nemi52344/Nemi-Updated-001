@@ -13,10 +13,15 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
   // Entry begins at the SEGS-segment-2 boundary (0.315) so there's no
   // tiny blink between IntentSection exiting and LMMIntroSection starting
   // to fade in. Exit and other timings unchanged.
+  // Enter window starts at the SEGS-segment-2 boundary (0.315) and fades in
+  // fast so the section reaches full opacity immediately after the SEGS jump.
+  // Earlier 0.317 → 0.36 left a low-opacity zone at raw 0.234 (just past the
+  // segment jump from seg 1 → seg 2).
   const sectionVisible = scrollProgress > 0.315 && scrollProgress < 0.46;
-  const enterP  = easeOut(rangeProgress(scrollProgress, 0.317, 0.36));
+  const enterP  = easeOut(rangeProgress(scrollProgress, 0.315, 0.320));
   const exitP   = easeOut(rangeProgress(scrollProgress, 0.43, 0.455));
   const opacity = enterP * (1 - exitP);
+  const slideVh = (1 - enterP) * 100 + exitP * -80;
 
   const tagP      = easeOut(rangeProgress(scrollProgress, 0.32, 0.36));
   const titleP    = easeOut(rangeProgress(scrollProgress, 0.34, 0.38));
@@ -28,7 +33,7 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
   return (
     <div
       className="fixed inset-0 pointer-events-none flex items-center justify-center"
-      style={{ zIndex: 42, opacity, background: "hsl(0 0% 2%)" }}
+      style={{ zIndex: 42, opacity, background: "hsl(0 0% 2%)", transform: `translateY(${slideVh}vh)` }}
     >
       <div className="flex flex-col items-center text-center px-6">
 

@@ -20,7 +20,7 @@ const PageCTAFooter = ({
   secondaryButtonHref,
 }: PageCTAFooterProps) => {
   return (
-    <section className="py-32 px-6 md:px-12 lg:px-16 text-center relative overflow-hidden z-[1]">
+    <section className="min-h-screen flex flex-col items-center justify-center px-6 md:px-12 lg:px-16 text-center relative overflow-hidden z-[1] py-16">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

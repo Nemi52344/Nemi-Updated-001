@@ -303,10 +303,6 @@ const Services = () => {
       {/* ── 4. CASE STUDY 1 ── */}
       {cs1Visible && (
         <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-1" style={{ opacity: cs1Op }}>
-          <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
-            <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">NEMI&rsquo;s LMM in Real World Application</p>
-            <div style={{ height: 2, background: accentPurple, width: "3rem" }} />
-          </div>
           <div className="w-full">
             <CaseStudy
               title="Electric Motorcycle for Africa"
@@ -327,10 +323,6 @@ const Services = () => {
       {/* ── 5. CASE STUDY 2 ── */}
       {cs2Visible && (
         <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-2" style={{ opacity: cs2Op }}>
-          <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
-            <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">NEMI&rsquo;s LMM in Real World Application</p>
-            <div style={{ height: 2, background: accentPurple, width: "3rem" }} />
-          </div>
           <div className="w-full">
             <CaseStudy
               title="Aerospace Machined Parts"
@@ -352,10 +344,6 @@ const Services = () => {
       {/* ── 6. CASE STUDY 3 ── */}
       {cs3Visible && (
         <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-3" style={{ opacity: cs3Op }}>
-          <div className="w-full px-6 md:px-12 lg:px-16 mb-4">
-            <p className="text-foreground font-bold text-xs tracking-[0.25em] uppercase mb-2">NEMI&rsquo;s LMM in Real World Application</p>
-            <div style={{ height: 2, background: accentPurple, width: "3rem" }} />
-          </div>
           <div className="w-full">
             <CaseStudy
               title="Complex Assembly Production"
@@ -373,10 +361,13 @@ const Services = () => {
         </div>
       )}
 
-      {/* ── 7. CTA + FOOTER ── */}
+      {/* ── 7. CTA + FOOTER ──
+          CTA fills exactly one viewport (min-h-screen); SiteFooter sits below
+          the fold inside this scrollable overlay and arrives on the next
+          scroll — same two-screen ending as the Careers page. */}
       {ctaVisible && (
-        <div className="fixed inset-0 z-[10] flex flex-col services-cta-section" style={{ opacity: ctaEnter }}>
-        <section className="relative z-[5] flex-1 flex items-center justify-center py-16 px-6 overflow-hidden">
+        <div className="fixed inset-0 z-[10] pointer-events-auto overflow-y-auto services-cta-section" style={{ opacity: ctaEnter, background: "hsl(230 25% 4%)" }}>
+        <section className="relative z-[5] min-h-screen flex items-center justify-center py-16 px-6 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -398,21 +389,34 @@ const Services = () => {
           <p className="text-sm md:text-base text-muted-foreground tracking-wide max-w-[500px] mx-auto mb-8">
             We'll show you how NEMI compresses your product development cycle.
           </p>
-          <a
-            href="mailto:info@nemi-ai.com"
-            className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
-            style={{
-              background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
-              boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
-            }}
-          >
-            Get in Touch
-          </a>
-          <div className="mt-5">
-            <a href="mailto:info@nemi-ai.com" className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors">
-              info@nemi-ai.com
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-5">
+            <a
+              href="https://calendly.com/nemi-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 text-primary-foreground"
+              style={{
+                background: "linear-gradient(135deg, hsl(var(--nemi-nebula)), hsl(var(--primary)))",
+                boxShadow: "0 4px 25px hsl(var(--primary) / 0.3)",
+              }}
+            >
+              Book a Demo
+            </a>
+            <a
+              href="/contact"
+              className="inline-block font-bold text-xs tracking-[0.2em] uppercase px-10 py-3.5 rounded-lg border transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
+              style={{
+                borderColor: "hsl(var(--primary) / 0.4)",
+                color: "hsl(var(--primary))",
+                background: "hsl(var(--primary) / 0.06)",
+              }}
+            >
+              Get in Touch
             </a>
           </div>
+          <a href="mailto:info@nemi-ai.com" className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors">
+            info@nemi-ai.com
+          </a>
         </div>
         </section>
         <SiteFooter />

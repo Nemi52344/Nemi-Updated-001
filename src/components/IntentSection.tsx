@@ -10,17 +10,18 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
   const sectionVisible = scrollProgress > 0.045 && scrollProgress < 0.155;
   const enterP = easeOut(rangeProgress(scrollProgress, 0.05, 0.075));
-  const exitP = easeOut(rangeProgress(scrollProgress, 0.13, 0.15));
+  const exitP = easeOut(rangeProgress(scrollProgress, 0.148, 0.155));
 
   if (!sectionVisible) return null;
 
   const opacity = enterP * (1 - exitP);
-  const translateY = (1 - enterP) * 30;
+  // Slide up from below on enter, slide up off screen on exit
+  const slideVh = (1 - enterP) * 100 + exitP * -80;
 
   return (
     <div
       className="fixed inset-0 flex items-center justify-center pointer-events-none px-6"
-      style={{ zIndex: 30, opacity, background: "hsl(230 25% 4%)" }}
+      style={{ zIndex: 30, opacity, background: "hsl(230 25% 4%)", transform: `translateY(${slideVh}vh)` }}
       aria-label="Bringing about the next industrial revolution"
     >
       {/* Subtle nebula glow behind the text, matching the hero theme */}
@@ -36,7 +37,6 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
 
       <div
         className="relative z-[1] max-w-5xl mx-auto text-center pointer-events-auto"
-        style={{ transform: `translateY(${translateY}px)` }}
       >
         {/* Kicker - refined eyebrow */}
         <div className="inline-flex items-center gap-3 mb-7 md:mb-9">

@@ -101,7 +101,7 @@ const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt
 
   const imageBlock = (
     <ScrollReveal variant="zoom" repeat style={{ height: "100%" }} className="case-image-cell">
-      <div className="services-case-image-wrap">
+      <div className="services-case-image-wrap" style={{ position: "relative" }}>
         <img
           src={imageSrc}
           alt={imageAlt}
@@ -109,6 +109,34 @@ const CaseStudy = ({ title, context, outcome, color, metrics, imageSrc, imageAlt
           loading="lazy"
           decoding="async"
         />
+        {/* Gradient label at bottom of image */}
+        <div style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: "60px 18px 28px",
+          background: "linear-gradient(to top, rgba(6,4,16,0.92) 0%, rgba(6,4,16,0.5) 60%, transparent 100%)",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}>
+          <p style={{
+            color,
+            fontSize: "8px",
+            fontWeight: 700,
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            marginBottom: "3px",
+            lineHeight: 1,
+          }}>NEMI&rsquo;s LMM in Real World Application</p>
+          <p style={{
+            color: "#ffffff",
+            fontSize: "15px",
+            fontWeight: 800,
+            letterSpacing: "0.01em",
+            lineHeight: 1.2,
+          }}>NEMI AI Case Studies</p>
+        </div>
       </div>
     </ScrollReveal>
   );

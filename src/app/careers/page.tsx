@@ -103,7 +103,7 @@ export default function CareersPage() {
             </p>
             <p>
               Or send your resume directly to
-              {" "}<a href="mailto:careers@nemi-ai.com">careers@nemi-ai.com</a>.
+              {" "}<a href="mailto:info@nemi-ai.com">info@nemi-ai.com</a>.
             </p>
           </section>
 

@@ -80,12 +80,16 @@ export default function ContactPage() {
               </li>
               <li>
                 <strong>Careers.</strong>{" "}
-                <a href="mailto:careers@nemi-ai.com">careers@nemi-ai.com</a> &mdash; for
+                <a href="mailto:info@nemi-ai.com">info@nemi-ai.com</a> &mdash; for
                 open roles across engineering, AI/ML, manufacturing, and operations.
               </li>
               <li>
                 <strong>General &amp; Press.</strong>{" "}
                 <a href="mailto:info@nemi-ai.com">info@nemi-ai.com</a>
+              </li>
+              <li>
+                <strong>Phone.</strong>{" "}
+                <a href="tel:+914220000000">+91 422 XXX XXXX</a>
               </li>
             </ul>
           </section>
@@ -101,9 +105,13 @@ export default function ContactPage() {
 
           <section aria-label="Social">
             <h2>Follow NEMI</h2>
-            <p>
-              <a href="https://www.linkedin.com/company/nemi-ai">LinkedIn</a>
-            </p>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/nemi-ai/">LinkedIn</a></li>
+              <li><a href="https://x.com/Nemi_ai_india">X</a></li>
+              <li><a href="https://www.instagram.com/nemi_ai_/">Instagram</a></li>
+              <li><a href="https://www.youtube.com/channel/UCd2rETRVgkA1WIWZ0epPpqQ">YouTube</a></li>
+              <li><a href="https://www.facebook.com/profile.php?id=61590674342019">Facebook</a></li>
+            </ul>
           </section>
         </main>
       </div>

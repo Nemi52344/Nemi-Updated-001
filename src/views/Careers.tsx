@@ -531,10 +531,13 @@ const Careers = () => {
                 </div>
 
                 <div className="sm:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-                  <div>
-                    <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">About you *</label>
+                  {/* Hidden on mobile portrait (.careers-about-field rule in
+                      globals.css) to keep the form to one viewport. Not
+                      `required` so the hidden field never blocks submit; the
+                      backend already treats `about` as optional. */}
+                  <div className="careers-about-field">
+                    <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">About you</label>
                     <textarea
-                      required
                       value={dropAbout}
                       onChange={(e) => setDropAbout(e.target.value)}
                       rows={2}

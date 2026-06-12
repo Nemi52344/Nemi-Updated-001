@@ -13,7 +13,6 @@ const navLinks: { href: string; label: string }[] = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Us" },
   { href: "/services", label: "Services" },
-  { href: "/industries", label: "Industries" },
   { href: "/careers", label: "Careers" },
 ];
 
@@ -38,17 +37,18 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
 
   return (
     <>
+      {/* Floating island header — detached from the viewport edges, fully
+          rounded, frosted glass. Capped at max-w-5xl and centered (mx-auto)
+          so on wide screens the bar hugs its content instead of spanning the
+          full width; left-3/right-3 keep a small gap on phones. */}
       <nav
-        className="fixed top-0 left-0 right-0 z-[100] transition-all duration-500"
+        className="fixed top-3 left-3 right-3 md:top-4 z-[100] mx-auto max-w-5xl rounded-2xl transition-all duration-500 glass-header"
         style={{
           opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(-100%)",
-          background: "hsl(var(--background) / 0.92)",
-          backdropFilter: "blur(16px)",
-          borderBottom: "1px solid hsl(var(--border) / 0.3)",
+          transform: visible ? "translateY(0)" : "translateY(calc(-100% - 24px))",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16">
+        <div className="w-full px-4 md:px-6 flex items-center justify-between h-12">
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <img
               src={nemiNavLogo}
@@ -73,7 +73,7 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
                 >
                   {link.label}
                   {isActive && (
-                    <span className="absolute -bottom-[1.1rem] left-0 right-0 h-0.5 bg-accent" />
+                    <span className="absolute -bottom-[0.65rem] left-0 right-0 h-0.5 bg-accent" />
                   )}
                 </Link>
               );
@@ -84,7 +84,7 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
           <div className="hidden md:flex items-center gap-2">
             <Link
               href="/contact"
-              className="font-montserrat font-bold text-[0.65rem] tracking-[0.12em] uppercase bg-accent text-accent-foreground px-5 py-2.5 no-underline transition-opacity duration-200 hover:opacity-80"
+              className="font-montserrat font-bold text-[0.65rem] tracking-[0.12em] uppercase bg-accent text-accent-foreground px-5 py-2 rounded-lg no-underline transition-opacity duration-200 hover:opacity-80"
             >
               Contact Us
             </Link>
@@ -107,12 +107,9 @@ const Navbar = ({ scrollProgress = 1 }: NavbarProps) => {
 
       {/* Full-screen mobile menu */}
       {menuOpen && (
-        <div
-          className="fixed inset-0 z-[99] md:hidden flex flex-col"
-          style={{ background: "hsl(230 25% 4% / 0.98)", backdropFilter: "blur(24px)" }}
-        >
-          {/* Spacer for the nav bar above */}
-          <div className="h-16 shrink-0" />
+        <div className="fixed inset-0 z-[99] md:hidden flex flex-col glass-menu">
+          {/* Spacer clearing the floating nav bar above (12px gap + 48px bar) */}
+          <div className="h-20 shrink-0" />
 
           {/* Nav links — large touch targets, divided */}
           <nav className="flex-1 overflow-y-auto px-6 py-2">

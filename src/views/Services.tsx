@@ -154,7 +154,7 @@ const Services = () => {
 
             <p
               className="font-extrabold uppercase leading-[1.05] tracking-tight mb-7 md:mb-9 whitespace-nowrap"
-              style={{ fontSize: "clamp(1.4rem, 7vw, 5rem)" }}
+              style={{ fontSize: "clamp(1.05rem, 6.1vw, 5rem)", maxWidth: "100%" }}
             >
               <span style={gradientWord}>Cost</span>
               <span style={{ color: "hsl(275 80% 65% / 0.45)", margin: "0 0.25em" }}>·</span>

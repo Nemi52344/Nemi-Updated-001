@@ -119,14 +119,6 @@ const SiteFooter = () => {
             </li>
             <li>
               <a
-                href={`mailto:${CONTACT_INFO.careersEmail}`}
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {CONTACT_INFO.careersEmail}
-              </a>
-            </li>
-            <li>
-              <a
                 href={`tel:${CONTACT_INFO.phoneTel}`}
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors"
               >

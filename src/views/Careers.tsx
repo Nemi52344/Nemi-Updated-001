@@ -1,15 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, Mail, CheckCircle2 } from "lucide-react";
+import { X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ConstellationCanvas from "@/components/ConstellationCanvas";
 import PageCTAFooter from "@/components/PageCTAFooter";
 import PhoneInput from "@/components/PhoneInput";
 import SiteFooter from "@/components/SiteFooter";
-import { sendOtp, verifyOtp, submitApplication, fileToBase64 } from "@/lib/otpClient";
+import { notifyNemi, fileToBase64 } from "@/lib/resendClient";
 import useScrollProgress from "@/hooks/useScrollProgress";
-import { supabase } from "@/lib/supabase";
 import { track } from "@/lib/analytics";
 
 const rangeProgress = (scroll: number, start: number, end: number) =>
@@ -73,51 +72,10 @@ const Careers = () => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [pickedFile, setPickedFile] = useState<File | null>(null);
   const [dropEmail, setDropEmail] = useState("");
-  const [dropOtpStage, setDropOtpStage] = useState<"idle" | "sending" | "sent" | "verifying" | "verified">("idle");
-  const [dropOtpCode, setDropOtpCode] = useState("");
-  const [dropOtpError, setDropOtpError] = useState<string | null>(null);
   const [dropErrorMsg, setDropErrorMsg] = useState<string | null>(null);
-  const [dropVerifiedEmail, setDropVerifiedEmail] = useState<string | null>(null);
   const [dropAbout, setDropAbout] = useState("");
   const [dropInterests, setDropInterests] = useState("");
   const [dropWorkOn, setDropWorkOn] = useState("");
-
-  const sendDropOtp = async () => {
-    setDropOtpError(null);
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dropEmail)) {
-      setDropOtpError("Enter a valid email first");
-      return;
-    }
-    setDropOtpStage("sending");
-    try {
-      const result = await sendOtp(dropEmail);
-      if (!result.ok) throw new Error(result.error || "Failed to send code");
-      setDropOtpStage("sent");
-    } catch (e) {
-      setDropOtpError(e instanceof Error ? e.message : "Could not send code");
-      setDropOtpStage("idle");
-    }
-  };
-
-  const verifyDropOtp = async () => {
-    setDropOtpError(null);
-    if (!dropOtpCode || dropOtpCode.length < 4) {
-      setDropOtpError("Enter the code we emailed you");
-      return;
-    }
-    setDropOtpStage("verifying");
-    try {
-      const result = await verifyOtp(dropEmail, dropOtpCode);
-      if (!result.ok) throw new Error(result.error || "Invalid code");
-      setDropOtpStage("verified");
-      setDropVerifiedEmail(dropEmail);
-    } catch (e) {
-      setDropOtpError(e instanceof Error ? e.message : "Invalid code");
-      setDropOtpStage("sent");
-    }
-  };
-
-  const isDropVerified = dropOtpStage === "verified" && dropVerifiedEmail === dropEmail;
 
   const handleFilePick = (file: File | null) => {
     if (!file) {
@@ -148,10 +106,6 @@ const Careers = () => {
 
   const handleResumeDrop = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isDropVerified) {
-      setDropOtpError("Please verify your email first");
-      return;
-    }
     setDropState("submitting");
     setDropErrorMsg(null);
     const form = e.currentTarget;
@@ -161,81 +115,33 @@ const Careers = () => {
       if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
       const fullName = (data.get("fullName") as string) || "";
       const phone = (data.get("phone") as string) || "";
-
-      // Try the server-side Edge Function first. It runs with service-role and
-      // handles storage upload + DB insert + email to info@nemi-ai.com in one
-      // call (works even when anon RLS blocks storage uploads).
-      let edgeOk = false;
-      try {
-        const resume_base64 = await fileToBase64(resumeFile);
-        const res = await submitApplication({
-          full_name: fullName,
-          email: dropEmail,
-          phone,
-          about: dropAbout,
-          interests: dropInterests,
-          wants_to_work_on: dropWorkOn,
-          resume_name: resumeFile.name,
-          resume_type: resumeFile.type || "application/octet-stream",
-          resume_base64,
-          role: "General Application",
-          department: "AI Screening",
-        });
-        edgeOk = res.ok;
-        if (!edgeOk) console.warn("submit-application edge:", res.error);
-      } catch (edgeErr) {
-        console.warn("submit-application edge call failed:", edgeErr);
-      }
-
-      // Fallback: direct Supabase client upload + insert (requires the
-      // resumes bucket + applications RLS to permit anon).
-      if (!edgeOk) {
-        const safeName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-        const filePath = `${Date.now()}_${safeName}`;
-        const { error: uploadErr } = await supabase.storage
-          .from("resumes")
-          .upload(filePath, resumeFile, { contentType: resumeFile.type, upsert: false });
-        if (uploadErr) throw new Error(`Storage: ${uploadErr.message}`);
-        const { error: insertErr } = await supabase.from("applications").insert({
-          role: "General Application",
-          department: "AI Screening",
-          full_name: fullName,
-          email: dropEmail,
-          phone: phone || "",
-          location: "",
-          experience: "",
-          linkedin: "",
-          portfolio: "",
-          cover_letter:
-            [
-              dropAbout && `About:\n${dropAbout}`,
-              dropInterests && `Interests:\n${dropInterests}`,
-              dropWorkOn && `Wants to work on:\n${dropWorkOn}`,
-            ]
-              .filter(Boolean)
-              .join("\n\n") || "",
-          resume_path: filePath,
-        });
-        if (insertErr) throw new Error(`Database: ${insertErr.message}`);
-      }
-
+      const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const base64 = await fileToBase64(resumeFile);
+      const html = `
+<div style="font-family:-apple-system,sans-serif;max-width:640px;margin:0 auto;padding:24px;color:#1a1a1a">
+  <h2 style="margin:0 0 16px;font-size:20px;color:#6b22c4">New Resume Submission</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.6">
+    <tr><td style="padding:6px 0;color:#666;width:140px"><strong>Name</strong></td><td>${esc(fullName)}</td></tr>
+    <tr><td style="padding:6px 0;color:#666"><strong>Email</strong></td><td>${esc(dropEmail)}</td></tr>
+    ${phone ? `<tr><td style="padding:6px 0;color:#666"><strong>Phone</strong></td><td>${esc(phone)}</td></tr>` : ""}
+  </table>
+  ${dropAbout ? `<h3 style="font-size:14px;margin:16px 0 4px">About</h3><p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0">${esc(dropAbout)}</p>` : ""}
+  ${dropInterests ? `<h3 style="font-size:14px;margin:16px 0 4px">Interests</h3><p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0">${esc(dropInterests)}</p>` : ""}
+  ${dropWorkOn ? `<h3 style="font-size:14px;margin:16px 0 4px">Wants to work on</h3><p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0">${esc(dropWorkOn)}</p>` : ""}
+</div>`;
+      const result = await notifyNemi({
+        replyTo: dropEmail,
+        subject: `New resume: ${fullName} — General Application`,
+        html,
+        attachments: [{ filename: resumeFile.name, content: base64 }],
+      });
+      if (!result.ok) throw new Error("Could not deliver application email");
       setDropState("success");
       setDropErrorMsg(null);
-
-      // Conversion event — recruiting funnel measurement. Configure
-      // 'resume_submit' as a conversion in GA4 → Admin → Events.
-      track("resume_submit", {
-        role: "General Application",
-        department: "AI Screening",
-        delivery: edgeOk ? "edge" : "supabase_fallback",
-      });
-
+      track("resume_submit", { role: "General Application", department: "AI Screening", delivery: "resend_client" });
       form.reset();
       handleFilePick(null);
       setDropEmail("");
-      setDropOtpStage("idle");
-      setDropOtpCode("");
-      setDropVerifiedEmail(null);
       setDropAbout("");
       setDropInterests("");
       setDropWorkOn("");
@@ -260,27 +166,38 @@ const Careers = () => {
     const form = e.currentTarget;
     const data = new FormData(form);
     const resumeFile = data.get("resume") as File | null;
-
     try {
       if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
-      const safeName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const filePath = `${Date.now()}_${safeName}`;
-      const { error: uploadErr } = await supabase.storage.from("resumes").upload(filePath, resumeFile, { contentType: resumeFile.type, upsert: false });
-      if (uploadErr) throw uploadErr;
-      const { error: insertErr } = await supabase.from("applications").insert({
-        role: selectedJob.title,
-        department: selectedJob.dept,
-        full_name: data.get("fullName") as string,
-        email: data.get("email") as string,
-        phone: data.get("phone") as string,
-        location: (data.get("location") as string) || null,
-        experience: data.get("experience") as string,
-        linkedin: (data.get("linkedin") as string) || null,
-        portfolio: (data.get("portfolio") as string) || null,
-        cover_letter: data.get("coverLetter") as string,
-        resume_path: filePath,
+      const fullName = (data.get("fullName") as string) || "";
+      const email = (data.get("email") as string) || "";
+      const phone = (data.get("phone") as string) || "";
+      const experience = (data.get("experience") as string) || "";
+      const linkedin = (data.get("linkedin") as string) || "";
+      const portfolio = (data.get("portfolio") as string) || "";
+      const coverLetter = (data.get("coverLetter") as string) || "";
+      const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const base64 = await fileToBase64(resumeFile);
+      const html = `
+<div style="font-family:-apple-system,sans-serif;max-width:640px;margin:0 auto;padding:24px;color:#1a1a1a">
+  <h2 style="margin:0 0 8px;font-size:20px;color:#6b22c4">New Application — ${esc(selectedJob.title)}</h2>
+  <p style="font-size:12px;color:#888;margin:0 0 16px">${esc(selectedJob.dept)} · ${esc(selectedJob.meta)}</p>
+  <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.6">
+    <tr><td style="padding:6px 0;color:#666;width:160px"><strong>Name</strong></td><td>${esc(fullName)}</td></tr>
+    <tr><td style="padding:6px 0;color:#666"><strong>Email</strong></td><td>${esc(email)}</td></tr>
+    ${phone ? `<tr><td style="padding:6px 0;color:#666"><strong>Phone</strong></td><td>${esc(phone)}</td></tr>` : ""}
+    ${experience ? `<tr><td style="padding:6px 0;color:#666"><strong>Experience</strong></td><td>${esc(experience)} yrs</td></tr>` : ""}
+    ${linkedin ? `<tr><td style="padding:6px 0;color:#666"><strong>LinkedIn</strong></td><td><a href="${esc(linkedin)}">${esc(linkedin)}</a></td></tr>` : ""}
+    ${portfolio ? `<tr><td style="padding:6px 0;color:#666"><strong>Portfolio</strong></td><td><a href="${esc(portfolio)}">${esc(portfolio)}</a></td></tr>` : ""}
+  </table>
+  ${coverLetter ? `<h3 style="font-size:14px;margin:16px 0 4px">Why this role?</h3><p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0;line-height:1.6">${esc(coverLetter)}</p>` : ""}
+</div>`;
+      const result = await notifyNemi({
+        replyTo: email,
+        subject: `Application: ${fullName} — ${selectedJob.title}`,
+        html,
+        attachments: [{ filename: resumeFile.name, content: base64 }],
       });
-      if (insertErr) throw insertErr;
+      if (!result.ok) throw new Error("Could not deliver application email");
       setSubmitState("success");
       form.reset();
     } catch (err) {
@@ -463,71 +380,16 @@ const Careers = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                    Email * {isDropVerified && <span className="ml-1 text-[9px] text-emerald-400 normal-case tracking-normal">(verified)</span>}
-                  </label>
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <input
-                      required
-                      type="email"
-                      value={dropEmail}
-                      onChange={(e) => {
-                        setDropEmail(e.target.value);
-                        if (dropVerifiedEmail && e.target.value !== dropVerifiedEmail) {
-                          setDropOtpStage("idle");
-                          setDropOtpCode("");
-                          setDropVerifiedEmail(null);
-                        }
-                      }}
-                      disabled={isDropVerified}
-                      placeholder="jane@company.com"
-                      className="flex-1 px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all disabled:opacity-70"
-                      style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
-                    />
-                    {!isDropVerified ? (
-                      <button
-                        type="button"
-                        onClick={sendDropOtp}
-                        disabled={dropOtpStage === "sending" || dropOtpStage === "verifying" || !dropEmail}
-                        className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all duration-200 hover:opacity-90 disabled:opacity-60"
-                        style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
-                      >
-                        <Mail className="w-3.5 h-3.5 inline mr-1.5 -mt-0.5" />
-                        {dropOtpStage === "sending" ? "Sending…" : dropOtpStage === "sent" || dropOtpStage === "verifying" ? "Resend code" : "Verify email"}
-                      </button>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-lg text-xs font-semibold text-emerald-400" style={{ background: "hsl(150 60% 20% / 0.4)" }}>
-                        <CheckCircle2 className="w-4 h-4" /> Verified
-                      </span>
-                    )}
-                  </div>
-
-                  {(dropOtpStage === "sent" || dropOtpStage === "verifying") && !isDropVerified && (
-                    <div className="mt-2 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        value={dropOtpCode}
-                        onChange={(e) => setDropOtpCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
-                        placeholder="Enter 6-digit code"
-                        className="flex-1 px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all tracking-[0.4em] text-center"
-                        style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
-                      />
-                      <button
-                        type="button"
-                        onClick={verifyDropOtp}
-                        disabled={dropOtpStage === "verifying"}
-                        className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all hover:opacity-90 disabled:opacity-60"
-                        style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
-                      >
-                        {dropOtpStage === "verifying" ? "Verifying…" : "Confirm"}
-                      </button>
-                    </div>
-                  )}
-                  {dropOtpStage === "sent" && !dropOtpError && (
-                    <p className="text-[11px] mt-1.5 text-muted-foreground">We&rsquo;ve sent a code to <span className="text-foreground">{dropEmail}</span>. Check your inbox.</p>
-                  )}
-                  {dropOtpError && <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{dropOtpError}</p>}
+                  <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Email *</label>
+                  <input
+                    required
+                    type="email"
+                    value={dropEmail}
+                    onChange={(e) => setDropEmail(e.target.value)}
+                    placeholder="jane@company.com"
+                    className="w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all"
+                    style={{ background: "hsl(230 20% 10% / 0.8)", border: "1px solid hsl(275 80% 55% / 0.22)" }}
+                  />
                 </div>
 
                 <div className="sm:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
@@ -609,13 +471,12 @@ const Careers = () => {
                   </p>
                   <button
                     type="submit"
-                    disabled={dropState === "submitting" || !isDropVerified}
+                    disabled={dropState === "submitting"}
                     className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                     style={{
                       background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))",
                       boxShadow: "0 4px 25px hsl(275 80% 55% / 0.3)",
                     }}
-                    title={!isDropVerified ? "Verify your email to submit" : undefined}
                   >
                     {dropState === "submitting" ? "Submitting…" : "Submit Resume"}
                   </button>

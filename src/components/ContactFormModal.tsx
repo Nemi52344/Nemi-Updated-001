@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, Send, Mail, CheckCircle2 } from "lucide-react";
+import { X, Send } from "lucide-react";
 import { z } from "zod";
 import PhoneInput from "@/components/PhoneInput";
-import { sendOtp as sendOtpRequest, verifyOtp as verifyOtpRequest, sendContactEmail } from "@/lib/otpClient";
-import { supabase } from "@/lib/supabase";
+import { notifyNemi } from "@/lib/resendClient";
 import { track } from "@/lib/analytics";
 
 const contactSchema = z.object({
@@ -31,17 +30,11 @@ interface ContactModalProps {
   onClose: () => void;
 }
 
-type OtpStage = "idle" | "sending" | "sent" | "verifying" | "verified";
-
 const ContactModal = ({ open, onClose }: ContactModalProps) => {
   const [form, setForm] = useState<ContactForm>(emptyForm);
   const [errors, setErrors] = useState<Partial<Record<keyof ContactForm, string>>>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [otpStage, setOtpStage] = useState<OtpStage>("idle");
-  const [otpCode, setOtpCode] = useState("");
-  const [otpError, setOtpError] = useState<string | null>(null);
-  const [verifiedEmail, setVerifiedEmail] = useState<string | null>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -63,55 +56,11 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
   const handleChange = <K extends keyof ContactForm>(field: K, value: ContactForm[K]) => {
     setForm((p) => ({ ...p, [field]: value }));
     setErrors((p) => ({ ...p, [field]: undefined }));
-    if (field === "email" && verifiedEmail && value !== verifiedEmail) {
-      // Email changed after verification — reset state
-      setOtpStage("idle");
-      setOtpCode("");
-      setVerifiedEmail(null);
-    }
-  };
-
-  const sendOtp = async () => {
-    setOtpError(null);
-    const emailResult = contactSchema.shape.email.safeParse(form.email);
-    if (!emailResult.success) {
-      setOtpError("Enter a valid email first");
-      return;
-    }
-    setOtpStage("sending");
-    try {
-      const result = await sendOtpRequest(form.email);
-      if (!result.ok) throw new Error(result.error || "Failed to send code");
-      setOtpStage("sent");
-    } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Could not send code";
-      setOtpError(msg);
-      setOtpStage("idle");
-    }
-  };
-
-  const verifyOtp = async () => {
-    setOtpError(null);
-    if (!otpCode || otpCode.length < 4) {
-      setOtpError("Enter the code we emailed you");
-      return;
-    }
-    setOtpStage("verifying");
-    try {
-      const result = await verifyOtpRequest(form.email, otpCode);
-      if (!result.ok) throw new Error(result.error || "Invalid code");
-      setOtpStage("verified");
-      setVerifiedEmail(form.email);
-    } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Invalid code";
-      setOtpError(msg);
-      setOtpStage("sent");
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (submitting || submitted) return; // prevent double-fire
+    if (submitting || submitted) return;
     const result = contactSchema.safeParse(form);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof ContactForm, string>> = {};
@@ -122,48 +71,35 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
       setErrors(fieldErrors);
       return;
     }
-    if (otpStage !== "verified" || verifiedEmail !== form.email) {
-      setOtpError("Please verify your email first");
-      return;
-    }
     const d = result.data;
     setSubmitting(true);
-
-    // The Edge Function handles BOTH the DB insert AND the email notification
-    // (it has service-role access). Calling it alone keeps the submission
-    // single-source so we don't get duplicate inboxes for one form fill.
+    const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const html = `
+<div style="font-family:-apple-system,sans-serif;max-width:640px;margin:0 auto;padding:24px;color:#1a1a1a">
+  <h2 style="margin:0 0 16px;font-size:20px;color:#6b22c4">New Contact Form Submission</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.6">
+    <tr><td style="padding:6px 0;color:#666;width:120px"><strong>Name</strong></td><td>${esc(d.name)}</td></tr>
+    <tr><td style="padding:6px 0;color:#666"><strong>Email</strong></td><td>${esc(d.email)}</td></tr>
+    ${d.phone ? `<tr><td style="padding:6px 0;color:#666"><strong>Phone</strong></td><td>${esc(d.phone)}</td></tr>` : ""}
+    ${d.company ? `<tr><td style="padding:6px 0;color:#666"><strong>Company</strong></td><td>${esc(d.company)}</td></tr>` : ""}
+  </table>
+  <h3 style="font-size:14px;margin:16px 0 4px">Message</h3>
+  <p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0;line-height:1.6">${esc(d.message)}</p>
+</div>`;
     try {
-      const res = await sendContactEmail({
-        name: d.name,
-        email: d.email,
-        phone: d.phone,
-        company: d.company,
-        message: d.message,
-      });
-      if (!res.ok) console.warn("send-contact-email edge:", res.error);
-    } catch (err) {
-      console.warn("send-contact-email call failed:", err);
+      await notifyNemi({ replyTo: d.email, subject: `Contact: ${d.name}${d.company ? ` — ${d.company}` : ""}`, html });
+    } catch {
+      // Don't block submission on email error
     }
-
     setSubmitted(true);
     setSubmitting(false);
-
-    // Conversion event — picked up by GTM and forwarded to GA4 (configure
-    // 'contact_form_submit' as a conversion in GA4 → Admin → Events).
-    track("contact_form_submit", {
-      has_company: Boolean(d.company),
-      has_phone: Boolean(d.phone),
-    });
+    track("contact_form_submit", { has_company: Boolean(d.company), has_phone: Boolean(d.phone) });
   };
 
   const handleClose = () => {
     setForm(emptyForm);
     setErrors({});
     setSubmitted(false);
-    setOtpStage("idle");
-    setOtpCode("");
-    setOtpError(null);
-    setVerifiedEmail(null);
     if (typeof window !== "undefined" && window.location.hash === "#contact") {
       const { pathname, search } = window.location;
       window.history.replaceState(null, "", pathname + search);
@@ -177,8 +113,6 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
   };
   const inputClass =
     "w-full px-3.5 py-2.5 rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-1 focus:ring-primary/50 transition-all";
-
-  const isVerified = otpStage === "verified" && verifiedEmail === form.email;
 
   return (
     <div
@@ -272,66 +206,17 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">
-                  Email * {isVerified && (<span className="ml-1 text-[9px] text-emerald-400 normal-case tracking-normal">(verified)</span>)}
-                </label>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <input
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                    className={inputClass + " flex-1"}
-                    style={inputStyle}
-                    maxLength={255}
-                    placeholder="jane@company.com"
-                    disabled={isVerified}
-                  />
-                  {!isVerified && (
-                    <button
-                      type="button"
-                      onClick={sendOtp}
-                      disabled={otpStage === "sending" || otpStage === "verifying"}
-                      className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all duration-200 hover:opacity-90 disabled:opacity-60"
-                      style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
-                    >
-                      <Mail className="w-3.5 h-3.5 inline mr-1.5 -mt-0.5" />
-                      {otpStage === "sending" ? "Sending…" : otpStage === "sent" || otpStage === "verifying" ? "Resend code" : "Verify email"}
-                    </button>
-                  )}
-                  {isVerified && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-lg text-xs font-semibold text-emerald-400" style={{ background: "hsl(150 60% 20% / 0.4)" }}>
-                      <CheckCircle2 className="w-4 h-4" /> Verified
-                    </span>
-                  )}
-                </div>
+                <label className="block text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-1">Email *</label>
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  className={inputClass}
+                  style={inputStyle}
+                  maxLength={255}
+                  placeholder="jane@company.com"
+                />
                 {errors.email && <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{errors.email}</p>}
-
-                {(otpStage === "sent" || otpStage === "verifying") && !isVerified && (
-                  <div className="mt-2 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      value={otpCode}
-                      onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
-                      className={inputClass + " flex-1 tracking-[0.4em] text-center"}
-                      style={inputStyle}
-                      placeholder="Enter 6-digit code"
-                    />
-                    <button
-                      type="button"
-                      onClick={verifyOtp}
-                      disabled={otpStage === "verifying"}
-                      className="px-4 py-2.5 rounded-lg text-xs font-semibold tracking-[0.15em] uppercase text-white whitespace-nowrap transition-all hover:opacity-90 disabled:opacity-60"
-                      style={{ background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))" }}
-                    >
-                      {otpStage === "verifying" ? "Verifying…" : "Confirm"}
-                    </button>
-                  </div>
-                )}
-                {otpStage === "sent" && !otpError && (
-                  <p className="text-[11px] mt-1.5 text-muted-foreground">We&rsquo;ve sent a code to <span className="text-foreground">{form.email}</span>. Check your inbox.</p>
-                )}
-                {otpError && <p className="text-xs mt-1" style={{ color: "hsl(0 70% 60%)" }}>{otpError}</p>}
               </div>
 
               <div className="sm:col-span-2">
@@ -367,13 +252,12 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                 </p>
                 <button
                   type="submit"
-                  disabled={!isVerified || submitting || submitted}
+                  disabled={submitting || submitted}
                   className="font-bold text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   style={{
                     background: "linear-gradient(135deg, hsl(275 80% 55%), hsl(260 70% 45%))",
                     boxShadow: "0 4px 25px hsl(275 80% 55% / 0.3)",
                   }}
-                  title={!isVerified ? "Verify your email to send" : undefined}
                 >
                   {submitting ? "Sending…" : "Send Message"}
                 </button>

@@ -299,8 +299,7 @@ const Careers = () => {
               <span
                 className="bg-clip-text text-transparent inline-block"
                 style={{
-                  backgroundImage: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary) / 0.8))",
-                  backgroundSize: "200% 200%",
+                  backgroundImage: "linear-gradient(180deg, #ffffff 0%, #c9a6f5 30%, #9b4ee8 65%, #7b2fd6 100%)",
                 }}
               >
                 Physical
@@ -364,7 +363,7 @@ const Careers = () => {
       {/* ── 3. OPEN POSITIONS ── */}
       {posVisible && (
         <div
-          className="fixed inset-0 z-[10] flex flex-col justify-start px-6 md:px-12 lg:px-16 overflow-y-auto pt-20 pb-6 lg:pt-24 lg:pb-6 careers-positions-section ls-allow-scroll"
+          className={`fixed inset-0 z-[10] flex flex-col px-6 md:px-12 lg:px-16 overflow-y-auto careers-positions-section ls-allow-scroll ${dropState === "success" ? "justify-center pb-6" : "justify-start pt-20 pb-6 lg:pt-24"}`}
           style={{ opacity: posOp }}
         >
           <div className="max-w-3xl w-full mx-auto" style={{ transform: `translateY(${(1 - posEnter) * 24}px)` }}>
@@ -573,12 +572,21 @@ const Careers = () => {
               </form>
             ) : (
               <div
-                className="rounded-2xl p-8 text-center"
+                className="relative rounded-2xl p-8 text-center"
                 style={{
                   background: "linear-gradient(145deg, hsl(230 20% 10% / 0.9), hsl(230 25% 6% / 0.9))",
                   border: "1px solid hsl(275 80% 55% / 0.25)",
                 }}
               >
+                <button
+                  type="button"
+                  onClick={() => setDropState("idle")}
+                  className="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                  style={{ background: "hsl(275 80% 55% / 0.1)" }}
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
                 <h4 className="text-2xl font-bold text-foreground mb-3">Thank you for applying!</h4>
                 <p className="text-sm text-muted-foreground mb-2">Your resume has reached the NEMI AI team.</p>
                 <p className="text-sm text-muted-foreground mb-6">We review every application personally and will be in touch at the email you provided if there&apos;s a fit.</p>

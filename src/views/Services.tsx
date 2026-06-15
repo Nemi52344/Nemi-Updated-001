@@ -13,6 +13,15 @@ import industryRobotics from "@/assets/industry-robotics.webp";
 
 const accentPurple = "hsl(275, 80%, 65%)";
 
+// White → lavender → purple gradient fill for the Cost/Quality/Speed words.
+const gradientWord: React.CSSProperties = {
+  backgroundImage: "linear-gradient(180deg, #ffffff 0%, #c9a6f5 30%, #9b4ee8 65%, #7b2fd6 100%)",
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  color: "transparent",
+};
+
 const rangeProgress = (scroll: number, start: number, end: number) =>
   Math.min(Math.max((scroll - start) / (end - start), 0), 1);
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -121,23 +130,46 @@ const Services = () => {
           className="fixed inset-0 z-[10] flex flex-col items-center justify-center px-6 md:px-12 lg:px-16 text-center services-hero ls-allow-scroll"
           style={{ opacity: heroOp }}
         >
-          <div className="max-w-5xl mx-auto w-full pt-16">
+          {/* Focused hero glow */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `
+                radial-gradient(ellipse 55% 45% at 50% 50%, hsl(275 80% 40% / 0.28) 0%, transparent 70%),
+                radial-gradient(ellipse 30% 25% at 50% 52%, hsl(275 80% 60% / 0.12) 0%, transparent 55%)
+              `,
+            }}
+          />
+
+          <div className="max-w-5xl mx-auto w-full pt-16 relative z-10">
             <h1
               className="font-extrabold uppercase leading-[1.02] tracking-tight mb-2 md:mb-3 text-foreground"
-              style={{ fontSize: "clamp(2rem, 6vw, 4.25rem)" }}
+              style={{
+                fontSize: "clamp(2rem, 6vw, 4.25rem)",
+                textShadow: "0 0 50px hsl(275 80% 60% / 0.18), 0 2px 8px rgba(0,0,0,0.45)",
+              }}
             >
               We deliver on what matters.
             </h1>
+
             <p
-              className="font-extrabold uppercase leading-[1.05] tracking-tight mb-6 md:mb-10 whitespace-nowrap"
+              className="font-extrabold uppercase leading-[1.05] tracking-tight mb-7 md:mb-9 whitespace-nowrap"
               style={{ fontSize: "clamp(1.4rem, 7vw, 5rem)" }}
             >
-              <span style={{ color: accentPurple }}>Cost</span>
-              <span className="text-muted-foreground/50">{" · "}</span>
-              <span style={{ color: accentPurple }}>Quality</span>
-              <span className="text-muted-foreground/50">{" · "}</span>
-              <span style={{ color: accentPurple }}>Speed</span>
+              <span style={gradientWord}>Cost</span>
+              <span style={{ color: "hsl(275 80% 65% / 0.45)", margin: "0 0.25em" }}>·</span>
+              <span style={gradientWord}>Quality</span>
+              <span style={{ color: "hsl(275 80% 65% / 0.45)", margin: "0 0.25em" }}>·</span>
+              <span style={gradientWord}>Speed</span>
             </p>
+
+            {/* Decorative divider */}
+            <div className="flex items-center justify-center gap-3 mb-6 md:mb-7">
+              <div style={{ width: 60, height: 1, background: `linear-gradient(to right, transparent, hsl(275 80% 65% / 0.45))` }} />
+              <div style={{ width: 4, height: 4, borderRadius: "50%", background: accentPurple, boxShadow: `0 0 8px ${accentPurple}` }} />
+              <div style={{ width: 60, height: 1, background: `linear-gradient(to left, transparent, hsl(275 80% 65% / 0.45))` }} />
+            </div>
+
             <p className="text-muted-foreground text-sm md:text-base lg:text-lg leading-[1.8] max-w-2xl mx-auto tracking-wide">
               <span className="text-foreground font-semibold">Cost unmatched. Quality par excellence. Speed never before seen.</span>{" "}
               Physical AI turns every job into compounding advantage.

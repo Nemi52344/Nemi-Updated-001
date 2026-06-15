@@ -7,7 +7,7 @@ import ConstellationCanvas from "@/components/ConstellationCanvas";
 import PageCTAFooter from "@/components/PageCTAFooter";
 import PhoneInput from "@/components/PhoneInput";
 import SiteFooter from "@/components/SiteFooter";
-import { notifyNemi, fileToBase64, generateOtp, sendOtpEmail } from "@/lib/resendClient";
+import { sendOtp, verifyOtp, submitApplication, fileToBase64 } from "@/lib/otpClient";
 import useScrollProgress from "@/hooks/useScrollProgress";
 import { track } from "@/lib/analytics";
 
@@ -75,7 +75,6 @@ const Careers = () => {
   const [dropOtpStage, setDropOtpStage] = useState<"idle" | "sending" | "sent" | "verifying" | "verified">("idle");
   const [dropOtpCode, setDropOtpCode] = useState("");
   const [dropOtpError, setDropOtpError] = useState<string | null>(null);
-  const [dropOtpSecret, setDropOtpSecret] = useState<{ code: string; expires: number } | null>(null);
   const [dropVerifiedEmail, setDropVerifiedEmail] = useState<string | null>(null);
   const [dropErrorMsg, setDropErrorMsg] = useState<string | null>(null);
   const [dropAbout, setDropAbout] = useState("");
@@ -89,31 +88,25 @@ const Careers = () => {
       return;
     }
     setDropOtpStage("sending");
-    const code = generateOtp();
-    const result = await sendOtpEmail(dropEmail, code);
+    const result = await sendOtp(dropEmail);
     if (!result.ok) {
       setDropOtpError("Could not send verification code. Please try again.");
       setDropOtpStage("idle");
       return;
     }
-    setDropOtpSecret({ code, expires: Date.now() + 10 * 60 * 1000 });
     setDropOtpStage("sent");
   };
 
-  const verifyDropOtp = () => {
+  const verifyDropOtp = async () => {
     setDropOtpError(null);
     if (!dropOtpCode || dropOtpCode.length < 4) {
       setDropOtpError("Enter the code we emailed you");
       return;
     }
     setDropOtpStage("verifying");
-    if (!dropOtpSecret || Date.now() > dropOtpSecret.expires) {
-      setDropOtpError("Code expired. Request a new one.");
-      setDropOtpStage("sent");
-      return;
-    }
-    if (dropOtpCode !== dropOtpSecret.code) {
-      setDropOtpError("Incorrect code. Please try again.");
+    const result = await verifyOtp(dropEmail, dropOtpCode);
+    if (!result.ok) {
+      setDropOtpError(result.error || "Incorrect code. Please try again.");
       setDropOtpStage("sent");
       return;
     }
@@ -165,36 +158,27 @@ const Careers = () => {
       if (!resumeFile || resumeFile.size === 0) throw new Error("Resume required");
       const fullName = (data.get("fullName") as string) || "";
       const phone = (data.get("phone") as string) || "";
-      const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       const base64 = await fileToBase64(resumeFile);
-      const html = `
-<div style="font-family:-apple-system,sans-serif;max-width:640px;margin:0 auto;padding:24px;color:#1a1a1a">
-  <h2 style="margin:0 0 16px;font-size:20px;color:#6b22c4">New Resume Submission</h2>
-  <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.6">
-    <tr><td style="padding:6px 0;color:#666;width:140px"><strong>Name</strong></td><td>${esc(fullName)}</td></tr>
-    <tr><td style="padding:6px 0;color:#666"><strong>Email</strong></td><td>${esc(dropEmail)}</td></tr>
-    ${phone ? `<tr><td style="padding:6px 0;color:#666"><strong>Phone</strong></td><td>${esc(phone)}</td></tr>` : ""}
-  </table>
-  ${dropAbout ? `<h3 style="font-size:14px;margin:16px 0 4px">About</h3><p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0">${esc(dropAbout)}</p>` : ""}
-  ${dropInterests ? `<h3 style="font-size:14px;margin:16px 0 4px">Interests</h3><p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0">${esc(dropInterests)}</p>` : ""}
-  ${dropWorkOn ? `<h3 style="font-size:14px;margin:16px 0 4px">Wants to work on</h3><p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0">${esc(dropWorkOn)}</p>` : ""}
-</div>`;
-      const result = await notifyNemi({
-        replyTo: dropEmail,
-        subject: `New resume: ${fullName} — General Application`,
-        html,
-        attachments: [{ filename: resumeFile.name, content: base64 }],
+      const result = await submitApplication({
+        full_name: fullName,
+        email: dropEmail,
+        phone,
+        about: dropAbout,
+        interests: dropInterests,
+        wants_to_work_on: dropWorkOn,
+        resume_name: resumeFile.name,
+        resume_type: resumeFile.type,
+        resume_base64: base64,
       });
-      if (!result.ok) throw new Error("Could not deliver application email");
+      if (!result.ok) throw new Error(result.error || "Could not deliver application");
       setDropState("success");
       setDropErrorMsg(null);
-      track("resume_submit", { role: "General Application", department: "AI Screening", delivery: "resend_client" });
+      track("resume_submit", { role: "General Application", department: "AI Screening", delivery: "supabase_edge" });
       form.reset();
       handleFilePick(null);
       setDropEmail("");
       setDropOtpStage("idle");
       setDropOtpCode("");
-      setDropOtpSecret(null);
       setDropVerifiedEmail(null);
       setDropAbout("");
       setDropInterests("");
@@ -229,29 +213,25 @@ const Careers = () => {
       const linkedin = (data.get("linkedin") as string) || "";
       const portfolio = (data.get("portfolio") as string) || "";
       const coverLetter = (data.get("coverLetter") as string) || "";
-      const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       const base64 = await fileToBase64(resumeFile);
-      const html = `
-<div style="font-family:-apple-system,sans-serif;max-width:640px;margin:0 auto;padding:24px;color:#1a1a1a">
-  <h2 style="margin:0 0 8px;font-size:20px;color:#6b22c4">New Application — ${esc(selectedJob.title)}</h2>
-  <p style="font-size:12px;color:#888;margin:0 0 16px">${esc(selectedJob.dept)} · ${esc(selectedJob.meta)}</p>
-  <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.6">
-    <tr><td style="padding:6px 0;color:#666;width:160px"><strong>Name</strong></td><td>${esc(fullName)}</td></tr>
-    <tr><td style="padding:6px 0;color:#666"><strong>Email</strong></td><td>${esc(email)}</td></tr>
-    ${phone ? `<tr><td style="padding:6px 0;color:#666"><strong>Phone</strong></td><td>${esc(phone)}</td></tr>` : ""}
-    ${experience ? `<tr><td style="padding:6px 0;color:#666"><strong>Experience</strong></td><td>${esc(experience)} yrs</td></tr>` : ""}
-    ${linkedin ? `<tr><td style="padding:6px 0;color:#666"><strong>LinkedIn</strong></td><td><a href="${esc(linkedin)}">${esc(linkedin)}</a></td></tr>` : ""}
-    ${portfolio ? `<tr><td style="padding:6px 0;color:#666"><strong>Portfolio</strong></td><td><a href="${esc(portfolio)}">${esc(portfolio)}</a></td></tr>` : ""}
-  </table>
-  ${coverLetter ? `<h3 style="font-size:14px;margin:16px 0 4px">Why this role?</h3><p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0;line-height:1.6">${esc(coverLetter)}</p>` : ""}
-</div>`;
-      const result = await notifyNemi({
-        replyTo: email,
-        subject: `Application: ${fullName} — ${selectedJob.title}`,
-        html,
-        attachments: [{ filename: resumeFile.name, content: base64 }],
+      const about = [
+        experience && `Experience: ${experience} yrs`,
+        linkedin && `LinkedIn: ${linkedin}`,
+        portfolio && `Portfolio: ${portfolio}`,
+        coverLetter && `\nWhy this role:\n${coverLetter}`,
+      ].filter(Boolean).join("\n");
+      const result = await submitApplication({
+        full_name: fullName,
+        email,
+        phone,
+        about,
+        role: selectedJob.title,
+        department: selectedJob.dept,
+        resume_name: resumeFile.name,
+        resume_type: resumeFile.type,
+        resume_base64: base64,
       });
-      if (!result.ok) throw new Error("Could not deliver application email");
+      if (!result.ok) throw new Error(result.error || "Could not deliver application");
       setSubmitState("success");
       form.reset();
     } catch (err) {
@@ -447,7 +427,6 @@ const Careers = () => {
                         if (dropVerifiedEmail && e.target.value !== dropVerifiedEmail) {
                           setDropOtpStage("idle");
                           setDropOtpCode("");
-                          setDropOtpSecret(null);
                           setDropVerifiedEmail(null);
                         }
                       }}

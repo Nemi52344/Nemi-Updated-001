@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { X, Send, Mail, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import PhoneInput from "@/components/PhoneInput";
-import { notifyNemi, generateOtp, sendOtpEmail } from "@/lib/resendClient";
+import { sendOtp as sendOtpRequest, verifyOtp as verifyOtpRequest, sendContactEmail } from "@/lib/otpClient";
 import { track } from "@/lib/analytics";
 
 const contactSchema = z.object({
@@ -38,7 +38,6 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
   const [otpStage, setOtpStage] = useState<"idle" | "sending" | "sent" | "verifying" | "verified">("idle");
   const [otpCode, setOtpCode] = useState("");
   const [otpError, setOtpError] = useState<string | null>(null);
-  const [otpSecret, setOtpSecret] = useState<{ code: string; expires: number } | null>(null);
   const [verifiedEmail, setVerifiedEmail] = useState<string | null>(null);
 
   useEffect(() => {
@@ -64,7 +63,6 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     if (field === "email" && verifiedEmail && value !== verifiedEmail) {
       setOtpStage("idle");
       setOtpCode("");
-      setOtpSecret(null);
       setVerifiedEmail(null);
     }
   };
@@ -77,31 +75,25 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
       return;
     }
     setOtpStage("sending");
-    const code = generateOtp();
-    const result = await sendOtpEmail(form.email, code);
+    const result = await sendOtpRequest(form.email);
     if (!result.ok) {
       setOtpError("Could not send verification code. Please try again.");
       setOtpStage("idle");
       return;
     }
-    setOtpSecret({ code, expires: Date.now() + 10 * 60 * 1000 });
     setOtpStage("sent");
   };
 
-  const verifyOtp = () => {
+  const verifyOtp = async () => {
     setOtpError(null);
     if (!otpCode || otpCode.length < 4) {
       setOtpError("Enter the code we emailed you");
       return;
     }
     setOtpStage("verifying");
-    if (!otpSecret || Date.now() > otpSecret.expires) {
-      setOtpError("Code expired. Request a new one.");
-      setOtpStage("sent");
-      return;
-    }
-    if (otpCode !== otpSecret.code) {
-      setOtpError("Incorrect code. Please try again.");
+    const result = await verifyOtpRequest(form.email, otpCode);
+    if (!result.ok) {
+      setOtpError(result.error || "Incorrect code. Please try again.");
       setOtpStage("sent");
       return;
     }
@@ -128,21 +120,8 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     }
     const d = result.data;
     setSubmitting(true);
-    const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    const html = `
-<div style="font-family:-apple-system,sans-serif;max-width:640px;margin:0 auto;padding:24px;color:#1a1a1a">
-  <h2 style="margin:0 0 16px;font-size:20px;color:#6b22c4">New Contact Form Submission</h2>
-  <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.6">
-    <tr><td style="padding:6px 0;color:#666;width:120px"><strong>Name</strong></td><td>${esc(d.name)}</td></tr>
-    <tr><td style="padding:6px 0;color:#666"><strong>Email</strong></td><td>${esc(d.email)}</td></tr>
-    ${d.phone ? `<tr><td style="padding:6px 0;color:#666"><strong>Phone</strong></td><td>${esc(d.phone)}</td></tr>` : ""}
-    ${d.company ? `<tr><td style="padding:6px 0;color:#666"><strong>Company</strong></td><td>${esc(d.company)}</td></tr>` : ""}
-  </table>
-  <h3 style="font-size:14px;margin:16px 0 4px">Message</h3>
-  <p style="font-size:13px;white-space:pre-wrap;color:#444;margin:0;line-height:1.6">${esc(d.message)}</p>
-</div>`;
     try {
-      await notifyNemi({ replyTo: d.email, subject: `Contact: ${d.name}${d.company ? ` — ${d.company}` : ""}`, html });
+      await sendContactEmail({ name: d.name, email: d.email, phone: d.phone, company: d.company, message: d.message });
     } catch {
       // Don't block submission on email error
     }
@@ -158,7 +137,6 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     setOtpStage("idle");
     setOtpCode("");
     setOtpError(null);
-    setOtpSecret(null);
     setVerifiedEmail(null);
     if (typeof window !== "undefined" && window.location.hash === "#contact") {
       const { pathname, search } = window.location;

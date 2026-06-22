@@ -65,51 +65,52 @@ const Services = () => {
 
   const scrollProgress = useScrollProgress();
 
-  // 7 panels evenly distributed across the scroll: hero, grid, industries, CS1, CS2, CS3, CTA
-  // Step ~ 0.143 each
-  // Hero
-  const heroVisible = scrollProgress < 0.16;
-  const heroExit = easeOut(rangeProgress(scrollProgress, 0.12, 0.16));
+  // 7 panels, each given an EQUAL 1/7 ≈ 0.143 slot of scroll so every section
+  // takes the same amount of scrolling. Cross-fades centred on the slot
+  // boundaries (0.143, 0.286, 0.429, 0.571, 0.714, 0.857), ±0.03 wide.
+
+  // Hero (slot 0)
+  const heroVisible = scrollProgress < 0.173;
+  const heroExit = easeOut(rangeProgress(scrollProgress, 0.113, 0.173));
   const heroOp = 1 - heroExit;
 
-  // Services grid
-  const gridVisible = scrollProgress > 0.13 && scrollProgress < 0.30;
-  const gridEnter = easeOut(rangeProgress(scrollProgress, 0.14, 0.18));
-  const gridExit = easeOut(rangeProgress(scrollProgress, 0.26, 0.30));
+  // Services grid (slot 1)
+  const gridVisible = scrollProgress > 0.113 && scrollProgress < 0.316;
+  const gridEnter = easeOut(rangeProgress(scrollProgress, 0.113, 0.173));
+  const gridExit = easeOut(rangeProgress(scrollProgress, 0.256, 0.316));
   const gridOp = gridEnter * (1 - gridExit);
 
-  // Industries
-  const indVisible = scrollProgress > 0.28 && scrollProgress < 0.45;
-  const indEnter = easeOut(rangeProgress(scrollProgress, 0.29, 0.33));
-  const indExit = easeOut(rangeProgress(scrollProgress, 0.41, 0.45));
+  // Industries (slot 2)
+  const indVisible = scrollProgress > 0.256 && scrollProgress < 0.459;
+  const indEnter = easeOut(rangeProgress(scrollProgress, 0.256, 0.316));
+  const indExit = easeOut(rangeProgress(scrollProgress, 0.399, 0.459));
   const indOp = indEnter * (1 - indExit);
 
-  // Case Study 1
-  const cs1Visible = scrollProgress > 0.43 && scrollProgress < 0.59;
-  const cs1Enter = easeOut(rangeProgress(scrollProgress, 0.44, 0.48));
-  const cs1Exit = easeOut(rangeProgress(scrollProgress, 0.55, 0.59));
+  // Case Study 1 (slot 3)
+  const cs1Visible = scrollProgress > 0.399 && scrollProgress < 0.601;
+  const cs1Enter = easeOut(rangeProgress(scrollProgress, 0.399, 0.459));
+  const cs1Exit = easeOut(rangeProgress(scrollProgress, 0.541, 0.601));
   const cs1Op = cs1Enter * (1 - cs1Exit);
 
-  // Case Study 2 — enter window synced to cs1 exit window for a clean
-  // cross-fade. Previously enter started at 0.58 (cs1 exit 0.55-0.59),
-  // creating a ~45px blank moment around 0.58 where both opacities were ~0.
-  const cs2Visible = scrollProgress > 0.55 && scrollProgress < 0.73;
-  const cs2Enter = easeOut(rangeProgress(scrollProgress, 0.55, 0.59));
-  const cs2Exit = easeOut(rangeProgress(scrollProgress, 0.69, 0.73));
+  // Case Study 2 (slot 4)
+  const cs2Visible = scrollProgress > 0.541 && scrollProgress < 0.744;
+  const cs2Enter = easeOut(rangeProgress(scrollProgress, 0.541, 0.601));
+  const cs2Exit = easeOut(rangeProgress(scrollProgress, 0.684, 0.744));
   const cs2Op = cs2Enter * (1 - cs2Exit);
 
-  // Case Study 3 — enter window synced to cs2 exit window.
-  const cs3Visible = scrollProgress > 0.69 && scrollProgress < 0.87;
-  const cs3Enter = easeOut(rangeProgress(scrollProgress, 0.69, 0.73));
-  const cs3Exit = easeOut(rangeProgress(scrollProgress, 0.83, 0.87));
+  // Case Study 3 (slot 5) — CTA below is opaque and on top, so it fades in
+  // fully (0.827→0.857) BEFORE cs3 fades out underneath it (0.857→0.887).
+  const cs3Visible = scrollProgress > 0.684 && scrollProgress < 0.887;
+  const cs3Enter = easeOut(rangeProgress(scrollProgress, 0.684, 0.744));
+  const cs3Exit = easeOut(rangeProgress(scrollProgress, 0.857, 0.887));
   const cs3Op = cs3Enter * (1 - cs3Exit);
 
-  // CTA + Footer — enter synced to cs3 exit window.
-  const ctaVisible = scrollProgress > 0.83;
-  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.83, 0.87));
+  // CTA + Footer (slot 6)
+  const ctaVisible = scrollProgress > 0.827;
+  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.827, 0.857));
 
   return (
-    <div className="bg-background text-foreground font-['Montserrat',sans-serif] font-light relative scroll-page" style={{ height: "1100vh" }}>
+    <div className="bg-background text-foreground font-['Montserrat',sans-serif] font-light relative scroll-page" style={{ height: "525vh", ["--page-h" as any]: 7 }}>
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <ConstellationCanvas />
@@ -209,7 +210,7 @@ const Services = () => {
 
         // On mobile we split into 3 distinct sub-pages (3 + 3 + 3) driven by raw section progress:
         // sub-progress is divided in thirds.
-        const mobileSubProgress = rangeProgress(scrollProgress, 0.16, 0.28);
+        const mobileSubProgress = rangeProgress(scrollProgress, 0.18, 0.30);
         const mobilePageIndex = mobileSubProgress < 1 / 3 ? 0 : mobileSubProgress < 2 / 3 ? 1 : 2;
         const mobileCards = services.slice(mobilePageIndex * 3, mobilePageIndex * 3 + 3);
         const mobilePageLabel = `${mobilePageIndex + 1} / 3`;
@@ -356,6 +357,10 @@ const Services = () => {
       {cs2Visible && (
         <div className="fixed inset-0 z-[10] flex flex-col justify-center overflow-y-auto py-16 lg:py-0 lg:pt-[29px] case-study-section cs-2" style={{ opacity: cs2Op }}>
           <div className="w-full">
+            {/* imageFirst kept true (same side as cs1/cs3). These case-study
+                sections cross-fade, so an alternating image side would ghost the
+                outgoing image over the incoming text — e.g. a motorcycle behind
+                "Aerospace Machined Parts". Same side → clean dissolve. */}
             <CaseStudy
               title="Aerospace Machined Parts"
               context="Mass production of aluminium 6061-T651 machined parts with tight tolerances < 2 micron."
@@ -363,7 +368,7 @@ const Services = () => {
               color={accentPurple}
               imageSrc="/Images/Aerospace%20machined%20parts.webp"
               imageAlt="Aerospace Machined Parts"
-              imageFirst={false}
+              imageFirst={true}
               metrics={[
                 { label: "Machining time", before: "9 hrs/part", beforeDetail: "5-axis precision setup per part", after: "3 hrs/part", afterDetail: "Standard 3-axis with custom fixturing", barPercent: 33, color: accentPurple },
                 { label: "Cost reduction", before: "Baseline", beforeDetail: "Industry-standard aerospace machining cost", after: ">50%", afterDetail: "Lower tooling + faster cycle time", barPercent: 50, color: accentPurple },
@@ -398,7 +403,12 @@ const Services = () => {
           the fold inside this scrollable overlay and arrives on the next
           scroll — same two-screen ending as the Careers page. */}
       {ctaVisible && (
-        <div className="fixed inset-0 z-[10] pointer-events-auto overflow-y-auto services-cta-section" style={{ opacity: ctaEnter, background: "hsl(230 25% 4%)" }}>
+        // Slide the CTA up OVER cs3 with a solid opaque background (z-11, above
+        // cs3's z-10) instead of fading it in. Fading kept the dark background
+        // semi-transparent mid-transition, so cs3 showed through (the "Complex
+        // Assembly" case study ghosting behind the CTA text). A slide covers cs3
+        // completely — an opaque panel can't be seen through.
+        <div className="fixed inset-0 z-[11] pointer-events-auto overflow-y-auto services-cta-section" style={{ background: "hsl(230 25% 4%)", transform: `translateY(${(1 - ctaEnter) * 100}vh)` }}>
         <section className="relative z-[5] min-h-screen flex items-center justify-center py-16 px-6 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"

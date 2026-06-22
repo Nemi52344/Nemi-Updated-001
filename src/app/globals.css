@@ -362,7 +362,7 @@
  * Compresses the scroll-driven fixed sections so their content fits in ~390px
  * of vertical space instead of being clipped by overflow-hidden.
  * ───────────────────────────────────────────────────────────────────────── */
-@media (max-height: 650px) and (min-width: 700px) {
+@media (max-height: 540px) and (min-width: 700px) {
   /* Headlines — drop a couple sizes */
   .fixed:not(.careers-hero):not(.services-hero):not(.aboutus-hero) h1,
   .fixed:not(.careers-hero):not(.services-hero):not(.aboutus-hero) h2 {
@@ -397,7 +397,7 @@
 
 /* Tighter landscape phone rules — applied after the base set above.
    Target: 700-1023px width, ≤500px height. */
-@media (max-height: 650px) and (min-width: 700px) and (max-width: 1023px) {
+@media (max-height: 540px) and (min-width: 700px) and (max-width: 1023px) {
   /* Even tighter card images so 2-row grids fit */
   .fixed.inset-0 .grid img,
   .fixed.inset-0 picture img {
@@ -529,7 +529,7 @@
 }
 
 /* Services grid — landscape phone (any width): heading + 3×3 grid in one viewport */
-@media (max-width: 900px) and (orientation: landscape), (max-height: 650px) {
+@media (max-width: 900px) and (orientation: landscape), (max-height: 540px) {
   .services-card-grid {
     grid-template-columns: repeat(3, 1fr) !important;
     display: grid !important;
@@ -566,7 +566,7 @@
 
 /* LMM Flow specific — collapse card image wrapper on landscape phone so both
    rows of cards + heading + footer fit in 390px height in a SINGLE viewport. */
-@media (max-height: 650px) and (min-width: 700px) {
+@media (max-height: 540px) and (min-width: 700px) {
   /* Force this section to NEVER scroll — content must fit in viewport */
   .fixed.inset-0 .lmm-flow-card-img,
   .lmm-flow-card-img {
@@ -601,7 +601,7 @@
  * UNIVERSAL landscape phone compression — applies to ALL scroll-fixed
  * sections so content fits in 390px viewport without scrolling.
  * ───────────────────────────────────────────────────────────────────────── */
-@media (max-height: 650px) and (min-width: 700px) and (max-width: 1023px) {
+@media (max-height: 540px) and (min-width: 700px) and (max-width: 1023px) {
   /* Disable internal scroll — content must fit. Sections that genuinely need
      scroll (Careers form, Contact form) opt-in with .ls-allow-scroll. */
   .fixed.inset-0:not(.ls-allow-scroll) {
@@ -636,11 +636,47 @@
   .fixed.inset-0 picture { max-height: 38vh !important; }
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+ * Short LANDSCAPE TABLET band (≥700px wide, 541–700px tall, landscape).
+ *
+ * This is the gap between the aggressive landscape-phone compression
+ * (≤540px tall) and full desktop: e.g. a 768×642 tablet window. Here the
+ * dense image-grid sections (LMM Flow, Competitors, Capabilities, About
+ * Team/Board, Services Industries) are full-size and just tall enough that
+ * vertical centering tucks their heading/kicker behind the fixed navbar.
+ *
+ * Fix: keep content centered (so the short text-only sections still look
+ * balanced — they have no images, so the caps below don't touch them) and
+ * cap the image grids + trim heading/kicker/footer margins. Shrinking the
+ * imagery lowers each dense section's total height enough that the centered
+ * block clears the navbar (needs total height ≲ viewport − 2×nav).
+ * ───────────────────────────────────────────────────────────────────────── */
+@media (min-width: 700px) and (min-height: 541px) and (max-height: 700px) and (orientation: landscape) {
+  /* LMM Flow cards (two rows) — the tallest offender. */
+  .fixed.inset-0 .lmm-flow-card-img,
+  .lmm-flow-card-img {
+    max-height: 88px !important;
+  }
+  /* Cap every other in-panel image so 2-row / 4-up grids fit. Height only —
+     no object-fit override, so framed (cover) images keep filling and product
+     cut-outs (contain) just shrink instead of being cropped. */
+  .fixed.inset-0 img {
+    max-height: 100px !important;
+  }
+  /* Trim the vertical rhythm so the saved image height isn't eaten back. */
+  .fixed.inset-0 .uppercase[class*="tracking"] { margin-bottom: 3px !important; }
+  .fixed.inset-0 h2 { margin-bottom: 4px !important; }
+  .fixed.inset-0 [class*="gap-y-"] { row-gap: 0.4rem !important; }
+  /* Rein in the very large stat numbers a touch. */
+  .fixed.inset-0 [class*="text-7xl"],
+  .fixed.inset-0 [class*="text-6xl"] { font-size: 2.25rem !important; line-height: 1.05 !important; }
+}
+
 /* Default core card height (was inline 245px) */
 .leadership-core-card { height: 245px; }
 
 /* Leadership section — landscape phone: fit core 4 + extended 4 + board 2 */
-@media (max-height: 650px) and (min-width: 700px) {
+@media (max-height: 540px) and (min-width: 700px) {
   /* The content wrapper (2nd child after radial bg) */
   .leadership-inner > div:nth-child(2),
   .leadership-inner > div.relative {
@@ -727,8 +763,26 @@
   }
 }
 
+/* Team / Board cards — short LANDSCAPE TABLET band (541–700px tall).
+   These grids are `grid-cols-2 lg:grid-cols-4 [@media(max-height:540px)]:!grid-cols-4`,
+   so between 541–700px tall they fall back to 2 columns → the 2×2 + 2×2
+   layout is too tall and the Extended Leadership row clips at the bottom.
+   Collapse them to a single 4-column row (same trick the ≤540px variant
+   uses) so all members fit in one viewport. Cards keep their normal size —
+   at 768px wide, four columns is comfortable. */
+@media (min-width: 700px) and (min-height: 541px) and (max-height: 700px) and (orientation: landscape) {
+  .fixed.inset-0 [class*="grid-cols-2"][class*="lg:grid-cols-4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+  /* Drop the long member bios in this tight band so cards stay short. */
+  .fixed.inset-0 [class*="grid-cols-2"][class*="lg:grid-cols-4"] p[class*="line-clamp"] {
+    display: none !important;
+  }
+}
+
 /* About Us — Our Locations (world map) — landscape phone */
-@media (max-height: 650px) and (min-width: 700px) {
+@media (max-height: 540px) and (min-width: 700px) {
   .locations-inner {
     overflow: hidden !important;
     padding-top: 56px !important;
@@ -757,7 +811,7 @@
 }
 
 /* About Us — Solutions section (Design/Develop/Distribute) — landscape phone */
-@media (max-height: 650px) and (min-width: 700px) {
+@media (max-height: 540px) and (min-width: 700px) {
   .solutions-inner {
     overflow: hidden !important;
     padding-top: 52px !important;
@@ -787,7 +841,7 @@
 }
 
 /* Trust Signal (Industrial Partners) — landscape phone: shrink logo bars */
-@media (max-height: 650px) and (min-width: 700px) {
+@media (max-height: 540px) and (min-width: 700px) {
   /* Logo card wrappers — narrower + shorter */
   .trust-signal-inner [class*="w-[190px]"],
   .trust-signal-inner [class*="sm:w-[190px]"] {
@@ -811,7 +865,7 @@
 }
 
 /* Competitors / Fortress Factory section — landscape phone */
-@media (max-height: 650px) and (min-width: 700px) {
+@media (max-height: 540px) and (min-width: 700px) {
   .competitors-inner {
     overflow: hidden !important;
     padding-top: 56px !important;
@@ -844,7 +898,7 @@
 }
 
 /* Capabilities Section ("Full-stack MaaS") — landscape phone */
-@media (max-height: 650px) and (min-width: 700px) {
+@media (max-height: 540px) and (min-width: 700px) {
   .capabilities-inner {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;
@@ -1018,17 +1072,24 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
- * Mobile scroll compression
- * On phones, each scroll-driven page (Home/About/Services/Careers) was
- * 1100vh+ tall, meaning the user had to scroll through dozens of viewports
- * to walk through the sections. Compress the total scroll so each section
- * transition takes roughly one swipe.
+ * Uniform per-section scroll distance.
+ * Each page sets --page-h to its SECTION COUNT. Total scroll height is then
+ * (sections × PER_SECTION), so EVERY section — on every page, at every
+ * viewport — takes exactly the same short amount of scroll (~a few scrolls).
+ * Tune the whole site's scroll length by changing the one value below.
  * ───────────────────────────────────────────────────────────────────────── */
-@media (max-width: 767px) {
-  .scroll-page { height: 350vh !important; }
+.scroll-page {
+  height: calc(var(--page-h, 6) * 70vh) !important; /* 70vh ≈ ~3 scrolls per section — a touch longer, still tight */
 }
-@media (min-width: 768px) and (max-width: 1023px) {
-  .scroll-page { height: 500vh !important; }
+
+/* Vertically centre each section's content, BUT when a section is taller than
+   the viewport (dense sections on short tablet/landscape screens) let it scroll
+   from the top instead of clipping the heading. margin:auto on the flex child
+   does both — it centres when there's spare room and collapses to 0 (top
+   reachable, scrollable) when content overflows. */
+.fixed.inset-0 > div {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 /* ────────────────────────────────────────────────────────────────────
@@ -1043,4 +1104,92 @@
      single viewport. Both fields are optional on the data side, so submission
      still works with them empty. */
   .careers-about-field { display: none !important; }
+}
+
+/* ────────────────────────────────────────────────────────────────────
+ * Portrait tablet (iPad held upright — ~768–1023px wide, tall viewport).
+ *
+ * Without this block portrait tablets fall through to the desktop base
+ * styles: the scroll-driven fixed panels then render small content
+ * floating in the middle of a tall screen, and taller sections clip
+ * under the fixed navbar. Here we (1) clear the navbar and enable
+ * internal scroll so nothing hides behind it, and (2) scale headings,
+ * body copy, kickers and imagery UP so every section fills the viewport.
+ *
+ * Heroes (which already fill the screen with their own centering) are
+ * excluded from the nav padding. Decorative background watermarks use
+ * position:absolute, so the heading rule skips them via :not([class*="absolute"]).
+ * ──────────────────────────────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  /* Clear the fixed navbar; allow internal scroll for the few sections
+     whose scaled-up content exceeds the viewport (prevents top clipping). */
+  .fixed.inset-0:not(.aboutus-hero):not(.services-hero):not(.careers-hero) {
+    padding-top: 88px !important;
+    padding-bottom: 40px !important;
+    overflow-y: auto !important;
+  }
+
+  /* Fill the tall portrait viewport by enlarging type, not layout width.
+     Bumping font sizes lets text reflow vertically (taller block, fills the
+     screen) without widening multi-column card rows — a uniform `zoom`/scale
+     overflows those horizontally on a 768px-wide screen, so it's avoided. */
+
+  /* Section headlines — unify to a larger, screen-filling size.
+     :not([class*="absolute"]) skips the big low-opacity background watermarks. */
+  .fixed.inset-0 h1:not([class*="absolute"]),
+  .fixed.inset-0 h2:not([class*="absolute"]) {
+    font-size: clamp(2.25rem, 6vw, 3.25rem) !important;
+    line-height: 1.15 !important;
+  }
+  .fixed.inset-0 h3:not([class*="absolute"]) {
+    font-size: 1.35rem !important;
+    line-height: 1.25 !important;
+  }
+
+  /* Body copy up from ~12–14px so it reads comfortably on a 10" screen.
+     Skip the genuinely tiny labels (custom bracket sizes / text-xs). */
+  .fixed.inset-0 p:not([class*="text-xs"]):not([class*="text-["]) {
+    font-size: 1.0625rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Kicker / eyebrow tags a touch larger so they don't read as fine print. */
+  .fixed.inset-0 .uppercase[class*="tracking"] {
+    font-size: 0.8rem !important;
+  }
+
+  /* A little more vertical breathing room between stacked blocks. */
+  .fixed.inset-0 [class*="space-y-"] > * + * {
+    margin-top: 1rem !important;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────────
+ * Short LANDSCAPE TABLET overrides for sections whose landscape rules are
+ * tuned for ~390px-tall PHONES and look wrong on a ~642px-tall tablet.
+ * Placed at the end so they win source order over the shared phone rules.
+ * ──────────────────────────────────────────────────────────────────── */
+@media (min-width: 700px) and (min-height: 541px) and (max-height: 700px) and (orientation: landscape) {
+  /* Case Study — the phone rule pushes content down with padding-top:150px,
+     leaving a big empty gap at the top. Centre it with a normal nav clearance. */
+  div.case-study-section,
+  .case-study-section {
+    padding-top: 72px !important;
+    padding-bottom: 16px !important;
+    margin-top: 0 !important;
+    justify-content: center !important;
+  }
+  .case-study-section .services-case-grid {
+    max-height: 320px !important;
+  }
+
+  /* Careers Values — phone rule top-aligns (flex-start + 110px) which leaves
+     the bottom half of a 642px tablet empty. The 4 cards are compact, so
+     centre them with a normal nav clearance instead. */
+  .careers-values-section > div.relative {
+    padding-top: 72px !important;
+    padding-bottom: 16px !important;
+    justify-content: center !important;
+    min-height: 100vh !important;
+  }
 }

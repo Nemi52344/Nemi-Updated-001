@@ -240,30 +240,28 @@ const Careers = () => {
     }
   };
 
-  // 4 panels: Hero, Values, Positions, CTA+Footer
+  // 4 panels, each given an EQUAL 1/4 = 0.25 slot of scroll so every section
+  // takes the same amount of scrolling. Cross-fades centred on the boundaries
+  // (0.25, 0.50, 0.75), ±0.04 wide.
   const heroVisible = scrollProgress < 0.29;
-  const heroExit = easeOut(rangeProgress(scrollProgress, 0.24, 0.29));
+  const heroExit = easeOut(rangeProgress(scrollProgress, 0.21, 0.29));
   const heroOp = 1 - heroExit;
 
-  const valVisible = scrollProgress > 0.27 && scrollProgress < 0.55;
-  const valEnter = easeOut(rangeProgress(scrollProgress, 0.28, 0.34));
-  const valExit = easeOut(rangeProgress(scrollProgress, 0.50, 0.55));
+  const valVisible = scrollProgress > 0.21 && scrollProgress < 0.54;
+  const valEnter = easeOut(rangeProgress(scrollProgress, 0.21, 0.29));
+  const valExit = easeOut(rangeProgress(scrollProgress, 0.46, 0.54));
   const valOp = valEnter * (1 - valExit);
 
-  // Positions — enter window synced to values exit window for clean cross-fade.
-  // Previously enter started at 0.54 (val exit 0.50-0.55), creating a tiny
-  // blank moment around 0.535 where both opacities tended to ~0.
-  const posVisible = scrollProgress > 0.50 && scrollProgress < 0.82;
-  const posEnter = easeOut(rangeProgress(scrollProgress, 0.50, 0.55));
-  const posExit = easeOut(rangeProgress(scrollProgress, 0.77, 0.82));
+  const posVisible = scrollProgress > 0.46 && scrollProgress < 0.79;
+  const posEnter = easeOut(rangeProgress(scrollProgress, 0.46, 0.54));
+  const posExit = easeOut(rangeProgress(scrollProgress, 0.71, 0.79));
   const posOp = posEnter * (1 - posExit);
 
-  // CTA + Footer — enter synced to positions exit window.
-  const ctaVisible = scrollProgress > 0.77;
-  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.77, 0.82));
+  const ctaVisible = scrollProgress > 0.71;
+  const ctaEnter = easeOut(rangeProgress(scrollProgress, 0.71, 0.79));
 
   return (
-    <div className="bg-background text-foreground relative scroll-page" style={{ height: "650vh" }}>
+    <div className="bg-background text-foreground relative scroll-page" style={{ height: "300vh", ["--page-h" as any]: 4 }}>
       <div className="fixed inset-0 z-0">
         <ConstellationCanvas />
         <div

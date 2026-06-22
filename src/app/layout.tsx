@@ -33,10 +33,16 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://nemi-ai.com"),
   authors: [{ name: "NEMI AI" }],
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  // NEMI infinity mark on brand navy. The ?v=2 query busts the aggressive
+  // favicon cache in Chrome/Edge so the old Lovable icon is replaced on reload.
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/icon-192.png?v=2", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png?v=2", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico?v=2",
+    apple: "/apple-touch-icon.png?v=2",
   },
   verification: {
     ...(GSC_VERIFICATION ? { google: GSC_VERIFICATION } : {}),

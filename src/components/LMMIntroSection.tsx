@@ -17,11 +17,17 @@ const LMMIntroSection = ({ scrollProgress }: LMMIntroSectionProps) => {
   // fast so the section reaches full opacity immediately after the SEGS jump.
   // Earlier 0.317 → 0.36 left a low-opacity zone at raw 0.234 (just past the
   // segment jump from seg 1 → seg 2).
-  const sectionVisible = scrollProgress > 0.315 && scrollProgress < 0.46;
+  // Exit is staggered to start only AFTER LMMFlow (which renders on top with an
+  // opaque background) has fully faded in to cover the screen (LMMFlow enters
+  // 0.43→0.45). This section then fades out underneath it (0.45→0.475), so the
+  // 3rd→4th transition never shows both panels half-faded at once. The exit
+  // slide is also reduced from -80vh to -10vh so content stays centred instead
+  // of sliding far up and leaving a gap.
+  const sectionVisible = scrollProgress > 0.315 && scrollProgress < 0.475;
   const enterP  = easeOut(rangeProgress(scrollProgress, 0.315, 0.320));
-  const exitP   = easeOut(rangeProgress(scrollProgress, 0.43, 0.455));
+  const exitP   = easeOut(rangeProgress(scrollProgress, 0.45, 0.475));
   const opacity = enterP * (1 - exitP);
-  const slideVh = (1 - enterP) * 100 + exitP * -80;
+  const slideVh = (1 - enterP) * 100 + exitP * -10;
 
   const tagP      = easeOut(rangeProgress(scrollProgress, 0.32, 0.36));
   const titleP    = easeOut(rangeProgress(scrollProgress, 0.34, 0.38));

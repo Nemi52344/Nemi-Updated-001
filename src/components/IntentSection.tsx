@@ -58,10 +58,16 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
           />
         </div>
 
-        {/* Heading - manufacturing reimagined with AI, NEMI is leading */}
+        {/* Heading - manufacturing reimagined with AI, NEMI is leading.
+            Fluid font-size (clamp) scales smoothly from mobile → desktop
+            instead of jumping at breakpoints. */}
         <h2
-          className="text-lg sm:text-2xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.35] sm:leading-[1.25] md:leading-[1.2] text-foreground/95 px-2"
-          style={{ textShadow: "0 0 24px hsl(275 60% 50% / 0.18)" }}
+          className="font-bold tracking-tight text-foreground/95 px-2"
+          style={{
+            fontSize: "clamp(1.15rem, 0.4rem + 3.6vw, 2.75rem)",
+            lineHeight: 1.25,
+            textShadow: "0 0 24px hsl(275 60% 50% / 0.18)",
+          }}
         >
           Manufacturing is being reimagined{" "}
           <span
@@ -79,11 +85,13 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
             />
           </span>
           {" "}and{" "}
+          {/* Period lives INSIDE this inline-block so it can never wrap onto a
+              line by itself. */}
           <span
             className="relative inline-block font-extrabold"
             style={{ color: "hsl(275 55% 78%)" }}
           >
-            we are leading the way
+            we are leading the way<span style={{ color: "hsl(0 0% 95%)" }}>.</span>
             <span
               aria-hidden
               className="absolute left-0 right-0 -bottom-1 md:-bottom-1.5 h-[2px]"
@@ -93,7 +101,6 @@ const IntentSection = ({ scrollProgress }: IntentSectionProps) => {
               }}
             />
           </span>
-          <span className="text-foreground/95">.</span>
         </h2>
       </div>
     </div>

@@ -264,11 +264,16 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
   // Exit is tightened to 0.598 → 0.61 (12ms wide) so the section stays at full
   // opacity right up to the SEGS-boundary jump (0.61 → 0.75) — prevents a
   // dim/blank zone in raw scroll while the user is still in segment 2.
+  // Enter is tightened to 0.43→0.45 so this section (opaque background, rendered
+  // ON TOP of LMMIntro) reaches full opacity and covers the screen BEFORE
+  // LMMIntro fades out underneath it — no half-faded overlap during the 3rd→4th
+  // transition. The enter slide is reduced from 100vh to 10vh so it rises gently
+  // into place instead of travelling a full viewport and leaving a gap.
   const sectionVisible = scrollProgress > 0.43 && scrollProgress < 0.61;
-  const enterP = easeOut(rangeProgress(scrollProgress, 0.43, 0.475));
+  const enterP = easeOut(rangeProgress(scrollProgress, 0.43, 0.45));
   const exitP = easeOut(rangeProgress(scrollProgress, 0.607, 0.61));
   const opacity = enterP * (1 - exitP);
-  const slideVh = (1 - enterP) * 100 + exitP * -80;
+  const slideVh = (1 - enterP) * 10 + exitP * -80;
 
   const headP = easeOut(rangeProgress(scrollProgress, 0.47, 0.50));
 
@@ -287,7 +292,11 @@ const LMMFlowSection = ({ scrollProgress }: LMMFlowSectionProps) => {
       className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none overflow-hidden"
       style={{ zIndex: 42, opacity, background: "hsl(0 0% 2%)", transform: `translateY(${slideVh}vh)` }}
     >
-      <div className="w-full max-w-[1380px] mx-auto px-3 sm:px-4 md:px-8 max-h-full" style={{ marginTop: "12px" }}>
+      {/* No inline margin-top here: it would override the global
+          `.fixed.inset-0 > div { margin-top:auto }` and, with margin-bottom
+          still auto, shove the whole block to the top — hiding the heading
+          behind the fixed navbar. Both margins auto → vertically centered. */}
+      <div className="w-full max-w-[1180px] mx-auto px-3 sm:px-6 md:px-10 max-h-full">
         {/* Header */}
         <div
           className="text-center mb-1.5 sm:mb-2"

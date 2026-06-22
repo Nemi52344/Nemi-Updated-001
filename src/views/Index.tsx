@@ -38,19 +38,28 @@ const Index = () => {
   //   TrustSignal  (TrustSignalSection.tsx):     0.940 → 0.996  — "Industrial Partners" (shifted later)
   //   CTA          (CTASection.tsx):             0.994 → 0.998
   const SEGS = [
-    [0, 0.155],      // hero → IntentSection
-    [0.315, 0.61],   // LMMIntro → LMMFlow
-    [0.75, 0.820],   // Capabilities — was 0.75-0.812
-    [0.855, 0.935],  // Competitors (Fortress Factories) — was 0.860-0.905, now 0.080 wide (+78%)
-    [0.935, 1.0],    // TrustSignal → CTA (Industrial Partners + CTA) — was 0.975-1.0, now 0.065 wide (+160%)
+    [0, 0.155],      // hero → IntentSection         (2 sections)
+    [0.315, 0.61],   // LMMIntro → LMMFlow           (2 sections)
+    [0.75, 0.820],   // Capabilities                 (1 section)
+    [0.855, 0.935],  // Competitors (Fortress)       (1 section)
+    [0.935, 1.0],    // TrustSignal → CTA            (2 sections)
   ];
-  const TOTAL = SEGS.reduce((s, [a, b]) => s + (b - a), 0);
+  // Give EACH section an equal share of raw scroll (weighted by how many
+  // sections live in each segment), so every section takes the same amount of
+  // scrolling — independent of how wide its output window is. Without this,
+  // the LMM segment (2 sections, wide window) ate ~4× the scroll of the
+  // TrustSignal/CTA segment (2 sections, narrow window).
+  const SEG_WEIGHTS = [2, 2, 1, 1, 2];
+  const TOTAL_W = SEG_WEIGHTS.reduce((s, w) => s + w, 0); // 8
   const scrollProgress = (() => {
-    let r = raw * TOTAL;
-    for (const [start, end] of SEGS) {
-      const len = end - start;
-      if (r <= len) return start + r;
-      r -= len;
+    let rw = raw * TOTAL_W;
+    for (let i = 0; i < SEGS.length; i++) {
+      const w = SEG_WEIGHTS[i];
+      if (rw <= w) {
+        const [start, end] = SEGS[i];
+        return start + (rw / w) * (end - start);
+      }
+      rw -= w;
     }
     return 1;
   })();
@@ -100,7 +109,7 @@ const Index = () => {
     : 0.10;
 
   return (
-    <div ref={containerRef} className="relative scroll-page" style={{ height: "1600vh" }}>
+    <div ref={containerRef} className="relative scroll-page" style={{ height: "600vh", ["--page-h" as any]: 8 }}>
       {/* Navbar */}
       <Navbar scrollProgress={scrollProgress} />
 
@@ -116,7 +125,12 @@ const Index = () => {
         muted
         playsInline
         preload="metadata"
-        className="fixed inset-0 w-full h-full pointer-events-none object-contain md:object-cover"
+        // The hands clip (1920×1080, hands at the left/right edges) must stay
+        // visible at EVERY size. `cover` only keeps them when the viewport is
+        // wide (landscape) — on a tall portrait it crops the sides and the
+        // hands vanish. So: `contain` in portrait (full frame, both hands),
+        // `cover` in landscape/desktop (fills, still wide enough to show them).
+        className="fixed inset-0 w-full h-full pointer-events-none object-contain landscape:object-cover"
         style={{
           zIndex: 0,
           opacity: handsOpacity,
